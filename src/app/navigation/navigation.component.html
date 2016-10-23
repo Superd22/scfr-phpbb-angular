@@ -1,0 +1,11 @@
+<md-sidenav #start mode="side" [opened]="true">
+    SideNAV
+    <ul>
+        <li *ngFor="let forum of forumList">
+            {{forum.FORUM_NAME}}
+            <ul *ngIf="forum.S_SUBFORUMS">
+                <li *ngFor="let subForum of forum.subforum">{{subForum.SUBFORUM_NAME}}</li>
+            </ul>
+        </li>
+    </ul>
+</md-sidenav>

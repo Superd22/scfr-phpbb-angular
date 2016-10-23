@@ -20,7 +20,9 @@
       "styles": [
         "styles.sass"
       ],
-      "scripts": [],
+      "scripts": [
+        "./node_modules/hammerjs/hammer.min.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
@@ -49,11 +51,11 @@
     },
     "spec": {
       "class": false,
-      "component": true,
-      "directive": true,
+      "component": false,
+      "directive": false,
       "module": false,
-      "pipe": true,
-      "service": true
+      "pipe": false,
+      "service": false
     }
   }
 }
