@@ -1,3 +1,36 @@
-<p>
-  index works!
-</p>
+<section class="container">
+    <md-card class="col-2">
+        <md-card-title>Your Private Messages</md-card-title>
+        <md-card-content>
+            <md-list>
+                <md-list-item>
+                    <h3 md-line> test</h3>
+                    <p md-line>
+                        <span> zgegzeez</span>
+                        <span class="demo-2"> -- gzegzegzegze </span>
+                    </p>
+                </md-list-item>
+            </md-list>
+        </md-card-content>
+        <md-card-actions>
+            <button md-button>View More</button>
+        </md-card-actions>
+    </md-card>
+    <md-card class="col-2">
+        <md-card-title>Unread Messages</md-card-title>
+        <md-card-content>
+            <md-list *ngFor="let topic of unreadTopic">
+                <md-list-item>
+                    <h3 md-line> {{topic.TOPIC_TITLE}}</h3>
+                    <p md-line>
+                        <span> zgegzeez</span>
+                        <span class="demo-2"> -- gzegzegzegze </span>
+                    </p>
+                </md-list-item>
+            </md-list>
+        </md-card-content>
+        <md-card-actions>
+            <button md-button>View More</button>
+        </md-card-actions>
+    </md-card>
+</section>

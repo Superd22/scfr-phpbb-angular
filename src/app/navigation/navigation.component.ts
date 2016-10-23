@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { PhpbbApiService } from '../phpbb-api.service';
 import { IndexResponse } from '../Model/IndexResponse';
+
+import { PhpbbApiService } from '../phpbb-api.service';
+import { LoginService } from '../login.service';
+
 
 @Component({
     selector: 'app-navigation',
     templateUrl: './navigation.component.html',
-    styleUrls: ['./navigation.component.sass']
+    styleUrls: ['./navigation.component.scss']
 })
 
 export class NavigationComponent implements OnInit {
-    constructor(private phpbbApi: PhpbbApiService) { }
+    constructor(private phpbbApi: PhpbbApiService, public LoginService: LoginService) { }
 
     public forumList: IndexResponse.Forumrow[];
 
@@ -19,7 +22,10 @@ export class NavigationComponent implements OnInit {
 
     public fetchForumList():void{
         this.phpbbApi.getIndex().subscribe(
-            data => this.forumList = data['@template'].forumrow,
+            data => {
+                this.forumList = data['@template'].forumrow;
+                this.LoginService.sid = data['@template']._SID;
+            },
             err => console.log(err)
         );
     }

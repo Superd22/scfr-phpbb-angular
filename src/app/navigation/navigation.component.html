@@ -1,5 +1,4 @@
-<md-sidenav #start mode="side" [opened]="true">
-    SideNAV
+<div class="navigator">
     <ul>
         <li *ngFor="let forum of forumList">
             {{forum.FORUM_NAME}}
@@ -8,4 +7,27 @@
             </ul>
         </li>
     </ul>
-</md-sidenav>
+</div>
+<div class="navigator-bottom">
+    <md-card *ngIf="LoginService.loggedIn">
+        <md-card-header>
+            <img md-card-avatar [src]="LoginService.avatar">
+            <md-card-title>{{LoginService.username}}</md-card-title>
+            <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
+        </md-card-header>
+        <md-card-actions>
+            <button md-button>Logout</button>
+        </md-card-actions>
+    </md-card>
+    <md-card *ngIf="!LoginService.loggedIn">
+        <md-card-content>
+            Anonymous
+        </md-card-content>
+        <md-input placeholder="Login" maxlength="15" [(ngModel)]="username"></md-input>
+        <md-input placeholder="password" maxlength="30" type="password" [(ngModel)]="password"></md-input>
+        <md-card-actions>
+            <button md-button (click)="LoginService.loginUser(username, password, LoginService.sid)">Login</button>
+            <button md-button>Register</button>
+        </md-card-actions>
+    </md-card>
+</div>

@@ -1,4 +1,6 @@
-<md-sidenav-layout>
-  <app-navigation></app-navigation>
+<md-sidenav-layout class="app-layout">
+  <md-sidenav #sidenav #start mode="side" [opened]="true">
+    <app-navigation></app-navigation>
+  </md-sidenav>
   <app-index></app-index>
 </md-sidenav-layout>

@@ -18,10 +18,10 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.sass"
+        "styles.scss"
       ],
       "scripts": [
-        "./node_modules/hammerjs/hammer.min.js"
+        "../node_modules/hammerjs/hammer.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
@@ -43,7 +43,7 @@
     }
   },
   "defaults": {
-    "styleExt": "sass",
+    "styleExt": "scss",
     "prefixInterfaces": false,
     "inline": {
       "style": false,
