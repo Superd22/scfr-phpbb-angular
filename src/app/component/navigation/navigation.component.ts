@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IndexResponse } from '../Model/IndexResponse';
+import { IndexResponse } from '../../model/IndexResponse';
 
-import { PhpbbApiService } from '../phpbb-api.service';
-import { LoginService } from '../login.service';
+import { PhpbbApiService } from '../../service/phpbb-api.service';
+import { LoginService } from '../../service/login.service';
 
 
 @Component({

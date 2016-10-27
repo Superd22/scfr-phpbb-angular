@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from "rxjs/Rx";
-import { IndexResponse } from "./Model/IndexResponse";
-import { UnreadResponse } from './Model/Search/UnreadReponse';
+import { IndexResponse } from "../model/IndexResponse";
+import { UnreadResponse } from '../model/Search/UnreadReponse';
 
 const baseUrl = 'http://forum.pixelone.fr/';
 const callback = 'scfr_json_callback=true';
