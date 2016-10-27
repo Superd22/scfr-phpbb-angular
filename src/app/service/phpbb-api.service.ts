@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from "rxjs/Rx";
+import { PhpbbTemplateResponse } from '../model/phpbb-template-response'
 import { IndexResponse } from "../model/IndexResponse";
 import { UnreadResponse } from '../model/Search/UnreadReponse';
 
@@ -14,19 +15,39 @@ export class PhpbbApiService {
 
     }
 
-    public getIndex():Observable<IndexResponse.IndexRoot>{
-        return this.http.get(`${baseUrl}?${callback}`)
+    public getPage(page, queries = []):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set("scfr_json_callback", "true");
+
+        if(queries && queries.length > 0) 
+            queries.forEach(
+                (query) => {
+                    if(typeof query.value !== "undefined" && typeof query.query !== "undefined") 
+                        params.set(query.query, query.value)
+                }
+            );
+
+        return this.http.get(`${baseUrl}${page}${callback}`, {search: params})
             .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+    }
+
+    public getIndex():Observable<IndexResponse.IndexRoot>{
+        return this.getPage("index.php");
     }
 
     public getMessage(){
-        return this.http.get(`${baseUrl}ucp.php?i=pm&folder=inbox&${callback}`)
-            .map((res:Response) => res.json())
-            .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+        return this.getPage("ucp.php", [
+            {query: 'i', value: 'pm'},
+            {query: 'folder', value: 'inbox'},
+        ]);
     }
 
+    // TO DO : switch to this.getPage (need to fix response type)
     public getUnreadTopic():Observable<UnreadResponse.Template>{
+        // return this.getPage("search.php", [
+        //    {query: 'search_id', value: 'unreadposts'}
+        //    ]);
         return this.http.get(`${baseUrl}search.php?search_id=unreadposts&${callback}`)
             .map((res:Response) => res.json()['@template'])
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
