@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { PhpbbApiService } from './phpbb-api.service';
-import { LoginService } from './login.service';
+import { PhpbbApiService } from './service/phpbb-api.service';
+import { LoginService } from './service/login.service';
 
 import { AppComponent } from './app.component';
-import { IndexComponent } from './index/index.component';
-import { NavigationComponent } from './navigation/navigation.component';
+import { IndexComponent } from './component/index/index.component';
+import { NavigationComponent } from './component/navigation/navigation.component';
 import { MaterialModule } from '@angular/material';
 
 @NgModule({
