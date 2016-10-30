@@ -1,13 +1,12 @@
-<section class="container">
+<section class="container" *ngIf="isLoggedIn">
     <md-card class="col-2">
         <md-card-title>Your Private Messages</md-card-title>
         <md-card-content>
             <md-list>
-                <md-list-item>
-                    <h3 md-line> test</h3>
+                <md-list-item *ngFor="let pm of privateMessages">
+                    <h3 md-line>{{pm.SUBJECT}}</h3>
                     <p md-line>
-                        <span> zgegzeez</span>
-                        <span class="demo-2"> -- gzegzegzegze </span>
+                        <span> From: {{pm.MESSAGE_AUTHOR}}</span>
                     </p>
                 </md-list-item>
             </md-list>
@@ -19,12 +18,12 @@
     <md-card class="col-2">
         <md-card-title>Unread Messages</md-card-title>
         <md-card-content>
-            <md-list *ngFor="let topic of unreadTopic">
+            <md-list *ngFor="let topic of unreadTopicList">
                 <md-list-item>
                     <h3 md-line> {{topic.TOPIC_TITLE}}</h3>
                     <p md-line>
-                        <span> zgegzeez</span>
-                        <span class="demo-2"> -- gzegzegzegze </span>
+                        <span> {{topic.TOPIC_AUTHOR}}</span>
+                        <span> -- {{topic.LAST_POST_TIME}} </span>
                     </p>
                 </md-list-item>
             </md-list>
@@ -32,5 +31,20 @@
         <md-card-actions>
             <button md-button>View More</button>
         </md-card-actions>
+    </md-card>
+</section>
+<section class="container">
+    <md-card class="col-2">
+        <md-card-content>
+            <md-list *ngFor="let topic of unreadTopicList">
+                <md-list-item>
+                    <h3 md-line> {{topic.TOPIC_TITLE}}</h3>
+                    <p md-line>
+                        <span> {{topic.TOPIC_AUTHOR}}</span>
+                        <span> -- {{topic.LAST_POST_TIME}} </span>
+                    </p>
+                </md-list-item>
+            </md-list>
+        </md-card-content>
     </md-card>
 </section>

@@ -1,58 +1,81 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from "rxjs/Rx";
 import { IndexResponse } from "../model/IndexResponse";
 import { UnreadResponse } from '../model/Search/UnreadReponse';
+import { UcpResponse } from '../model/UcpResponse';
+
+import { Http, Response, Headers, URLSearchParams } from '@angular/http';
 
 const baseUrl = 'http://forum.pixelone.fr/';
 const callback = 'scfr_json_callback=true';
 
 @Injectable()
 export class PhpbbApiService {
-    constructor(private http: Http){
+    private sid: string|null;
+    constructor(private http: Http){}
 
+    public buildParameters(arrayOfParam: any[][]): string{
+        let urlParam = new URLSearchParams();
+        for(let param of arrayOfParam){
+            urlParam.append(param[0], param[1])
+        }
+        urlParam.append('scfr_json_callback', 'true');
+        urlParam.append('sid', this.sid);
+        return urlParam.toString()
+    }
+
+    public registerSid(sid){
+        this.sid = sid;
     }
 
     public getIndex():Observable<IndexResponse.IndexRoot>{
-        return this.http.get(`${baseUrl}?${callback}`)
+        return this.http.get(`${baseUrl}`, {search: this.buildParameters([])})
             .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }
 
-    public getMessage(){
-        return this.http.get(`${baseUrl}ucp.php?i=pm&folder=inbox&${callback}`)
-            .map((res:Response) => res.json())
+    public getPrivateMessageList():Observable<UcpResponse.Messagerow[]>{
+        let params = [
+            ['i', 'pm'],
+            ['folder', 'inbox']
+        ];
+        return this.http.get(`${baseUrl}ucp.php`, {search: this.buildParameters(params)} )
+            .map((res:Response) => res.json()['@template'].messagerow)
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }
 
-    public getUnreadTopic():Observable<UnreadResponse.Template>{
-        return this.http.get(`${baseUrl}search.php?search_id=unreadposts&${callback}`)
-            .map((res:Response) => res.json()['@template'])
+    public getUnreadTopicList():Observable<UnreadResponse.Searchresult[]>{
+        let params = [
+            ['search_id', 'unreadposts'],
+        ];
+        return this.http.get(`${baseUrl}search.php`, {search: this.buildParameters(params)})
+            .map((res:Response) => res.json()['@template'].searchresults)
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }
 
 
     //LOGIN
-    public authenticate(username, password, sid): Observable<IndexResponse.Template>{
+    public authenticate(username, password, sid, remember): Observable<IndexResponse.IndexRoot>{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        let params = new URLSearchParams();
-        params.append('username', username);
-        params.append('password', password);
-        params.append('sid', sid);
-        params.append('login', 'Login');
-        //params.append('redirect', './ucp.php?mode=login');
-        params.append('redirect', `index.php?${callback}`);
-        params.append('mode','login');
-        console.log(params.toString());
-        return this.http.post(`${baseUrl}ucp.php`, params.toString(), {headers: headers})
+        let redirect = `index.php?${callback}`;
+        let params = [
+            ['username', username],
+            ['password', password],
+            ['sid', sid],
+            ['login', 'Login'],
+            ['redirect', redirect],
+            ['mode','login']
+        ];
+        if(remember) params.push(['autologin', 'true']);
+        return this.http.post(`${baseUrl}ucp.php`, this.buildParameters(params), {headers: headers})
             .map((res:Response) => res.json()['@template'])
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }
 
     public getAuthentication(): Observable<IndexResponse.Template>{
-        return this.http.get(`${baseUrl}?${callback}`)
+        return this.http.get(`${baseUrl}`, {search: this.buildParameters([])})
             .map((res:Response) => res.json()['@template'])
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }

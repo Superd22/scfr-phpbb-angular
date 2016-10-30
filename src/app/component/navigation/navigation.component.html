@@ -26,7 +26,8 @@
         <md-input placeholder="Login" maxlength="15" [(ngModel)]="username"></md-input>
         <md-input placeholder="password" maxlength="30" type="password" [(ngModel)]="password"></md-input>
         <md-card-actions>
-            <button md-button (click)="LoginService.loginUser(username, password, LoginService.sid)">Login</button>
+            <md-checkbox [(ngModel)]="rememberMe">Remember Me</md-checkbox>
+            <button md-button (click)="LoginService.loginUser(username, password, LoginService.sid, rememberMe)">Login</button>
             <button md-button>Register</button>
         </md-card-actions>
     </md-card>

@@ -1,44 +1,231 @@
 export module UcpResponse {
 
-    export interface Level {
+    export interface Folder {
+        FOLDER_ID: number;
+        FOLDER_NAME: string;
+        NUM_MESSAGES: any;
+        UNREAD_MESSAGES: any;
+        U_FOLDER: string;
+        S_CUR_FOLDER: boolean;
+        S_UNREAD_MESSAGES: boolean;
+        S_CUSTOM_FOLDER: boolean;
         S_ROW_NUM: number;
         S_ROW_COUNT: number;
         S_FIRST_ROW: boolean;
         S_BLOCK_NAME: string;
-        S_LAST_ROW: boolean;
+        S_LAST_ROW?: boolean;
     }
 
-    export interface JumpboxForum {
-        FORUM_ID: any;
-        FORUM_NAME: string;
-        S_FORUM_COUNT: number;
-        LINK: string;
+    export interface Pagination {
+        PAGE_NUMBER: any;
+        PAGE_URL: string;
+        S_IS_CURRENT: boolean;
+        S_IS_NEXT: boolean;
+        S_IS_PREV: boolean;
+        S_IS_ELLIPSIS: boolean;
         S_ROW_NUM: number;
         S_ROW_COUNT: number;
         S_FIRST_ROW: boolean;
         S_BLOCK_NAME: string;
-        SELECTED: string;
-        S_IS_CAT?: boolean;
-        S_IS_LINK?: boolean;
-        S_IS_POST?: boolean;
-        level: Level[];
+        S_LAST_ROW?: boolean;
+    }
+
+    export interface PmColourInfo {
+        IMG: string;
+        CLASS: string;
+        LANG: string;
+        S_ROW_NUM: number;
+        S_ROW_COUNT: number;
+        S_FIRST_ROW: boolean;
+        S_BLOCK_NAME: string;
+        S_LAST_ROW?: boolean;
+    }
+
+    export interface Messagerow {
+        PM_CLASS: string;
+        MESSAGE_AUTHOR_FULL: string;
+        MESSAGE_AUTHOR_COLOUR: string;
+        MESSAGE_AUTHOR: string;
+        U_MESSAGE_AUTHOR: string;
+        FOLDER_ID: number;
+        MESSAGE_ID: string;
+        SENT_TIME: string;
+        SUBJECT: string;
+        FOLDER: string;
+        U_FOLDER: string;
+        PM_ICON_IMG: string;
+        PM_ICON_URL: string;
+        FOLDER_IMG: string;
+        FOLDER_IMG_STYLE: string;
+        PM_IMG: string;
+        ATTACH_ICON_IMG: string;
+        S_PM_UNREAD: boolean;
+        S_PM_DELETED: boolean;
+        S_PM_REPORTED: boolean;
+        S_AUTHOR_DELETED: boolean;
+        U_VIEW_PM: string;
+        U_REMOVE_PM: string;
+        U_MCP_REPORT: string;
+        RECIPIENTS: string;
+        S_ROW_NUM: number;
+        S_ROW_COUNT: number;
+        S_FIRST_ROW: boolean;
+        S_BLOCK_NAME: string;
+        S_LAST_ROW?: boolean;
+    }
+
+    export interface TBlock1 {
+        L_TITLE: string;
+        S_SELECTED: boolean;
+        U_TITLE: string;
+        DEPTH: number;
+        ID: number;
+        PARENT: number;
+        CAT: boolean;
+        IS_DUPLICATE: boolean;
+        NAME: string;
+        MODE: string;
+        DISPLAY: number;
+        URL_EXTRA: string;
+        LANG: string;
+        LANGNAME: string;
+        LEFT: string;
+        RIGHT: string;
+        S_ROW_NUM: number;
+        S_ROW_COUNT: number;
+        S_FIRST_ROW: boolean;
+        S_BLOCK_NAME: string;
+        S_LAST_ROW?: boolean;
+    }
+
+    export interface LBlock2 {
+        L_TITLE: string;
+        S_SELECTED: boolean;
+        U_TITLE: string;
+        DEPTH: number;
+        ID: number;
+        PARENT: number;
+        CAT: boolean;
+        IS_DUPLICATE: boolean;
+        NAME: string;
+        MODE: string;
+        DISPLAY: number;
+        URL_EXTRA: string;
+        LANG: string;
+        LANGNAME: string;
+        LEFT: string;
+        RIGHT: string;
+        S_ROW_NUM: number;
+        S_ROW_COUNT: number;
+        S_FIRST_ROW: boolean;
+        S_BLOCK_NAME: string;
+        S_LAST_ROW?: boolean;
+    }
+
+    export interface LBlock1 {
+        L_TITLE: string;
+        S_SELECTED: boolean;
+        U_TITLE: string;
+        DEPTH: number;
+        ID: number;
+        PARENT: number;
+        CAT: boolean;
+        IS_DUPLICATE: boolean;
+        NAME: string;
+        MODE: string;
+        DISPLAY: number;
+        URL_EXTRA: string;
+        LANG: string;
+        LANGNAME: string;
+        LEFT: string;
+        RIGHT: string;
+        S_ROW_NUM: number;
+        S_ROW_COUNT: number;
+        S_FIRST_ROW: boolean;
+        S_BLOCK_NAME: string;
+        l_block2: LBlock2[];
+        S_LAST_ROW?: boolean;
+    }
+
+    export interface TBlock2 {
+        L_TITLE: string;
+        S_SELECTED: boolean;
+        U_TITLE: string;
+        DEPTH: number;
+        ID: number;
+        PARENT: number;
+        CAT: boolean;
+        IS_DUPLICATE: boolean;
+        NAME: string;
+        MODE: string;
+        DISPLAY: number;
+        URL_EXTRA: string;
+        LANG: string;
+        LANGNAME: string;
+        LEFT: string;
+        RIGHT: string;
+        S_ROW_NUM: number;
+        S_ROW_COUNT: number;
+        S_FIRST_ROW: boolean;
+        S_BLOCK_NAME: string;
         S_LAST_ROW?: boolean;
     }
 
     export interface Template {
         S_IN_UCP: boolean;
-        LOGIN_ERROR: string;
-        LOGIN_EXPLAIN: string;
-        U_SEND_PASSWORD: string;
-        U_RESEND_ACTIVATION: string;
-        U_TERMS_USE: string;
-        U_PRIVACY: string;
-        S_DISPLAY_FULL_LOGIN: boolean;
-        S_HIDDEN_FIELDS: string;
-        S_ADMIN_AUTH: boolean;
-        USERNAME: string;
-        USERNAME_CREDENTIAL: string;
-        PASSWORD_CREDENTIAL: string;
+        S_ZEBRA_ENABLED: boolean;
+        S_ZEBRA_FRIENDS_ENABLED: boolean;
+        S_ZEBRA_FOES_ENABLED: boolean;
+        S_PRIVMSGS: boolean;
+        CUR_FOLDER_ID: number;
+        CUR_FOLDER_NAME: string;
+        NUM_NOT_MOVED: number;
+        NUM_REMOVED: number;
+        RELEASE_MESSAGE_INFO: string;
+        NOT_MOVED_MESSAGES: string;
+        RULE_REMOVED_MESSAGES: string;
+        S_FOLDER_OPTIONS: string;
+        S_TO_FOLDER_OPTIONS: string;
+        S_FOLDER_ACTION: string;
+        S_PM_ACTION: string;
+        U_INBOX: string;
+        U_OUTBOX: string;
+        U_SENTBOX: string;
+        U_CREATE_FOLDER: string;
+        U_CURRENT_FOLDER: string;
+        U_MARK_ALL: string;
+        S_IN_INBOX: boolean;
+        S_IN_OUTBOX: boolean;
+        S_IN_SENTBOX: boolean;
+        FOLDER_STATUS: string;
+        FOLDER_MAX_MESSAGES: string;
+        FOLDER_CUR_MESSAGES: string;
+        FOLDER_REMAINING_MESSAGES: number;
+        FOLDER_PERCENT: number;
+        BASE_URL: string;
+        START_NAME: string;
+        PER_PAGE: string;
+        U_PREVIOUS_PAGE: string;
+        U_NEXT_PAGE: string;
+        TOTAL_PAGES: number;
+        CURRENT_PAGE: number;
+        PAGE_NUMBER: string;
+        TOTAL_MESSAGES: string;
+        POST_IMG: string;
+        S_NO_AUTH_SEND_MESSAGE: boolean;
+        S_SELECT_SORT_DIR: string;
+        S_SELECT_SORT_KEY: string;
+        S_SELECT_SORT_DAYS: string;
+        S_TOPIC_ICONS: boolean;
+        U_POST_NEW_TOPIC: string;
+        S_MARK_OPTIONS: string;
+        S_MOVE_MARKED_OPTIONS: string;
+        S_SHOW_RECIPIENTS: boolean;
+        S_SHOW_COLOUR_LEGEND: boolean;
+        REPORTED_IMG: string;
+        S_PM_ICONS: boolean;
+        L_TITLE: string;
+        S_UCP_ACTION: string;
         SITENAME: string;
         SITE_DESCRIPTION: string;
         PAGE_TITLE: string;
@@ -49,7 +236,7 @@ export module UcpResponse {
         TOTAL_USERS_ONLINE: string;
         LOGGED_IN_USER_LIST: string;
         RECORD_USERS: string;
-        PRIVATE_MESSAGE_COUNT: number;
+        PRIVATE_MESSAGE_COUNT: string;
         CURRENT_USER_AVATAR: string;
         CURRENT_USERNAME_SIMPLE: string;
         CURRENT_USERNAME_FULL: string;
@@ -92,6 +279,8 @@ export module UcpResponse {
         U_DELETE_COOKIES: string;
         U_CONTACT_US: string;
         U_TEAM: string;
+        U_TERMS_USE: string;
+        U_PRIVACY: string;
         U_RESTORE_PERMISSIONS: string;
         U_FEED: string;
         S_USER_LOGGED_IN: boolean;
@@ -154,17 +343,21 @@ export module UcpResponse {
         T_RANKS: string;
         T_UPLOAD: string;
         SITE_LOGO_IMG: string;
-        S_DISPLAY_JUMPBOX: boolean;
-        S_JUMPBOX_ACTION: string;
-        HIDDEN_FIELDS_FOR_JUMPBOX: string;
         DEBUG_OUTPUT: string;
         TRANSLATION_INFO: string;
         CREDIT_LINE: string;
         U_ACP: string;
-        jumpbox_forums: JumpboxForum[];
+        RUN_CRON_TASK: string;
+        folder: Folder[];
+        pagination: Pagination[];
+        pm_colour_info: PmColourInfo[];
+        messagerow: Messagerow[];
+        t_block1: TBlock1[];
+        l_block1: LBlock1[];
+        t_block2: TBlock2[];
     }
 
-    export interface UcpRoot {
+    export interface RootObject {
         '@template': Template;
     }
 
