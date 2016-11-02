@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PhpbbApiService } from '../../service/phpbb-api.service';
-import { LoginService } from '../../service/login.service';
+import { PhpbbApiService } from '../../services/phpbb-api.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
     selector: 'app-index',

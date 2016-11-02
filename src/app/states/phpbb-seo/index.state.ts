@@ -1,4 +1,4 @@
-import { IndexComponent } from './../../component/index/index.component';
+import { IndexComponent } from './../../components/index/index.component';
 
 export let psoIndex  = {
     component: IndexComponent,
