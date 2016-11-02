@@ -1,7 +1,10 @@
+import { PhpbbRoot } from './../component/phpbb/root/phpbb-root.component';
+
 export const PhpbbSeo = {
     name:   'phpbb.seo', 
-    abstract:   true,
+    component: PhpbbRoot,
+    abstract: true,
     params: {
-        phpbbVars: false,
+        phpbbResolved: false,
     }
 };

@@ -1,4 +1,10 @@
+import { ViewtopicComponent } from './../../component/viewtopic/viewtopic.component';
 export const psoViewTopic = {
     name: 'phpbb.seo.viewtopic', 
-    url: '/:forumSlug/:topicSlug/'
+    url: '/{forumId:int}-{forumSlug:string}/{topicId:int}-{topicSlug:string}/',
+    params: {
+        forumSlug: "",
+        topicSlug: "",
+    },
+    component: ViewtopicComponent,
 };

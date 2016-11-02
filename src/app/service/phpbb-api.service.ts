@@ -27,7 +27,7 @@ export class PhpbbApiService {
                 }
             );
 
-        return this.http.get(`${baseUrl}${page}${callback}`, {search: params})
+        return this.http.get(`${baseUrl}${page}`, {search: params})
             .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }
@@ -41,6 +41,14 @@ export class PhpbbApiService {
             {query: 'i', value: 'pm'},
             {query: 'folder', value: 'inbox'},
         ]);
+    }
+
+    public getForumById(forum: number):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.getPage("viewforum.php", [{query:'f', value: forum}] );
+    }
+
+    public getTopicById(topic: number):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.getPage("viewtopic.php", [{query:'t', value: topic}] );
     }
 
     // TO DO : switch to this.getPage (need to fix response type)
