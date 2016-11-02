@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./viewtopic.component.scss']
 })
 export class ViewtopicComponent implements OnInit {
-  
+
   constructor(private phpbbApi: PhpbbApiService, private trans: Transition) {}
 
   // TO DO
@@ -17,14 +17,14 @@ export class ViewtopicComponent implements OnInit {
   ngOnInit() {
     if(!this.trans.params()["phpbbResolved"]) {
       // We did not inherit resolved phpbb vars.
-      if(this.trans.params()["topicId"] > 0) 
-      this.phpbbApi.getTopicById(this.trans.params()["topicId"]).subscribe(
-        data => {
-          // unwrap data for legacy template 
-          this.unwrapTemplate(data['@template']);
-        },
-        err => console.log(err)
-      );
+      if(this.trans.params()["topicId"] > 0)
+        this.phpbbApi.getTopicById(this.trans.params()["topicId"]).subscribe(
+            data => {
+              // unwrap data for legacy template
+              this.unwrapTemplate(data['@template']);
+            },
+            err => console.log(err)
+        );
     }
     else this.unwrapTemplate(this.trans.params()["phpbbResolved"]["@template"]);
   }
