@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './component/index/index.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { MaterialModule } from '@angular/material';
+import { MdSnackBar } from '@angular/material/snack-bar';
 
 import { PhpbbRoutingConfig } from './config/phpbb-routing.config';
 
@@ -43,7 +44,7 @@ import { UnicodeToUtf8Pipe } from './pipe/unicode-to-utf8.pipe';
         HttpModule,
         MaterialModule.forRoot(),
     ],
-    providers: [PhpbbApiService, LoginService, StateTranslate],
+    providers: [PhpbbApiService, LoginService, StateTranslate,MdSnackBar],
     bootstrap: [AppComponent],
 })
 export class AppModule { }
