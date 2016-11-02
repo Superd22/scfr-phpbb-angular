@@ -22,6 +22,10 @@ import { ViewforumComponent } from './components/viewforum/viewforum.component';
 import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
 import { SeoUrlPipe } from './pipes/seo-url.pipe';
 import { UnicodeToUtf8Pipe } from './pipes/unicode-to-utf8.pipe';
+import { MemberlistComponent } from './components/memberlist/memberlist.component';
+import { TeamComponent } from './components/memberlist/team/team.component';
+import { ViewprofileComponent } from './components/memberlist/viewprofile/viewprofile.component';
+import { ViewonlineComponent } from './components/viewonline/viewonline.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +37,10 @@ import { UnicodeToUtf8Pipe } from './pipes/unicode-to-utf8.pipe';
         PhpbbRoot,
         ViewforumComponent,
         ViewtopicComponent,
+        MemberlistComponent,
+        TeamComponent,
+        ViewprofileComponent,
+        ViewonlineComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

@@ -49,7 +49,7 @@ export class StateTranslate {
                             forumSlug: new SeoUrlPipe().transform(template["FORUM_NAME"]),
                             topicSlug: new SeoUrlPipe().transform(template['TOPIC_TITLE']),
                             topicId: template["TOPIC_ID"],
-                            "#": null
+                            '#': trans.params()["#"],
                         };
 
                         var trans_page = "phpbb.seo.viewtopic";
