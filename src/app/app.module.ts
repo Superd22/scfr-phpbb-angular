@@ -1,27 +1,27 @@
-import { PhpbbRoot } from './component/phpbb/root/phpbb-root.component';
+import { PhpbbRoot } from './components/phpbb/root/phpbb-root.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { UIRouterModule } from 'ui-router-ng2';
 
-import { PhpbbApiService } from './service/phpbb-api.service';
-import { LoginService } from './service/login.service';
-import { StateTranslate } from './service/state-translate.service';
+import { PhpbbApiService } from './services/phpbb-api.service';
+import { LoginService } from './services/login.service';
+import { StateTranslate } from './services/state-translate.service';
 
 import { AppComponent } from './app.component';
-import { IndexComponent } from './component/index/index.component';
-import { NavigationComponent } from './component/navigation/navigation.component';
+import { IndexComponent } from './components/index/index.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { MaterialModule } from '@angular/material';
 import { MdSnackBar } from '@angular/material/snack-bar';
 
 import { PhpbbRoutingConfig } from './config/phpbb-routing.config';
 
-import { STATES } from './state/_.states';
-import { ViewforumComponent } from './component/viewforum/viewforum.component';
-import { ViewtopicComponent } from './component/viewtopic/viewtopic.component';
-import { SeoUrlPipe } from './pipe/seo-url.pipe';
-import { UnicodeToUtf8Pipe } from './pipe/unicode-to-utf8.pipe';
+import { STATES } from './states/_.states';
+import { ViewforumComponent } from './components/viewforum/viewforum.component';
+import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
+import { SeoUrlPipe } from './pipes/seo-url.pipe';
+import { UnicodeToUtf8Pipe } from './pipes/unicode-to-utf8.pipe';
 
 @NgModule({
     declarations: [

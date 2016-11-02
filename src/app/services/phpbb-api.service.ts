@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
-import { PhpbbTemplateResponse } from '../model/phpbb-template-response'
-import { IndexResponse } from '../model/IndexResponse';
-import { UnreadResponse } from '../model/Search/UnreadReponse';
-import { UcpResponse } from '../model/UcpResponse';
+import { PhpbbTemplateResponse } from '../models/phpbb-template-response'
+import { IndexResponse } from '../models/IndexResponse';
+import { UnreadResponse } from '../models/Search/UnreadReponse';
+import { UcpResponse } from '../models/UcpResponse';
 
 import { Http, Response, Headers, URLSearchParams } from '@angular/http';
 
@@ -33,6 +33,7 @@ export class PhpbbApiService {
     }
 
     public getPage(page, queries?: {}):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        console.log("amicalled?");
         return this.http.get(`${baseUrl}${page}`, {search: this.buildParameters(queries)} )
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
