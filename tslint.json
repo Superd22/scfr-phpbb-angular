@@ -8,7 +8,7 @@
       true,
       "check-space"
     ],
-    "curly": true,
+    "curly": false,
     "eofline": true,
     "forin": true,
     "indent": [
@@ -58,17 +58,14 @@
       true,
       "check-open-brace",
       "check-catch",
-      "check-else",
-      "check-whitespace"
+      "check-else"
     ],
     "quotemark": [
       true,
       "single"
     ],
     "radix": true,
-    "semicolon": [
-      "always"
-    ],
+    "semicolon": true,
     "triple-equals": [
       true,
       "allow-null-check"
@@ -84,15 +81,7 @@
       }
     ],
     "variable-name": false,
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ],
-
+    "whitespace": false,
     "directive-selector-prefix": [true, "app"],
     "component-selector-prefix": [true, "app"],
     "directive-selector-name": [true, "camelCase"],
