@@ -28,38 +28,57 @@ export class StateTranslate {
         }
     }
 
-    private transform_viewtopic(trans, topicId?: number, force?:boolean) {
+    private transform_viewtopic(trans, topicId?: number, force?: boolean) {
         var params = trans.params();
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
 
         if (typeof topicId === "undefined") topicId = trans.params()["t"];
 
-        if (topicId > 0) {
+        if (topicId > 0 && this.shouldParseAgain) {
             return this.phpbbApi.getTopicById(topicId).map(
                 data => {
                     let template = data["@template"];
-
                     // We're authorized and topic exists.
-                    if (template["TOPIC_ID"]) {
+                    if (template["TOPIC_ID"] > 0) {
+
+
                         trans_param = {
                             phpbbResolved: data,
                             forumId: template["FORUM_ID"],
                             forumSlug: new SeoUrlPipe().transform(template["FORUM_NAME"]),
                             topicSlug: new SeoUrlPipe().transform(template['TOPIC_TITLE']),
                             topicId: template["TOPIC_ID"],
+                            "#": null
                         };
 
                         var trans_page = "phpbb.seo.viewtopic";
+                        let newTransition = trans.router.stateService.target(trans_page, trans_param);
+                        if (!trans.params().phpbbResolved || trans.params().phpbbResolved.topic_id != trans.params().topicId
+                            || template["FORUM_ID"] != trans.params().forumId
+                            || template["TOPIC_ID"] != trans.params().topicId
+                            || (new SeoUrlPipe().transform(template["FORUM_NAME"]) != trans.params().forumSlug)
+                            || (new SeoUrlPipe().transform(template["TOPIC_TITLE"]) != trans.params().topicSlug)
+                        ) {
+                            this.shouldParseAgain = false;
+                            return newTransition;
+                        }
+                        else {
+                            this.shouldParseAgain = true;
+                            return true
+                        }
                     }
-                    return trans.router.stateService.go(trans_page, trans_param);
-                },
-                err => console.log(err)
+                    return false;
+                }
             );
+        }
+        else {
+            this.shouldParseAgain = true;
+            return Observable.of(new Object()).map(() => true);
         }
     }
 
-    private transform_viewforum(trans, forumId?: number, force?:boolean) {
+    private transform_viewforum(trans, forumId?: number, force?: boolean) {
         var params = trans.params();
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
@@ -67,8 +86,6 @@ export class StateTranslate {
         if (typeof forumId === "undefined") forumId = trans.params()["f"];
 
         if (forumId > 0 && this.shouldParseAgain) {
-            console.log(":(");
-            this.shouldParseAgain = true;
             return this.phpbbApi.getForumById(forumId)
                 .map(
                 (data) => {
@@ -83,12 +100,18 @@ export class StateTranslate {
 
                         trans_page = "phpbb.seo.viewforum";
                         let newTransition = trans.router.stateService.target(trans_page, trans_param);
-                        console.log(force || template["FORUM_ID"] != trans.params().forumId || (new SeoUrlPipe().transform(template["FORUM_NAME"]) != trans.params().forumSlug));
-                        if (!trans.params().phpbbResolved || template["FORUM_ID"] != trans.params().forumId || (new SeoUrlPipe().transform(template["FORUM_NAME"]) != trans.params().forumSlug)) {
+
+                        if (
+                            !trans.params().phpbbResolved
+                            || trans.params().phpbbResolved.FORUM_ID != trans.params().forumId
+                            || template["FORUM_ID"] != trans.params().forumId
+                            || (new SeoUrlPipe().transform(template["FORUM_NAME"]) != trans.params().forumSlug)
+                        ) {
                             this.shouldParseAgain = false;
                             return newTransition;
                         }
                         else {
+                            this.shouldParseAgain = true;
                             return true;
                         }
                     }
@@ -97,27 +120,29 @@ export class StateTranslate {
                     }
                 }
                 );
-        } else {
-            this.shouldParseAgain = true;
-            return Observable.of(new Object()).map(() => true);
-        }
+        } 
+        this.shouldParseAgain = true;
+        return Observable.of(new Object()).map(() => true);
     }
 
     public getCurrentStateData(component: any) {
-        if(!component.transition.params()["phpbbResolved"]) {
-            console.log("youhii");
+        if (!component.transition.params()["phpbbResolved"]) {
             //this.getCurrentStateDataView(component.transition, true).subscribe();
         }
         else this.unwrapTplData(component, component.transition.params()["phpbbResolved"]["@template"]);
     }
 
-    public getCurrentStateDataView(transition, force?:boolean) {
+    public getCurrentStateDataView(transition, force?: boolean) {
         let stateName = transition.$to().name;
-
+        
         switch (stateName) {
             case "phpbb.seo.viewforum":
                 return this.transform_viewforum(transition, transition.params().forumId, force);
+            case "phpbb.seo.viewtopic":
+                return this.transform_viewtopic(transition, transition.params().topicId, force);
         }
+        
+        return Observable.of(new Object()).map(() => true);
     }
 
     private unwrapTplData(component, tpl) {
@@ -126,9 +151,6 @@ export class StateTranslate {
         keyArr.forEach((key) => {
             component[key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
-
-        console.log(tpl);
-        console.log(component);
     }
 
 }

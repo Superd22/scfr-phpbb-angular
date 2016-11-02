@@ -33,7 +33,6 @@ export class PhpbbApiService {
     }
 
     public getPage(page, queries?: {}):Observable<PhpbbTemplateResponse.DefaultResponse> {
-        console.log("amicalled?");
         return this.http.get(`${baseUrl}${page}`, {search: this.buildParameters(queries)} )
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));

@@ -11,7 +11,7 @@ export class SeoUrlPipe implements PipeTransform {
 
     // replace é ê è with e
     encodedUrl = encodedUrl.split(/[éêëè]/).join("e");
-    console.log(encodedUrl);
+    
     // replace â â à with a
     encodedUrl = encodedUrl.split(/[ââà]/).join("a");
 
