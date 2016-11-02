@@ -90,4 +90,10 @@ export class StateTranslate {
 
   }
 
+  public getCurrentStateData(component:any) {    
+    if(!component.transition.params()["phpbbResolved"]) {
+      console.log(component);
+    }
+  }
+
 }
