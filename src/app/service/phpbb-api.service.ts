@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from "rxjs/Rx";
+import { PhpbbTemplateResponse } from '../model/phpbb-template-response'
 import { IndexResponse } from "../model/IndexResponse";
 import { UnreadResponse } from '../model/Search/UnreadReponse';
 import { UcpResponse } from '../model/UcpResponse';
@@ -15,8 +16,9 @@ export class PhpbbApiService {
     private sid: string|null;
     constructor(private http: Http){}
 
-    public buildParameters(arrayOfParam: any[][]): string{
+    public buildParameters(arrayOfParam?: any[][]): string{
         let urlParam = new URLSearchParams();
+        if(arrayOfParam)
         for(let param of arrayOfParam){
             urlParam.append(param[0], param[1])
         }
@@ -29,10 +31,26 @@ export class PhpbbApiService {
         this.sid = sid;
     }
 
+    public getPage(page, queries?:any[][]):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.http.get(`${baseUrl}${page}`, {search: this.buildParameters(queries)} )
+        .map((res:Response) => res.json())
+        .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+    }
+
     public getIndex():Observable<IndexResponse.IndexRoot>{
-        return this.http.get(`${baseUrl}`, {search: this.buildParameters([])})
-            .map((res:Response) => res.json())
-            .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+        return this.getPage("index.php");
+    }
+
+    public getMessage(){
+        return this.getPage("ucp.php", [ ['i', 'pm'], ['folder', 'inbox'] ]);
+    }
+
+    public getForumById(forum: number):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.getPage("viewforum.php", [ ['f', forum] ] );
+    }
+
+    public getTopicById(topic: number):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.getPage("viewtopic.php", [ ['t', topic ] ] );
     }
 
     public getPrivateMessageList():Observable<UcpResponse.Messagerow[]>{

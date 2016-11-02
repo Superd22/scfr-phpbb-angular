@@ -1,9 +1,10 @@
 <div class="navigator">
     <ul>
         <li *ngFor="let forum of forumList">
-            {{forum.FORUM_NAME}}
+            <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" >{{forum.FORUM_NAME}}</a>
             <ul *ngIf="forum.S_SUBFORUMS">
-                <li *ngFor="let subForum of forum.subforum">{{subForum.SUBFORUM_NAME}}</li>
+                <!-- TODO : add SUBFORUM_ID VIA PHPBB EXT -->
+                <li *ngFor="let subForum of forum.subforum"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:SUBFORUM_ID}" >{{subForum.SUBFORUM_NAME}}</a></li>
             </ul>
         </li>
     </ul>

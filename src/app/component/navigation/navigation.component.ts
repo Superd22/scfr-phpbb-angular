@@ -1,3 +1,4 @@
+import { UnicodeToUtf8Pipe } from './../../pipe/unicode-to-utf8.pipe';
 import { Component, OnInit } from '@angular/core';
 import { IndexResponse } from '../../model/IndexResponse';
 
@@ -23,7 +24,7 @@ export class NavigationComponent implements OnInit {
     public fetchForumList():void{
         this.phpbbApi.getIndex().subscribe(
             data => {
-                this.forumList = data['@template'].forumrow;
+                this.forumList = UnicodeToUtf8Pipe.forEach(data['@template'].forumrow);
                 this.LoginService.sid = data['@template']._SID;
             },
             err => console.log(err)
