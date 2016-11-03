@@ -4,10 +4,7 @@
   ],
   "rules": {
     "class-name": true,
-    "comment-format": [
-      true,
-      "check-space"
-    ],
+    "comment-format": false,
     "curly": false,
     "eofline": true,
     "forin": true,
@@ -47,7 +44,7 @@
     "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-switch-case-fall-through": true,
-    "no-trailing-whitespace": true,
+    "no-trailing-whitespace": false,
     "no-unused-expression": true,
     "no-unused-variable": true,
     "no-unreachable": true,

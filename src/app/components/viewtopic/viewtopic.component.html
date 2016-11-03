@@ -1,7 +1,9 @@
-<h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
-<h3 class="topic-title"><a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: TOPIC_ID}">{{TOPIC_TITLE}}</a></h3>
+<div class="container">
+    <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
+    <h3 class="topic-title"><a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: TOPIC_ID}">{{TOPIC_TITLE}}</a></h3>
 
-  <div *ngFor="let post of postrow" style="margin:20px;border:2px solid;">
-   <h4>{{post.POST_SUBJECT}}</h4>
-   <div [innerHTML]="post.MESSAGE"></div>
-  </div>
+    <div *ngFor="let post of postrow" style="margin:20px;border:2px solid;">
+        <h4>{{post.POST_SUBJECT}}</h4>
+        <div [innerHTML]="post.MESSAGE"></div>
+    </div>
+</div>

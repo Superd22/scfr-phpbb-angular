@@ -13,12 +13,12 @@ import { LoginService } from '../../services/login.service';
 })
 
 export class NavigationComponent implements OnInit {
-    constructor(private phpbbApi: PhpbbApiService, public LoginService: LoginService) { }
-
     public forumList: IndexResponse.Forumrow[];
 
+    constructor(private phpbbApi: PhpbbApiService, public LoginService: LoginService) { }
+
     ngOnInit() {
-        this.fetchForumList()
+        this.fetchForumList();
     }
 
     public fetchForumList():void{

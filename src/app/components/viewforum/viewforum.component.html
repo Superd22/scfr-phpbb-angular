@@ -1,18 +1,19 @@
-{{TEST}}
-<h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
+<div class="container">
+    <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
 
-<div *ngIf="S_HAS_SUBFORUM">
-   <ul>
-     <li *ngFor="let forum of forumrow">
-       <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" >{{forum.FORUM_NAME}}</a>
-      </li>
-    </ul>
-</div>
+    <div *ngIf="S_HAS_SUBFORUM">
+        <ul>
+            <li *ngFor="let forum of forumrow">
+                <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" >{{forum.FORUM_NAME}}</a>
+            </li>
+        </ul>
+    </div>
 
-<div *ngIf="S_DISPLAY_POST_INFO || pagination || TOTAL_POSTS || TOTAL_TOPICS">
-  <ul>
-    <li *ngFor="let topic of topicrow">
-      <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: topic.TOPIC_ID}" >{{topic.TOPIC_TITLE}}</a>
-    </li>
-  </ul>
+    <div *ngIf="S_DISPLAY_POST_INFO || pagination || TOTAL_POSTS || TOTAL_TOPICS">
+        <ul>
+            <li *ngFor="let topic of topicrow">
+                <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: topic.TOPIC_ID}" >{{topic.TOPIC_TITLE}}</a>
+            </li>
+        </ul>
+    </div>
 </div>

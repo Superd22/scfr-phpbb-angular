@@ -3,7 +3,6 @@ import { StateTranslate } from './../../services/state-translate.service';
 import { UnicodeToUtf8Pipe } from './../../pipes/unicode-to-utf8.pipe';
 import { Transition } from 'ui-router-ng2';
 import { PhpbbApiService } from './../../services/phpbb-api.service';
-import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 
 

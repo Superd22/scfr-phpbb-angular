@@ -6,22 +6,25 @@ import { HttpModule } from '@angular/http';
 import { UIRouterModule } from 'ui-router-ng2';
 
 import { PhpbbApiService } from './services/phpbb-api.service';
+import { PhpbbService } from './services/phpbb.service';
 import { LoginService } from './services/login.service';
 import { StateTranslate } from './services/state-translate.service';
 
+
 import { AppComponent } from './app.component';
-import { IndexComponent } from './components/index/index.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
 import { MaterialModule } from '@angular/material';
 import { MdSnackBar } from '@angular/material/snack-bar';
 
 import { PhpbbRoutingConfig } from './config/phpbb-routing.config';
 
 import { STATES } from './states/_.states';
-import { ViewforumComponent } from './components/viewforum/viewforum.component';
-import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
 import { SeoUrlPipe } from './pipes/seo-url.pipe';
 import { UnicodeToUtf8Pipe } from './pipes/unicode-to-utf8.pipe';
+
+import { IndexComponent } from './components/index/index.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { ViewforumComponent } from './components/viewforum/viewforum.component';
+import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
 
 @NgModule({
     declarations: [
@@ -44,7 +47,7 @@ import { UnicodeToUtf8Pipe } from './pipes/unicode-to-utf8.pipe';
         HttpModule,
         MaterialModule.forRoot(),
     ],
-    providers: [PhpbbApiService, LoginService, StateTranslate,MdSnackBar],
+    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate,MdSnackBar],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

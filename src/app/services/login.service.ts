@@ -19,7 +19,7 @@ export class LoginService {
         this.authenticationCheck();
     }
 
-    //This will need to be trigger by a component
+    // This will need to be trigger by a component
     public loginUser(username: string, password: string, sid: string, rememberMe){
         this.phpbbApi.authenticate(username, password, sid, rememberMe).subscribe(
             data => this.hydrateUserData(data),
