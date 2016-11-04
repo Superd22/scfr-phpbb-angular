@@ -24,6 +24,11 @@ export class StateTranslate {
                     return this.transform_viewtopic(trans);
                 case "viewforum":
                     return this.transform_viewforum(trans);
+                case "memberlist":
+                    switch (trans.params().mode) {
+                        case "viewprofile":
+                            return this.transform_viewonline_viewprofile(trans);
+                    }
             }
         }
     }
@@ -120,9 +125,51 @@ export class StateTranslate {
                     }
                 }
                 );
-        } 
+        }
         this.shouldParseAgain = true;
         return Observable.of(new Object()).map(() => true);
+    }
+
+    private transform_viewonline_viewprofile(trans, user?: number) {
+        var params = trans.params();
+        var trans_param = {};
+        var trans_page = "phpbb.seo.index";
+
+        if (typeof user === "undefined") user = trans.params().u;
+
+        if (user > 0 && this.shouldParseAgain) {
+            return this.phpbbApi.getPage("memberlist.php", { mode: "viewprofile", u: user }).map(
+                data => {
+                    let template = data["@template"];
+
+                    if (template["USERNAME"]) {
+                        trans_page = "phpbb.seo.viewprofile";
+                        trans_param = {
+                            phpbbResolved: data,
+                            userId: user,
+                            userSlug: new SeoUrlPipe().transform(template["USERNAME"]),
+                        };
+
+                        if (!trans.params().phpbbResolved
+                            || trans.params().phpbbResolved.username != template["USERNAME"]
+                            || trans.params().userId != user
+                            || trans.params().userSlug != new SeoUrlPipe().transform(template["USERNAME"])) {
+
+                            this.shouldParseAgain = false;
+                            return trans.router.stateService.target(trans_page, trans_param);
+                        }
+                        this.shouldParseAgain = true;
+                        return true;
+                    }
+                    return false;
+                },
+            );
+        }
+
+        this.shouldParseAgain = true;
+        return Observable.of(new Object()).map(() => true);
+
+
     }
 
     public getCurrentStateData(component: any) {
@@ -134,14 +181,16 @@ export class StateTranslate {
 
     public getCurrentStateDataView(transition, force?: boolean) {
         let stateName = transition.$to().name;
-        
+
         switch (stateName) {
             case "phpbb.seo.viewforum":
-                return this.transform_viewforum(transition, transition.params().forumId, force);
+                return this.transform_viewforum(transition, transition.params().forumId);
             case "phpbb.seo.viewtopic":
-                return this.transform_viewtopic(transition, transition.params().topicId, force);
+                return this.transform_viewtopic(transition, transition.params().topicId);
+            case "phpbb.seo.viewprofile":
+                return this.transform_viewonline_viewprofile(transition, transition.params().userId);
         }
-        
+
         return Observable.of(new Object()).map(() => true);
     }
 
