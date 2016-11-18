@@ -20,6 +20,11 @@ import { PhpbbRoutingConfig } from './config/phpbb-routing.config';
 import { STATES } from './states/_.states';
 import { SeoUrlPipe } from './pipes/seo-url.pipe';
 import { UnicodeToUtf8Pipe } from './pipes/unicode-to-utf8.pipe';
+import { MemberlistComponent } from './components/memberlist/memberlist.component';
+import { TeamComponent } from './components/memberlist/team/team.component';
+import { ViewprofileComponent } from './components/memberlist/viewprofile/viewprofile.component';
+import { ViewonlineComponent } from './components/viewonline/viewonline.component';
+import { LoginComponent } from './components/login/login.component';
 
 import { IndexComponent } from './components/index/index.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -36,6 +41,11 @@ import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
         PhpbbRoot,
         ViewforumComponent,
         ViewtopicComponent,
+        MemberlistComponent,
+        TeamComponent,
+        ViewprofileComponent,
+        ViewonlineComponent,
+        LoginComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
