@@ -26,6 +26,7 @@ import { MemberlistComponent } from './components/memberlist/memberlist.componen
 import { TeamComponent } from './components/memberlist/team/team.component';
 import { ViewprofileComponent } from './components/memberlist/viewprofile/viewprofile.component';
 import { ViewonlineComponent } from './components/viewonline/viewonline.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { ViewonlineComponent } from './components/viewonline/viewonline.componen
         TeamComponent,
         ViewprofileComponent,
         ViewonlineComponent,
+        LoginComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

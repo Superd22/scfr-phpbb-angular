@@ -135,6 +135,8 @@ export class StateTranslate {
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
 
+        console.log(user);
+
         if (typeof user === "undefined") user = trans.params().u;
 
         if (user > 0 && this.shouldParseAgain) {
@@ -143,6 +145,7 @@ export class StateTranslate {
                     let template = data["@template"];
 
                     if (template["USERNAME"]) {
+                        console.log(template["USERNAME"]);
                         trans_page = "phpbb.seo.viewprofile";
                         trans_param = {
                             phpbbResolved: data,
@@ -161,7 +164,7 @@ export class StateTranslate {
                         this.shouldParseAgain = true;
                         return true;
                     }
-                    return false;
+                    return this.checkAuthLogin(trans, template);
                 },
             );
         }
@@ -170,6 +173,18 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
 
 
+    }
+
+    private checkAuthLogin(trans, tpl: any) {
+        // To do callback once logged-in.
+        // To do logged in but not authed enough.
+
+        // Login Error will be an empty string if true and non present if false.
+        if (typeof tpl["LOGIN_ERROR"] !== 'undefined') {
+            return trans.router.stateService.target("phpbb.seo.login", {error: tpl["LOGIN_EXPLAIN"]});
+        }
+
+        return false;
     }
 
     public getCurrentStateData(component: any) {
