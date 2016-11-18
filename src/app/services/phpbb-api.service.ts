@@ -54,18 +54,17 @@ export class PhpbbApiService {
         return this.getPage('viewtopic.php', {t: topic});
     }
 
-    public getPrivateMessageList():Observable<UcpResponse.Messagerow[]>{
+    public getPrivateMessageList():Observable<PhpbbTemplateResponse.DefaultResponse>{
         let params = {i: 'pm', folder: 'inbox'};
-        return this.http.get(`${baseUrl}ucp.php`, {search: this.buildParameters(params)} )
-            .map((res:Response) => res.json()['@template'].messagerow)
-            .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+        return this.getPage('ucp.php', params);
     }
 
-    public getUnreadTopicList():Observable<UnreadResponse.Searchresult[]>{
-        let params = {search_id: 'unreadposts'} ;
-        return this.http.get(`${baseUrl}search.php`, {search: this.buildParameters(params)})
-            .map((res:Response) => res.json()['@template'].searchresults)
-            .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+    /*
+    SearchID: unreadposts,
+     */
+    public getSearch(searchId: string):Observable<PhpbbTemplateResponse.DefaultResponse>{
+        let params = {search_id: searchId} ;
+        return this.getPage('search.php', params);
     }
 
     // LOGIN
@@ -87,9 +86,7 @@ export class PhpbbApiService {
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }
 
-    public getAuthentication(): Observable<IndexResponse.Template>{
-        return this.http.get(`${baseUrl}`, {search: this.buildParameters()})
-            .map((res:Response) => res.json()['@template'])
-            .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+    public getAuthentication(): Observable<PhpbbTemplateResponse.DefaultResponse>{
+        return this.getPage('');
     }
 }

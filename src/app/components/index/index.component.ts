@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PhpbbApiService } from '../../services/phpbb-api.service';
+import { PhpbbService } from '../../services/phpbb.service';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -8,11 +8,11 @@ import { LoginService } from '../../services/login.service';
     styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-
-    constructor(public phpbbApi: PhpbbApiService, public LoginService: LoginService) { }
     public unreadTopicList;
     public privateMessages;
     public isLoggedIn;
+
+    constructor(public phpbb: PhpbbService, public LoginService: LoginService) { }
 
     ngOnInit() {
         this.isLoggedIn = this.LoginService.observeLogin.subscribe(
@@ -31,16 +31,16 @@ export class IndexComponent implements OnInit {
     }
 
     public getUnreadTopicList(){
-        this.phpbbApi.getUnreadTopicList().subscribe(
+        this.phpbb.getUnreadTopicList().subscribe(
             data => this.unreadTopicList = data.slice(0,5),
             err => console.log(err)
         );
     }
 
     public getPrivateMessageList(){
-        this.phpbbApi.getPrivateMessageList().subscribe(
+        this.phpbb.getPrivateMessageList().subscribe(
             data => this.privateMessages = data.slice(0,5),
             err => console.log(err)
-        )
+        );
     }
 }
