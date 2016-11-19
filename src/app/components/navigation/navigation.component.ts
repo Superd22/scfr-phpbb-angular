@@ -25,10 +25,16 @@ export class NavigationComponent implements OnInit {
         this.phpbbApi.getIndex().subscribe(
             data => {
                 this.forumList = UnicodeToUtf8Pipe.forEach(data['@template'].forumrow);
-                this.LoginService.sid = data['@template']._SID;
+                for(let forumItem of this.forumList){
+                    forumItem['toggledDropdown'] = false;
+                }
             },
             err => console.log(err)
         );
+    }
+
+    public toggleMenu(menuItem){
+        menuItem.toggledDropdown = !menuItem.toggledDropdown;
     }
 
 }

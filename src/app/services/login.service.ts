@@ -12,16 +12,15 @@ export class LoginService {
     public legend: string;
     public rememberMe: boolean;
 
-    private _observeLogin = new BehaviorSubject<boolean>(false);
-    public observeLogin = this._observeLogin.asObservable();
+    public userStatus = new BehaviorSubject<{status:boolean, message?:string}>({status:false});
 
     constructor(public phpbbApi: PhpbbApiService, public mdToast: MdSnackBar) {
         this.authenticationCheck();
     }
 
     // This will need to be trigger by a component
-    public loginUser(username: string, password: string, sid: string, rememberMe){
-        this.phpbbApi.authenticate(username, password, sid, rememberMe).subscribe(
+    public loginUser(username: string, password: string, rememberMe){
+        this.phpbbApi.authenticate(username, password, this.sid, rememberMe).subscribe(
             data => this.hydrateUserData(data),
             err => console.log(err)
         );
@@ -37,15 +36,13 @@ export class LoginService {
     private hydrateUserData(data){
         if(data.S_USER_LOGGED_IN){
             this.phpbbApi.registerSid(data._SID);
-            this._observeLogin.next(data.S_USER_LOGGED_IN);
+            this.userStatus.next({status: data.S_USER_LOGGED_IN});
             this.loggedIn = data.S_USER_LOGGED_IN;
             this.avatar = / src="([^"]*)"/.exec(data.CURRENT_USER_AVATAR)[1];
             this.username = data.S_USERNAME;
             this.legend = data.LEGEND.split(',')[0];
         } else {
-            console.log(data.LOGIN_ERROR);
-            //this.mdToast.open(data.LOGIN_ERROR, null, new MdSnackBarConfig());
-            this._observeLogin.next(false);
+            this.userStatus.next({status:false, message:data.LOGIN_ERROR});
             this.loggedIn = false;
         }
     }

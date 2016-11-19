@@ -3,11 +3,11 @@ import { STATES } from '../states/_.states';
 
 import { UIRouter } from "ui-router-ng2";
 import { Inject, Injectable } from '@angular/core';
-import * as vis from 'ui-router-visualizer';
+//import * as vis from 'ui-router-visualizer';
 
 @Injectable()
 export class PhpbbRoutingConfig {
-    constructor( @Inject(StateTranslate) private stateTranslate: StateTranslate, @Inject(UIRouter) private router: UIRouter) {
+    constructor(private stateTranslate: StateTranslate, private router: UIRouter) {
         // Register legacy Hook
         this.legacyHook();
 

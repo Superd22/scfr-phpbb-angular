@@ -25,4 +25,13 @@ export class PhpbbService {
         );
         return privateMessageList;
     }
+
+    public getTopicById(topicId:number, offset:number = 0){
+        let topicData = new BehaviorSubject([]);
+        this.phpbbApi.getTopicById(topicId, offset).subscribe(
+            data => topicData.next(data['@template'].postrow),
+            err => console.log(err)
+        );
+        return topicData;
+    }
 }
