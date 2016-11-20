@@ -3,8 +3,8 @@ import { StateTranslate } from './../../services/state-translate.service';
 import { UnicodeToUtf8Pipe } from './../../pipes/unicode-to-utf8.pipe';
 import { Transition } from 'ui-router-ng2';
 import { PhpbbApiService } from './../../services/phpbb-api.service';
+import { PhpbbService } from './../../services/phpbb.service';
 import { Component, OnInit } from '@angular/core';
-
 
 @Component({
   selector: 'app-viewtopic',
@@ -13,13 +13,32 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ViewtopicComponent extends PhpbbComponent {
+  public postrow: any[];
+  public FORUM_ID: number;
+  public TOPIC_ID: number;
+  public CURRENT_PAGE: number;
+  public S_NUM_POSTS: number;
+  public PER_PAGE: number;
 
-  constructor(phpbbApi: PhpbbApiService, transition: Transition, translate:StateTranslate) {
+  constructor(public PhpbbService: PhpbbService, phpbbApi: PhpbbApiService, transition: Transition, translate:StateTranslate) {
     super(phpbbApi, transition, translate);
   }
 
   ngOnInit() {
     super.ngOnInit();
+  }
+
+  //Will need to find a good infinite loading solution
+  public loadNextPost(){
+    let offset = this.CURRENT_PAGE * this.PER_PAGE;
+    //We will subscribe multiple times causing dublicates this.CURRENT_PAGE++;
+    //Will need to use a promise
+    this.PhpbbService.getTopicById(this.TOPIC_ID, offset).subscribe(
+        data => {
+          this.postrow = this.postrow.concat(data);
+          this.CURRENT_PAGE++;
+        }
+    );
   }
 
 }

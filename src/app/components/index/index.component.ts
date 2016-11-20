@@ -15,7 +15,7 @@ export class IndexComponent implements OnInit {
     constructor(public phpbb: PhpbbService, public LoginService: LoginService) { }
 
     ngOnInit() {
-        this.isLoggedIn = this.LoginService.observeLogin.subscribe(
+        this.isLoggedIn = this.LoginService.userStatus.subscribe(
             (isLoggedIn) => {
                 this.isLoggedIn = isLoggedIn;
                 if(isLoggedIn){

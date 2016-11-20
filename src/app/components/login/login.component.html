@@ -1,3 +1,22 @@
-<p>
-  login works!
-</p>
+<md-card *ngIf="LoginService.loggedIn">
+  <md-card-header>
+    <img md-card-avatar [src]="LoginService.avatar">
+    <md-card-title>{{LoginService.username}}</md-card-title>
+    <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
+  </md-card-header>
+  <md-card-actions>
+    <button md-button>Logout</button>
+  </md-card-actions>
+</md-card>
+<md-card *ngIf="!LoginService.loggedIn">
+  <md-card-content>
+    Anonymous
+  </md-card-content>
+  <md-input placeholder="Login" maxlength="15" [(ngModel)]="username"></md-input>
+  <md-input placeholder="password" maxlength="30" type="password" [(ngModel)]="password"></md-input>
+  <md-card-actions>
+    <md-checkbox [(ngModel)]="rememberMe">Remember Me</md-checkbox>
+    <button md-button (click)="loginUser(username, password, rememberMe)">Login</button>
+    <button md-button>Register</button>
+  </md-card-actions>
+</md-card>

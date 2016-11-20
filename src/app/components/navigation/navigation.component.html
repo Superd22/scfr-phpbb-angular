@@ -3,34 +3,15 @@
     <ul>
         <li *ngFor="let forum of forumList">
             <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" >{{forum.FORUM_NAME}}</a>
-            <ul *ngIf="forum.S_SUBFORUMS">
+            <button md-mini-fab *ngIf="forum.S_SUBFORUMS" (click)="toggleMenu(forum)" [ngSwitch]="forum.toggledDropdown">
+                <md-icon *ngSwitchCase="false">keyboard_arrow_down</md-icon>
+                <md-icon *ngSwitchCase="true">keyboard_arrow_up</md-icon>
+            </button>
+            <ul *ngIf="forum.S_SUBFORUMS && forum.toggledDropdown">
                 <!-- TODO : add SUBFORUM_ID VIA PHPBB EXT -->
                 <li *ngFor="let subForum of forum.subforum"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:SUBFORUM_ID}" >{{subForum.SUBFORUM_NAME}}</a></li>
             </ul>
         </li>
     </ul>
 </div>
-<div class="navigator-bottom">
-    <md-card *ngIf="LoginService.loggedIn">
-        <md-card-header>
-            <img md-card-avatar [src]="LoginService.avatar">
-            <md-card-title>{{LoginService.username}}</md-card-title>
-            <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
-        </md-card-header>
-        <md-card-actions>
-            <button md-button>Logout</button>
-        </md-card-actions>
-    </md-card>
-    <md-card *ngIf="!LoginService.loggedIn">
-        <md-card-content>
-            Anonymous
-        </md-card-content>
-        <md-input placeholder="Login" maxlength="15" [(ngModel)]="username"></md-input>
-        <md-input placeholder="password" maxlength="30" type="password" [(ngModel)]="password"></md-input>
-        <md-card-actions>
-            <md-checkbox [(ngModel)]="rememberMe">Remember Me</md-checkbox>
-            <button md-button (click)="LoginService.loginUser(username, password, LoginService.sid, rememberMe)">Login</button>
-            <button md-button>Register</button>
-        </md-card-actions>
-    </md-card>
-</div>
+<app-login class="navigator-bottom"></app-login>

@@ -50,8 +50,8 @@ export class PhpbbApiService {
         return this.getPage('viewforum.php', {f: forum});
     }
 
-    public getTopicById(topic: number):Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.getPage('viewtopic.php', {t: topic});
+    public getTopicById(topic: number, offset: number = 0):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.getPage('viewtopic.php', {t: topic, start: offset});
     }
 
     public getPrivateMessageList():Observable<PhpbbTemplateResponse.DefaultResponse>{

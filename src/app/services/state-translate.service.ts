@@ -12,7 +12,7 @@ export class StateTranslate {
     cache = null;
     shouldParseAgain = true;
 
-    constructor( @Inject(Http) private http: Http, private phpbbApi: PhpbbApiService) { }
+    constructor( private http: Http, private phpbbApi: PhpbbApiService) { }
 
     public legacyToSeo(trans) {
         if (!trans.params()["phpbbResolved"]) {
