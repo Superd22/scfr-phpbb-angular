@@ -27,6 +27,10 @@ export class SeoUrlPipe implements PipeTransform {
     // remove duplicates 
     encodedUrl = encodedUrl.split(/-+/).join("-");
 
+    // Remove first and last
+    encodedUrl = encodedUrl.split(/^-?/).join("");
+    encodedUrl = encodedUrl.split(/-?$/).join("");
+
     // trim leading & trailing characters 
     encodedUrl = encodedUrl.trim(); 
 
