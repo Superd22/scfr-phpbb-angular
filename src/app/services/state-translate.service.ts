@@ -11,8 +11,9 @@ import { Http, URLSearchParams } from "@angular/http";
 export class StateTranslate {
     cache = null;
     shouldParseAgain = true;
+    onceResolved = false;
 
-    constructor( private http: Http, private phpbbApi: PhpbbApiService) { }
+    constructor(private http: Http, private phpbbApi: PhpbbApiService) { }
 
     public legacyToSeo(trans) {
         if (!trans.params()["phpbbResolved"]) {
@@ -130,6 +131,14 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
     }
 
+    private isOnceResolved(): boolean {
+        return this.onceResolved;
+    }
+
+    private setOnceResolved(val: boolean) {
+        this.onceResolved = val;
+    }
+
     private transform_viewonline_viewprofile(trans, user?: number) {
         var params = trans.params();
         var trans_param = {};
@@ -181,14 +190,55 @@ export class StateTranslate {
 
         // Login Error will be an empty string if true and non present if false.
         if (typeof tpl["LOGIN_ERROR"] !== 'undefined') {
-            return trans.router.stateService.target("phpbb.seo.login", {error: tpl["LOGIN_EXPLAIN"]});
+            return trans.router.stateService.target("phpbb.seo.login", { error: tpl["LOGIN_EXPLAIN"] });
         }
 
         return false;
     }
 
+    // Fetches template for a posting.php page
+    // As **.posting are always children state, we discard previous phpbbResolved
+    // And fetch only once.
+    private getPosting(trans, params) {
+
+        if (this.isOnceResolved()) {
+            this.setOnceResolved(false);
+            return Observable.of(new Object()).map(() => true);
+        }
+
+        var topic = params.topicId;
+        var forum = params.forumId;
+
+        if (forum) {
+
+            var legacy = {
+                f: forum,
+                mode: 'post',
+                t: null,
+            }
+
+            if (topic) {
+                legacy.mode = 'reply';
+                legacy.t = topic;
+            }
+
+            return this.phpbbApi.getPage("posting.php", legacy).map(
+                data => {
+                    let template = data["@template"];
+                    if (this.checkAuthLogin(trans, template)) return this.checkAuthLogin(trans, template);
+                    params.phpbbResolved = data;
+                    this.setOnceResolved(true);
+
+                    return trans.router.stateService.target(trans.$to().name, params, { notify: false, reload: false });
+                }
+            );
+        }
+        else return Observable.of(new Object()).map(() => false);
+    }
+
     public getCurrentStateData(component: any) {
         if (!component.transition.params()["phpbbResolved"]) {
+            console.log("prout");
             //this.getCurrentStateDataView(component.transition, true).subscribe();
         }
         else this.unwrapTplData(component, component.transition.params()["phpbbResolved"]["@template"]);
@@ -196,8 +246,11 @@ export class StateTranslate {
 
     public getCurrentStateDataView(transition, force?: boolean) {
         let stateName = transition.$to().name;
-
+        console.log(stateName);
         switch (stateName) {
+            case "phpbb.seo.viewforum.posting":
+            case "phpbb.seo.viewtopic.posting":
+                return this.getPosting(transition, transition.params());
             case "phpbb.seo.viewforum":
                 return this.transform_viewforum(transition, transition.params().forumId);
             case "phpbb.seo.viewtopic":

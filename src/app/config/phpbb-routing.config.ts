@@ -3,7 +3,7 @@ import { STATES } from '../states/_.states';
 
 import { UIRouter } from "ui-router-ng2";
 import { Inject, Injectable } from '@angular/core';
-//import * as vis from 'ui-router-visualizer';
+import * as vis from 'ui-router-visualizer';
 
 @Injectable()
 export class PhpbbRoutingConfig {
@@ -17,7 +17,7 @@ export class PhpbbRoutingConfig {
         router.urlRouterProvider.otherwise('/');
 
         // Dev StateTree Debug    
-        //vis.visualizer(router);
+        vis.visualizer(router);
     }
 
     private legacyHook() {
@@ -31,7 +31,7 @@ export class PhpbbRoutingConfig {
     }
 
     private seoHook() {
-        this.router.transitionService.onBefore({ to: "phpbb.seo.*" }, (trans) => 
+        this.router.transitionService.onBefore({ to: "phpbb.seo.**" }, (trans) => 
             this.stateTranslate.getCurrentStateDataView(trans).toPromise().then(
                 state => state,
             )

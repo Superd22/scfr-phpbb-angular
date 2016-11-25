@@ -30,6 +30,7 @@ import { IndexComponent } from './components/index/index.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ViewforumComponent } from './components/viewforum/viewforum.component';
 import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
+import { PostingComponent } from './components/posting/posting.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
         ViewprofileComponent,
         ViewonlineComponent,
         LoginComponent,
+        PostingComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
