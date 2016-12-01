@@ -19,6 +19,7 @@ export class ViewtopicComponent extends PhpbbComponent {
   public CURRENT_PAGE: number;
   public S_NUM_POSTS: number;
   public PER_PAGE: number;
+  public editedMessage: number = 0;
 
   constructor(public PhpbbService: PhpbbService, phpbbApi: PhpbbApiService, transition: Transition, translate:StateTranslate) {
     super(phpbbApi, transition, translate);

@@ -1,13 +1,14 @@
 <md-card>
   <md-card-subtitle>{{L_INFORMATION}}</md-card-subtitle>
   <md-card-title>
-    <md-input placeholder="Sujet" style="width: 100%" value="{{SUBJECT}}{{DRAFT_SUBJECT}}"></md-input>
+    <md-input placeholder="Sujet" style="width: 100%" [(ngModel)]='post.subject'></md-input>
   </md-card-title>
   <md-card-content>
-    <md-textarea placeholder="Message"></md-textarea>
+    <md-textarea placeholder="Message" style="width: 100%; height: 300px;" [(ngModel)]='post.message' ></md-textarea>
   </md-card-content>
   <md-card-actions>
     <button md-button color="primary">Envoyer</button>
     <button md-button>Previsualiser</button>
+    <button md-button color="warn" uiSref='^'>Annuler</button>
   </md-card-actions>
 </md-card>

@@ -144,7 +144,6 @@ export class StateTranslate {
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
 
-        console.log(user);
 
         if (typeof user === "undefined") user = trans.params().u;
 
@@ -154,7 +153,6 @@ export class StateTranslate {
                     let template = data["@template"];
 
                     if (template["USERNAME"]) {
-                        console.log(template["USERNAME"]);
                         trans_page = "phpbb.seo.viewprofile";
                         trans_param = {
                             phpbbResolved: data,
@@ -206,8 +204,9 @@ export class StateTranslate {
             return Observable.of(new Object()).map(() => true);
         }
 
-        var topic = params.topicId;
-        var forum = params.forumId;
+        let topic = params.topicId;
+        let forum = params.forumId;
+        let post = params.postId;
 
         if (forum) {
 
@@ -215,6 +214,7 @@ export class StateTranslate {
                 f: forum,
                 mode: 'post',
                 t: null,
+                p: null,
             }
 
             if (topic) {
@@ -222,11 +222,18 @@ export class StateTranslate {
                 legacy.t = topic;
             }
 
+            if (post) {
+                legacy.mode = "edit";
+                legacy.p = post;
+            }
+
             return this.phpbbApi.getPage("posting.php", legacy).map(
                 data => {
                     let template = data["@template"];
                     if (this.checkAuthLogin(trans, template)) return this.checkAuthLogin(trans, template);
-                    params.phpbbResolved = data;
+
+                    // Retain old state resolved data
+                    params.phpbbResolved = this.mergeRetainResolved(params.phpbbResolved, data);
                     this.setOnceResolved(true);
 
                     return trans.router.stateService.target(trans.$to().name, params, { notify: false, reload: false });
@@ -236,9 +243,15 @@ export class StateTranslate {
         else return Observable.of(new Object()).map(() => false);
     }
 
+    private mergeRetainResolved(retain, resolved) {
+        for(var pp in retain) 
+            retain[pp] = Object.assign(retain[pp], resolved[pp]);
+
+        return retain;
+    }
+
     public getCurrentStateData(component: any) {
         if (!component.transition.params()["phpbbResolved"]) {
-            console.log("prout");
             //this.getCurrentStateDataView(component.transition, true).subscribe();
         }
         else this.unwrapTplData(component, component.transition.params()["phpbbResolved"]["@template"]);
@@ -246,10 +259,10 @@ export class StateTranslate {
 
     public getCurrentStateDataView(transition, force?: boolean) {
         let stateName = transition.$to().name;
-        console.log(stateName);
         switch (stateName) {
             case "phpbb.seo.viewforum.posting":
             case "phpbb.seo.viewtopic.posting":
+            case "phpbb.seo.viewtopic.edit":
                 return this.getPosting(transition, transition.params());
             case "phpbb.seo.viewforum":
                 return this.transform_viewforum(transition, transition.params().forumId);
