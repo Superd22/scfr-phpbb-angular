@@ -1,3 +1,4 @@
+import { ViewmessageComponent } from './components/viewmessage/viewmessage.component';
 import { PhpbbRoot } from './components/phpbb/root/phpbb-root.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -48,6 +49,7 @@ import { PostingComponent } from './components/posting/posting.component';
         ViewonlineComponent,
         LoginComponent,
         PostingComponent,
+        ViewmessageComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

@@ -11,14 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class PostingComponent extends PhpbbComponent {
-
+  post:any = {};
   constructor(phpbbApi: PhpbbApiService, transition: Transition, translate: StateTranslate) {
     super(phpbbApi, transition, translate);
   }
 
   ngOnInit() {
     super.ngOnInit();
-    console.log(this);
+
+    this.post.message = this.MESSAGE;
+    this.post.subject = this.SUBJECT;
   }
 
 }

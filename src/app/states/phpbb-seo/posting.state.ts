@@ -10,6 +10,16 @@ export const psoPostReply = {
     }
 };
 
+export const psoPostEdit = {
+    name: 'phpbb.seo.viewtopic.edit', 
+    url: 'edit/:postId',
+    views: {
+        'editMessage': {
+            component: PostingComponent,
+        }
+    }
+};
+
 export const psoPostTopic = {
     name: 'phpbb.seo.viewforum.posting', 
     url: 'nouveau/',
