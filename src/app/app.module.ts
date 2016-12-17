@@ -1,3 +1,5 @@
+import { PmComponent } from './components/ucp/pm/pm.component';
+import { UcpComponent } from './components/ucp/ucp.component';
 import { ViewmessageComponent } from './components/viewmessage/viewmessage.component';
 import { PhpbbRoot } from './components/phpbb/root/phpbb-root.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -50,6 +52,8 @@ import { PostingComponent } from './components/posting/posting.component';
         LoginComponent,
         PostingComponent,
         ViewmessageComponent,
+        UcpComponent,
+        PmComponent
     ],
     imports: [
         UIRouterModule.forRoot({

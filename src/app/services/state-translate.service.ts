@@ -1,3 +1,4 @@
+import { LoginService } from './login.service';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { Observable } from 'rxjs/Rx';
 import { PhpbbApiService } from './phpbb-api.service';
@@ -13,7 +14,7 @@ export class StateTranslate {
     shouldParseAgain = true;
     onceResolved = false;
 
-    constructor(private http: Http, private phpbbApi: PhpbbApiService) { }
+    constructor(private http: Http, private phpbbApi: PhpbbApiService, private login: LoginService) { }
 
     public legacyToSeo(trans) {
         if (!trans.params()["phpbbResolved"]) {
@@ -178,8 +179,12 @@ export class StateTranslate {
 
         this.shouldParseAgain = true;
         return Observable.of(new Object()).map(() => true);
+    }
 
-
+    private transform_ucp_pm(trans) {
+        //getPage
+        console.log(this.login);
+        return Observable.of(new Object()).map(() => true);
     }
 
     private checkAuthLogin(trans, tpl: any) {
@@ -270,6 +275,8 @@ export class StateTranslate {
                 return this.transform_viewtopic(transition, transition.params().topicId);
             case "phpbb.seo.viewprofile":
                 return this.transform_viewonline_viewprofile(transition, transition.params().userId);
+            case "phpbb.seo.ucp.pm":
+                return this.transform_ucp_pm(transition);
         }
 
         return Observable.of(new Object()).map(() => true);
