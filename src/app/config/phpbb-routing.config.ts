@@ -17,7 +17,7 @@ export class PhpbbRoutingConfig {
         router.urlRouterProvider.otherwise('/');
 
         // Dev StateTree Debug    
-        vis.visualizer(router);
+        // vis.visualizer(router);
     }
 
     private legacyHook() {

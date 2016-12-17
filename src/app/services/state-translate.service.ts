@@ -193,6 +193,7 @@ export class StateTranslate {
 
         // Login Error will be an empty string if true and non present if false.
         if (typeof tpl["LOGIN_ERROR"] !== 'undefined') {
+            console.log(trans.to());
             return trans.router.stateService.target("phpbb.seo.login", { error: tpl["LOGIN_EXPLAIN"] });
         }
 
