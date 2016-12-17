@@ -1,3 +1,4 @@
+import { psoUcp, psoPM } from './phpbb-seo/ucp.state';
 import { psoPostReply, psoPostTopic, psoPostEdit } from './phpbb-seo/posting.state';
 import { psoLogin } from './phpbb-seo/login.state';
 import { psoViewProfile } from './phpbb-seo/memberlist-viewprofile.state';
@@ -14,5 +15,6 @@ import { defaultState } from './default.state';
 
 export let STATES = [
     defaultState, PhpbbLegacy, PhpbbSeo, psoIndex, psoViewForum, psoViewTopic, psoAdm,
-    psoViewOnline, psoMemberList, psoTeam, psoViewProfile, psoLogin, psoPostReply, psoPostTopic, psoPostEdit
+    psoViewOnline, psoMemberList, psoTeam, psoViewProfile, psoLogin, psoPostReply, psoPostTopic, psoPostEdit, psoUcp,
+    psoPM
 ];

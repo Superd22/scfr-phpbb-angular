@@ -16,15 +16,15 @@ export class PhpbbApiService {
     private sid: string|null;
     constructor(private http: Http){}
 
-    public buildParameters(arrayOfParam?: {}): string{
+    public buildParameters(arrayOfParam?: {}, raw?:boolean): string{
         let urlParam = new URLSearchParams();
         for(let paramKey in arrayOfParam){
             if (arrayOfParam.hasOwnProperty(paramKey)) {
                 urlParam.append(paramKey, arrayOfParam[paramKey]);
             }
         }
-        urlParam.append('scfr_json_callback', 'true');
-        urlParam.append('sid', this.sid);
+        if(typeof raw == "undefined" || raw === false) urlParam.append('scfr_json_callback', 'true');
+        if(this.sid) urlParam.append('sid', this.sid);
         return urlParam.toString();
     }
 
@@ -32,8 +32,8 @@ export class PhpbbApiService {
         this.sid = sid;
     }
 
-    public getPage(page, queries?: {}):Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.http.get(`${baseUrl}${page}`, {search: this.buildParameters(queries)} )
+    public getPage(page, queries?: {}, raw?: boolean):Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.http.get(`${baseUrl}${page}`, {search: this.buildParameters(queries, raw), withCredentials: true } )
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }
@@ -80,10 +80,18 @@ export class PhpbbApiService {
             redirect: redirect,
             mode: 'login'
         };
-        if(remember) params.autologin = 'true';
-        return this.http.post(`${baseUrl}ucp.php`, this.buildParameters(params), {headers: headers})
-            .map((res:Response) => res.json()['@template'])
+        if(remember) params.autologin = true;
+        return this.http.post(`${baseUrl}ucp.php`, this.buildParameters(params), {headers: headers, withCredentials: true })
+            .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+    }
+
+    // Performs logout of PhpBB anc calls getAuthentification afterwards
+    // This is because we can't log out redirect to scfr_json_callback.
+    public logout():Observable<boolean> {
+        return this.getPage('ucp.php', {mode: 'logout'}, true).map(
+            () => true
+        ).catch(() => Observable.throw(true));
     }
 
     public getAuthentication(): Observable<PhpbbTemplateResponse.DefaultResponse>{

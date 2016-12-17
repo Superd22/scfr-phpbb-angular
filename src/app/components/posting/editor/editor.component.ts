@@ -15,6 +15,9 @@ export class EditorComponent implements OnInit {
 
   constructor() { }
 
+  @Input('subject') 
+  @Input('message')
+
   ngOnInit() {
   }
 
