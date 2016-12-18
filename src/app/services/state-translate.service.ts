@@ -276,8 +276,8 @@ export class StateTranslate {
                 return this.transform_viewtopic(transition, transition.params().topicId);
             case "phpbb.seo.viewprofile":
                 return this.transform_viewonline_viewprofile(transition, transition.params().userId);
-            case "phpbb.seo.ucp.pm":
-                return this.transform_ucp_pm(transition);
+            //case "phpbb.seo.ucp.pm":
+            //   return this.transform_ucp_pm(transition);
         }
 
         return Observable.of(new Object()).map(() => true);

@@ -1,3 +1,4 @@
+import { PrivateMessageService } from './../../../services/private-message.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PmComponent implements OnInit {
 
-  constructor() { }
+  constructor(private MPService: PrivateMessageService) { }
 
   ngOnInit() {
   }

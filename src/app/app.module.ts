@@ -1,3 +1,5 @@
+import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
+import { PrivateMessageService } from './services/private-message.service';
 import { PmComponent } from './components/ucp/pm/pm.component';
 import { UcpComponent } from './components/ucp/ucp.component';
 import { ViewmessageComponent } from './components/viewmessage/viewmessage.component';
@@ -53,7 +55,8 @@ import { PostingComponent } from './components/posting/posting.component';
         PostingComponent,
         ViewmessageComponent,
         UcpComponent,
-        PmComponent
+        PmComponent,
+        ViewconvoComponent
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -65,7 +68,7 @@ import { PostingComponent } from './components/posting/posting.component';
         HttpModule,
         MaterialModule.forRoot(),
     ],
-    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate,MdSnackBar],
+    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, MdSnackBar],
     bootstrap: [AppComponent],
 })
 export class AppModule { }
