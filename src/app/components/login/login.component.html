@@ -5,7 +5,7 @@
     <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
   </md-card-header>
   <md-card-actions>
-    <button md-button>Logout</button>
+    <button md-button (click)="logoutUser()">Logout</button>
   </md-card-actions>
 </md-card>
 <md-card *ngIf="!LoginService.loggedIn">

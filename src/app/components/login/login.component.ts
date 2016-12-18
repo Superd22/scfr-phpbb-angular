@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { UIRouter, StateService, Transition } from 'ui-router-ng2';
+import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material/snack-bar';
 
@@ -10,35 +11,52 @@ import { MdSnackBar, MdSnackBarConfig } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
 
-  public username:string;
-  public password:string;
+  public username: string;
+  public password: string;
   public rememberMe: boolean;
-  constructor(public LoginService: LoginService, private snackBar: MdSnackBar, public viewContainerRef: ViewContainerRef){}
+  public _shouldToast: boolean;
+
+  // State to redirect to.
+  @Input() redirect: Transition;
+
+  constructor(public LoginService: LoginService, private transition: StateService, private snackBar: MdSnackBar) {
+  }
 
   ngOnInit() {
     this.LoginService.userStatus.subscribe(
-        data => this.handleLogin(data)
+      data => this.handleLogin(data)
     )
   }
 
-  public loginUser(username: string, password: string, rememberMe){
+  public loginUser(username: string, password: string, rememberMe) {
     this.LoginService.loginUser(username, password, rememberMe);
   }
 
-  private handleLogin(userStatus: {status:boolean, message?:string}){
-    if(userStatus.status){
-      this.loginSuccess();
-    } else {
-      this.loginFailed(userStatus.message);
-    }
+  public logoutUser() {
+    this.LoginService.logoutUser();
   }
-  private loginSuccess(){
 
+  // skips the first handle with _shouldToast
+  // (because app is currently initialized as userStatus: false before actually checking)
+  private handleLogin(userStatus: { status: boolean, message?: string }) {
+    if (this._shouldToast) {
+      if (userStatus.status) {
+        this.loginSuccess();
+      } else {
+        userStatus.message = userStatus.message || "Vous êtes bien deconnecté";
+        this.loginFailed(userStatus.message);
+      }
+    }
+    this._shouldToast = true;
   }
-  private loginFailed(error: string){
-    if(error){
-      let snackConf = new MdSnackBarConfig(this.viewContainerRef);
-      this.snackBar.open(error, null, snackConf);
+
+  private loginSuccess() {
+    this.snackBar.open(`Connecté en tant que ${this.LoginService.username}`, null, { duration: 2000 });
+  }
+
+  private loginFailed(error: string) {
+    if (error) {
+      this.snackBar.open(error, null, { duration: 2000 });
     }
   }
 

@@ -3,7 +3,9 @@
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.
 
 ## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+**IMPORTANT, YOU HAVE TO BROWSE THE APP AS app.pixelone.fr**
+**PLS fix ur hosts files**
+Run `ng serve` for a dev server. Navigate to `http://app.pixelone.fr:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

@@ -1,3 +1,4 @@
+import { Transition } from 'ui-router-ng2';
 import { Injectable } from '@angular/core';
 import { PhpbbApiService } from './phpbb-api.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -14,36 +15,47 @@ export class LoginService {
 
     public userStatus = new BehaviorSubject<{status:boolean, message?:string}>({status:false});
 
-    constructor(public phpbbApi: PhpbbApiService, public mdToast: MdSnackBar) {
+    constructor(public phpbbApi: PhpbbApiService, public mdToast: MdSnackBar ) {
         this.authenticationCheck();
     }
 
     // This will need to be trigger by a component
     public loginUser(username: string, password: string, rememberMe){
         this.phpbbApi.authenticate(username, password, this.sid, rememberMe).subscribe(
-            data => this.hydrateUserData(data),
+            data => this.hydrateUserData(data["@template"]),
             err => console.log(err)
+        );
+    }
+
+    public logoutUser() {
+        if(!this.loggedIn) return false;
+        this.phpbbApi.logout().subscribe(
+            () => this.authenticationCheck(),
+            () => this.authenticationCheck()
         );
     }
 
     private authenticationCheck(){
         this.phpbbApi.getAuthentication().subscribe(
-            data => this.hydrateUserData(data),
+            data => this.hydrateUserData(data["@template"]),
             err => console.log(err)
         );
     }
 
+    // Hydrate user with the relevant data.
+    // userStatus should be updated *LAST* so that every relevant data is accessible
+    // When its subscribtions are triggered.
     private hydrateUserData(data){
         if(data.S_USER_LOGGED_IN){
-            this.phpbbApi.registerSid(data._SID);
-            this.userStatus.next({status: data.S_USER_LOGGED_IN});
+            this.phpbbApi.registerSid(data.SESSION_ID);
             this.loggedIn = data.S_USER_LOGGED_IN;
             this.avatar = / src="([^"]*)"/.exec(data.CURRENT_USER_AVATAR)[1];
             this.username = data.S_USERNAME;
             this.legend = data.LEGEND.split(',')[0];
+            this.userStatus.next({status: data.S_USER_LOGGED_IN});
         } else {
-            this.userStatus.next({status:false, message:data.LOGIN_ERROR});
             this.loggedIn = false;
+            this.userStatus.next({status:false, message:data.LOGIN_ERROR});
         }
     }
 }

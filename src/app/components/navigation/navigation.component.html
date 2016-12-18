@@ -1,5 +1,5 @@
 <div class="navigator">
-    <a href="/"><i class="material-icons">home</i></a>
+    <a uiSref="phpbb.seo.index"><i class="material-icons">home</i></a>
     <ul>
         <li *ngFor="let forum of forumList">
             <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" >{{forum.FORUM_NAME}}</a>
