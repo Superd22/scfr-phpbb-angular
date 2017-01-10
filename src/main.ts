@@ -1,4 +1,3 @@
-/// <reference path="../node_modules/@types/hammerjs/index.d.ts" />
 import './polyfills.ts';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';

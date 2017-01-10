@@ -18,9 +18,6 @@ export class PostingComponent extends PhpbbComponent {
 
   ngOnInit() {
     super.ngOnInit();
-
-    this.post.message = this.MESSAGE;
-    this.post.subject = this.SUBJECT;
   }
 
 }
