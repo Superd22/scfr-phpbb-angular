@@ -5,6 +5,7 @@ import { Transition } from 'ui-router-ng2';
 import { PhpbbApiService } from './../../services/phpbb-api.service';
 import { PhpbbService } from './../../services/phpbb.service';
 import { Component, OnInit } from '@angular/core';
+import { PhpbbPostMessage } from '../../interfaces/phpbb/phpbb-post-message';
 
 @Component({
   selector: 'app-viewtopic',
@@ -13,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ViewtopicComponent extends PhpbbComponent {
-  public postrow: any[];
+  public postrow: PhpbbPostMessage[];
   public FORUM_ID: number;
   public TOPIC_ID: number;
   public CURRENT_PAGE: number;

@@ -1,17 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
-
+import { PhpbbPostMessage } from '../../interfaces/phpbb/phpbb-post-message';
 @Component({
   selector: 'app-viewmessage',
   templateUrl: './viewmessage.component.html',
   styleUrls: ['./viewmessage.component.scss']
 })
 export class ViewmessageComponent implements OnInit {
+
+  protected _edit = 0;
   // Phpbb postrow template
-  @Input() post: any = {};
-  
-  _edit = 0;
-
-
+  @Input() post:PhpbbPostMessage;
   @Output() editChange = new EventEmitter();
   @Input()
   get edit() {
