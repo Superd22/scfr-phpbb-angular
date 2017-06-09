@@ -1,8 +1,8 @@
-import { Transition } from 'ui-router-ng2';
+import { Transition } from '@uirouter/angular';
 import { Injectable } from '@angular/core';
 import { PhpbbApiService } from './phpbb-api.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material/snack-bar';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 @Injectable()
 export class LoginService {

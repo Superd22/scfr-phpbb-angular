@@ -1,4 +1,4 @@
-import { Transition } from 'ui-router-ng2';
+import { Transition } from '@uirouter/angular';
 import { LoginComponent } from './../../components/login/login.component';
 
 export const psoLogin = {
@@ -11,12 +11,13 @@ export const psoLogin = {
         {
             token: 'redirect',
             deps: [Transition],
-            resolveFn: (transition) => {
-               console.log(transition.from());
-               return transition;
-            }
-            ,
+            resolveFn: psoLoginFunc,
         }
     ],
     component: LoginComponent,
 };
+
+export function psoLoginFunc(transition: Transition) {
+    console.log(transition.from());
+    return transition;
+}

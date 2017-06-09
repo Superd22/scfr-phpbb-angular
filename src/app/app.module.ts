@@ -1,3 +1,4 @@
+import { SCFRMaterialModule } from './material/material.module';
 import { PmComponent } from './components/ucp/pm/pm.component';
 import { UcpComponent } from './components/ucp/ucp.component';
 import { ViewmessageComponent } from './components/viewmessage/viewmessage.component';
@@ -6,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { UIRouterModule } from 'ui-router-ng2';
+import { UIRouterModule } from '@uirouter/angular';
 
 import { PhpbbApiService } from './services/phpbb-api.service';
 import { PhpbbService } from './services/phpbb.service';
@@ -16,7 +17,6 @@ import { StateTranslate } from './services/state-translate.service';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from '@angular/material';
-import { MdSnackBar } from '@angular/material/snack-bar';
 
 import { PhpbbRoutingConfig } from './config/phpbb-routing.config';
 
@@ -58,14 +58,15 @@ import { PostingComponent } from './components/posting/posting.component';
     imports: [
         UIRouterModule.forRoot({
             states: STATES,
-            configClass: PhpbbRoutingConfig
+            config: PhpbbRoutingConfig
         }),
         BrowserModule,
         FormsModule,
         HttpModule,
-        MaterialModule.forRoot(),
+        MaterialModule,
+        SCFRMaterialModule,
     ],
-    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate,MdSnackBar],
+    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate],
     bootstrap: [AppComponent],
 })
 export class AppModule { }
