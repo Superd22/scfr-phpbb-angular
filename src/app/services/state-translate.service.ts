@@ -86,6 +86,7 @@ export class StateTranslate {
     }
 
     private transform_viewforum(trans, forumId?: number, force?: boolean) {
+        console.log( new Error().stack);
         var params = trans.params();
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
@@ -264,6 +265,8 @@ export class StateTranslate {
     }
 
     public getCurrentStateDataView(transition, force?: boolean) {
+        console.log(transition, new Error().stack);
+
         let stateName = transition.$to().name;
         switch (stateName) {
             case "phpbb.seo.viewforum.posting":

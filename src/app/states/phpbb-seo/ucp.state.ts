@@ -1,4 +1,4 @@
-import { Transition } from 'ui-router-ng2';
+import { Transition } from '@uirouter/angular';
 import { ViewconvoComponent } from './../../components/ucp/pm/viewconvo/viewconvo.component';
 import { PmComponent } from './../../components/ucp/pm/pm.component';
 import { UcpComponent } from './../../components/ucp/ucp.component';

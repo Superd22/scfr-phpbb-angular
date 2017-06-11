@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
 import { PrivateMessageService } from './services/private-message.service';
-=======
 import { SCFRMaterialModule } from './material/material.module';
->>>>>>> master
 import { PmComponent } from './components/ucp/pm/pm.component';
 import { UcpComponent } from './components/ucp/ucp.component';
 import { ViewmessageComponent } from './components/viewmessage/viewmessage.component';
