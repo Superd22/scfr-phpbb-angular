@@ -1,3 +1,5 @@
+import { UIRouter } from '@uirouter/angular';
+import { Observable } from 'rxjs/Rx';
 import { SimplePost } from './../../interfaces/simple-post';
 import { PostingQueryArg } from './../../interfaces/posting-query-arg';
 import { StateTranslate } from './../../services/state-translate.service';
@@ -53,6 +55,47 @@ export class PostingComponent extends PhpbbComponent {
   public previewPost() {
     this.busy = true;
 
+    let opts = this.forPHPBBPostingArgs();
+    let form = this.forPHPBBPostingFORM("preview");
+
+    this.phpbbApi.postPage("posting.php", form, opts).subscribe(
+      (data) => {
+        this.busy = false;
+        let tpl = data["@template"];
+        if (tpl.PREVIEW_MESSAGE)
+          this.preview = {
+            message: tpl.PREVIEW_MESSAGE,
+            subject: tpl.PREVIEW_SUBJECT,
+            id: 0,
+          }
+        else this.preview = null;
+      }
+    );
+  }
+
+
+  /**
+   * Sends the current post to the db
+   */
+  public sendPost() {
+    this.busy = true;
+
+    let opts = this.forPHPBBPostingArgs();
+    let form = this.forPHPBBPostingFORM("post");
+
+    this.phpbbApi.postPage("posting.php", form, opts).catch((err, caught) => {
+      return Observable.of("caca");
+    }).subscribe(
+      (data) => {
+        console.log(data);
+      }
+      )
+  }
+
+  /**
+   * Returns the get arguments to send to posting.php
+   */
+  private forPHPBBPostingArgs(): PostingQueryArg {
     let opts: PostingQueryArg = {
       f: this.transition.params().forumId,
       mode: "post"
@@ -68,32 +111,27 @@ export class PostingComponent extends PhpbbComponent {
       opts.mode = "edit";
     }
 
+    return opts;
+  }
+
+  /**
+   * Returns the form data to send to posting
+   * @param mode "preview" for generating a preview | "post" for posting the message
+   */
+  private forPHPBBPostingFORM(mode: "preview" | "post") {
     let form = Object.assign(this.genHiddenForms(), {
       subject: this.post.subject,
       message: this.post.message,
-      preview: true,
       addbbcode20: 100,
       attach_sig: "on",
       edit_reason: "",
-
     });
 
+    if (mode == "preview") form.preview = true;
+    if (mode == "post") form.post = true;
 
-
-    this.phpbbApi.postPage("posting.php", form, opts).subscribe(
-      (data) => {
-        let tpl = data["@template"];
-        if (tpl.PREVIEW_MESSAGE)
-          this.preview = {
-            message: tpl.PREVIEW_MESSAGE,
-            subject: tpl.PREVIEW_SUBJECT,
-            id: 0,
-          }
-        else this.preview = null;
-      }
-    );
+    return form;
   }
-
 
   /**
    * Helper method to build hidden form data phpbb expects.
@@ -119,11 +157,5 @@ export class PostingComponent extends PhpbbComponent {
     return hiddens;
   }
 
-  /**
-   * Sends the current post to the db
-   */
-  public sendPost() {
-
-  }
 
 }

@@ -6,6 +6,8 @@ declare function unescape(s:string): string;
 })
 export class SeoUrlPipe implements PipeTransform {
   transform(url:string, any?: any):string {
+    if(url == null || url == undefined) return url;
+    
      // make the url lowercase        
     var encodedUrl = unescape(url.toLowerCase()); 
 

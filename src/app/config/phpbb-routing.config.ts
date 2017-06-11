@@ -8,9 +8,9 @@ import * as vis from '@uirouter/visualizer';
 export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module: StatesModule) {
     let stateTranslate: StateTranslate = injector.get(StateTranslate);
 
+    stateTranslate.uiRouter = router;
 
-
-    let legacyHook = () => {
+    function legacyHook() {
         router.transitionService.onBefore({ to: "phpbb.legacy" }, (trans) =>
             stateTranslate.legacyToSeo(trans).toPromise().then(
                 state => {
@@ -21,7 +21,7 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
         );
     }
 
-    let seoHook = () => {
+    function seoHook() {
         router.transitionService.onBefore({ to: "phpbb.seo.**" }, (trans) =>
             stateTranslate.getCurrentStateDataView(trans).toPromise().then(
                 state => state,
@@ -33,5 +33,5 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
     legacyHook();
     seoHook();
 
-    vis.visualizer(router);
+    //vis.visualizer(router);
 }

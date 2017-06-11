@@ -1,3 +1,4 @@
+import { StateTranslate } from './state-translate.service';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
@@ -14,6 +15,10 @@ const callback = 'scfr_json_callback=true';
 @Injectable()
 export class PhpbbApiService {
     private sid: string | null;
+    private stranslate: StateTranslate;
+    public set translate(t: StateTranslate) {
+        this.stranslate = t;
+    }
     constructor(private http: Http) { }
 
     public buildParameters(arrayOfParam?: {}, raw?: boolean): string {
@@ -47,14 +52,28 @@ export class PhpbbApiService {
 
         let options = new RequestOptions({ method: "post", withCredentials: true, params: this.buildParameters(params) });
         let body = new FormData();
-        
+
         Object.keys(query).forEach(key => {
             body.set(key, query[key]);
         });
 
         return this.http.post(`${baseUrl}${page}`, body, options)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+            .map((res: Response) => {
+                try {
+                    return res.json();
+                } catch (error) {
+                    // We don't have a JSON thingy, most likely we got redirected by PHPBB.
+                    // We're gonna redirect ourselves there.
+                    let regex = new RegExp(baseUrl + "(.*)");
+                    let m = regex.exec(res.url);
+
+                    if (m[1] && m[1].indexOf(".php") > -1) {
+                        this.stranslate.goToOld(m[1]);
+                    }
+                    else throw "NO JSON CAN'T REDIRECT";
+                }
+            })
+
     }
 
     /**

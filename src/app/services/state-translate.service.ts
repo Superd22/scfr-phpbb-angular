@@ -1,4 +1,4 @@
-import { Transition } from '@uirouter/angular';
+import { Transition, UIRouter } from '@uirouter/angular';
 import { LoginService } from './login.service';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { Observable } from 'rxjs/Rx';
@@ -14,8 +14,14 @@ export class StateTranslate {
     private cache = null;
     private shouldParseAgain = true;
     private onceResolved = false;
+    private router: UIRouter = null;
 
     constructor(private http: Http, private phpbbApi: PhpbbApiService, private login: LoginService) { }
+
+    public set uiRouter(router: UIRouter) {
+        this.router = router;
+        this.phpbbApi.translate = this;
+    }
 
     public legacyToSeo(trans) {
         if (!trans.params()["phpbbResolved"]) {
@@ -253,8 +259,8 @@ export class StateTranslate {
     }
 
     private mergeRetainResolved(retain, resolved) {
-        if(retain == false) return resolved;
-        
+        if (retain == false) return resolved;
+
         for (var pp in retain)
             retain[pp] = Object.assign(retain[pp], resolved[pp]);
 
@@ -298,6 +304,10 @@ export class StateTranslate {
         keyArr.forEach((key) => {
             component[key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
+    }
+
+    public goToOld(url) {
+        this.router.urlService.url(url, true);
     }
 
 }
