@@ -45,6 +45,7 @@ export class ViewmessageComponent implements OnInit {
         subject: this._postrow.POST_SUBJECT,
         id: this._postrow.POST_ID,
       }
+      return;
     }
 
     throw "NO TARGET FOR VIEW MESSAGE";

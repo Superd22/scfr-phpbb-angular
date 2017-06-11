@@ -87,7 +87,6 @@ export class StateTranslate {
     }
 
     private transform_viewforum(trans, forumId?: number, force?: boolean) {
-        console.log(new Error().stack);
         var params = trans.params();
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
@@ -185,7 +184,6 @@ export class StateTranslate {
 
     private transform_ucp_pm(trans) {
         //getPage
-        console.log(this.login);
         return Observable.of(new Object()).map(() => true);
     }
 
@@ -195,7 +193,6 @@ export class StateTranslate {
 
         // Login Error will be an empty string if true and non present if false.
         if (typeof tpl["LOGIN_ERROR"] !== 'undefined') {
-            console.log(trans.to());
             return trans.router.stateService.target("phpbb.seo.login", { error: tpl["LOGIN_EXPLAIN"] });
         }
 
@@ -245,7 +242,6 @@ export class StateTranslate {
                     if (this.checkAuthLogin(trans, template)) return this.checkAuthLogin(trans, template);
 
                     // Retain old state resolved data
-                    console.log("PRE", params.phpbbResolved, data);
                     params.phpbbResolved = this.mergeRetainResolved(params.phpbbResolved, data);
                     this.setOnceResolved(true);
 
@@ -276,7 +272,6 @@ export class StateTranslate {
      * @param force force the update of this state
      */
     public getCurrentStateDataView(transition: Transition, force?: boolean) {
-        console.log(transition, new Error().stack);
 
         let stateName = transition.$to().name;
         switch (stateName) {

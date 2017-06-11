@@ -8,7 +8,7 @@
       <div [innerHTML]="post.message"></div>
     </md-card-content>
     <md-card-actions>
-      <button *ngIf="editable" md-button uiSref=".edit" [uiParams]="{'postId': post.POST_ID, '#': post.POST_ID}" (click)="edit = post.id">EDIT</button>
+      <button *ngIf="editable" md-button uiSref=".edit" [uiParams]="{'postId': post.id, '#': post.id}" (click)="edit = post.id">EDIT</button>
     </md-card-actions>
   </div>
   <div *ngIf="isEditMod()" ui-view="editMessage"></div>
