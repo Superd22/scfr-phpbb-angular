@@ -5,7 +5,7 @@
       <md-card-subtitle><span [ngStyle]="{'color': post.POST_AUTHOR_COLOUR}" uiSref="phpbb.seo.viewprofile" [uiParams]="{userId:post.POSTER_ID, user_slug: post.POST_AUTHOR | seoUrl}">{{post.POST_AUTHOR}}</span></md-card-subtitle>
     </md-card-title-group>
     <md-card-content>
-      <div [innerHTML]="post.message"></div>
+      <div class="post-inner" [innerHTML]="post.message"></div>
     </md-card-content>
     <md-card-actions>
       <button *ngIf="editable" md-button uiSref=".edit" [uiParams]="{'postId': post.id, '#': post.id}" (click)="edit = post.id">EDIT</button>

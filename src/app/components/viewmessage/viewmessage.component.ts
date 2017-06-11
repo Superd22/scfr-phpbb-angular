@@ -1,6 +1,7 @@
 import { SimplePost } from './../../interfaces/simple-post';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PhpbbPostMessage } from '../../interfaces/phpbb/phpbb-post-message';
+import { DomSanitizer } from "@angular/platform-browser/";
 @Component({
   selector: 'app-viewmessage',
   templateUrl: './viewmessage.component.html',
@@ -28,7 +29,7 @@ export class ViewmessageComponent implements OnInit {
     this.editChange.emit(this._edit);
   }
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.initPost();
@@ -38,17 +39,25 @@ export class ViewmessageComponent implements OnInit {
    * Called on init to handle inputs and build our display data
    */
   private initPost() {
-    if (this.post) return;
+    if (this.post) {
+      this.sanitizeMessage();
+      return;
+    }
     if (this._postrow) {
       this.post = {
         message: this._postrow.MESSAGE,
         subject: this._postrow.POST_SUBJECT,
         id: this._postrow.POST_ID,
-      }
+      };
+      this.sanitizeMessage();
       return;
     }
 
     throw "NO TARGET FOR VIEW MESSAGE";
+  }
+
+  private sanitizeMessage() {
+    this.post.message = this.sanitizer.bypassSecurityTrustHtml(String(this.post.message));
   }
 
   isEditMod() {
