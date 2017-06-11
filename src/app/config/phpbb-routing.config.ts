@@ -3,10 +3,12 @@ import { STATES } from '../states/_.states';
 
 import { UIRouter, StatesModule } from "@uirouter/angular";
 import { Inject, Injectable, Injector } from '@angular/core';
-import * as vis from 'ui-router-visualizer';
+import * as vis from '@uirouter/visualizer';
 
 export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module: StatesModule) {
     let stateTranslate: StateTranslate = injector.get(StateTranslate);
+
+
 
     let legacyHook = () => {
         router.transitionService.onBefore({ to: "phpbb.legacy" }, (trans) =>
@@ -29,7 +31,7 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
 
     // Register legacy Hook
     legacyHook();
-
     seoHook();
 
+    vis.visualizer(router);
 }

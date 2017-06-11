@@ -86,6 +86,7 @@ export class StateTranslate {
     }
 
     private transform_viewforum(trans, forumId?: number, force?: boolean) {
+        console.log( new Error().stack);
         var params = trans.params();
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
@@ -264,6 +265,8 @@ export class StateTranslate {
     }
 
     public getCurrentStateDataView(transition, force?: boolean) {
+        console.log(transition, new Error().stack);
+
         let stateName = transition.$to().name;
         switch (stateName) {
             case "phpbb.seo.viewforum.posting":
@@ -276,8 +279,8 @@ export class StateTranslate {
                 return this.transform_viewtopic(transition, transition.params().topicId);
             case "phpbb.seo.viewprofile":
                 return this.transform_viewonline_viewprofile(transition, transition.params().userId);
-            case "phpbb.seo.ucp.pm":
-                return this.transform_ucp_pm(transition);
+            //case "phpbb.seo.ucp.pm":
+            //   return this.transform_ucp_pm(transition);
         }
 
         return Observable.of(new Object()).map(() => true);

@@ -1,3 +1,5 @@
+import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
+import { PrivateMessageService } from './services/private-message.service';
 import { SCFRMaterialModule } from './material/material.module';
 import { PmComponent } from './components/ucp/pm/pm.component';
 import { UcpComponent } from './components/ucp/ucp.component';
@@ -54,7 +56,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         PostingComponent,
         ViewmessageComponent,
         UcpComponent,
-        PmComponent
+        PmComponent,
+        ViewconvoComponent
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -68,7 +71,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MaterialModule,
         SCFRMaterialModule,
     ],
-    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate],
+    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -59,6 +59,10 @@ export class PhpbbApiService {
         return this.getPage('ucp.php', params);
     }
 
+    public getApi(page, params?) {
+        return this.getPage(`SCFRAPI/${page}`, params, true);
+    }
+
     /*
     SearchID: unreadposts,
      */
