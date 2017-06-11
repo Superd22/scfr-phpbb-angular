@@ -1,3 +1,4 @@
+import { Transition, UIRouter } from '@uirouter/angular';
 import { LoginService } from './login.service';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { Observable } from 'rxjs/Rx';
@@ -10,11 +11,17 @@ import { Http, URLSearchParams } from "@angular/http";
 
 @Injectable()
 export class StateTranslate {
-    cache = null;
-    shouldParseAgain = true;
-    onceResolved = false;
+    private cache = null;
+    private shouldParseAgain = true;
+    private onceResolved = false;
+    private router: UIRouter = null;
 
     constructor(private http: Http, private phpbbApi: PhpbbApiService, private login: LoginService) { }
+
+    public set uiRouter(router: UIRouter) {
+        this.router = router;
+        this.phpbbApi.translate = this;
+    }
 
     public legacyToSeo(trans) {
         if (!trans.params()["phpbbResolved"]) {
@@ -36,9 +43,9 @@ export class StateTranslate {
     }
 
     private transform_viewtopic(trans, topicId?: number, force?: boolean) {
-        var params = trans.params();
-        var trans_param = {};
-        var trans_page = "phpbb.seo.index";
+        let params = trans.params();
+        let trans_param = {};
+        let trans_page = "phpbb.seo.index";
 
         if (typeof topicId === "undefined") topicId = trans.params()["t"];
 
@@ -86,7 +93,6 @@ export class StateTranslate {
     }
 
     private transform_viewforum(trans, forumId?: number, force?: boolean) {
-        console.log( new Error().stack);
         var params = trans.params();
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
@@ -184,7 +190,6 @@ export class StateTranslate {
 
     private transform_ucp_pm(trans) {
         //getPage
-        console.log(this.login);
         return Observable.of(new Object()).map(() => true);
     }
 
@@ -194,17 +199,20 @@ export class StateTranslate {
 
         // Login Error will be an empty string if true and non present if false.
         if (typeof tpl["LOGIN_ERROR"] !== 'undefined') {
-            console.log(trans.to());
             return trans.router.stateService.target("phpbb.seo.login", { error: tpl["LOGIN_EXPLAIN"] });
         }
 
         return false;
     }
 
-    // Fetches template for a posting.php page
-    // As **.posting are always children state, we discard previous phpbbResolved
-    // And fetch only once.
-    private getPosting(trans, params) {
+    /**
+     * Fetches template for a posting.php page
+     * As **.posting are always children state, we discard previous phpbbResolved
+     * And fetch only once.
+     */
+    private getPosting(trans, param) {
+
+        let params = Object.assign({}, param);
 
         if (this.isOnceResolved()) {
             this.setOnceResolved(false);
@@ -251,21 +259,25 @@ export class StateTranslate {
     }
 
     private mergeRetainResolved(retain, resolved) {
-        for(var pp in retain) 
+        if (retain == false) return resolved;
+
+        for (var pp in retain)
             retain[pp] = Object.assign(retain[pp], resolved[pp]);
 
         return retain;
     }
 
     public getCurrentStateData(component: any) {
-        if (!component.transition.params()["phpbbResolved"]) {
-            //this.getCurrentStateDataView(component.transition, true).subscribe();
-        }
-        else this.unwrapTplData(component, component.transition.params()["phpbbResolved"]["@template"]);
+        if (component.transition.params()["phpbbResolved"]["@template"])
+            this.unwrapTplData(component, component.transition.params()["phpbbResolved"]["@template"]);
     }
 
-    public getCurrentStateDataView(transition, force?: boolean) {
-        console.log(transition, new Error().stack);
+    /**
+     * Main method called before every SEO state access, responsible for fetching its template data
+     * @param Transition transition the current transition
+     * @param force force the update of this state
+     */
+    public getCurrentStateDataView(transition: Transition, force?: boolean) {
 
         let stateName = transition.$to().name;
         switch (stateName) {
@@ -292,6 +304,10 @@ export class StateTranslate {
         keyArr.forEach((key) => {
             component[key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
+    }
+
+    public goToOld(url) {
+        this.router.urlService.url(url, true);
     }
 
 }

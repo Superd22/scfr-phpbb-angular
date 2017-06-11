@@ -1,14 +1,14 @@
-<md-card style="margin: 10px 0px;" [id]="post.POST_ID">
+<md-card style="margin: 10px 0px;" [id]="post.id">
   <div *ngIf="!isEditMod()">
     <md-card-title-group>
-      <md-card-title uiSref="." [uiParams]="{'#': post.POST_ID}">{{post.POST_SUBJECT}}</md-card-title>
+      <md-card-title uiSref="." [uiParams]="{'#': post.POST_ID}">{{post.subject}}</md-card-title>
       <md-card-subtitle><span [ngStyle]="{'color': post.POST_AUTHOR_COLOUR}" uiSref="phpbb.seo.viewprofile" [uiParams]="{userId:post.POSTER_ID, user_slug: post.POST_AUTHOR | seoUrl}">{{post.POST_AUTHOR}}</span></md-card-subtitle>
     </md-card-title-group>
     <md-card-content>
-      <div [innerHTML]="post.MESSAGE"></div>
+      <div class="post-inner" [innerHTML]="post.message"></div>
     </md-card-content>
     <md-card-actions>
-      <button md-button uiSref=".edit" [uiParams]="{'postId': post.POST_ID, '#': post.POST_ID}" (click)="edit = post.POST_ID">EDIT</button>
+      <button *ngIf="editable" md-button uiSref=".edit" [uiParams]="{'postId': post.id, '#': post.id}" (click)="edit = post.id">EDIT</button>
     </md-card-actions>
   </div>
   <div *ngIf="isEditMod()" ui-view="editMessage"></div>
