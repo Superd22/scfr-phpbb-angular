@@ -10,9 +10,9 @@ import { Http, URLSearchParams } from "@angular/http";
 
 @Injectable()
 export class StateTranslate {
-    cache = null;
-    shouldParseAgain = true;
-    onceResolved = false;
+    private cache = null;
+    private shouldParseAgain = true;
+    private onceResolved = false;
 
     constructor(private http: Http, private phpbbApi: PhpbbApiService, private login: LoginService) { }
 
@@ -36,9 +36,9 @@ export class StateTranslate {
     }
 
     private transform_viewtopic(trans, topicId?: number, force?: boolean) {
-        var params = trans.params();
-        var trans_param = {};
-        var trans_page = "phpbb.seo.index";
+        let params = trans.params();
+        let trans_param = {};
+        let trans_page = "phpbb.seo.index";
 
         if (typeof topicId === "undefined") topicId = trans.params()["t"];
 
@@ -204,7 +204,9 @@ export class StateTranslate {
     // Fetches template for a posting.php page
     // As **.posting are always children state, we discard previous phpbbResolved
     // And fetch only once.
-    private getPosting(trans, params) {
+    private getPosting(trans, param) {
+
+        let params = Object.assign({}, param);
 
         if (this.isOnceResolved()) {
             this.setOnceResolved(false);

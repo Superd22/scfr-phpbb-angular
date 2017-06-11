@@ -1,8 +1,8 @@
 <div class="container">
     <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
     <h3 class="topic-title"><a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: TOPIC_ID}">{{TOPIC_TITLE}}</a></h3>
-
-    <button md-raised-button uiSref=".posting">Répondre</button>
+<a uiSref=".posting">Répondre</a>
+    <button md-raised-button ></button>
     <app-viewmessage *ngFor="let post of postrow" [post]="post" [(edit)]="editedMessage"></app-viewmessage>
 
     <button md-mini-fab *ngIf="CURRENT_PAGE < TOTAL_PAGES" (click)="loadNextPost()"><md-icon>add</md-icon></button>
