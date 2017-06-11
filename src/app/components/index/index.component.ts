@@ -32,14 +32,14 @@ export class IndexComponent implements OnInit {
 
     public getUnreadTopicList(){
         this.phpbb.getUnreadTopicList().subscribe(
-            data => this.unreadTopicList = data.slice(0,5),
+            data => this.unreadTopicList = data ? data.slice(0,5) : null,
             err => console.log(err)
         );
     }
 
     public getPrivateMessageList(){
         this.phpbb.getPrivateMessageList().subscribe(
-            data => this.privateMessages = data.slice(0,5),
+            data => this.privateMessages = data ? data.slice(0,5) : null,
             err => console.log(err)
         );
     }

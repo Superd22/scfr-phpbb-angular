@@ -1,6 +1,6 @@
 import { PhpbbComponent } from './../../phpbb/phpbb-component.component';
 import { StateTranslate } from './../../../services/state-translate.service';
-import { Transition } from 'ui-router-ng2';
+import { Transition } from '@uirouter/angular';
 import { PhpbbApiService } from './../../../services/phpbb-api.service';
 import { Component, OnInit } from '@angular/core';
 

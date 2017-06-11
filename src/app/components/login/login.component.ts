@@ -1,7 +1,7 @@
-import { UIRouter, StateService, Transition } from 'ui-router-ng2';
+import { UIRouter, StateService, Transition } from '@uirouter/angular';
 import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material/snack-bar';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 @Component({
   selector: 'app-login',

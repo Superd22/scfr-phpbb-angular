@@ -12,8 +12,12 @@
   <md-card-content>
     Anonymous
   </md-card-content>
-  <md-input placeholder="Login" maxlength="15" [(ngModel)]="username"></md-input>
-  <md-input placeholder="password" maxlength="30" type="password" [(ngModel)]="password"></md-input>
+  <md-input-container>
+    <input mdInput placeholder="Login" maxlength="15" [(ngModel)]="username">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput placeholder="password" maxlength="30" type="password" [(ngModel)]="password">
+  </md-input-container>
   <md-card-actions>
     <md-checkbox [(ngModel)]="rememberMe">Remember Me</md-checkbox>
     <button md-button (click)="loginUser(username, password, rememberMe)">Login</button>

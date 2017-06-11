@@ -1,7 +1,7 @@
 import { PhpbbComponent } from './../phpbb/phpbb-component.component';
 import { StateTranslate } from './../../services/state-translate.service';
 import { UnicodeToUtf8Pipe } from './../../pipes/unicode-to-utf8.pipe';
-import { Transition } from 'ui-router-ng2';
+import { Transition } from '@uirouter/angular';
 import { PhpbbApiService } from './../../services/phpbb-api.service';
 import { PhpbbService } from './../../services/phpbb.service';
 import { Component, OnInit } from '@angular/core';

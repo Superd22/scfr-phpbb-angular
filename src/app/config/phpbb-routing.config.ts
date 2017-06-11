@@ -1,41 +1,35 @@
 import { StateTranslate } from '../services/state-translate.service';
 import { STATES } from '../states/_.states';
 
-import { UIRouter } from "ui-router-ng2";
-import { Inject, Injectable } from '@angular/core';
+import { UIRouter, StatesModule } from "@uirouter/angular";
+import { Inject, Injectable, Injector } from '@angular/core';
 import * as vis from 'ui-router-visualizer';
 
-@Injectable()
-export class PhpbbRoutingConfig {
-    constructor(private stateTranslate: StateTranslate, private router: UIRouter) {
-        // Register legacy Hook
-        this.legacyHook();
+export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module: StatesModule) {
+    let stateTranslate: StateTranslate = injector.get(StateTranslate);
 
-
-        this.seoHook();
-
-        router.urlRouterProvider.otherwise('/');
-
-        // Dev StateTree Debug    
-         vis.visualizer(router);
-    }
-
-    private legacyHook() {
-        this.router.transitionService.onBefore({ to: "phpbb.legacy" }, (trans) => 
-             this.stateTranslate.legacyToSeo(trans).toPromise().then(
-                state => {console.log(state);
+    let legacyHook = () => {
+        router.transitionService.onBefore({ to: "phpbb.legacy" }, (trans) =>
+            stateTranslate.legacyToSeo(trans).toPromise().then(
+                state => {
+                    console.log(state);
                     return state;
                 },
             )
         );
     }
 
-    private seoHook() {
-        this.router.transitionService.onBefore({ to: "phpbb.seo.**" }, (trans) => 
-            this.stateTranslate.getCurrentStateDataView(trans).toPromise().then(
+    let seoHook = () => {
+        router.transitionService.onBefore({ to: "phpbb.seo.**" }, (trans) =>
+            stateTranslate.getCurrentStateDataView(trans).toPromise().then(
                 state => state,
             )
         );
     }
+
+    // Register legacy Hook
+    legacyHook();
+
+    seoHook();
 
 }

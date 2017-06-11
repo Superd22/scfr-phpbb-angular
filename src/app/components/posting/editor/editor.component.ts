@@ -1,5 +1,5 @@
 import { PostingComponent } from './../posting.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'post-editor',
@@ -8,15 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorComponent implements OnInit {
 
-  // Subject of the post
-  _subject: string = "";
-  // Content of the post
-  _message: string = "";
+  @Input('subject')
+  private _subject: string = "";
+  @Input('message')
+  private _message: string = "";
 
   constructor() { }
 
-  @Input('subject') 
-  @Input('message')
 
   ngOnInit() {
   }
