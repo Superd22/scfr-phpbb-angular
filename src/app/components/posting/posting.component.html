@@ -1,4 +1,3 @@
-PROUT
 <md-card>
   <md-card-subtitle>{{L_INFORMATION}}</md-card-subtitle>
   <md-card-title>
@@ -6,10 +5,17 @@ PROUT
       <input mdInput placeholder="Sujet" style="width: 100%" [(ngModel)]='post.subject'>
     </md-input-container>
   </md-card-title>
-  <md-card-content>
-    <md-input-container>
-      <textarea mdInput placeholder="Message" style="width: 100%; height: 300px;" [(ngModel)]='post.message'></textarea>
+  <md-card-content fxLayout="column" fxLayoutWrap>
+
+    <div *ngIf="preview">
+      <app-viewmessage [editable]="false" [post]="preview"></app-viewmessage>
+    </div>
+
+
+    <md-input-container fxFlex="100">
+      <textarea  mdInput placeholder="Message" style="width: 100%; height: 300px;" [(ngModel)]='post.message'></textarea>
     </md-input-container>
+
   </md-card-content>
   <md-card-actions>
     <button md-button color="primary" (click)="sendPost()">Envoyer</button>

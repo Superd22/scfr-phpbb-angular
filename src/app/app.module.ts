@@ -37,6 +37,7 @@ import { ViewforumComponent } from './components/viewforum/viewforum.component';
 import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
 import { PostingComponent } from './components/posting/posting.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     declarations: [
@@ -70,6 +71,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         BrowserAnimationsModule,
         MaterialModule,
         SCFRMaterialModule,
+        FlexLayoutModule,
     ],
     providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService],
     bootstrap: [AppComponent],

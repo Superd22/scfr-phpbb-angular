@@ -1,3 +1,4 @@
+import { SimplePost } from './../../interfaces/simple-post';
 import { PostingQueryArg } from './../../interfaces/posting-query-arg';
 import { StateTranslate } from './../../services/state-translate.service';
 import { Transition } from '@uirouter/angular';
@@ -17,15 +18,18 @@ export class PostingComponent extends PhpbbComponent {
   MESSAGE: string;
   /** raw subject from the template  */
   SUBJECT: string;
-  S_FORM_TOKEN:string;
+  S_FORM_TOKEN: string;
 
   /** if we're currently fetching data */
   public busy: boolean;
 
   public post: {
     message: string,
-    subject: string
+    subject: string,
   } = { message: "", subject: "" };
+
+  public preview: SimplePost;
+
   constructor(phpbbApi: PhpbbApiService, transition: Transition, translate: StateTranslate) {
     super(phpbbApi, transition, translate);
   }
@@ -39,9 +43,6 @@ export class PostingComponent extends PhpbbComponent {
    * Assigns / creates our post object from the template var we got
    */
   private initAssign() {
-    console.log(this.transition.params());
-    console.log("COUCOUCOU");
-    console.log(this);
     if (this.MESSAGE) this.post.message = this.MESSAGE;
     if (this.SUBJECT) this.post.subject = this.SUBJECT;
   }
@@ -62,25 +63,34 @@ export class PostingComponent extends PhpbbComponent {
       opts.mode = "reply";
     }
 
-    if(this.transition.params().postId) {
+    if (this.transition.params().postId) {
       opts.p = this.transition.params().postId;
       opts.mode = "edit";
     }
 
-    let form = Object.assign(this.genHiddenForms(),{
+    let form = Object.assign(this.genHiddenForms(), {
       subject: this.post.subject,
       message: this.post.message,
       preview: true,
       addbbcode20: 100,
       attach_sig: "on",
       edit_reason: "",
-      
+
     });
 
 
 
     this.phpbbApi.postPage("posting.php", form, opts).subscribe(
-      (data) => console.log(data)
+      (data) => {
+        let tpl = data["@template"];
+        if (tpl.PREVIEW_MESSAGE)
+          this.preview = {
+            message: tpl.PREVIEW_MESSAGE,
+            subject: tpl.PREVIEW_SUBJECT,
+            id: 0,
+          }
+        else this.preview = null;
+      }
     );
   }
 
@@ -88,20 +98,20 @@ export class PostingComponent extends PhpbbComponent {
   /**
    * Helper method to build hidden form data phpbb expects.
    */
-  private genHiddenForms():any {
+  private genHiddenForms(): any {
     /** this expects *ALL* the forms to have value directly following name. */
     let regex = /name=["']([^'"]*)["'] value=["']([^'"]*)["']/gmi;
     let matchs = regex.exec(this.S_FORM_TOKEN)
 
-    let hiddens:any = {};
+    let hiddens: any = {};
 
-    while(matchs != null) {
+    while (matchs != null) {
       hiddens[matchs[1]] = matchs[2];
       matchs = regex.exec(this.S_FORM_TOKEN);
     }
 
     let matchs2 = regex.exec(this.S_HIDDEN_FIELDS);
-    while(matchs2 != null) {
+    while (matchs2 != null) {
       hiddens[matchs2[1]] = matchs2[2];
       matchs2 = regex.exec(this.S_HIDDEN_FIELDS);
     }
