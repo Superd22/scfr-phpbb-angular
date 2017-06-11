@@ -7,7 +7,7 @@ import { OnInit } from '@angular/core';
 
 export class PhpbbComponent implements OnInit {
 
-  constructor(private phpbbApi: PhpbbApiService, private transition: Transition, public translate:StateTranslate) {}
+  constructor(protected phpbbApi: PhpbbApiService, protected transition: Transition, protected translate:StateTranslate) {}
 
   ngOnInit() {
     this.translate.getCurrentStateData(this);

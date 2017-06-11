@@ -1,10 +1,10 @@
 export interface PhpbbPostMessage {
-    POST_ID:Number;
-    BUMPED_MESSAGE:String;
-    DELETED_MESSAGE:String;
-    DELETE_REASON:String;
-    EDITED_MESSAGE:String;
-    MESSAGE:String;
+    POST_ID:number;
+    BUMPED_MESSAGE:string;
+    DELETED_MESSAGE:string;
+    DELETE_REASON:string;
+    EDITED_MESSAGE:string;
+    MESSAGE:string;
     EDIT_REASON;
     L_IGNORE_POST;
     L_POST_DELETED_MESSAGE;
@@ -15,48 +15,48 @@ export interface PhpbbPostMessage {
     POSTER_AGE;
     /**
      * The avatar of the user in a <img> tag
-     * @property {String} POSTER_AVATAR
+     * @property {string} POSTER_AVATAR
      */
-    POSTER_AVATAR:String;
+    POSTER_AVATAR:string;
     /**
      * The forum ID of the posting user
-     * @property {String} POSTER_ID
+     * @property {string} POSTER_ID
     */
-    POSTER_ID:Number;
+    POSTER_ID:number;
     /**
-     * String date of when the user joined.
-     * @property {String} POSTER_JOINED
+     * string date of when the user joined.
+     * @property {string} POSTER_JOINED
     */
-    POSTER_JOINED:String;
+    POSTER_JOINED:string;
 
     /**
-     * Numbers of post by the user.
-     * @property {Number} POSTER_JOINED
+     * numbers of post by the user.
+     * @property {number} POSTER_JOINED
     */
-    POSTER_POSTS:Number;
+    POSTER_POSTS:number;
     /**
-     * Numbers of post by the user.
-     * @property {Number} POSTER_JOINED
+     * numbers of post by the user.
+     * @property {number} POSTER_JOINED
     */
-    POSTER_WARNINGS:String;
+    POSTER_WARNINGS:string;
     /**
      * Full username of the user.
-     * @property {Number} POST_AUTHOR
+     * @property {number} POST_AUTHOR
     */
-    POST_AUTHOR:String;
+    POST_AUTHOR:string;
 
     /**
      * The hexadecimal (with #) color of the user.
-     * @property {Number} POSTER_JOINED
+     * @property {number} POSTER_JOINED
     */
-    POST_AUTHOR_COLOUR:String;
+    POST_AUTHOR_COLOUR:string;
     POST_AUTHOR_FULL;
     POST_DATE;
     POST_ICON_IMG;
     POST_ICON_IMG_ALT;
     POST_ICON_IMG_HEIGHT;
     POST_ICON_IMG_WIDTH;
-    POST_NUMBER;
+    POST_number;
     POST_SUBJECT;
     RANK_IMG;
     RANK_IMG_SRC;

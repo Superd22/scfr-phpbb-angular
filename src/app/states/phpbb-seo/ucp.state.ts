@@ -26,8 +26,12 @@ export const psoPMConvo = {
         {
             token: 'convo_id',
             deps: [Transition],
-            resolveFn: (trans) => trans.params().pm_id
+            resolveFn: psoPMConvoResolve
         }
     ],
     component: ViewconvoComponent,
 };
+
+export function psoPMConvoResolve(trans: Transition) {
+    return trans.params().pm_id
+}

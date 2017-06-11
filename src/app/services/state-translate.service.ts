@@ -1,3 +1,4 @@
+import { Transition } from '@uirouter/angular';
 import { LoginService } from './login.service';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { Observable } from 'rxjs/Rx';
@@ -86,7 +87,7 @@ export class StateTranslate {
     }
 
     private transform_viewforum(trans, forumId?: number, force?: boolean) {
-        console.log( new Error().stack);
+        console.log(new Error().stack);
         var params = trans.params();
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
@@ -201,9 +202,11 @@ export class StateTranslate {
         return false;
     }
 
-    // Fetches template for a posting.php page
-    // As **.posting are always children state, we discard previous phpbbResolved
-    // And fetch only once.
+    /**
+     * Fetches template for a posting.php page
+     * As **.posting are always children state, we discard previous phpbbResolved
+     * And fetch only once.
+     */
     private getPosting(trans, param) {
 
         let params = Object.assign({}, param);
@@ -242,6 +245,7 @@ export class StateTranslate {
                     if (this.checkAuthLogin(trans, template)) return this.checkAuthLogin(trans, template);
 
                     // Retain old state resolved data
+                    console.log("PRE", params.phpbbResolved, data);
                     params.phpbbResolved = this.mergeRetainResolved(params.phpbbResolved, data);
                     this.setOnceResolved(true);
 
@@ -253,20 +257,25 @@ export class StateTranslate {
     }
 
     private mergeRetainResolved(retain, resolved) {
-        for(var pp in retain) 
+        if(retain == false) return resolved;
+        
+        for (var pp in retain)
             retain[pp] = Object.assign(retain[pp], resolved[pp]);
 
         return retain;
     }
 
     public getCurrentStateData(component: any) {
-        if (!component.transition.params()["phpbbResolved"]) {
-            //this.getCurrentStateDataView(component.transition, true).subscribe();
-        }
-        else this.unwrapTplData(component, component.transition.params()["phpbbResolved"]["@template"]);
+        if (component.transition.params()["phpbbResolved"]["@template"])
+            this.unwrapTplData(component, component.transition.params()["phpbbResolved"]["@template"]);
     }
 
-    public getCurrentStateDataView(transition, force?: boolean) {
+    /**
+     * Main method called before every SEO state access, responsible for fetching its template data
+     * @param Transition transition the current transition
+     * @param force force the update of this state
+     */
+    public getCurrentStateDataView(transition: Transition, force?: boolean) {
         console.log(transition, new Error().stack);
 
         let stateName = transition.$to().name;

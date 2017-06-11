@@ -12,8 +12,8 @@ PROUT
     </md-input-container>
   </md-card-content>
   <md-card-actions>
-    <button md-button color="primary">Envoyer</button>
-    <button md-button>Previsualiser</button>
+    <button md-button color="primary" (click)="sendPost()">Envoyer</button>
+    <button md-button (click)="previewPost()">Previsualiser</button>
     <button md-button color="warn" uiSref='^'>Annuler</button>
   </md-card-actions>
 </md-card>
