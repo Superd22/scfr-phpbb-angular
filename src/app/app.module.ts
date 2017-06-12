@@ -38,6 +38,7 @@ import { ViewtopicComponent } from './components/viewtopic/viewtopic.component';
 import { PostingComponent } from './components/posting/posting.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BottomLoggedInComponent } from './components/login/bottom-logged-in/bottom-logged-in.component';
 
 @NgModule({
     declarations: [
@@ -58,7 +59,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         ViewmessageComponent,
         UcpComponent,
         PmComponent,
-        ViewconvoComponent
+        ViewconvoComponent,
+        BottomLoggedInComponent
     ],
     imports: [
         UIRouterModule.forRoot({

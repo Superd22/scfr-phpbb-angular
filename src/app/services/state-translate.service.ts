@@ -1,7 +1,7 @@
 import { Transition, UIRouter } from '@uirouter/angular';
 import { LoginService } from './login.service';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
-import { Observable } from 'rxjs/Rx';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { PhpbbApiService } from './phpbb-api.service';
 import { PhpbbTemplateResponse } from '../models/phpbb-template-response';
 import { SeoUrlPipe } from '../pipes/seo-url.pipe';
@@ -15,6 +15,8 @@ export class StateTranslate {
     private shouldParseAgain = true;
     private onceResolved = false;
     private router: UIRouter = null;
+    private _latestTemplateData: BehaviorSubject<any> = new BehaviorSubject(null);
+    public get latestTemplateData():BehaviorSubject<any> { return this._latestTemplateData; }
 
     constructor(private http: Http, private phpbbApi: PhpbbApiService, private login: LoginService) { }
 
@@ -268,8 +270,11 @@ export class StateTranslate {
     }
 
     public getCurrentStateData(component: any) {
-        if (component.transition.params()["phpbbResolved"]["@template"])
-            this.unwrapTplData(component, component.transition.params()["phpbbResolved"]["@template"]);
+        let tpl = component.transition.params()["phpbbResolved"]["@template"];
+        if (tpl) {
+            this._latestTemplateData.next(tpl)
+            this.unwrapTplData(component, tpl);
+        }
     }
 
     /**

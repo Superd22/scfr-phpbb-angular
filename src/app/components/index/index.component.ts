@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
 import { PhpbbService } from '../../services/phpbb.service';
 import { LoginService } from '../../services/login.service';
@@ -15,10 +16,10 @@ export class IndexComponent implements OnInit {
     constructor(public phpbb: PhpbbService, public LoginService: LoginService) { }
 
     ngOnInit() {
-        this.isLoggedIn = this.LoginService.userStatus.subscribe(
+        this.LoginService.userStatus.subscribe(
             (isLoggedIn) => {
                 this.isLoggedIn = isLoggedIn;
-                if(isLoggedIn){
+                if (isLoggedIn) {
                     this.getUnreadTopicList();
                     this.getPrivateMessageList();
                 }
@@ -27,19 +28,18 @@ export class IndexComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.isLoggedIn.unsubscribe();
     }
 
-    public getUnreadTopicList(){
+    public getUnreadTopicList() {
         this.phpbb.getUnreadTopicList().subscribe(
-            data => this.unreadTopicList = data ? data.slice(0,5) : null,
+            data => this.unreadTopicList = data ? data.slice(0, 5) : null,
             err => console.log(err)
         );
     }
 
-    public getPrivateMessageList(){
+    public getPrivateMessageList() {
         this.phpbb.getPrivateMessageList().subscribe(
-            data => this.privateMessages = data ? data.slice(0,5) : null,
+            data => this.privateMessages = data ? data.slice(0, 5) : null,
             err => console.log(err)
         );
     }

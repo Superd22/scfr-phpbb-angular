@@ -1,13 +1,5 @@
-<md-card *ngIf="LoginService.loggedIn">
-  <md-card-header>
-    <img md-card-avatar [src]="LoginService.avatar">
-    <md-card-title>{{LoginService.username}}</md-card-title>
-    <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
-  </md-card-header>
-  <md-card-actions>
-    <button md-button (click)="logoutUser()">Logout</button>
-  </md-card-actions>
-</md-card>
+<app-bottom-logged-in></app-bottom-logged-in>
+
 <md-card *ngIf="!LoginService.loggedIn">
   <md-card-content>
     Anonymous
