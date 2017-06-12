@@ -1,3 +1,4 @@
+import { UcpSwitchMainComponent } from './../../ucp-switch-main/ucp-switch-main.component';
 import { StateService } from '@uirouter/angular';
 import { UcpComponent } from './../../ucp.component';
 import { Component, OnInit, Input } from '@angular/core';
@@ -7,18 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './ucp-main-switch.component.html',
   styleUrls: ['./ucp-main-switch.component.scss']
 })
-export class UcpMainSwitchComponent implements OnInit {
+export class UcpMainSwitchComponent extends UcpSwitchMainComponent {
 
-  @Input()
-  public ucp: UcpComponent;
-
-  public mode: string = "front";
-
-  constructor(public state: StateService) { }
+  constructor(public state: StateService) {
+    super(state);
+   }
 
   ngOnInit() {
-    if(this.state.params["mode"]) this.mode = this.state.params["mode"];
-    else this.mode = "front";
+    this.handleMode("front");
   }
 
 }

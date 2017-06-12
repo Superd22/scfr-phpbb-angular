@@ -1,3 +1,7 @@
-<p>
-  ucp-profil-switch works!
-</p>
+<div [ngSwitch]="mode">
+  <scfr-forum-ucp-profil-info [ucp]="ucp" *ngSwitchCase="'profile_info'"></scfr-forum-ucp-profil-info>
+  <scfr-forum-ucp-profil-avatar [ucp]="ucp" *ngSwitchCase="'avatar'"></scfr-forum-ucp-profil-avatar>
+  <scfr-forum-ucp-profil-reg-details [ucp]="ucp" *ngSwitchCase="'reg_details'"></scfr-forum-ucp-profil-reg-details>
+  <scfr-forum-ucp-profil-autologin-keys [ucp]="ucp" *ngSwitchCase="'autologin_keys'"></scfr-forum-ucp-profil-autologin-keys>
+  <scfr-forum-ucp-profil-signature [ucp]="ucp" *ngSwitchCase="'signature'"></scfr-forum-ucp-profil-signature>
+</div>

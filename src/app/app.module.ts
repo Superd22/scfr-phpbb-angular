@@ -45,6 +45,15 @@ import { SideNavComponent } from './components/ucp/side-nav/side-nav.component';
 import { UcpMainFrontComponent } from './components/ucp/main/ucp-main-front/ucp-main-front.component';
 import { UcpMainSwitchComponent } from './components/ucp/main/ucp-main-switch/ucp-main-switch.component';
 import { UcpProfilSwitchComponent } from './components/ucp/profil/ucp-profil-switch/ucp-profil-switch.component';
+import { UcpMainSubscribedComponent } from './components/ucp/main/ucp-main-subscribed/ucp-main-subscribed.component';
+import { UcpMainBookmarksComponent } from './components/ucp/main/ucp-main-bookmarks/ucp-main-bookmarks.component';
+import { UcpMainDraftsComponent } from './components/ucp/main/ucp-main-drafts/ucp-main-drafts.component';
+import { UcpProfilInfoComponent } from './components/ucp/profil/ucp-profil-info/ucp-profil-info.component';
+import { UcpProfilSignatureComponent } from './components/ucp/profil/ucp-profil-signature/ucp-profil-signature.component';
+import { UcpProfilRegDetailsComponent } from './components/ucp/profil/ucp-profil-reg-details/ucp-profil-reg-details.component';
+import { UcpProfilAvatarComponent } from './components/ucp/profil/ucp-profil-avatar/ucp-profil-avatar.component';
+import { UcpProfilAutologinKeysComponent } from './components/ucp/profil/ucp-profil-autologin-keys/ucp-profil-autologin-keys.component';
+import { UcpSwitchMainComponent } from './components/ucp/ucp-switch-main/ucp-switch-main.component';
 
 @NgModule({
     declarations: [
@@ -72,7 +81,16 @@ import { UcpProfilSwitchComponent } from './components/ucp/profil/ucp-profil-swi
         SideNavComponent,
         UcpMainFrontComponent,
         UcpMainSwitchComponent,
-        UcpProfilSwitchComponent
+        UcpProfilSwitchComponent,
+        UcpMainSubscribedComponent,
+        UcpMainBookmarksComponent,
+        UcpMainDraftsComponent,
+        UcpProfilInfoComponent,
+        UcpProfilSignatureComponent,
+        UcpProfilRegDetailsComponent,
+        UcpProfilAvatarComponent,
+        UcpProfilAutologinKeysComponent,
+        UcpSwitchMainComponent
     ],
     imports: [
         UIRouterModule.forRoot({

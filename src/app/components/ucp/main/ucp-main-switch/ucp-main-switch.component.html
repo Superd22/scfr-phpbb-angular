@@ -1,3 +1,6 @@
 <div [ngSwitch]="mode">
   <scfr-forum-ucp-main-front [ucp]="ucp" *ngSwitchCase="'front'"></scfr-forum-ucp-main-front>
+  <scfr-forum-ucp-main-subscribed [ucp]="ucp" *ngSwitchCase="'subscribed'"></scfr-forum-ucp-main-subscribed>
+  <scfr-forum-ucp-main-bookmarks [ucp]="ucp" *ngSwitchCase="'bookmarks'"></scfr-forum-ucp-main-bookmarks>
+  <scfr-forum-ucp-main-drafts [ucp]="ucp" *ngSwitchCase="'drafts'"></scfr-forum-ucp-main-drafts>
 </div>
