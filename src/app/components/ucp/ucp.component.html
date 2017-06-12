@@ -1,3 +1,9 @@
-<p>
-  ucp works!
-</p>
+<nav md-tab-nav-bar>
+  <a md-tab-link *ngFor="let link of navLinks" [active]="tabIsActive(link.id)" uiSref="phpbb.seo.ucp" [uiParams]="{page: link.id, subPage:'', phpbbResolved:false}">
+    {{link.name}}
+  </a>
+</nav>
+
+<div [ngSwitch]="currentPage">
+  
+</div>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MdButtonModule, MdSelectModule, MdSidenavModule, MdIconModule, MdProgressBarModule, MdInputModule, MdTooltipModule, MdMenuModule } from '@angular/material';
 import { MdProgressSpinnerModule, MdSnackBarModule, MdToolbarModule, MdAutocompleteModule, MdCheckboxModule } from '@angular/material';
-import { MdCardModule, MdDialogModule } from '@angular/material';
+import { MdCardModule, MdDialogModule, MdTabsModule } from '@angular/material';
 
 let modules = [
     MdButtonModule,
@@ -20,6 +20,7 @@ let modules = [
     MdCheckboxModule,
     MdCardModule,
     MdDialogModule,
+    MdTabsModule
 ];
 
 @NgModule({
