@@ -8,7 +8,7 @@
       <div class="post-inner" [innerHTML]="post.message"></div>
     </md-card-content>
     <md-card-actions>
-      <button *ngIf="editable" md-button uiSref=".edit" [uiParams]="{'postId': post.id, '#': post.id}" (click)="edit = post.id">EDIT</button>
+      <scfr-forum-message-action-bar *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>
     </md-card-actions>
   </div>
   <div *ngIf="isEditMod()" ui-view="editMessage"></div>

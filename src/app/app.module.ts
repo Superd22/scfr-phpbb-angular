@@ -39,6 +39,8 @@ import { PostingComponent } from './components/posting/posting.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BottomLoggedInComponent } from './components/login/bottom-logged-in/bottom-logged-in.component';
+import { MessageActionBarComponent } from './components/viewmessage/message-action-bar/message-action-bar.component';
+import { DialogDeleteComponent } from './components/viewmessage/message-action-bar/dialog-delete/dialog-delete.component';
 
 @NgModule({
     declarations: [
@@ -60,7 +62,9 @@ import { BottomLoggedInComponent } from './components/login/bottom-logged-in/bot
         UcpComponent,
         PmComponent,
         ViewconvoComponent,
-        BottomLoggedInComponent
+        BottomLoggedInComponent,
+        MessageActionBarComponent,
+        DialogDeleteComponent
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -74,6 +78,9 @@ import { BottomLoggedInComponent } from './components/login/bottom-logged-in/bot
         MaterialModule,
         SCFRMaterialModule,
         FlexLayoutModule,
+    ],
+    entryComponents: [
+        DialogDeleteComponent
     ],
     providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService],
     bootstrap: [AppComponent],

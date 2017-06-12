@@ -119,7 +119,7 @@ export class PostingComponent extends PhpbbComponent {
    * @param mode "preview" for generating a preview | "post" for posting the message
    */
   private forPHPBBPostingFORM(mode: "preview" | "post") {
-    let form = Object.assign(this.genHiddenForms(), {
+    let form = Object.assign(this.phpbbApi.genHiddenForms(this), {
       subject: this.post.subject,
       message: this.post.message,
       addbbcode20: 100,
@@ -131,30 +131,6 @@ export class PostingComponent extends PhpbbComponent {
     if (mode == "post") form.post = true;
 
     return form;
-  }
-
-  /**
-   * Helper method to build hidden form data phpbb expects.
-   */
-  private genHiddenForms(): any {
-    /** this expects *ALL* the forms to have value directly following name. */
-    let regex = /name=["']([^'"]*)["'] value=["']([^'"]*)["']/gmi;
-    let matchs = regex.exec(this.S_FORM_TOKEN)
-
-    let hiddens: any = {};
-
-    while (matchs != null) {
-      hiddens[matchs[1]] = matchs[2];
-      matchs = regex.exec(this.S_FORM_TOKEN);
-    }
-
-    let matchs2 = regex.exec(this.S_HIDDEN_FIELDS);
-    while (matchs2 != null) {
-      hiddens[matchs2[1]] = matchs2[2];
-      matchs2 = regex.exec(this.S_HIDDEN_FIELDS);
-    }
-
-    return hiddens;
   }
 
 

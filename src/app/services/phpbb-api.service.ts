@@ -21,7 +21,7 @@ export class PhpbbApiService {
     }
     constructor(private http: Http) { }
 
-    public buildParameters(arrayOfParam?: {}, raw?: boolean): string {
+    public buildParameters(arrayOfParam?: {}, raw?: boolean, noSID?: boolean): string {
         let urlParam = new URLSearchParams();
         for (let paramKey in arrayOfParam) {
             if (arrayOfParam.hasOwnProperty(paramKey)) {
@@ -29,7 +29,7 @@ export class PhpbbApiService {
             }
         }
         if (typeof raw == "undefined" || raw === false) urlParam.append('scfr_json_callback', 'true');
-        if (this.sid) urlParam.append('sid', this.sid);
+        if (this.sid && !noSID) urlParam.append('sid', this.sid);
         return urlParam.toString();
     }
 
@@ -50,7 +50,7 @@ export class PhpbbApiService {
          */
         //let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
 
-        let options = new RequestOptions({ method: "post", withCredentials: true, params: this.buildParameters(params) });
+        let options = new RequestOptions({ method: "post", withCredentials: true, params: this.buildParameters(params, raw) });
         let body = new FormData();
 
         Object.keys(query).forEach(key => {
@@ -60,7 +60,10 @@ export class PhpbbApiService {
         return this.http.post(`${baseUrl}${page}`, body, options)
             .map((res: Response) => {
                 try {
-                    return res.json();
+                    let ret = res.json();
+                    this.handleSID(ret);
+
+                    return ret;
                 } catch (error) {
                     // We don't have a JSON thingy, most likely we got redirected by PHPBB.
                     // We're gonna redirect ourselves there.
@@ -82,9 +85,14 @@ export class PhpbbApiService {
      * @param queries the GET data
      * @param raw if we want raw HTML return instead of JSON return.
      */
-    public getPage(page, queries?: {}, raw?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.http.get(`${baseUrl}${page}`, { search: this.buildParameters(queries, raw), withCredentials: true })
-            .map((res: Response) => res.json())
+    public getPage(page, queries?: {}, raw?: boolean, noSID?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.http.get(`${baseUrl}${page}`, { search: this.buildParameters(queries, raw, noSID), withCredentials: true })
+            .map((res: Response) => {
+                let ret = res.json();
+                this.handleSID(ret);
+
+                return ret;
+            })
             .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
     }
 
@@ -150,5 +158,49 @@ export class PhpbbApiService {
 
     public getAuthentication(): Observable<PhpbbTemplateResponse.DefaultResponse> {
         return this.getPage('');
+    }
+
+
+    /**
+     * For security reason, PHPBB will sometime return hidden fields to be added to a POST/GET
+     * REQUEST for authenticity.
+     * This function will parse a template, look for such hidden fields, and return an object containg them
+     * @param tpl the template data to look in
+     * @return object whose property are the hidden fields
+     */
+    public genHiddenForms(tpl): any {
+        if (!tpl.S_FORM_TOKEN && !tpl.S_HIDDEN_FIELDS) return {};
+
+        /** this expects *ALL* the forms to have value directly following name. */
+        let regex = /name=["']([^'"]*)["'] value=["']([^'"]*)["']/gmi;
+        let matchs = regex.exec(tpl.S_FORM_TOKEN)
+
+        let hiddens: any = {};
+
+        while (matchs != null) {
+            hiddens[matchs[1]] = matchs[2];
+            matchs = regex.exec(tpl.S_FORM_TOKEN);
+        }
+
+        let matchs2 = regex.exec(tpl.S_HIDDEN_FIELDS);
+        while (matchs2 != null) {
+            hiddens[matchs2[1]] = matchs2[2];
+            matchs2 = regex.exec(tpl.S_HIDDEN_FIELDS);
+        }
+
+        return hiddens;
+    }
+
+    private handleSID(tpl) {
+        if (tpl && tpl['@template'] && tpl['@template']['SESSION_ID'] != this.sid) this.registerSid(tpl['@template']['SESSION_ID']);
+    }
+
+    /**
+     * Convenience function to open a snackbar 
+     * @param message the message to display
+     * @param trustAsHtml trust the message as a safe html 
+     */
+    public openSnackBar(message: string, trustAsHtml?: boolean) {
+
     }
 }
