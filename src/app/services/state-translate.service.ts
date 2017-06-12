@@ -331,26 +331,34 @@ export class StateTranslate {
             indesirables: "foes"
         };
 
-        console.log("transform mwa", transition.$to().name);
+        function get_pretty_state(i) {
+            for(let p in pretty_states) {
+                if(pretty_states[p].indexOf(i) > -1) {
+                    return p;
+                }
+            }
+
+            return null;
+        }
+
+        function get_pretty_sub_state(mode) {
+            for(let pp in pretty_sub_states) {
+                if(pretty_sub_states[pp] == mode) {
+                    return pp;
+                }
+            }
+
+            return null;
+        }
+
+
 
         if (transition.$to().name.indexOf("legacy") > -1) {
             // We're in LEGACY
 
             // We pretty-ize both our params.
-            for(let p in pretty_states) {
-                console.log(params.i, pretty_states[p]), pretty_states[p].indexOf(params.i);
-                if(pretty_states[p].indexOf(params.i) > -1) {
-                    newParam.page = p;
-                    break;
-                }
-            }
-
-            for(let pp in pretty_sub_states) {
-                if(pretty_sub_states[pp] == params.mode) {
-                    newParam.subPage = pp;
-                    break;
-                }
-            }
+            newParam.page = get_pretty_state(params.i);
+            newParam.subPage = get_pretty_sub_state(params.mode);
 
             if(!newParam.page) newParam.page = "general";
             if(!newParam.subPage) newParam.subPage = "";
@@ -362,9 +370,19 @@ export class StateTranslate {
         else if (!params.phpbbResolved) {
             // We're in SEO mod
 
+            console.log(params);
+
+
+            // Validate i & m first
+            if(params.i) newParam.page = get_pretty_state(params.i);
+            if(params.mode) newParam.subPage = get_pretty_sub_state(params.mode);
+
+            console.log(newParam);
+
             // We un-pretty-ize our params if need be
             if(params.page && !params.i) newParam.i = pretty_states[params.page][0];
             if(params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
+
 
             // Fetch the actual data
             return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode }).map(
@@ -406,7 +424,7 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
     }
 
-    private unwrapTplData(component, tpl) {
+    public unwrapTplData(component, tpl) {
         let keyArr = Object.keys(tpl);
 
         keyArr.forEach((key) => {

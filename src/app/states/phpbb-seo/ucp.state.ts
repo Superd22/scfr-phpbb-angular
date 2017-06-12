@@ -6,6 +6,10 @@ import { UcpComponent } from './../../components/ucp/ucp.component';
 export const psoUcp = {
     name: 'phpbb.seo.ucp',
     url: '/ucp/{page:[^/]*}/{subPage:[^/]*}',
+    params: {
+        mode:null,
+        i:null,
+    },
     component: UcpComponent,
 };
 

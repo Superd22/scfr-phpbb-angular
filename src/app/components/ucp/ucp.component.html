@@ -1,9 +1,21 @@
 <nav md-tab-nav-bar>
-  <a md-tab-link *ngFor="let link of navLinks" [active]="tabIsActive(link.id)" uiSref="phpbb.seo.ucp" [uiParams]="{page: link.id, subPage:'', phpbbResolved:false}">
+  <a md-tab-link *ngFor="let link of navLinks" [active]="tabIsActive(link.id)" uiSref="phpbb.seo.ucp" [uiParams]="{page: link.id, i:null,mode:null,subPage:null, phpbbResolved:false}">
     {{link.name}}
   </a>
 </nav>
-
-<div [ngSwitch]="currentPage">
-  
+<div fxLayout fxLayoutWrap>
+  <scfr-forum-ucp-side-nav [links]="t_block2" fxFlex.gt-sm="20"></scfr-forum-ucp-side-nav>
+  <md-card fxFlex>
+    <md-card-header>
+      <h2>{{L_TITLE}}</h2>
+    </md-card-header>
+    <md-card-content>
+      {{currentPage}}
+      <div [ngSwitch]="currentPage">
+        <scfr-forum-ucp-main-switch *ngSwitchCase="'general'" [ucp]="this"></scfr-forum-ucp-main-switch>
+        <scfr-forum-ucp-profil-switch *ngSwitchCase="'profil'"></scfr-forum-ucp-profil-switch>
+        <div *ngSwitchDefault>Default</div>
+      </div>
+    </md-card-content>
+  </md-card>
 </div>

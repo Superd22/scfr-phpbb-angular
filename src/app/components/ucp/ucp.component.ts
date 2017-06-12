@@ -1,3 +1,4 @@
+import { UCPSideLink } from './../../interfaces/ucp/ucp-side-link';
 import { StateTranslate } from './../../services/state-translate.service';
 import { PhpbbApiService } from './../../services/phpbb-api.service';
 import { PhpbbComponent } from './../phpbb/phpbb-component.component';
@@ -10,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ucp.component.scss']
 })
 export class UcpComponent extends PhpbbComponent implements OnInit {
+
+  public t_block2: UCPSideLink[];
 
   /** our tabs  */
   public navLinks: { name: string, id: string }[] = [
@@ -32,10 +35,13 @@ export class UcpComponent extends PhpbbComponent implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
+    console.log(this);
   }
 
   public tabIsActive(tagid: string) {
     return this.currentPage == tagid;
   }
+
+
 
 }

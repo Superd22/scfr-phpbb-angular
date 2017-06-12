@@ -1,0 +1,28 @@
+<p>{{ucp.L_UCP_WELCOME}}</p>
+
+<dl class="details">
+  <dt>{{ucp.L_JOINED}}{{ucp.L_COLON}}</dt>
+  <dd>{{ucp.JOINED}}</dd>
+  <dt>{{ucp.L_LAST_ACTIVE}}{{ucp.L_COLON}}</dt>
+  <dd>{{ucp.LAST_VISIT_YOU}}</dd>
+  <dt>{{ucp.L_TOTAL_POSTS}}{{ucp.L_COLON}}</dt>
+  <dd>
+    <div *ngIf="ucp.POSTS_PCT;else else1">{{ucp.POSTS}}
+      <div *ngIf="S_DISPLAY_SEARCH">| <strong><a href="{{ucp.U_SEARCH_USER}}">{{ucp.L_SEARCH_YOUR_POSTS}}</a></strong>
+      </div><br />({{ucp.POSTS_DAY}} / {{ucp.POSTS_PCT}})
+    </div>
+    <ng-template #else1>{{ucp.POSTS}}</ng-template>
+  </dd>
+  <ng-container *ngIf="ACTIVE_FORUM != ''">
+    <dt>{{ucp.L_ACTIVE_IN_FORUM}}{{ucp.L_COLON}}</dt>
+    <dd><strong><a href="{{ucp.U_ACTIVE_FORUM}}">{{ucp.ACTIVE_FORUM}}</a></strong><br />({{ucp.ACTIVE_FORUM_POSTS}} / {{ucp.ACTIVE_FORUM_PCT}})</dd>
+  </ng-container>
+  <ng-container *ngIf="ACTIVE_TOPIC != ''">
+    <dt>{{ucp.L_ACTIVE_IN_TOPIC}}{{ucp.L_COLON}}</dt>
+    <dd><strong><a href="{{ucp.U_ACTIVE_TOPIC}}">{{ucp.ACTIVE_TOPIC}}</a></strong><br />({{ucp.ACTIVE_TOPIC_POSTS}} / {{ucp.ACTIVE_TOPIC_PCT}})</dd>
+  </ng-container>
+  <ng-container *ngIf="WARNINGS">
+    <dt>{{ucp.L_YOUR_WARNINGS}}{{ucp.L_COLON}}</dt>
+    <dd class="error"><i class="icon fa-exclamation-triangle fa-fw icon-red" aria-hidden="true"></i> [{{ucp.WARNINGS}}]</dd>
+  </ng-container>
+</dl>

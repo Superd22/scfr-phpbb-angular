@@ -41,6 +41,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BottomLoggedInComponent } from './components/login/bottom-logged-in/bottom-logged-in.component';
 import { MessageActionBarComponent } from './components/viewmessage/message-action-bar/message-action-bar.component';
 import { DialogDeleteComponent } from './components/viewmessage/message-action-bar/dialog-delete/dialog-delete.component';
+import { SideNavComponent } from './components/ucp/side-nav/side-nav.component';
+import { UcpMainFrontComponent } from './components/ucp/main/ucp-main-front/ucp-main-front.component';
+import { UcpMainSwitchComponent } from './components/ucp/main/ucp-main-switch/ucp-main-switch.component';
+import { UcpProfilSwitchComponent } from './components/ucp/profil/ucp-profil-switch/ucp-profil-switch.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +68,11 @@ import { DialogDeleteComponent } from './components/viewmessage/message-action-b
         ViewconvoComponent,
         BottomLoggedInComponent,
         MessageActionBarComponent,
-        DialogDeleteComponent
+        DialogDeleteComponent,
+        SideNavComponent,
+        UcpMainFrontComponent,
+        UcpMainSwitchComponent,
+        UcpProfilSwitchComponent
     ],
     imports: [
         UIRouterModule.forRoot({
