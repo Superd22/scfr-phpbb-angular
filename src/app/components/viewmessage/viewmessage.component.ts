@@ -12,7 +12,7 @@ export class ViewmessageComponent implements OnInit {
   protected _edit = 0;
 
   /** phpbb postrow message */
-  @Input("postrow") private _postrow: PhpbbPostMessage;
+  @Input("postrow") public postrow: PhpbbPostMessage;
   /** post data if we want to overide postrow */
   @Input("post") public post: SimplePost;
   /** if this post is editable */
@@ -43,11 +43,11 @@ export class ViewmessageComponent implements OnInit {
       this.sanitizeMessage();
       return;
     }
-    if (this._postrow) {
+    if (this.postrow) {
       this.post = {
-        message: this._postrow.MESSAGE,
-        subject: this._postrow.POST_SUBJECT,
-        id: this._postrow.POST_ID,
+        message: this.postrow.MESSAGE,
+        subject: this.postrow.POST_SUBJECT,
+        id: this.postrow.POST_ID,
       };
       this.sanitizeMessage();
       return;
@@ -61,7 +61,7 @@ export class ViewmessageComponent implements OnInit {
   }
 
   isEditMod() {
-    return this.editable && (this._edit == Number(this._postrow.POST_ID));
+    return this.editable && (this._edit == Number(this.postrow.POST_ID));
   }
 
 }

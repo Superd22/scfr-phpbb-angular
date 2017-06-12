@@ -224,6 +224,7 @@ export class StateTranslate {
         let topic = params.topicId;
         let forum = params.forumId;
         let post = params.postId;
+        let quote = params.quote;
 
         if (forum) {
 
@@ -242,6 +243,10 @@ export class StateTranslate {
             if (post) {
                 legacy.mode = "edit";
                 legacy.p = post;
+            }
+
+            if(quote) {
+                legacy.mode = "quote";
             }
 
             return this.phpbbApi.getPage("posting.php", legacy).map(

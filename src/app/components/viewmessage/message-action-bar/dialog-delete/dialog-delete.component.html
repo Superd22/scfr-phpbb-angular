@@ -1,0 +1,13 @@
+<h1 md-dialog-title>Supprimer un message</h1>
+<div md-dialog-content>
+  Êtes vous sur de vouloir supprimer ce message ? <br />
+  <em>Cette action est irréversible</em><br />
+
+  <md-input-container>
+    <input mdInput placeholder="Raison de la supression" [(ngModel)]="reason">
+  </md-input-container>
+</div>
+<div md-dialog-actions>
+  <button md-button color="warn" [md-dialog-close]="{delete:true, reason: reason}">Confirmer la supresssion</button>
+  <button md-button [md-dialog-close]="{delete:false}">Annuler</button>
+</div>
