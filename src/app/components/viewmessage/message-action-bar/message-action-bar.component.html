@@ -3,4 +3,4 @@
 <button md-button>Report</button>
 <button md-button>Warn</button>
 <button md-button>Info</button>
-<button md-button>Quote</button>
+<button md-button uiSref=".posting" [uiParams]="{'postId': postrow.POST_ID, quote:true}">Quote</button>
