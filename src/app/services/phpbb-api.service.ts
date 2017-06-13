@@ -159,7 +159,10 @@ export class PhpbbApiService {
     }
 
     public getAuthentication(): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.getPage('');
+        return this.getPage('').map(data => {
+            this.stranslate.latestTemplateData.next(data['@template']);
+            return data;
+        });
     }
 
     private handleSID(tpl) {
@@ -177,7 +180,7 @@ export class PhpbbApiService {
         });
     }
 
-    public errorSnackBar(message:string) {
+    public errorSnackBar(message: string) {
         this.snackBar.open(message, "Erreur", {
             duration: 5000,
             extraClasses: ["warn"],

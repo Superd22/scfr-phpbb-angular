@@ -1,0 +1,9 @@
+<ng-container *ngIf="forum">
+  <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}">{{forum.FORUM_NAME}}</a>
+
+  <ul>
+    <li *ngFor="let fu of subForumsToDisplay">
+      <scfr-forum-navigation-forum-link [forum]="fu" [navCo]="navCo"></scfr-forum-navigation-forum-link>
+    </li>
+  </ul>
+</ng-container>

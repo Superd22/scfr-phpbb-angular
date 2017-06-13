@@ -1,16 +1,11 @@
 <div class="navigator">
-    <a uiSref="phpbb.seo.index"><i class="material-icons">home</i></a>
+    <button md-icon-button uiSref="phpbb.seo.index"><md-icon>home</md-icon></button>
+    <md-input-container>
+        <input mdInput type="text" placeholder="Rechercher dans les forum" [(ngModel)]="searchForum">
+    </md-input-container>
     <ul>
-        <li *ngFor="let forum of forumList">
-            <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" >{{forum.FORUM_NAME}}</a>
-            <button md-mini-fab *ngIf="forum.S_SUBFORUMS" (click)="toggleMenu(forum)" [ngSwitch]="forum.toggledDropdown">
-                <md-icon *ngSwitchCase="false">keyboard_arrow_down</md-icon>
-                <md-icon *ngSwitchCase="true">keyboard_arrow_up</md-icon>
-            </button>
-            <ul *ngIf="forum.S_SUBFORUMS && forum.toggledDropdown">
-                <!-- TODO : add SUBFORUM_ID VIA PHPBB EXT -->
-                <li *ngFor="let subForum of forum.subforum"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:SUBFORUM_ID}" >{{subForum.SUBFORUM_NAME}}</a></li>
-            </ul>
+        <li *ngFor="let forum of forumList | lookForForum:searchForum | filteredForums:filteredForumList:reverseMap | reinsertForums:filteredForumList:reverseMap:forumList:0:searchForum">
+            <scfr-forum-navigation-forum-link *ngIf="forum" [forum]="forum" [navCo]="this"></scfr-forum-navigation-forum-link>
         </li>
     </ul>
 </div>
