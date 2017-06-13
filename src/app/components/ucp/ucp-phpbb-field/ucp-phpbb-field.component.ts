@@ -37,7 +37,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
   private error;
 
   @Input()
-  public type: "text" | "url" | "textarea" | "select" | "radio" | string = null;
+  public type: "text" | "url" | "textarea" | "select" | "radio" | "editor" | string = null;
   @Input()
   public options;
 

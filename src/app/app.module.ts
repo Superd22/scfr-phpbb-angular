@@ -1,3 +1,4 @@
+import { EditorComponent } from './components/posting/editor/editor.component';
 import { ServiceLocator } from './services/ServiceLocator';
 import { PhpbbFormHelperService } from './services/phpbb-form-helper.service';
 import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
@@ -74,6 +75,7 @@ import { UcpSubPageFormComponent } from './components/ucp/ucp-sub-page-form/ucp-
         TeamComponent,
         ViewprofileComponent,
         ViewonlineComponent,
+        EditorComponent,
         LoginComponent,
         PostingComponent,
         ViewmessageComponent,
@@ -97,7 +99,7 @@ import { UcpSubPageFormComponent } from './components/ucp/ucp-sub-page-form/ucp-
         UcpProfilAutologinKeysComponent,
         UcpSwitchMainComponent,
         UcpPhpbbFieldComponent,
-        UcpSubPageFormComponent
+        UcpSubPageFormComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

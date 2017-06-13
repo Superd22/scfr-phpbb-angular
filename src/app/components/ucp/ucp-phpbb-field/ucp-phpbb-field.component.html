@@ -23,6 +23,9 @@
     </md-radio-group>
   </ng-container>
 
+  <ng-container *ngSwitchCase="'editor'">
+    <scfr-forum-post-editor [(message)]="model" [placeholder]="display_name"></scfr-forum-post-editor>
+  </ng-container>
 
   <ng-container *ngSwitchDefault>
     <md-input-container>
