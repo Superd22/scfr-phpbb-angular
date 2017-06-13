@@ -1,3 +1,4 @@
+import { UcpSubPageFormComponent } from './../../ucp-sub-page-form/ucp-sub-page-form.component';
 import { UcpComponent } from './../../ucp.component';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -6,11 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './ucp-profil-reg-details.component.html',
   styleUrls: ['./ucp-profil-reg-details.component.scss']
 })
-export class UcpProfilRegDetailsComponent implements OnInit {
+export class UcpProfilRegDetailsComponent extends UcpSubPageFormComponent implements OnInit {
 
   @Input()
   public ucp: UcpComponent;
-  constructor() { }
+  constructor() {
+    super();
+   }
 
   ngOnInit() {
   }
