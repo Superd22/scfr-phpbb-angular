@@ -14,6 +14,7 @@ export class UcpComponent extends PhpbbComponent implements OnInit {
 
   public t_block2: UCPSideLink[];
   public ERROR: string;
+  public avatar_drivers;
 
   /** our tabs  */
   public navLinks: { name: string, id: string }[] = [
@@ -36,7 +37,6 @@ export class UcpComponent extends PhpbbComponent implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
-    console.log(this);
   }
 
   public tabIsActive(tagid: string) {

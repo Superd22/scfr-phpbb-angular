@@ -1,3 +1,21 @@
-<p>
-  ucp-profil-avatar works!
-</p>
+<div class="current-avatar-box">
+  <h3>Avatar Actuel</h3>
+  {{ucp.L_AVATAR_EXPLAIN}}
+
+  <div class="current-avatar" *ngIf="ucp.AVATAR" [innerHTML]="ucp.AVATAR"></div>
+</div>
+
+<div class="new-avatar-box">
+  <scfr-forum-ucp-phpbb-field type="select" name="avatar_driver" displayName="Type d'avatar" [(model)]="selectedDriver" [options]="avatarDriverOptions"></scfr-forum-ucp-phpbb-field>
+
+  <div class="new-avatar-box-driver">
+    <h3>{{currentDriver.name}}</h3>
+    <em>{{currentDriver.explain}}</em>
+
+      <scfr-forum-ucp-phpbb-field *ngFor="let o of currentDriver.output.inputs" [fullPHPBB]="o"></scfr-forum-ucp-phpbb-field>
+  </div>
+
+</div>
+
+<button md-button color="primary" (click)="submit()">Valider</button>
+<button md-button (click)="reset()">Reset</button>

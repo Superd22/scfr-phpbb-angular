@@ -26,7 +26,6 @@ export class EditorComponent implements OnInit {
 
   public set message(message: string) {
     this._message = message;
-    console.log("emit", message);
     this.messageChange.emit(message);
   }
 

@@ -20,8 +20,8 @@ export class UcpPhpbbFieldComponent implements OnInit {
 
   @Input("model")
   private _model;
-  @Output("model")
-  private _model_change: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  private modelChange: EventEmitter<any> = new EventEmitter<any>();
   @Input("displayName")
   public display_name;
 
@@ -80,7 +80,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
 
   public set model(model: any) {
     this._model = model;
-    this._model_change.emit(model);
+    this.modelChange.emit(model);
   }
 
   public get form_name(): string {
@@ -101,7 +101,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
   }
 
   private extrapolateNameOfInput(input_html: string) {
-    let regex = /name=["']([^'"]*)['"]/;
+    let regex = /name=["'](.*?)['"]/;
 
     let match = regex.exec(input_html);
     if (match == null) throw "NO NAME FOR EXTRAPOLATION";
@@ -114,7 +114,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
     if (input_html.indexOf("type=\"radio\"") > -1) return "radio";
     if (input_html.indexOf("<select") > -1) return "select";
 
-    let regex = /type=["'](text|url)["']/;
+    let regex = /type=["'](text|url|hidden|file|number)["']/;
     let match = regex.exec(input_html);
     if(match) return match[1];
     else throw "COULDN'T EXTRAPOLATE TYPE OF INPUT";
@@ -131,7 +131,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
   }
 
   private extrapolateValueOfTextInput(input_html: string) {
-    let regex = /value=['"](.*)['"]/;
+    let regex = /value=['"](.*?)['"]/;
 
     let match = regex.exec(input_html);
     if (match == null) this.model = "";
@@ -146,7 +146,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
   }
 
   private extrapolateValueOfTextArea(input_html: string) {
-    let regex = /<textarea(.*)>(.*)<\/textarea>/;
+    let regex = /<textarea(.*)>(.*?)<\/textarea>/;
 
     let match = regex.exec(input_html);
     if (match == null) this.model = "";
@@ -159,5 +159,10 @@ export class UcpPhpbbFieldComponent implements OnInit {
     this.options = h.options;
     this.model = h.selected;
   }
+
+  public setFile(file) {
+    this.model = file[0];
+  }
+
 
 }

@@ -369,15 +369,9 @@ export class StateTranslate {
         }
         else if (!params.phpbbResolved) {
             // We're in SEO mod
-
-            console.log(params);
-
-
             // Validate i & m first
             if(params.i) newParam.page = get_pretty_state(params.i);
             if(params.mode) newParam.subPage = get_pretty_sub_state(params.mode);
-
-            console.log(newParam);
 
             // We un-pretty-ize our params if need be
             if(params.page && !params.i) newParam.i = pretty_states[params.page][0];

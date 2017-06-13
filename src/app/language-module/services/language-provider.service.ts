@@ -7,7 +7,6 @@ export class LanguageProviderService {
   private _langUCP = UCPLanguage;
 
   constructor() { 
-    console.log(this._langUCP);
   }
 
 

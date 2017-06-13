@@ -105,8 +105,6 @@ export class PhpbbFormHelperService {
    * @param options the list of options we want
    */
   public handleAllOptions(component, options: string[]) {
-    console.log("jete prout");
-    console.log(options);
     if (options.length < 1) return false;
 
     for (let i = 0; i < options.length; i++) {

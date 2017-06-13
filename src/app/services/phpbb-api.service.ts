@@ -173,13 +173,13 @@ export class PhpbbApiService {
      */
     public openSnackBar(message: string, trustAsHtml?: boolean) {
         this.snackBar.open(message, "Information", {
-            duration: 2000,
+            duration: 5000,
         });
     }
 
     public errorSnackBar(message:string) {
         this.snackBar.open(message, "Erreur", {
-            duration: 2000,
+            duration: 5000,
             extraClasses: ["warn"],
         });
     }

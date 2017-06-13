@@ -17,7 +17,6 @@ export class UcpMainFrontComponent implements OnInit {
   constructor(private stateT: StateTranslate) { }
 
   ngOnInit() {
-    console.log(this.ucp);
   }
 
 }

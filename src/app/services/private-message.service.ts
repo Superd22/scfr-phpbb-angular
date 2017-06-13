@@ -27,7 +27,6 @@ export class PrivateMessageService {
     public setCurrentConvo(convo: Number) {
         this.currentConvo = null;
         if (this.convos) {
-            console.log(convo);
             for (var i = 0; i < this.convos.length; i++) {
                 if (this.convos[i].id == convo) {
                     this.currentConvo = this.convos[i];
