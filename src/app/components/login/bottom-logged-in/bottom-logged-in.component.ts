@@ -13,8 +13,10 @@ export class BottomLoggedInComponent implements OnInit {
 
   constructor(public LoginService: LoginService, private stateT: StateTranslate) { }
 
-  ngOnInit() { 
-    this.stateT.latestTemplateData.subscribe( (tpl) => this.currentTpl = tpl )
+  ngOnInit() {
+    this.stateT.latestTemplateData.subscribe((tpl) => {
+      this.currentTpl = tpl
+    });
   }
 
 }

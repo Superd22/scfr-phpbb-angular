@@ -38,7 +38,7 @@ export class MessageActionBarComponent implements OnInit {
   public deleteThis() {
     let dialogRef = this.dialog.open(DialogDeleteComponent);
 
-    let formfetched = dialogRef.componentInstance.fetchDeleteConfirm({ p: this.postrow.POST_ID, f: this.stateT.latestTemplateData.getValue()["FORUM_ID"] });
+    let formfetched = dialogRef.componentInstance.fetchDeleteConfirm({ p: this.postrow.POST_ID, f: this.stateT.latestTemplateData._getNow()["FORUM_ID"] });
 
     let dialogClose = dialogRef.afterClosed().map(result => {
       if (result.delete) {

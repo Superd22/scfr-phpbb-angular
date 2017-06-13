@@ -2,9 +2,6 @@ import { ViewprofileComponent } from './../../components/memberlist/viewprofile/
 
 export const psoViewProfile = {
     name: 'phpbb.seo.viewprofile', 
-    url: '/User/:user_slug',
+    url: '/User/{userId:int}-{userSlug:[^/]*}/',
     component: ViewprofileComponent,
-    params: {
-        userId: 0,
-    }
 };

@@ -14,7 +14,6 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
         router.transitionService.onBefore({ to: "phpbb.legacy" }, (trans) =>
             stateTranslate.legacyToSeo(trans).toPromise().then(
                 state => {
-                    console.log(state);
                     return state;
                 },
             )

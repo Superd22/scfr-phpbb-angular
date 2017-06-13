@@ -1,3 +1,146 @@
-<p>
-  viewprofile works!
-</p>
+<div class="viewprofile" fxLayout="column">
+  <div class="top-box" fxLayout fxFlex="100">
+    <div *ngIf="AVATAR_IMG" fxFlex.lt-sm="100" fxFlex.gt-sm="25">
+      <div class="avatar" [innerHTML]="AVATAR_IMG"></div>
+      <span>{{RANK_TITLE}}</span>
+    </div>
+
+    <div class="top-box-main">
+      <dl>
+        <dt>{{L_USERNAME}}</dt>
+        <dd>
+          <span class="username" [ngStyle]="{color: USER_COLOR}">{{USERNAME}}</span>
+          <ng-container *ngIf="U_EDIT_SELF"> [ <a href="{{U_EDIT_SELF}}">{{L_EDIT_PROFILE}}</a> ] </ng-container>
+          <ng-container *ngIf="U_USER_ADMIN"> [ <a href="{{U_USER_ADMIN}}">{{L_USER_ADMIN}}</a> ] </ng-container>
+          <ng-container *ngIf="U_USER_BAN"> [ <a href="{{U_USER_BAN}}">{{L_USER_BAN}}</a> ] </ng-container>
+          <ng-container *ngIf="U_SWITCH_PERMISSIONS"> [ <a href="{{U_SWITCH_PERMISSIONS}}">{{L_USE_PERMISSIONS}}</a> ] </ng-container>
+        </dd>
+
+        <ng-container *ngIf="S_USER_INACTIVE">
+          <dt>{{L_USER_IS_INACTIVE}}{{L_COLON}}</dt>
+          <dd>{{USER_INACTIVE_REASON}}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="AGE !== ''">
+          <dt>{{L_AGE}}{{L_COLON}}</dt>
+          <dd>{{AGE}}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="S_GROUP_OPTIONS">
+          <dt>{{L_USERGROUPS}}{{L_COLON}}</dt>
+          <dd>
+            <md-select [(ngModel)]="S_GROUP_OPTIONS.selected">
+              <md-option *ngFor="let opt of S_GROUP_OPTIONS.options" [value]="opt.id">{{opt.name}}</md-option>
+            </md-select>
+            <button md-button (click)="goToGroup()">{{L_GO}}</button>
+        </ng-container>
+
+        <ng-container *ngFor="let cf of custom_fields">
+          <dt>{{cf.PROFILE_FIELD_NAME}}{{L_COLON}}</dt>
+          <dd>{{cf.PROFILE_FIELD_VALUE}}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="S_USER_LOGGED_IN && S_ZEBRA">
+          <ng-container *ngIf="U_REMOVE_FRIEND">
+            <dt>&nbsp;</dt>
+            <dd class="zebra"><a href="{{U_REMOVE_FRIEND}}" data-ajax="zebra"><strong>{{L_REMOVE_FRIEND}}</strong></a></dd>
+          </ng-container>
+          <ng-container *ngIf="!U_REMOVE_FRIEND && U_REMOVE_FOE">
+            <dt>&nbsp;</dt>
+            <dd class="zebra"><a href="{{U_REMOVE_FOE}}" data-ajax="zebra"><strong>{{L_REMOVE_FOE}}</strong></a></dd>
+          </ng-container>
+          <ng-container *ngIf="!U_REMOVE_FRIEND && !U_REMOVE_FOE">
+            <ng-container *ngIf="U_ADD_FRIEND">
+              <dt>&nbsp;</dt>
+              <dd class="zebra"><a href="{{U_ADD_FRIEND}}" data-ajax="zebra"><strong>{{L_ADD_FRIEND}}</strong></a></dd>
+            </ng-container>
+            <ng-container *ngIf="U_ADD_FOE">
+              <dt>&nbsp;</dt>
+              <dd class="zebra"><a href="{{U_ADD_FOE}}" data-ajax="zebra"><strong>{{L_ADD_FOE}}</strong></a></dd>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </dl>
+    </div>
+  </div>
+
+  <div class="middle-box" fxLayout>
+    <div class="middle-box-col" fxFlex.gt-sm="50" fxFlex.lt-sm="100">
+      <h3>{{L_CONTACT_USER}}</h3>
+      <dl>
+        <ng-container *ngIf="U_EMAIL">
+          <dt>{{L_EMAIL_ADDRESS}}{{L_COLON}}</dt>
+          <dd><a href="{{U_EMAIL}}">{{L_SEND_EMAIL_USER}}</a></dd>
+        </ng-container>
+        <ng-container *ngIf="U_PM">
+          <dt>{{L_PM}}{{L_COLON}}</dt>
+          <dd><a href="{{U_PM}}">{{L_SEND_PRIVATE_MESSAGE}}</a></dd>
+        </ng-container>
+
+        <!-- EVENT memberlist_view_contact_custom_fields_before -->
+        <ng-container *ngFor="let cf of custom_fields">
+          <ng-container *ngIf="cf.S_PROFILE_CONTACT">
+            <dt>{{cf.PROFILE_FIELD_NAME}}{{L_COLON}}</dt>
+            <ng-container *ngIf="cf.PROFILE_FIELD_CONTACT">
+              <dd><a href="{{cf.PROFILE_FIELD_CONTACT}}">{{cf.PROFILE_FIELD_DESC}}</a></dd>
+            </ng-container>
+            <ng-container *ngIf="!cf.PROFILE_FIELD_CONTACT">
+              <dd>{{cf.PROFILE_FIELD_VALUE}}</dd>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="S_PROFILE_FIELD1">
+          <dt>{{PROFILE_FIELD1_NAME}}{{L_COLON}}</dt>
+          <dd>{{PROFILE_FIELD1_VALUE}}</dd>
+        </ng-container>
+      </dl>
+    </div>
+
+    <div class="middle-box-col" fxFlex.gt-sm="50" fxFlex.lt-sm="100">
+      <h3>{{L_USER_FORUM}}</h3>
+      <dl class="details">
+        <dt>{{L_JOINED}}{{L_COLON}}</dt>
+        <dd>{{JOINED}}</dd>
+        <dt>{{L_LAST_ACTIVE}}{{L_COLON}}</dt>
+        <dd>{{LAST_ACTIVE}}</dd>
+        <ng-container *ngIf="S_WARNINGS">
+          <dt>{{L_WARNINGS}}{{L_COLON}} </dt>
+          <dd><strong>{{WARNINGS}}</strong>
+            <ng-container *ngIf="U_NOTES || U_WARN"> [
+              <ng-container *ngIf="U_NOTES"> <a href="{{U_NOTES}}">{{L_VIEW_NOTES}}</a>
+              </ng-container>
+              <ng-container *ngIf="U_WARN">
+                <ng-container *ngIf="U_NOTES"> |
+                </ng-container> <a href="{{U_WARN}}">{{L_WARN_USER}}</a>
+              </ng-container> ]
+            </ng-container>
+          </dd>
+        </ng-container>
+        <dt>{{L_TOTAL_POSTS}}{{L_COLON}}</dt>
+        <dd>{{POSTS}}
+          <ng-container *ngIf="S_DISPLAY_SEARCH"> | <strong><a href="{{U_SEARCH_USER}}">{{L_SEARCH_USER_POSTS}}</a></strong>
+          </ng-container>
+          <ng-container *ngIf="POSTS_PCT"> <br />({{POSTS_PCT}} / {{POSTS_DAY}})
+          </ng-container>
+          <ng-container *ngIf="POSTS_IN_QUEUE && U_MCP_QUEUE"> <br />(<a href="{{U_MCP_QUEUE}}">{{L_POSTS_IN_QUEUE}}</a>)
+          </ng-container>
+
+          <ng-container *ngIf="POSTS_IN_QUEUE"><br />({{L_POSTS_IN_QUEUE}})</ng-container>
+        </dd>
+        <ng-container *ngIf="S_SHOW_ACTIVITY && POSTS">
+          <dt>{{L_ACTIVE_IN_FORUM}}{{L_COLON}}</dt>
+          <dd>
+            <ng-container *ngIf="ACTIVE_FORUM != ''"> <strong><a href="{{U_ACTIVE_FORUM}}">{{ACTIVE_FORUM}}</a></strong><br />({{ACTIVE_FORUM_POSTS}} / {{ACTIVE_FORUM_PCT}})
+            </ng-container>
+          </dd>
+          <dt>{{L_ACTIVE_IN_TOPIC}}{{L_COLON}}</dt>
+          <dd>
+            <ng-container *ngIf="ACTIVE_TOPIC != ''"> <strong><a href="{{U_ACTIVE_TOPIC}}">{{ACTIVE_TOPIC}}</a></strong><br />({{ACTIVE_TOPIC_POSTS}} / {{ACTIVE_TOPIC_PCT}})
+            </ng-container>
+          </dd>
+        </ng-container>
+      </dl>
+    </div>
+  </div>
+
+</div>

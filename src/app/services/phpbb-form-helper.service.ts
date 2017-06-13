@@ -110,7 +110,6 @@ export class PhpbbFormHelperService {
     for (let i = 0; i < options.length; i++) {
       let opt = options[i];
 
-      console.log("co", component);
       if (component[opt]) {
         component[opt] = this.getOptionsAsObject(component[opt]);
       }

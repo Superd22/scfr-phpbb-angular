@@ -7,6 +7,7 @@ import { PhpbbTemplateResponse } from '../models/phpbb-template-response';
 import { SeoUrlPipe } from '../pipes/seo-url.pipe';
 import { Injectable, Inject } from "@angular/core";
 import { Http, URLSearchParams } from "@angular/http";
+import { ReplaySubject } from "rxjs/ReplaySubject";
 
 
 @Injectable()
@@ -15,8 +16,8 @@ export class StateTranslate {
     private shouldParseAgain = true;
     private onceResolved = false;
     private router: UIRouter = null;
-    private _latestTemplateData: BehaviorSubject<any> = new BehaviorSubject(null);
-    public get latestTemplateData(): BehaviorSubject<any> { return this._latestTemplateData; }
+    private _latestTemplateData: ReplaySubject<any> = new ReplaySubject(1);
+    public get latestTemplateData(): ReplaySubject<any> { return this._latestTemplateData; }
 
     constructor(private http: Http, private phpbbApi: PhpbbApiService, private login: LoginService) { }
 
@@ -419,6 +420,7 @@ export class StateTranslate {
     }
 
     public unwrapTplData(component, tpl) {
+        this._latestTemplateData.next(tpl)
         let keyArr = Object.keys(tpl);
 
         keyArr.forEach((key) => {
