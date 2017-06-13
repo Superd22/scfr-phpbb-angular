@@ -11,10 +11,7 @@
       <app-viewmessage [editable]="false" [post]="preview"></app-viewmessage>
     </div>
 
-
-    <md-input-container fxFlex="100">
-      <textarea  mdInput placeholder="Message" style="width: 100%; height: 300px;" [(ngModel)]='post.message'></textarea>
-    </md-input-container>
+    <scfr-forum-post-editor [(message)]="post.message"></scfr-forum-post-editor>
 
   </md-card-content>
   <md-card-actions>

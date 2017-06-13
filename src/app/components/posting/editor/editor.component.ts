@@ -1,8 +1,8 @@
 import { PostingComponent } from './../posting.component';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'post-editor',
+  selector: 'scfr-forum-post-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
@@ -11,10 +11,23 @@ export class EditorComponent implements OnInit {
   @Input('subject')
   private _subject: string = "";
   @Input('message')
-  private _message: string = "";
+  public _message: string = "";
+  @Output()
+  private messageChange: EventEmitter<string> = new EventEmitter<string>();
+  @Input()
+  public placeholder: string = "Message";
 
   constructor() { }
 
+
+  public get message() {
+    return this._message;
+  }
+
+  public set message(message: string) {
+    this._message = message;
+    this.messageChange.emit(message);
+  }
 
   ngOnInit() {
   }

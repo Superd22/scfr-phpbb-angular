@@ -1,3 +1,4 @@
+import { PhpbbFormHelperService } from './../../services/phpbb-form-helper.service';
 import { UIRouter } from '@uirouter/angular';
 import { Observable } from 'rxjs/Rx';
 import { SimplePost } from './../../interfaces/simple-post';
@@ -32,7 +33,7 @@ export class PostingComponent extends PhpbbComponent {
 
   public preview: SimplePost;
 
-  constructor(phpbbApi: PhpbbApiService, transition: Transition, translate: StateTranslate) {
+  constructor(phpbbApi: PhpbbApiService, transition: Transition, translate: StateTranslate, private formHelper: PhpbbFormHelperService) {
     super(phpbbApi, transition, translate);
   }
 
@@ -119,7 +120,7 @@ export class PostingComponent extends PhpbbComponent {
    * @param mode "preview" for generating a preview | "post" for posting the message
    */
   private forPHPBBPostingFORM(mode: "preview" | "post") {
-    let form = Object.assign(this.phpbbApi.genHiddenForms(this), {
+    let form = Object.assign(this.formHelper.getHiddensFromTemplateAsObject(this), {
       subject: this.post.subject,
       message: this.post.message,
       addbbcode20: 100,

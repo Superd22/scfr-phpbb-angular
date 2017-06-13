@@ -18,6 +18,5 @@ export const psoLogin = {
 };
 
 export function psoLoginFunc(transition: Transition) {
-    console.log(transition.from());
     return transition;
 }

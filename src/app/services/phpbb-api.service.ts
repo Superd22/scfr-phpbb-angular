@@ -1,3 +1,5 @@
+import { MdSnackBar } from '@angular/material';
+import { PhpbbFormHelperService } from './phpbb-form-helper.service';
 import { StateTranslate } from './state-translate.service';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
@@ -19,7 +21,7 @@ export class PhpbbApiService {
     public set translate(t: StateTranslate) {
         this.stranslate = t;
     }
-    constructor(private http: Http) { }
+    constructor(private http: Http, private snackBar: MdSnackBar) { }
 
     public buildParameters(arrayOfParam?: {}, raw?: boolean, noSID?: boolean): string {
         let urlParam = new URLSearchParams();
@@ -160,37 +162,6 @@ export class PhpbbApiService {
         return this.getPage('');
     }
 
-
-    /**
-     * For security reason, PHPBB will sometime return hidden fields to be added to a POST/GET
-     * REQUEST for authenticity.
-     * This function will parse a template, look for such hidden fields, and return an object containg them
-     * @param tpl the template data to look in
-     * @return object whose property are the hidden fields
-     */
-    public genHiddenForms(tpl): any {
-        if (!tpl.S_FORM_TOKEN && !tpl.S_HIDDEN_FIELDS) return {};
-
-        /** this expects *ALL* the forms to have value directly following name. */
-        let regex = /name=["']([^'"]*)["'] value=["']([^'"]*)["']/gmi;
-        let matchs = regex.exec(tpl.S_FORM_TOKEN)
-
-        let hiddens: any = {};
-
-        while (matchs != null) {
-            hiddens[matchs[1]] = matchs[2];
-            matchs = regex.exec(tpl.S_FORM_TOKEN);
-        }
-
-        let matchs2 = regex.exec(tpl.S_HIDDEN_FIELDS);
-        while (matchs2 != null) {
-            hiddens[matchs2[1]] = matchs2[2];
-            matchs2 = regex.exec(tpl.S_HIDDEN_FIELDS);
-        }
-
-        return hiddens;
-    }
-
     private handleSID(tpl) {
         if (tpl && tpl['@template'] && tpl['@template']['SESSION_ID'] != this.sid) this.registerSid(tpl['@template']['SESSION_ID']);
     }
@@ -201,6 +172,15 @@ export class PhpbbApiService {
      * @param trustAsHtml trust the message as a safe html 
      */
     public openSnackBar(message: string, trustAsHtml?: boolean) {
+        this.snackBar.open(message, "Information", {
+            duration: 5000,
+        });
+    }
 
+    public errorSnackBar(message:string) {
+        this.snackBar.open(message, "Erreur", {
+            duration: 5000,
+            extraClasses: ["warn"],
+        });
     }
 }

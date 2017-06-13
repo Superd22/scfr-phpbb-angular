@@ -16,7 +16,7 @@ export class StateTranslate {
     private onceResolved = false;
     private router: UIRouter = null;
     private _latestTemplateData: BehaviorSubject<any> = new BehaviorSubject(null);
-    public get latestTemplateData():BehaviorSubject<any> { return this._latestTemplateData; }
+    public get latestTemplateData(): BehaviorSubject<any> { return this._latestTemplateData; }
 
     constructor(private http: Http, private phpbbApi: PhpbbApiService, private login: LoginService) { }
 
@@ -40,6 +40,8 @@ export class StateTranslate {
                         case "viewprofile":
                             return this.transform_viewonline_viewprofile(trans);
                     }
+                case "ucp":
+                    return this.transform_ucp(trans);
             }
         }
     }
@@ -149,7 +151,7 @@ export class StateTranslate {
         this.onceResolved = val;
     }
 
-    private transform_viewonline_viewprofile(trans, user?: number) {
+    private transform_viewonline_viewprofile(trans: Transition, user?: number) {
         var params = trans.params();
         var trans_param = {};
         var trans_page = "phpbb.seo.index";
@@ -245,7 +247,7 @@ export class StateTranslate {
                 legacy.p = post;
             }
 
-            if(quote) {
+            if (quote) {
                 legacy.mode = "quote";
             }
 
@@ -282,12 +284,118 @@ export class StateTranslate {
         }
     }
 
+    private transform_ucp(transition: Transition): Observable<any> {
+        let params = transition.params();
+        let newParam: any = Object.assign({}, params);
+        let stateTarget = "phpbb.seo.ucp";
+
+
+        /**
+         * Array of pretty states (?i=)
+         * pretty_name => phpbbNames[]
+         */
+        let pretty_states = {
+            "general": ["ucp_main", 172],
+            "profil": ["ucp_profile", 173],
+            "preferences": ["ucp_prefs", 174],
+            "mp": ["ucp_pm", 175],
+            "groups": ["ucp_groups", 176],
+            "contacts": ["ucp_zebra", 177],
+            "notifications": ["ucp_notifications"],
+        };
+
+        /**
+         * Array of pretty sub-states (?mode=)
+         * pretty_name => phpbbName
+         */
+        let pretty_sub_states = {
+            accueil: "front",
+            abonnements: "subscribed",
+            bookmarks: "bookmarks",
+            brouillons: "drafts",
+            attachments: "attachments",
+            info: "profile_info",
+            signature: "signature",
+            compte: "reg_details",
+            avatar: "avatar",
+            keys: "autologin_keys",
+            personelles: "personal",
+            posts: "post",
+            affichage: "view",
+            options: "notification_options",
+            nouveau: "compose",
+            rules: "options",
+            membre: "membership",
+            manage: "manage",
+            amis: "friends",
+            indesirables: "foes"
+        };
+
+        function get_pretty_state(i) {
+            for(let p in pretty_states) {
+                if(pretty_states[p].indexOf(i) > -1) {
+                    return p;
+                }
+            }
+
+            return null;
+        }
+
+        function get_pretty_sub_state(mode) {
+            for(let pp in pretty_sub_states) {
+                if(pretty_sub_states[pp] == mode) {
+                    return pp;
+                }
+            }
+
+            return null;
+        }
+
+
+
+        if (transition.$to().name.indexOf("legacy") > -1) {
+            // We're in LEGACY
+
+            // We pretty-ize both our params.
+            newParam.page = get_pretty_state(params.i);
+            newParam.subPage = get_pretty_sub_state(params.mode);
+
+            if(!newParam.page) newParam.page = "general";
+            if(!newParam.subPage) newParam.subPage = "";
+
+            let r = Observable.of(transition.router.stateService.target(stateTarget, newParam))
+
+            return r;
+        }
+        else if (!params.phpbbResolved) {
+            // We're in SEO mod
+            // Validate i & m first
+            if(params.i) newParam.page = get_pretty_state(params.i);
+            if(params.mode) newParam.subPage = get_pretty_sub_state(params.mode);
+
+            // We un-pretty-ize our params if need be
+            if(params.page && !params.i) newParam.i = pretty_states[params.page][0];
+            if(params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
+
+
+            // Fetch the actual data
+            return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode }).map(
+                (data) => {
+                    newParam.phpbbResolved = data;
+                    return transition.router.stateService.target(stateTarget, newParam);
+                }
+            )
+        }
+        // We had everything we wanted.
+        return Observable.of(true);
+    }
+
     /**
      * Main method called before every SEO state access, responsible for fetching its template data
      * @param Transition transition the current transition
      * @param force force the update of this state
      */
-    public getCurrentStateDataView(transition: Transition, force?: boolean) {
+    public getCurrentStateDataView(transition: Transition, force?: boolean): Observable<any> {
 
         let stateName = transition.$to().name;
         switch (stateName) {
@@ -301,6 +409,8 @@ export class StateTranslate {
                 return this.transform_viewtopic(transition, transition.params().topicId);
             case "phpbb.seo.viewprofile":
                 return this.transform_viewonline_viewprofile(transition, transition.params().userId);
+            case "phpbb.seo.ucp":
+                return this.transform_ucp(transition);
             //case "phpbb.seo.ucp.pm":
             //   return this.transform_ucp_pm(transition);
         }
@@ -308,7 +418,7 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
     }
 
-    private unwrapTplData(component, tpl) {
+    public unwrapTplData(component, tpl) {
         let keyArr = Object.keys(tpl);
 
         keyArr.forEach((key) => {

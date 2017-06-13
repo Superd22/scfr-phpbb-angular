@@ -1,3 +1,6 @@
+import { EditorComponent } from './components/posting/editor/editor.component';
+import { ServiceLocator } from './services/ServiceLocator';
+import { PhpbbFormHelperService } from './services/phpbb-form-helper.service';
 import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
 import { PrivateMessageService } from './services/private-message.service';
 import { SCFRMaterialModule } from './material/material.module';
@@ -6,7 +9,7 @@ import { UcpComponent } from './components/ucp/ucp.component';
 import { ViewmessageComponent } from './components/viewmessage/viewmessage.component';
 import { PhpbbRoot } from './components/phpbb/root/phpbb-root.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { UIRouterModule } from '@uirouter/angular';
@@ -41,6 +44,22 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BottomLoggedInComponent } from './components/login/bottom-logged-in/bottom-logged-in.component';
 import { MessageActionBarComponent } from './components/viewmessage/message-action-bar/message-action-bar.component';
 import { DialogDeleteComponent } from './components/viewmessage/message-action-bar/dialog-delete/dialog-delete.component';
+import { SideNavComponent } from './components/ucp/side-nav/side-nav.component';
+import { UcpMainFrontComponent } from './components/ucp/main/ucp-main-front/ucp-main-front.component';
+import { UcpMainSwitchComponent } from './components/ucp/main/ucp-main-switch/ucp-main-switch.component';
+import { UcpProfilSwitchComponent } from './components/ucp/profil/ucp-profil-switch/ucp-profil-switch.component';
+import { UcpMainSubscribedComponent } from './components/ucp/main/ucp-main-subscribed/ucp-main-subscribed.component';
+import { UcpMainBookmarksComponent } from './components/ucp/main/ucp-main-bookmarks/ucp-main-bookmarks.component';
+import { UcpMainDraftsComponent } from './components/ucp/main/ucp-main-drafts/ucp-main-drafts.component';
+import { UcpProfilInfoComponent } from './components/ucp/profil/ucp-profil-info/ucp-profil-info.component';
+import { UcpProfilSignatureComponent } from './components/ucp/profil/ucp-profil-signature/ucp-profil-signature.component';
+import { UcpProfilRegDetailsComponent } from './components/ucp/profil/ucp-profil-reg-details/ucp-profil-reg-details.component';
+import { UcpProfilAvatarComponent } from './components/ucp/profil/ucp-profil-avatar/ucp-profil-avatar.component';
+import { UcpProfilAutologinKeysComponent } from './components/ucp/profil/ucp-profil-autologin-keys/ucp-profil-autologin-keys.component';
+import { UcpSwitchMainComponent } from './components/ucp/ucp-switch-main/ucp-switch-main.component';
+import { LanguageModuleModule } from "./language-module/language-module.module";
+import { UcpPhpbbFieldComponent } from './components/ucp/ucp-phpbb-field/ucp-phpbb-field.component';
+import { UcpSubPageFormComponent } from './components/ucp/ucp-sub-page-form/ucp-sub-page-form.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +75,7 @@ import { DialogDeleteComponent } from './components/viewmessage/message-action-b
         TeamComponent,
         ViewprofileComponent,
         ViewonlineComponent,
+        EditorComponent,
         LoginComponent,
         PostingComponent,
         ViewmessageComponent,
@@ -64,7 +84,22 @@ import { DialogDeleteComponent } from './components/viewmessage/message-action-b
         ViewconvoComponent,
         BottomLoggedInComponent,
         MessageActionBarComponent,
-        DialogDeleteComponent
+        DialogDeleteComponent,
+        SideNavComponent,
+        UcpMainFrontComponent,
+        UcpMainSwitchComponent,
+        UcpProfilSwitchComponent,
+        UcpMainSubscribedComponent,
+        UcpMainBookmarksComponent,
+        UcpMainDraftsComponent,
+        UcpProfilInfoComponent,
+        UcpProfilSignatureComponent,
+        UcpProfilRegDetailsComponent,
+        UcpProfilAvatarComponent,
+        UcpProfilAutologinKeysComponent,
+        UcpSwitchMainComponent,
+        UcpPhpbbFieldComponent,
+        UcpSubPageFormComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -78,11 +113,16 @@ import { DialogDeleteComponent } from './components/viewmessage/message-action-b
         MaterialModule,
         SCFRMaterialModule,
         FlexLayoutModule,
+        LanguageModuleModule
     ],
     entryComponents: [
         DialogDeleteComponent
     ],
-    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService],
+    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,PhpbbFormHelperService],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+    constructor(private injector: Injector) {
+        ServiceLocator.injector = this.injector;
+    }
+ }
