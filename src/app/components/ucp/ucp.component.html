@@ -13,7 +13,7 @@
       {{currentPage}}
       <div [ngSwitch]="currentPage">
         <scfr-forum-ucp-main-switch *ngSwitchCase="'general'" [ucp]="this"></scfr-forum-ucp-main-switch>
-        <scfr-forum-ucp-profil-switch *ngSwitchCase="'profil'"></scfr-forum-ucp-profil-switch>
+        <scfr-forum-ucp-profil-switch *ngSwitchCase="'profil'" [ucp]="this"></scfr-forum-ucp-profil-switch>
         <div *ngSwitchDefault>Default</div>
       </div>
     </md-card-content>

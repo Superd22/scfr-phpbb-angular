@@ -1,0 +1,34 @@
+<ng-container [ngSwitch]="type">
+
+  <ng-container *ngSwitchCase="'textarea'">
+    <md-input-container>
+      <textarea mdInput [(ngModel)]="model" placeholder="{{display_name}}" [required]="required"></textarea>
+      <md-hint>{{explain}}</md-hint>
+    </md-input-container>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'select'">
+    <md-select [(ngModel)]="model" placeholder="{{display_name}}" [mdTooltip]="explain">
+      <md-option *ngFor="let opt of options" [value]="opt.id">{{opt.name}}</md-option>
+    </md-select>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'radio'">
+    <span>{{display_name}}</span><br />
+    <md-radio-group [(ngModel)]="model">
+      <md-radio-button *ngFor="let opt of options" [value]="opt.id">
+        {{opt.name}}
+      </md-radio-button><br />
+      <md-hint>{{explain}}</md-hint>
+    </md-radio-group>
+  </ng-container>
+
+
+  <ng-container *ngSwitchDefault>
+    <md-input-container>
+      <input mdInput [type]="type" [(ngModel)]="model" placeholder="{{display_name}}" [required]="required" />
+      <md-hint>{{explain}}</md-hint>
+    </md-input-container>
+  </ng-container>
+
+</ng-container>
