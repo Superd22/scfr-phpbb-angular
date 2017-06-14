@@ -13,11 +13,16 @@ export class ForumLinkComponent implements OnInit {
   public forum: UnreadResponse.JumpboxForum
   @Input("navCo")
   public navCo: NavigationComponent;
+  @Input()
+  public depth: number;
+  public toggleDisplaySub: boolean;
+  public cacheChildren;
 
   constructor() { }
 
   ngOnInit() {
-
+    if(this.depth > 1) this.toggleDisplaySub = false;
+    else this.toggleDisplaySub = true;
   }
 
   /**
@@ -29,7 +34,7 @@ export class ForumLinkComponent implements OnInit {
     // The children we own
     let children = this.navCo.forumMap.get(Number(this.forum.FORUM_ID));
 
-    if(!disp || !children) return null;
+    if (!disp || !children) return null;
 
     let retSubs = [];
     disp.forEach((disp) => {
@@ -37,7 +42,9 @@ export class ForumLinkComponent implements OnInit {
     });
 
 
-    return this.navCo.forumList.filter( (testForum) => retSubs.indexOf(Number(testForum.FORUM_ID)) > -1 );
+    this.cacheChildren = this.navCo.forumList.filter((testForum) => retSubs.indexOf(Number(testForum.FORUM_ID)) > -1);
+
+    return this.cacheChildren;
   }
 
 }

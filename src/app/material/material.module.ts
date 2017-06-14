@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MdButtonModule, MdSelectModule, MdSidenavModule, MdIconModule, MdProgressBarModule, MdInputModule, MdTooltipModule, MdMenuModule } from '@angular/material';
 import { MdProgressSpinnerModule, MdSnackBarModule, MdToolbarModule, MdAutocompleteModule, MdCheckboxModule } from '@angular/material';
 import { MdCardModule, MdDialogModule, MdTabsModule } from '@angular/material';
+import { LayoutService } from "./services/layout-service.service";
 
 let modules = [
     MdButtonModule,
@@ -26,6 +27,7 @@ let modules = [
 @NgModule({
     imports: modules,
     exports: modules,
-    declarations: []
+    declarations: [],
+    providers: [LayoutService]
 })
 export class SCFRMaterialModule { }

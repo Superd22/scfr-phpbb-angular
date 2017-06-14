@@ -1,8 +1,9 @@
 <md-sidenav-container class="app-layout">
-  <md-sidenav #sidenav #start mode="side" [opened]="true">
+  <md-sidenav #sidenav #start [mode]="mode" [opened]="toggle" (close-start)="toggle = false" fxFlex.lt-sm="80%" fxFlex.gt-sm="325px" fxFlex.gt-lg="15%">
     <app-navigation></app-navigation>
   </md-sidenav>
   <md-toolbar [color]="">
+    <button md-icon-button (click)="toggle = !toggle"><md-icon>{{toggle ? 'arrow_back' : 'menu'}}</md-icon></button>
     <span>BreadCrumbs</span>
   </md-toolbar>
   <ui-view></ui-view>
