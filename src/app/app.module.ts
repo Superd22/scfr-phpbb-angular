@@ -65,6 +65,7 @@ import { LookForForumPipe } from './components/navigation/pipes/look-for-forum.p
 import { GetFilteredResultPipe } from './pipes/get-filtered-result.pipe';
 import { FilteredForumsPipe } from './components/navigation/pipes/filtered-forums.pipe';
 import { ReinsertForumsPipe } from './components/navigation/pipes/reinsert-forums.pipe';
+import { HeaderBarComponent } from './components/navigation/header-bar/header-bar.component';
 
 @NgModule({
     declarations: [
@@ -110,6 +111,7 @@ import { ReinsertForumsPipe } from './components/navigation/pipes/reinsert-forum
         GetFilteredResultPipe,
         FilteredForumsPipe,
         ReinsertForumsPipe,
+        HeaderBarComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

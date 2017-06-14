@@ -1,15 +1,16 @@
+import { PhpbbAjaxMessageResponse } from './../interfaces/phpbb/phpbb-ajax-message-response';
 import { MdSnackBar } from '@angular/material';
 import { PhpbbFormHelperService } from './phpbb-form-helper.service';
 import { StateTranslate } from './state-translate.service';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Rx';
 import { PhpbbTemplateResponse } from '../models/phpbb-template-response'
 import { IndexResponse } from '../models/IndexResponse';
 import { UnreadResponse } from '../models/Search/UnreadReponse';
 import { UcpResponse } from '../models/UcpResponse';
 
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
+import { Observable } from "rxjs/Observable";
 
 const baseUrl = 'http://www.newforum.fr/';
 const callback = 'scfr_json_callback=true';
@@ -87,8 +88,11 @@ export class PhpbbApiService {
      * @param queries the GET data
      * @param raw if we want raw HTML return instead of JSON return.
      */
-    public getPage(page, queries?: {}, raw?: boolean, noSID?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.http.get(`${baseUrl}${page}`, { search: this.buildParameters(queries, raw, noSID), withCredentials: true })
+    public getPage(page, queries?: {}, raw?: boolean, XLMHttpRequest?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
+        let headers = null;
+        if (XLMHttpRequest) headers = new Headers({ 'X-Requested-With': 'XMLHttpRequest' });
+
+        return this.http.get(`${baseUrl}${page}`, { headers: headers, search: this.buildParameters(queries, raw), withCredentials: true })
             .map((res: Response) => {
                 let ret = res.json();
                 this.handleSID(ret);
@@ -96,6 +100,21 @@ export class PhpbbApiService {
                 return ret;
             })
             .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+    }
+
+    public getPhpbbAjaxPage(page, queries?: {}): Observable<PhpbbAjaxMessageResponse> {
+        return this.getPage(page, queries, null, true)
+            .map((data: any) => data)
+            .catch((error: any) => {
+                return Observable.of({
+                    MESSAGE_TEXT: "Une erreur s'est produite",
+                    MESSAGE_TITLE: "Erreur",
+                    REFRESH_DATA: null,
+                    S_USER_NOTICE: false,
+                    S_USER_WARNING: true,
+                    S_ERROR: true,
+                });
+            });
     }
 
     public getIndex(): Observable<IndexResponse.IndexRoot> {
