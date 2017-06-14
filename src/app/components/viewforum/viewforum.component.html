@@ -5,17 +5,22 @@
                 <h2 class="forum-title" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">
                     {{FORUM_NAME}}
                 </h2>
-                <button md-icon-button (click)="toggleWatchForum()"><md-icon>{{S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
+                <button *ngIf="U_WATCH_FORUM_LINK" md-icon-button (click)="toggleWatchForum()"><md-icon>{{S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
             </div>
 
             <em class="forum-sub-title">{{FORUM_DESC}}</em>
         </div>
 
         <div class="forum-actions-container">
-            <scfr-forum-ucp-phpbb-field displayName="Afficher" [fullPHPBB]="S_SELECT_SORT_DAYS" [(model)]="sortSt" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
-            <scfr-forum-ucp-phpbb-field displayName="Trier par" [fullPHPBB]="S_SELECT_SORT_KEY" [(model)]="sortSk" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
-            <scfr-forum-ucp-phpbb-field displayName="Direction" [fullPHPBB]="S_SELECT_SORT_DIR" [(model)]="sortSd" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
-            <button md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
+            <div class="forum-actions-sorting" *ngIf="S_SELECT_SORT_DAYS">
+                <scfr-forum-ucp-phpbb-field displayName="Afficher" [fullPHPBB]="S_SELECT_SORT_DAYS" [(model)]="sortSt" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
+                <scfr-forum-ucp-phpbb-field displayName="Trier par" [fullPHPBB]="S_SELECT_SORT_KEY" [(model)]="sortSk" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
+                <scfr-forum-ucp-phpbb-field displayName="Direction" [fullPHPBB]="S_SELECT_SORT_DIR" [(model)]="sortSd" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
+            </div>
+            <ng-container *ngIf="S_DISPLAY_POST_INFO">
+                <button *ngIf="!S_IS_LOCKED" md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
+                <button *ngIf="S_IS_LOCKED" md-button disabled="true"><md-icon>lock</md-icon> Forum verouillé </button>
+            </ng-container>
         </div>
     </div>
 
