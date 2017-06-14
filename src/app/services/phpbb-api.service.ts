@@ -1,3 +1,4 @@
+import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { PhpbbAjaxMessageResponse } from './../interfaces/phpbb/phpbb-ajax-message-response';
 import { MdSnackBar } from '@angular/material';
 import { PhpbbFormHelperService } from './phpbb-form-helper.service';
@@ -95,6 +96,7 @@ export class PhpbbApiService {
         return this.http.get(`${baseUrl}${page}`, { headers: headers, search: this.buildParameters(queries, raw), withCredentials: true })
             .map((res: Response) => {
                 let ret = res.json();
+                
                 this.handleSID(ret);
 
                 return ret;

@@ -12,14 +12,4 @@ export class PhpbbComponent implements OnInit {
   ngOnInit() {
     this.translate.getCurrentStateData(this);
   }
-
-  private unwrapTemplate(template) {
-    let keyArr = Object.keys(template);
-
-    keyArr.forEach((key) => {
-      this[key] = UnicodeToUtf8Pipe.forEach(template[key]);
-    });
-
-  }
-
 }

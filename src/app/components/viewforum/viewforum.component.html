@@ -25,11 +25,7 @@
         </ul>
     </div>
 
-    <div *ngIf="S_DISPLAY_POST_INFO || pagination || TOTAL_POSTS || TOTAL_TOPICS">
-        <ul>
-            <li *ngFor="let topic of topicrow">
-                <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: topic.TOPIC_ID}">{{topic.TOPIC_TITLE}}</a>
-            </li>
-        </ul>
+    <div *ngIf="S_DISPLAY_POST_INFO || pagination || TOTAL_POSTS || TOTAL_TOPICS" fxLayout="column">
+        <scfr-forum-viewforum-topic-row *ngFor="let topic of topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
     </div>
 </div>

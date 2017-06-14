@@ -49,7 +49,6 @@ export class HeaderBarComponent implements OnInit {
   }
 
   public goToForum(forumId) {
-    console.log(forumId);
     this.state.go("phpbb.seo.viewforum", { forumId: forumId, forumSlug: null });
   }
 

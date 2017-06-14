@@ -66,6 +66,8 @@ import { GetFilteredResultPipe } from './pipes/get-filtered-result.pipe';
 import { FilteredForumsPipe } from './components/navigation/pipes/filtered-forums.pipe';
 import { ReinsertForumsPipe } from './components/navigation/pipes/reinsert-forums.pipe';
 import { HeaderBarComponent } from './components/navigation/header-bar/header-bar.component';
+import { ViewforumForumRowComponent } from './components/viewforum/viewforum-forum-row/viewforum-forum-row.component';
+import { ViewforumTopicRowComponent } from './components/viewforum/viewforum-topic-row/viewforum-topic-row.component';
 
 @NgModule({
     declarations: [
@@ -112,6 +114,8 @@ import { HeaderBarComponent } from './components/navigation/header-bar/header-ba
         FilteredForumsPipe,
         ReinsertForumsPipe,
         HeaderBarComponent,
+        ViewforumForumRowComponent,
+        ViewforumTopicRowComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
