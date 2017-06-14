@@ -1,3 +1,5 @@
+import { PhpbbComponent } from './../components/phpbb/phpbb-component.component';
+import { ServiceLocator } from './ServiceLocator';
 import { Transition, UIRouter } from '@uirouter/angular';
 import { LoginService } from './login.service';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
@@ -18,8 +20,11 @@ export class StateTranslate {
     private router: UIRouter = null;
     private _latestTemplateData: ReplaySubject<any> = new ReplaySubject(1);
     public get latestTemplateData(): ReplaySubject<any> { return this._latestTemplateData; }
+    private phpbbApi: PhpbbApiService
 
-    constructor(private http: Http, private phpbbApi: PhpbbApiService, private login: LoginService) { }
+    constructor(private http: Http, private login: LoginService) {
+        this.phpbbApi = ServiceLocator.injector.get(PhpbbApiService);
+    }
 
     public set uiRouter(router: UIRouter) {
         this.router = router;
@@ -278,9 +283,17 @@ export class StateTranslate {
         return retain;
     }
 
-    public getCurrentStateData(component: any) {
-        let tpl = component.transition.params()["phpbbResolved"]["@template"];
+    public getCurrentStateData(component: PhpbbComponent) {
+        let tpl = this.router.stateService.params["phpbbResolved"]["@template"];
         if (tpl) {
+            this._latestTemplateData.next(tpl)
+            this.unwrapTplData(component, tpl);
+        }
+    }
+
+    public updateStateData(component: PhpbbComponent, resolvedData: PhpbbTemplateResponse.DefaultResponse) {
+        let tpl = resolvedData['@template'];
+        if(tpl) {
             this._latestTemplateData.next(tpl)
             this.unwrapTplData(component, tpl);
         }

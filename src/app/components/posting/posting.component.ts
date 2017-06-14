@@ -33,8 +33,8 @@ export class PostingComponent extends PhpbbComponent {
 
   public preview: SimplePost;
 
-  constructor(phpbbApi: PhpbbApiService, transition: Transition, translate: StateTranslate, private formHelper: PhpbbFormHelperService) {
-    super(phpbbApi, transition, translate);
+  constructor(private formHelper: PhpbbFormHelperService, protected transition: Transition) {
+    super();
   }
 
   ngOnInit() {

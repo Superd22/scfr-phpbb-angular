@@ -12,6 +12,9 @@
         </div>
 
         <div class="forum-actions-container">
+            <scfr-forum-ucp-phpbb-field displayName="Afficher" [fullPHPBB]="S_SELECT_SORT_DAYS" [(model)]="sortSt" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
+            <scfr-forum-ucp-phpbb-field displayName="Trier par" [fullPHPBB]="S_SELECT_SORT_KEY" [(model)]="sortSk" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
+            <scfr-forum-ucp-phpbb-field displayName="Direction" [fullPHPBB]="S_SELECT_SORT_DIR" [(model)]="sortSd" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
             <button md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
         </div>
     </div>

@@ -1,3 +1,4 @@
+import { ServiceLocator } from './ServiceLocator';
 import { StateTranslate } from './state-translate.service';
 import { Transition } from '@uirouter/angular';
 import { Injectable } from '@angular/core';
@@ -13,10 +14,11 @@ export class LoginService {
     public avatar: string;
     public legend: string;
     public rememberMe: boolean;
-
+    public phpbbApi: PhpbbApiService;
     public userStatus = new BehaviorSubject<{ status: boolean, message?: string }>({ status: false });
 
-    constructor(public phpbbApi: PhpbbApiService, public mdToast: MdSnackBar) {
+    constructor(public mdToast: MdSnackBar) {
+        this.phpbbApi = ServiceLocator.injector.get(PhpbbApiService);
         this.authenticationCheck();
     }
 
@@ -44,7 +46,7 @@ export class LoginService {
             err => console.log(err)
         );
 
-        
+
     }
 
     // Hydrate user with the relevant data.

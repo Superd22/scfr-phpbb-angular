@@ -22,6 +22,8 @@ export class UcpPhpbbFieldComponent implements OnInit {
   private _model;
   @Output()
   private modelChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output("change")
+  private change: EventEmitter<any> = new EventEmitter<any>();
   @Input("displayName")
   public display_name;
 
@@ -81,6 +83,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
   public set model(model: any) {
     this._model = model;
     this.modelChange.emit(model);
+    this.change.emit(model);
   }
 
   public get form_name(): string {
