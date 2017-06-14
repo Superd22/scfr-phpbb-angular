@@ -1,0 +1,37 @@
+<div class="topic-row" fxFlex="100">
+  <div class="topic-icon"></div>
+
+  <div class="topic-title-container">
+    <a uiSref="phpbb.seo.viewtopic" class="topic-title" [uiParams]="{forumId: FORUM_ID, topicId: topic.TOPIC_ID}">{{topic.TOPIC_TITLE}}</a>
+    <button md-button *ngIf="topic.S_TOPIC_UNAPPROVED || topic.S_POSTS_UNAPPROVED">
+      <a href="{{topic.U_MCP_QUEUE}}" title="{{L_TOPIC_UNAPPROVED}}">
+        <md-icon>sentiment_neutral</md-icon>{{L_TOPIC_UNAPPROVED}}
+      </a>
+		</button>
+
+    <button md-button *ngIf="topic.S_TOPIC_DELETED">
+      <a href="{{topic.U_MCP_QUEUE}}" title="{{L_TOPIC_DELETED}}">
+				<md-icon>autorenew</md-icon>{{L_TOPIC_DELETED}}<
+			</a>
+    </button>
+
+    <button md-button *ngIf="topic.S_TOPIC_REPORTED">
+      <a href="{topic.U_MCP_REPORT}" title="{{L_TOPIC_REPORTED}}">
+        <md-icon>priority_high</md-icon>{{L_TOPIC_REPORTED}}
+      </a>
+    </button>
+
+    <div class="topic-title-sub">
+      <div class="topic-title-sub-author">{{L_LAST_POST}} {{L_POST_BY_AUTHOR}}
+        <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: topicAuthor.userColor}" [uiParams]="{userId: topicAuthor?.userId}" class="topic-title-sub-author-link">
+          {{topicAuthor?.userName}}
+        </a>
+      </div>
+      <a href="{{topic.U_LAST_POST}}" title="{{L_GOTO_LAST_POST}}">{{topic.LAST_POST_TIME}}</a>
+    </div>
+
+  </div>
+
+  <div class="topic-stats"></div>
+  <div class="topic-last-reply"></div>
+</div>

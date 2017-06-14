@@ -109,6 +109,7 @@ export class StateTranslate {
                 .map(
                 (data) => {
                     let template = data["@template"];
+
                     // We're authorized and forum exists.
                     if (template["FORUM_ID"] && template["FORUM_NAME"]) {
                         trans_param = {
@@ -333,8 +334,8 @@ export class StateTranslate {
         };
 
         function get_pretty_state(i) {
-            for(let p in pretty_states) {
-                if(pretty_states[p].indexOf(i) > -1) {
+            for (let p in pretty_states) {
+                if (pretty_states[p].indexOf(i) > -1) {
                     return p;
                 }
             }
@@ -343,8 +344,8 @@ export class StateTranslate {
         }
 
         function get_pretty_sub_state(mode) {
-            for(let pp in pretty_sub_states) {
-                if(pretty_sub_states[pp] == mode) {
+            for (let pp in pretty_sub_states) {
+                if (pretty_sub_states[pp] == mode) {
                     return pp;
                 }
             }
@@ -361,8 +362,8 @@ export class StateTranslate {
             newParam.page = get_pretty_state(params.i);
             newParam.subPage = get_pretty_sub_state(params.mode);
 
-            if(!newParam.page) newParam.page = "general";
-            if(!newParam.subPage) newParam.subPage = "";
+            if (!newParam.page) newParam.page = "general";
+            if (!newParam.subPage) newParam.subPage = "";
 
             let r = Observable.of(transition.router.stateService.target(stateTarget, newParam))
 
@@ -371,12 +372,12 @@ export class StateTranslate {
         else if (!params.phpbbResolved) {
             // We're in SEO mod
             // Validate i & m first
-            if(params.i) newParam.page = get_pretty_state(params.i);
-            if(params.mode) newParam.subPage = get_pretty_sub_state(params.mode);
+            if (params.i) newParam.page = get_pretty_state(params.i);
+            if (params.mode) newParam.subPage = get_pretty_sub_state(params.mode);
 
             // We un-pretty-ize our params if need be
-            if(params.page && !params.i) newParam.i = pretty_states[params.page][0];
-            if(params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
+            if (params.page && !params.i) newParam.i = pretty_states[params.page][0];
+            if (params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
 
 
             // Fetch the actual data
@@ -422,6 +423,9 @@ export class StateTranslate {
     public unwrapTplData(component, tpl) {
         this._latestTemplateData.next(tpl)
         let keyArr = Object.keys(tpl);
+
+
+
 
         keyArr.forEach((key) => {
             component[key] = UnicodeToUtf8Pipe.forEach(tpl[key]);

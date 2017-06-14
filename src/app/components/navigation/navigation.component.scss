@@ -1,4 +1,26 @@
+@import './src/assets/material/v7/main';
+
 .navigator{
     margin: 0;
     flex-grow: 1;
+}
+
+md-toolbar {
+    background-color: map_get($scfr-mat-blue-grey-background,900);
+    font-size:1em;
+}
+
+.main-navigator-wrapper {
+    height:100vh;
+    .main-navigator {
+        .main-navigator-list {
+            padding-left:0px;
+            overflow: hidden;
+            overflow-y: auto;
+            margin: 0;
+            padding: 10px 0px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    }
+
 }

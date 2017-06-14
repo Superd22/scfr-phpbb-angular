@@ -1,3 +1,5 @@
+@import "v7/main";
+
 snack-bar-container{
 	height: auto !important;
 }
@@ -12,4 +14,13 @@ a img, img {
                 opacity:0;
                 background-color:transparent !important;
         }
+}
+::-webkit-scrollbar {
+    background: map_get($scfr-mat-blue-grey-background,900);    
+    width: 5px;
+
+}
+
+::-webkit-scrollbar-thumb  {
+    background: map_get($scfr-mat-light-blue,900);  
 }

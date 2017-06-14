@@ -1,8 +1,22 @@
 <div class="container">
-    <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
+    <div class="forum-header" fxLayout fxLayoutAlign="start center">
+        <div class="forum-name-container">
+            <div fxLayout fxLayoutAlign="start center">
+                <h2 class="forum-title" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">
+                    {{FORUM_NAME}}
+                </h2>
+                <button md-icon-button (click)="toggleWatchForum()"><md-icon>{{S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
+            </div>
+
+            <em class="forum-sub-title">{{FORUM_DESC}}</em>
+        </div>
+
+        <div class="forum-actions-container">
+            <button md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
+        </div>
+    </div>
 
 
-    <button md-raised-button uiSref=".posting">Nouveau topic</button>
     <div *ngIf="S_HAS_SUBFORUM">
         <ul>
             <li *ngFor="let forum of forumrow">
@@ -11,11 +25,7 @@
         </ul>
     </div>
 
-    <div *ngIf="S_DISPLAY_POST_INFO || pagination || TOTAL_POSTS || TOTAL_TOPICS">
-        <ul>
-            <li *ngFor="let topic of topicrow">
-                <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: topic.TOPIC_ID}">{{topic.TOPIC_TITLE}}</a>
-            </li>
-        </ul>
+    <div *ngIf="S_DISPLAY_POST_INFO || pagination || TOTAL_POSTS || TOTAL_TOPICS" fxLayout="column">
+        <scfr-forum-viewforum-topic-row *ngFor="let topic of topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
     </div>
 </div>

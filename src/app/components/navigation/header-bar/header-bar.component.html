@@ -1,0 +1,18 @@
+<md-toolbar>
+  <button md-icon-button (click)="toggle = !toggle"><md-icon>{{toggle ? 'arrow_back' : 'menu'}}</md-icon></button>
+
+  <button md-icon-button uiSref="phpbb.seo.index"  color="primary"><md-icon>home</md-icon></button>
+
+  <ng-container *ngIf="!select">
+    <ng-container *ngFor="let link of navlinks">
+      <md-icon color="primary">keyboard_arrow_right</md-icon>
+      <button md-button color="primary" (click)="goToForum(link.FORUM_ID)">{{link.FORUM_NAME}}</button>
+    </ng-container>
+  </ng-container>
+
+  <md-select *ngIf="select && navlinks" (change)="goToForum($event.value)" [(ngModel)]="selectedForum" fxFlex>
+    <md-option *ngFor="let link of navlinks" [value]="link.FORUM_ID">
+      {{link.FORUM_NAME}}
+    </md-option>
+  </md-select>
+</md-toolbar>

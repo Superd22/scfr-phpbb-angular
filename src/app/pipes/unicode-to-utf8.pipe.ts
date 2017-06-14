@@ -26,8 +26,9 @@ export class UnicodeToUtf8Pipe implements PipeTransform {
   }
 
   static HTMLEncode(str) {
-    var map = { amp: '&', lt: '<', gt: '>', quot: '"', '#039': "'" }
-    return str.replace(/&([^;]+);/g, (m, c) => map[c])
+    var map = { amp: '&', lt: '<', gt: '>', quot: '"', '#039': "'", reg:'®', copy:'©' }
+
+    return str.replace(/&([^;=]+?);/g, (m, c) => { if(map[c] == undefined) console.debug("Erreur in UTF8Ize", str,c); return map[c]; })
   }
 
 }

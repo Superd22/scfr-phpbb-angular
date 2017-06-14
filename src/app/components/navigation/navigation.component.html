@@ -1,10 +1,11 @@
-<div class="main-navigator-wrapper">
-    <div class="main-navigator">
-        <button md-icon-button uiSref="phpbb.seo.index"><md-icon>home</md-icon></button>
-        <md-input-container>
-            <input mdInput type="text" placeholder="Rechercher dans les forum" [(ngModel)]="searchForum">
-        </md-input-container>
-        <ul style="padding-left:0px">
+<div class="main-navigator-wrapper" fxLayout="column">
+    <div class="main-navigator" fxFlex fxLayout="column">
+        <md-toolbar>
+            <md-input-container fxFlex="100">
+                <input mdInput type="text" placeholder="Rechercher dans les forum" [(ngModel)]="searchForum">
+            </md-input-container>
+        </md-toolbar>
+        <ul class="main-navigator-list" fxFlex>
             <scfr-forum-navigation-forum-link *ngFor="let forum of forumList | lookForForum:searchForum | filteredForums:filteredForumList:reverseMap | reinsertForums:filteredForumList:reverseMap:forumList:0:searchForum"
                 [forum]="forum" [navCo]="this" [depth]="2"></scfr-forum-navigation-forum-link>
         </ul>
