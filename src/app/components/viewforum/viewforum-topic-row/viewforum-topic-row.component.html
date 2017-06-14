@@ -1,9 +1,8 @@
 <div class="topic-row" fxFlex="100">
   <div class="topic-icon"></div>
 
-  <div class="topic-title">
-
-    <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: topic.TOPIC_ID}">{{topic.TOPIC_TITLE}}</a>
+  <div class="topic-title-container">
+    <a uiSref="phpbb.seo.viewtopic" class="topic-title" [uiParams]="{forumId: FORUM_ID, topicId: topic.TOPIC_ID}">{{topic.TOPIC_TITLE}}</a>
     <button md-button *ngIf="topic.S_TOPIC_UNAPPROVED || topic.S_POSTS_UNAPPROVED">
       <a href="{{topic.U_MCP_QUEUE}}" title="{{L_TOPIC_UNAPPROVED}}">
         <md-icon>sentiment_neutral</md-icon>{{L_TOPIC_UNAPPROVED}}
@@ -24,10 +23,9 @@
 
     <div class="topic-title-sub">
       <div class="topic-title-sub-author">{{L_LAST_POST}} {{L_POST_BY_AUTHOR}}
-        <button uiSref="phpbb.seo.viewprofile" [uiParams]="{userId: topicAuthor?.userId}" md-button class="topic-title-sub-author-link">
-          <md-icon>account_circle</md-icon>
+        <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: topicAuthor.userColor}" [uiParams]="{userId: topicAuthor?.userId}" class="topic-title-sub-author-link">
           {{topicAuthor?.userName}}
-        </button>
+        </a>
       </div>
       <a href="{{topic.U_LAST_POST}}" title="{{L_GOTO_LAST_POST}}">{{topic.LAST_POST_TIME}}</a>
     </div>
