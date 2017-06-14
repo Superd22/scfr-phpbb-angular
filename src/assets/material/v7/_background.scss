@@ -1,0 +1,53 @@
+// Main palette for the background
+$scfr-mat-blue-grey-background: (
+  0: #ffffff,
+  50: #E5E6E7,
+  100: #BEC2C4,
+  200: #93999D,
+  300: #677075,
+  400: #475158,
+  500: #26323A,
+  600: #222D34,
+  700: #1C262C,
+  800: #171F25,
+  900: #0D1318,
+  1000: #000000,
+  A100: #5CADFF,
+  A200: #2994FF,
+  A400: #007AF5,
+  A700: #006EDB,
+  contrast: (
+    0: $black-87-opacity,
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: $black-87-opacity,
+    600: $white-87-opacity,
+    700: $white-87-opacity,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    1000: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: $white-87-opacity,
+  )
+);
+
+// Declaration of our backgrounds
+$scfr-dark-v7-theme-background: (
+  status-bar: black,
+  app-bar:    map_get($scfr-mat-blue-grey-background,800),
+  background: map_get($scfr-mat-blue-grey-background,500),
+  hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+  card:       map_get($scfr-mat-blue-grey-background,700),
+  dialog:     map_get($scfr-mat-blue-grey-background,800),
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $white-6-opacity,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: map_get($mat-grey, 1000),
+);

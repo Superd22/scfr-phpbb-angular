@@ -4,9 +4,9 @@
         <md-input-container>
             <input mdInput type="text" placeholder="Rechercher dans les forum" [(ngModel)]="searchForum">
         </md-input-container>
-        <ul style="margin-left:0px">
+        <ul style="padding-left:0px">
             <scfr-forum-navigation-forum-link *ngFor="let forum of forumList | lookForForum:searchForum | filteredForums:filteredForumList:reverseMap | reinsertForums:filteredForumList:reverseMap:forumList:0:searchForum"
-                [forum]="forum" [navCo]="this" [depth]="1"></scfr-forum-navigation-forum-link>
+                [forum]="forum" [navCo]="this" [depth]="2"></scfr-forum-navigation-forum-link>
         </ul>
     </div>
     <app-login class="navigator-bottom"></app-login>

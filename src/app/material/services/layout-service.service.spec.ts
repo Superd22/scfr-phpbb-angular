@@ -5,7 +5,7 @@ import { LayoutService } from './layout-service.service';
 describe('LayoutService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LayoutServiceService]
+      providers: [LayoutService]
     });
   });
 

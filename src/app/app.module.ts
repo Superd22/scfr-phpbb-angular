@@ -63,7 +63,6 @@ import { UcpSubPageFormComponent } from './components/ucp/ucp-sub-page-form/ucp-
 import { ForumLinkComponent } from './components/navigation/forum-link/forum-link.component';
 import { LookForForumPipe } from './components/navigation/pipes/look-for-forum.pipe';
 import { GetFilteredResultPipe } from './pipes/get-filtered-result.pipe';
-import { FilteredPipesPipe } from './components/navigation/pipes/filtered-pipes.pipe';
 import { FilteredForumsPipe } from './components/navigation/pipes/filtered-forums.pipe';
 import { ReinsertForumsPipe } from './components/navigation/pipes/reinsert-forums.pipe';
 
