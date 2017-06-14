@@ -1,6 +1,6 @@
 import { PhpbbComponent } from './../components/phpbb/phpbb-component.component';
 import { ServiceLocator } from './ServiceLocator';
-import { Transition, UIRouter } from '@uirouter/angular';
+import { Transition, UIRouter, TargetState } from '@uirouter/angular';
 import { LoginService } from './login.service';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
@@ -221,7 +221,7 @@ export class StateTranslate {
      * As **.posting are always children state, we discard previous phpbbResolved
      * And fetch only once.
      */
-    private getPosting(trans, param) {
+    private getPosting(trans: Transition, param) {
 
         let params = Object.assign({}, param);
 
@@ -261,7 +261,12 @@ export class StateTranslate {
             return this.phpbbApi.getPage("posting.php", legacy).map(
                 data => {
                     let template = data["@template"];
+
                     if (this.checkAuthLogin(trans, template)) return this.checkAuthLogin(trans, template);
+                    
+                    let ifM = this.checkInformationMessage(trans, data);
+                    if (ifM) return ifM;
+
 
                     // Retain old state resolved data
                     params.phpbbResolved = this.mergeRetainResolved(params.phpbbResolved, data);
@@ -272,6 +277,20 @@ export class StateTranslate {
             );
         }
         else return Observable.of(new Object()).map(() => false);
+    }
+
+    /**
+     * Sometimes PHPBB will display an "Information Page" when you're not authorized to do something
+     * This function will detect this page and provide a redirection to our own information page
+     * @param trans the transition we're coming from
+     * @param data the data containing the tpl to check against
+     * @return false if we don't find information message, a targetState instead
+     */
+    private checkInformationMessage(trans: Transition, data: PhpbbTemplateResponse.DefaultResponse): false | TargetState {
+        if (data['@template'].MESSAGE_TEXT && data['@template'].MESSAGE_TITLE) {
+            return trans.router.stateService.target("phpbb.seo.information", { phpbbResolved: data });
+        }
+        return false;
     }
 
     private mergeRetainResolved(retain, resolved) {
@@ -293,7 +312,7 @@ export class StateTranslate {
 
     public updateStateData(component: PhpbbComponent, resolvedData: PhpbbTemplateResponse.DefaultResponse) {
         let tpl = resolvedData['@template'];
-        if(tpl) {
+        if (tpl) {
             this._latestTemplateData.next(tpl)
             this.unwrapTplData(component, tpl);
         }

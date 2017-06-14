@@ -68,6 +68,7 @@ import { ReinsertForumsPipe } from './components/navigation/pipes/reinsert-forum
 import { HeaderBarComponent } from './components/navigation/header-bar/header-bar.component';
 import { ViewforumForumRowComponent } from './components/viewforum/viewforum-forum-row/viewforum-forum-row.component';
 import { ViewforumTopicRowComponent } from './components/viewforum/viewforum-topic-row/viewforum-topic-row.component';
+import { InformationsComponent } from './components/informations/informations.component';
 
 @NgModule({
     declarations: [
@@ -116,6 +117,7 @@ import { ViewforumTopicRowComponent } from './components/viewforum/viewforum-top
         HeaderBarComponent,
         ViewforumForumRowComponent,
         ViewforumTopicRowComponent,
+        InformationsComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
