@@ -29,12 +29,17 @@ export class HeaderBarComponent implements OnInit {
     this.toggleChange.emit(toggle);
   }
 
-  constructor(private stateT: StateTranslate, private layout: LayoutService, private state:StateService) {
+  constructor(private stateT: StateTranslate, private layout: LayoutService, private state: StateService) {
     this.stateT.latestTemplateData.subscribe((tpl) => {
       this.navlinks = tpl.navlinks
 
-      if(!tpl.navlinks) this.selectedForum = null;
-      else this.selectedForum = this.navlinks[(this.navlinks.length-1)].FORUM_ID;
+      if (!tpl.navlinks) {
+        this.selectedForum = null;
+        this.navlinks = null;
+      }
+      else {
+        this.selectedForum = this.navlinks[(this.navlinks.length - 1)].FORUM_ID;
+      }
     });
 
     this.layout.lt_sm.subscribe((lt_sm) => {
@@ -45,7 +50,7 @@ export class HeaderBarComponent implements OnInit {
 
   public goToForum(forumId) {
     console.log(forumId);
-    this.state.go("phpbb.seo.viewforum", {forumId: forumId, forumSlug: null});
+    this.state.go("phpbb.seo.viewforum", { forumId: forumId, forumSlug: null });
   }
 
   ngOnInit() {
