@@ -20,7 +20,9 @@ a img, img {
     width: 5px;
 
 }
-
+[uiSref] {
+        cursor:pointer;
+}
 ::-webkit-scrollbar-thumb  {
     background: map_get($scfr-mat-light-blue,900);  
 }

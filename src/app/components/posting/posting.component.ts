@@ -112,6 +112,11 @@ export class PostingComponent extends PhpbbComponent {
       opts.mode = "edit";
     }
 
+    if(this.transition.params().quote) {
+      opts.p = null;
+      opts.mode = "reply"
+    }
+
     return opts;
   }
 
