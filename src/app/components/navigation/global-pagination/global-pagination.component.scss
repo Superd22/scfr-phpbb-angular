@@ -2,6 +2,7 @@
 
 $border: map-get($scfr-mat-light-blue, 600);
 $bg: map-get($scfr-mat-blue-grey-background,700);
+$color:  map-get($scfr-mat-light-blue, 200);
 $angle-size: 26px;
 .global {
     position:fixed;
@@ -32,6 +33,8 @@ $angle-size: 26px;
         }
         .pagination {
             background: $bg;
+            color:$color;
+            font-size: 0.8rem;
         }
     }
     

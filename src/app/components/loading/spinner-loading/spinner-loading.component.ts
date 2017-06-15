@@ -18,7 +18,9 @@ export class SpinnerLoadingComponent implements OnInit {
   @Input()
   public spinner: boolean = false;
 
-  public get splash(): string {
+  public splash: string;
+
+  private getSplash() {
     let splashs: string[] = [
       "Chargement en cours",
       "Deux secondes de plus",
@@ -32,12 +34,13 @@ export class SpinnerLoadingComponent implements OnInit {
       "Modélisation de l'holographie interne",
     ];
 
-    return splashs[Math.floor(Math.random() * splashs.length)];
+    this.splash = splashs[Math.floor(Math.random() * splashs.length)];
   }
 
   constructor() { }
 
   ngOnInit() {
+    this.getSplash();
   }
 
 }

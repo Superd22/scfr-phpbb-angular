@@ -3,9 +3,9 @@
   <div class="nav">
     <div class="angle"></div>
     <div class="pagination">
-    <button md-icon-button color="primary" (click)="move(-1)"><md-icon>navigate_before</md-icon></button> 
-     {{page}} / {{totalPage}}
-     <button md-icon-button color="primary" (click)="move(1)"><md-icon>navigate_next</md-icon></button> 
+      <button md-icon-button color="primary" (click)="move(-1)" [disabled]="page == 1"><md-icon>navigate_before</md-icon></button> 
+        {{page}} / {{totalPage}}
+      <button md-icon-button color="primary" (click)="move(1)" [disabled]="page == totalPage"><md-icon>navigate_next</md-icon></button> 
     </div>
   </div>
 </div>
