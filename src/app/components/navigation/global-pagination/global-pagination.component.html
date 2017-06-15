@@ -1,11 +1,14 @@
-<div class="global" fxLayout>
+<div class="global" fxLayout >
   <div class="bar" fxFlex></div>
   <div class="nav">
     <div class="angle"></div>
     <div class="pagination">
       <button md-icon-button color="primary" (click)="move(-1)" [disabled]="page == 1"><md-icon>navigate_before</md-icon></button> 
-        {{page}} / {{totalPage}}
-      <button md-icon-button color="primary" (click)="move(1)" [disabled]="page == totalPage"><md-icon>navigate_next</md-icon></button> 
+        {{page}} / {{totalPage > 0 ? totalPage : 1}}
+      <button md-icon-button color="primary" (click)="move(1)" [disabled]="page >= totalPage"><md-icon>navigate_next</md-icon></button> 
+    </div>
+    <div class="moar">
+      <ng-content></ng-content>
     </div>
   </div>
 </div>

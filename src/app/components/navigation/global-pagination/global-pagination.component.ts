@@ -29,8 +29,8 @@ export class GlobalPaginationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.totalPage = Number(this.totalPage);
-    this._page = Number(this._page);
+    this.totalPage = Number(this.totalPage) || 1;
+    this._page = Number(this._page) || 1;
   }
 
   public move(n: number) {
