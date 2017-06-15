@@ -1,0 +1,10 @@
+<div *ngIf="show">
+  <div class="wrapper">
+    <div class="bottom-splash" fxLayout="column"  fxLayoutAlign="center center">
+      <img src="assets/images/logo.notext.dark.png">
+      <h4>{{splash}} ...</h4>
+      <md-progress-spinner *ngIf="spinner" [mode]="mode" [color]="color"></md-progress-spinner>
+      <md-progress-bar *ngIf="!spinner" [mode]="mode" [color]="color"></md-progress-bar>
+    </div>
+  </div>
+</div>

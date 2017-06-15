@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" fxLayout="column" fxLayoutWrap>
     <div class="forum-header" fxLayout fxLayoutAlign="start center">
         <div class="forum-name-container">
             <div fxLayout fxLayoutAlign="start center">
@@ -33,7 +33,15 @@
         </ul>
     </div>
 
-    <div *ngIf="S_DISPLAY_POST_INFO || pagination || TOTAL_POSTS || TOTAL_TOPICS" fxLayout="column">
+
+    <div fxFlex="100">
+        <div fxFlex.gt-sm="60" fxFlexOffset.gt-sm="20">
+            <scfr-forum-spinner-loading [show]="loadingTopics"></scfr-forum-spinner-loading>
+        </div>
+    </div>
+
+
+    <div *ngIf="topicrow && !loadingTopics" fxLayout="column">
         <scfr-forum-viewforum-topic-row *ngFor="let topic of topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
     </div>
 </div>

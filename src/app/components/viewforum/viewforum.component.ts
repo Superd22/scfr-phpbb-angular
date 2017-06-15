@@ -28,6 +28,8 @@ export class ViewforumComponent extends PhpbbComponent {
   public sortSk;
   public sortSd;
 
+  public loadingTopics: boolean = false;
+
   constructor() {
     super();
   }
@@ -81,7 +83,7 @@ export class ViewforumComponent extends PhpbbComponent {
   }
 
   public changePage(n: number) {
-    console.log("wannachange",n);
+    this.loadingTopics = true;
     this.stateService.go("phpbb.seo.viewforum", { pageNumber: n });
   }
 

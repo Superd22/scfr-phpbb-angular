@@ -58,9 +58,11 @@ export class StateTranslate {
         let trans_page = "phpbb.seo.index";
 
         if (typeof topicId === "undefined") topicId = trans.params()["t"];
+        /** @todo allow n-sized pages */
+        let start = params["pageNumber"] ? (params["pageNumber"] - 1) * 15 : null;
 
         if (topicId > 0 && this.shouldParseAgain) {
-            return this.phpbbApi.getTopicById(topicId).map(
+            return this.phpbbApi.getTopicById(topicId, start).map(
                 data => {
                     let template = data["@template"];
                     // We're authorized and topic exists.
@@ -108,6 +110,7 @@ export class StateTranslate {
         var trans_page = "phpbb.seo.index";
 
         if (typeof forumId === "undefined") forumId = trans.params()["f"];
+        /** @todo allow n-sized pages */
         let start = params["pageNumber"] ? (params["pageNumber"] - 1) * 20 : null;
 
         if (forumId > 0 && this.shouldParseAgain) {

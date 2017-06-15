@@ -71,6 +71,7 @@ import { ViewforumTopicRowComponent } from './components/viewforum/viewforum-top
 import { InformationsComponent } from './components/informations/informations.component';
 import { GlobalPaginationComponent } from './components/navigation/global-pagination/global-pagination.component';
 import { BackgroundComponent } from './components/background/background.component';
+import { SpinnerLoadingComponent } from './components/loading/spinner-loading/spinner-loading.component';
 
 @NgModule({
     declarations: [
@@ -122,6 +123,7 @@ import { BackgroundComponent } from './components/background/background.componen
         InformationsComponent,
         GlobalPaginationComponent,
         BackgroundComponent,
+        SpinnerLoadingComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
