@@ -78,7 +78,6 @@ export class StateTranslate {
      */
     private transform_viewtopic(trans: Transition, topicId?: number) {
         let params = trans.params();
-        console.log(params);
         var trans_param = Object.assign({}, params);
         let trans_page = "phpbb.seo.index";
 

@@ -23,7 +23,6 @@ export class LanguageProviderService {
    * @param key the name to search for, with the L_ prefix
    */
   public getTranslation(key: string): string {
-    console.log("TRANSLATE!!!",key.substring(2));
     return this._lang[key.substring(2)];
   }
 
