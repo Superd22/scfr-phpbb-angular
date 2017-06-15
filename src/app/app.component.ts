@@ -1,5 +1,6 @@
+import { SCFRLocalStorage } from './decorators/LocalStorage.decorator';
 import { LayoutService } from './material/services/layout-service.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'scfr-phpbb',
@@ -7,10 +8,12 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+
     public title = 'SCFR PHPBB APP';
     public mode = "side";
-    public toggle: boolean = true;
+    @SCFRLocalStorage("navbar:toggle")
+    public toggle: boolean;
 
     constructor(private layout: LayoutService) {
         this.layout.gt_sm.subscribe((gt_sm) => {
@@ -18,4 +21,11 @@ export class AppComponent {
             else this.mode = "over";
         });
     }
+
+    ngOnInit() {
+
+    }
+
+
+
 }
