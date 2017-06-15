@@ -6,6 +6,7 @@ import { PhpbbApiService } from './../../services/phpbb-api.service';
 import { PhpbbService } from './../../services/phpbb.service';
 import { Component, OnInit } from '@angular/core';
 import { PhpbbPostMessage } from '../../interfaces/phpbb/phpbb-post-message';
+import { UiServiceService } from "../../material/services/ui-service.service";
 
 @Component({
   selector: 'app-viewtopic',
@@ -22,7 +23,9 @@ export class ViewtopicComponent extends PhpbbComponent {
   public PER_PAGE: number;
   public editedMessage: number = 0;
 
-  constructor(public PhpbbService: PhpbbService) {
+  public fetchingNewPosts: boolean = false;
+
+  constructor(public PhpbbService: PhpbbService, public UI: UiServiceService) {
     super();
   }
 
@@ -30,17 +33,10 @@ export class ViewtopicComponent extends PhpbbComponent {
     super.ngOnInit();
   }
 
-  //Will need to find a good infinite loading solution
-  public loadNextPost(){
-    let offset = this.CURRENT_PAGE * this.PER_PAGE;
-    //We will subscribe multiple times causing dublicates this.CURRENT_PAGE++;
-    //Will need to use a promise
-    this.PhpbbService.getTopicById(this.TOPIC_ID, offset).subscribe(
-        data => {
-          this.postrow = this.postrow.concat(data);
-          this.CURRENT_PAGE++;
-        }
-    );
+  public changePage(n: number) {
+    this.fetchingNewPosts = true;
+    this.UI.scrollToTop();
+    this.stateService.go("phpbb.seo.viewtopic", { pageNumber: n });
   }
 
 }

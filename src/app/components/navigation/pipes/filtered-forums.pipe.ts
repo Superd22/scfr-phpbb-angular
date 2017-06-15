@@ -12,9 +12,6 @@ export class FilteredForumsPipe implements PipeTransform {
   transform(forums: UnreadResponse.JumpboxForum[], filtered: FilteredForumsPipeResult, map: Map<number, number>): any {
     
     if(!forums) return [];
-
-    console.log("in filtered", forums.length);
-
     this.map = map;
     this.filtered = filtered;
 
@@ -32,7 +29,6 @@ export class FilteredForumsPipe implements PipeTransform {
       this.addDaddy(forumId);
     });
 
-    console.log("DONE filtered", forums.length);
     return forums;
   }
 

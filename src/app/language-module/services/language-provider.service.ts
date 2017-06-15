@@ -1,3 +1,4 @@
+import { FRCommonLanguage } from './../languages/common.enum';
 import { UCPLanguage } from './../languages/ucp.enum';
 import { Injectable } from '@angular/core';
 
@@ -5,22 +6,26 @@ import { Injectable } from '@angular/core';
 export class LanguageProviderService {
 
   private _langUCP = UCPLanguage;
+  private _langCommon = FRCommonLanguage;
 
-  constructor() { 
-  }
-
-
-  public L_(param: string) {
-    if(param && this._langUCP && this._langUCP[param])
-    return this._langUCP[param];
-    return null;
-  }
+  private _lang;
 
   /**
-   * Helper function to automatically 
+   * @todo handle multi lang
    */
-  public autoGetLs(component) {
-
+  constructor() {
+    this._lang = Object.assign({}, this._langCommon, this._langUCP);
   }
+
+
+  /**
+   * Return a matching translated string for the key
+   * @param key the name to search for, with the L_ prefix
+   */
+  public getTranslation(key: string): string {
+    return this._lang[key.substring(2)];
+  }
+
+
 
 }

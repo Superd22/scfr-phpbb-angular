@@ -1,3 +1,4 @@
+import { UiServiceService } from './services/ui-service.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MdButtonModule, MdSelectModule, MdSidenavModule, MdIconModule, MdProgressBarModule, MdInputModule, MdTooltipModule, MdMenuModule } from '@angular/material';
@@ -28,6 +29,6 @@ let modules = [
     imports: modules,
     exports: modules,
     declarations: [],
-    providers: [LayoutService]
+    providers: [LayoutService, UiServiceService]
 })
 export class SCFRMaterialModule { }

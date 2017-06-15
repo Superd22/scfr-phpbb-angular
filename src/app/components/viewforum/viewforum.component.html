@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" fxLayout="column" fxLayoutWrap>
     <div class="forum-header" fxLayout fxLayoutAlign="start center">
         <div class="forum-name-container">
             <div fxLayout fxLayoutAlign="start center">
@@ -17,10 +17,9 @@
                 <scfr-forum-ucp-phpbb-field displayName="Trier par" [fullPHPBB]="S_SELECT_SORT_KEY" [(model)]="sortSk" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
                 <scfr-forum-ucp-phpbb-field displayName="Direction" [fullPHPBB]="S_SELECT_SORT_DIR" [(model)]="sortSd" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
             </div>
-            <ng-container *ngIf="S_DISPLAY_POST_INFO">
-                <button *ngIf="!S_IS_LOCKED" md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
-                <button *ngIf="S_IS_LOCKED" md-button disabled="true"><md-icon>lock</md-icon> Forum verouillé </button>
-            </ng-container>
+
+            <ng-container [ngTemplateOutlet]="newTopicButton"></ng-container>
+
         </div>
     </div>
 
@@ -33,7 +32,26 @@
         </ul>
     </div>
 
-    <div *ngIf="S_DISPLAY_POST_INFO || pagination || TOTAL_POSTS || TOTAL_TOPICS" fxLayout="column">
+
+    <div fxFlex="100">
+        <div fxFlex.gt-sm="60" fxFlexOffset.gt-sm="20">
+            <scfr-forum-spinner-loading [show]="loadingTopics"></scfr-forum-spinner-loading>
+        </div>
+    </div>
+
+
+    <div *ngIf="topicrow && !loadingTopics" fxLayout="column">
         <scfr-forum-viewforum-topic-row *ngFor="let topic of topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
     </div>
 </div>
+
+<scfr-forum-global-pagination [page]="CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="TOTAL_PAGES">
+    <ng-container [ngTemplateOutlet]="newTopicButton"></ng-container>
+</scfr-forum-global-pagination>
+
+<ng-template #newTopicButton>
+    <ng-container *ngIf="S_DISPLAY_POST_INFO">
+        <button *ngIf="!S_IS_LOCKED" md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
+        <button *ngIf="S_IS_LOCKED" md-button disabled="true"><md-icon>lock</md-icon> Forum verouillé </button>
+    </ng-container>
+</ng-template>

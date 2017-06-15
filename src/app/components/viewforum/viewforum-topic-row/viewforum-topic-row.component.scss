@@ -1,6 +1,15 @@
+@import './src/assets/material/v7/main';
+
+$border: map-get($scfr-mat-light-blue, 600);
+$main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,700),0.7);
+$color:  map-get($scfr-mat-light-blue, 200);
+
 .topic-row {
     padding: 10px;
     font-family:"Electrolize";
+    background:$main-bg;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    align-items: center;
    .topic-title {
         font-family: 'Heebo', sans-serif;
         font-size:1.2rem;
@@ -11,6 +20,11 @@
            .topic-title-sub-author-link {
                font-weight:bold;
            }
+       }
+   }
+   .topic-stats {
+       dl {
+            margin: 0px;
        }
    }
 }

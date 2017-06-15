@@ -2,6 +2,8 @@
   <md-sidenav #sidenav #start [mode]="mode" [opened]="toggle" (close-start)="toggle = false" fxFlex.lt-sm="80%" fxFlex.gt-sm="325px" fxFlex.gt-lg="15%">
     <app-navigation></app-navigation>
   </md-sidenav>
+  <div id="top"></div>
   <scfr-forum-header-bar [(toggle)]="toggle"></scfr-forum-header-bar>
   <ui-view></ui-view>
+  <scfr-forum-background></scfr-forum-background>
 </md-sidenav-container>

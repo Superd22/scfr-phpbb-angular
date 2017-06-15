@@ -25,8 +25,6 @@ export class ReinsertForumsPipe implements PipeTransform {
       reverseMap.get(Number(forum.FORUM_ID)) == currentLevel
     );
 
-    console.log("f", forums);
-
     args.extended.forEach((extendedId) => {
       // We don't have this forum in the original, and thus in the forums
       if (args.original.indexOf(extendedId) == -1) {

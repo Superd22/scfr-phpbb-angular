@@ -128,14 +128,22 @@ export class PhpbbApiService {
         return this.getPage('ucp.php', { i: 'pm', folder: 'inbox' });
     }
 
-    public getForumById(forum: number): Observable<PhpbbTemplateResponse.DefaultResponse> {
+    public getForumById(forum: number, start?: number): Observable<PhpbbTemplateResponse.DefaultResponse> {
+        let params: { f: number, start: number } = { f: forum, start: start };
+
         if (ViewforumComponent.hasLocalSortPref(forum))
-            return this.postPage('viewforum.php', ViewforumComponent.localSortPref(forum), { f: forum });
-        else return this.getPage('viewforum.php', { f: forum });
+            return this.postPage('viewforum.php', ViewforumComponent.localSortPref(forum), params);
+        else return this.getPage('viewforum.php', params);
     }
 
-    public getTopicById(topic: number, offset: number = 0): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.getPage('viewtopic.php', { t: topic, start: offset });
+    /**
+     * Get viewtopic with specified data
+     * @param topic the id of the topic
+     * @param offset the offset at which to start reading posts
+     * @param post post id of the specific post we want to include
+     */
+    public getTopicById(topic: number, offset?: number, post?: number): Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.getPage('viewtopic.php', { t: topic, start: offset, p: post });
     }
 
     public getPrivateMessageList(): Observable<PhpbbTemplateResponse.DefaultResponse> {

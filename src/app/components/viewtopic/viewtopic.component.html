@@ -1,11 +1,28 @@
-<div class="container">
-    <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
-    <h3 class="topic-title"><a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: TOPIC_ID}">{{TOPIC_TITLE}}</a></h3>
-    <button md-raised-button uiSref=".posting">Répondre</button>
+<div class="container" fxLayoutWrap>
+    <div class="top-details">
+        <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
+        <h3 class="topic-title"><a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: TOPIC_ID}">{{TOPIC_TITLE}}</a></h3>
+        <ng-container [ngTemplateOutlet]="replyButton"></ng-container>
+    </div>
 
-    <div *ngIf="postrow">
+    <div fxFlex="100">
+        <div fxFlex.gt-sm="60" fxFlexOffset.gt-sm="20">
+            <scfr-forum-spinner-loading [show]="fetchingNewPosts"></scfr-forum-spinner-loading>
+        </div>
+    </div>
+
+    <div *ngIf="postrow && !fetchingNewPosts" fxFlex="100">
         <app-viewmessage *ngFor="let post of postrow" [postrow]="post" [editable]="true" [(edit)]="editedMessage"></app-viewmessage>
     </div>
 
-    <button md-mini-fab *ngIf="CURRENT_PAGE < TOTAL_PAGES" (click)="loadNextPost()"><md-icon>add</md-icon></button>
+
 </div>
+
+<scfr-forum-global-pagination [page]="CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="TOTAL_PAGES">
+    <ng-container [ngTemplateOutlet]="replyButton"></ng-container>
+</scfr-forum-global-pagination>
+
+
+<ng-template #replyButton>
+    <button md-button uiSref=".posting">Répondre</button>
+</ng-template>

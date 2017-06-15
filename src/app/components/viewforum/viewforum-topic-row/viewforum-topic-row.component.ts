@@ -1,3 +1,4 @@
+import { PhpbbLanguageComponent } from './../../../language-module/components/phpbb-language/phpbb-language.component';
 import { UnicodeToUtf8Pipe } from './../../../pipes/unicode-to-utf8.pipe';
 import { DomSanitizer } from '@angular/platform-browser/';
 import { Component, OnInit, Input } from '@angular/core';
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './viewforum-topic-row.component.html',
   styleUrls: ['./viewforum-topic-row.component.scss']
 })
-export class ViewforumTopicRowComponent implements OnInit {
+export class ViewforumTopicRowComponent extends PhpbbLanguageComponent implements OnInit {
 
   @Input()
   public topic;
@@ -16,7 +17,9 @@ export class ViewforumTopicRowComponent implements OnInit {
   public topicAuthor: ColoredLinkUser;
 
 
-  constructor(private s: DomSanitizer) { }
+  constructor(private s: DomSanitizer) { 
+    super();
+  }
 
   ngOnInit() {
     this.getInfoForPosters();

@@ -21,9 +21,14 @@ export class ViewforumComponent extends PhpbbComponent {
   public U_WATCH_FORUM_TOGGLE;
   public FORUM_ID;
 
+  /** number of topics per page */
+  public PER_PAGE;
+
   public sortSt;
   public sortSk;
   public sortSd;
+
+  public loadingTopics: boolean = false;
 
   constructor() {
     super();
@@ -55,7 +60,7 @@ export class ViewforumComponent extends PhpbbComponent {
     let old = this.localSortPref;
 
     // Do not trigger if we don't have a value yet
-    if(!this.sortSd || !this.sortSk || !this.sortSt) return;
+    if (!this.sortSd || !this.sortSk || !this.sortSt) return;
 
     // Only trigger on actual change
     if (!old || old.sd != this.sortSd || old.sk != this.sortSk || old.st != this.sortSt) {
@@ -75,6 +80,11 @@ export class ViewforumComponent extends PhpbbComponent {
       // repopulate all templates
       this.translate.updateStateData(this, data);
     });
+  }
+
+  public changePage(n: number) {
+    this.loadingTopics = true;
+    this.stateService.go("phpbb.seo.viewforum", { pageNumber: n });
   }
 
   public updateLocalSortPref() {

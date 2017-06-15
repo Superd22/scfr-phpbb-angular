@@ -2,9 +2,10 @@ import { ViewforumComponent } from './../../components/viewforum/viewforum.compo
 
 export const psoViewForum = {
     name: 'phpbb.seo.viewforum', 
-    url: '/{forumId:int}-{forumSlug:[^/]*}/',
+    url: '/{forumId:int}-{forumSlug:[^/]*}/:pageNumber',
     component: ViewforumComponent,
     params: {
         forumSlug: "",
+        pageNumber: null,
     }
 };

@@ -1,0 +1,23 @@
+
+.wrapper {
+    background-size: contain;
+    background-position: 50%;
+    min-height: 150px;
+    background-repeat: no-repeat;
+    img {
+        height:350px;
+        margin-bottom: -230px;
+    }
+    .bottom-splash {
+        h4 {
+            text-transform: uppercase;
+            font-family: "Electrolize";
+            text-align:center;
+            font-size:2rem;
+            margin-bottom:0px;
+            letter-spacing:10px;
+        }
+        md-progress-spinner, md-progress-bar {
+        }
+    }
+}

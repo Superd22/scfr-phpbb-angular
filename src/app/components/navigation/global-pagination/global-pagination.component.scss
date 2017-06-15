@@ -1,0 +1,56 @@
+@import './src/assets/material/v7/main';
+
+$border: map-get($scfr-mat-light-blue, 600);
+$bg: map-get($scfr-mat-blue-grey-background,700);
+$color:  map-get($scfr-mat-light-blue, 200);
+$angle-size: 26px;
+.global {
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    width: 100%;
+    align-items: flex-end;
+    font-family: "Electrolize";
+    .bar {
+        background: $bg;
+        height:15px;
+        border-top:1px solid $border;
+    }
+    .nav {
+        border-top:1px solid $border;
+        background: $bg;
+        .angle {
+            &:before {
+                content:"";
+                width:$angle-size;
+                height:$angle-size;
+                background: $bg;
+                display: block;
+                position: absolute;
+                margin-left: - ($angle-size/2 + 1);
+                transform: skew(-45deg);
+                border-left: 2px solid $border;
+                }
+        }
+        .pagination {
+            color:$color;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+        .moar {
+            display: inline-block;
+            background: $bg;
+            border-left: 1px solid rgba(255, 255, 255, 0.11);
+            &:before {
+                content: '';
+                display: block;
+                background: rgba(0, 0, 0, 0.45);
+                height: 100%;
+                position: absolute;
+                width: 1px;
+                margin-left: -2px;
+            }
+        }
+    }
+    
+}

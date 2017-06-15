@@ -52,65 +52,97 @@ export class StateTranslate {
         }
     }
 
-    private transform_viewtopic(trans, topicId?: number, force?: boolean) {
+    /**
+     * Checks a list of properties in the resolved against what we have in the params
+     * @param resolved the resolved phpbb thing
+     * @param param the param phpbbResolved
+     * @param toCheck an array of property to check [resolvedName, paramName][]
+     * @return [boolean] true if all the check matched
+     */
+    private checkParamsAgainstResolved(resolved, params, toCheck: string[][]): boolean {
+        let okay = true;
+        for (let i = 0; i < toCheck.length && okay; i++) {
+            let pResolved = toCheck[i][0];
+            let pParams = toCheck[i][1];
+
+            if (params[pParams] != null && resolved[pResolved] != params[pParams]) okay = false;
+        }
+
+        return okay;
+    }
+
+    /**
+     * Handles the transformation and proper fetching of a viewtopic event
+     * @param trans the transition we're coming from
+     * @param topicId the topic we want to fetch
+     */
+    private transform_viewtopic(trans: Transition, topicId?: number) {
         let params = trans.params();
-        let trans_param = {};
+        var trans_param = Object.assign({}, params);
         let trans_page = "phpbb.seo.index";
 
         if (typeof topicId === "undefined") topicId = trans.params()["t"];
+        /** @todo allow n-sized pages */
+        let start = params["pageNumber"] ? (params["pageNumber"] - 1) * 15 : null;
 
-        if (topicId > 0 && this.shouldParseAgain) {
-            return this.phpbbApi.getTopicById(topicId).map(
+        // We already fetched what we needed
+        if (params['phpbbResolved']) {
+            // Check it's still what we want 
+            if (this.checkParamsAgainstResolved(params['phpbbResolved']['@template'], params, [
+                ["FORUM_ID", "forumId"],
+                ["TOPIC_ID", "topicId"],
+                ["CURRENT_PAGE", "pageNumber"]
+            ])) {
+                // That's all we ever wanted
+                return Observable.of(true);
+            }
+        }
+
+        // We need to fetch a topic
+        if (topicId > 0) {
+            return this.phpbbApi.getTopicById(topicId, start, params['p']).map(
                 data => {
                     let template = data["@template"];
-                    // We're authorized and topic exists.
+
+                    // We got a topic
                     if (template["TOPIC_ID"] > 0) {
 
-
-                        trans_param = {
+                        // We got our new params
+                        trans_param = Object.assign(trans_param, {
                             phpbbResolved: data,
                             forumId: template["FORUM_ID"],
                             forumSlug: new SeoUrlPipe().transform(template["FORUM_NAME"]),
                             topicSlug: new SeoUrlPipe().transform(template['TOPIC_TITLE']),
                             topicId: template["TOPIC_ID"],
-                            '#': trans.params()["#"],
-                        };
+                            pageNumber: Number(template['CURRENT_PAGE']) > 1 ? template['CURRENT_PAGE'] : null,
+                        });
 
-                        var trans_page = "phpbb.seo.viewtopic";
-                        let newTransition = trans.router.stateService.target(trans_page, trans_param);
-                        if (!trans.params().phpbbResolved || trans.params().phpbbResolved.topic_id != trans.params().topicId
-                            || template["FORUM_ID"] != trans.params().forumId
-                            || template["TOPIC_ID"] != trans.params().topicId
-                            || (new SeoUrlPipe().transform(template["FORUM_NAME"]) != trans.params().forumSlug)
-                            || (new SeoUrlPipe().transform(template["TOPIC_TITLE"]) != trans.params().topicSlug)
-                        ) {
-                            this.shouldParseAgain = false;
-                            return newTransition;
-                        }
-                        else {
-                            this.shouldParseAgain = true;
-                            return true
-                        }
+
+                        // Go there
+                        return trans.router.stateService.target("phpbb.seo.viewtopic", trans_param);
                     }
+
+                    // We didn't
+                    /** @todo redirect to information page for no-authorized */
                     return false;
                 }
-            );
+            )
         }
-        else {
-            this.shouldParseAgain = true;
-            return Observable.of(new Object()).map(() => true);
-        }
+        // We can't get a topic if we don't have a topic id dude.
+        return Observable.of(false);
     }
 
     private transform_viewforum(trans, forumId?: number, force?: boolean) {
         var params = trans.params();
-        var trans_param = {};
+        var trans_param = Object.assign({}, params);
         var trans_page = "phpbb.seo.index";
 
         if (typeof forumId === "undefined") forumId = trans.params()["f"];
+        /** @todo allow n-sized pages */
+        let start = params["pageNumber"] ? (params["pageNumber"] - 1) * 20 : null;
 
         if (forumId > 0 && this.shouldParseAgain) {
-            return this.phpbbApi.getForumById(forumId)
+            return this.phpbbApi.getForumById(forumId, start)
                 .map(
                 (data) => {
                     let template = data["@template"];
@@ -120,7 +152,7 @@ export class StateTranslate {
                         trans_param = {
                             phpbbResolved: data,
                             forumId: template["FORUM_ID"],
-                            forumSlug: new SeoUrlPipe().transform(template["FORUM_NAME"]),
+                            forumSlug: new SeoUrlPipe().transform(template["FORUM_NAME"])
                         };
 
                         trans_page = "phpbb.seo.viewforum";
@@ -263,7 +295,7 @@ export class StateTranslate {
                     let template = data["@template"];
 
                     if (this.checkAuthLogin(trans, template)) return this.checkAuthLogin(trans, template);
-                    
+
                     let ifM = this.checkInformationMessage(trans, data);
                     if (ifM) return ifM;
 

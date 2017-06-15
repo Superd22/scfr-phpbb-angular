@@ -69,6 +69,9 @@ import { HeaderBarComponent } from './components/navigation/header-bar/header-ba
 import { ViewforumForumRowComponent } from './components/viewforum/viewforum-forum-row/viewforum-forum-row.component';
 import { ViewforumTopicRowComponent } from './components/viewforum/viewforum-topic-row/viewforum-topic-row.component';
 import { InformationsComponent } from './components/informations/informations.component';
+import { GlobalPaginationComponent } from './components/navigation/global-pagination/global-pagination.component';
+import { BackgroundComponent } from './components/background/background.component';
+import { SpinnerLoadingComponent } from './components/loading/spinner-loading/spinner-loading.component';
 
 @NgModule({
     declarations: [
@@ -118,6 +121,9 @@ import { InformationsComponent } from './components/informations/informations.co
         ViewforumForumRowComponent,
         ViewforumTopicRowComponent,
         InformationsComponent,
+        GlobalPaginationComponent,
+        BackgroundComponent,
+        SpinnerLoadingComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
