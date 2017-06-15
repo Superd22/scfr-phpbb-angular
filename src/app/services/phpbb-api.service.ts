@@ -136,8 +136,14 @@ export class PhpbbApiService {
         else return this.getPage('viewforum.php', params);
     }
 
-    public getTopicById(topic: number, offset: number = 0): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.getPage('viewtopic.php', { t: topic, start: offset });
+    /**
+     * Get viewtopic with specified data
+     * @param topic the id of the topic
+     * @param offset the offset at which to start reading posts
+     * @param post post id of the specific post we want to include
+     */
+    public getTopicById(topic: number, offset?: number, post?: number): Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.getPage('viewtopic.php', { t: topic, start: offset, p: post });
     }
 
     public getPrivateMessageList(): Observable<PhpbbTemplateResponse.DefaultResponse> {

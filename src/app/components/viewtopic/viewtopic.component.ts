@@ -37,7 +37,7 @@ export class ViewtopicComponent extends PhpbbComponent {
     console.log("calling change");
     this.fetchingNewPosts = true;
     this.UI.scrollToTop();
-    this.stateService.go("phpbb.seo.viewtopic", { pageNumber: n }, { reload: true });
+    this.stateService.go("phpbb.seo.viewtopic", { pageNumber: n });
   }
 
 }
