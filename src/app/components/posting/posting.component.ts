@@ -33,8 +33,8 @@ export class PostingComponent extends PhpbbComponent {
 
   public preview: SimplePost;
 
-  constructor(phpbbApi: PhpbbApiService, transition: Transition, translate: StateTranslate, private formHelper: PhpbbFormHelperService) {
-    super(phpbbApi, transition, translate);
+  constructor(private formHelper: PhpbbFormHelperService, protected transition: Transition) {
+    super();
   }
 
   ngOnInit() {
@@ -110,6 +110,11 @@ export class PostingComponent extends PhpbbComponent {
     if (this.transition.params().postId) {
       opts.p = this.transition.params().postId;
       opts.mode = "edit";
+    }
+
+    if(this.transition.params().quote) {
+      opts.p = null;
+      opts.mode = "reply"
     }
 
     return opts;

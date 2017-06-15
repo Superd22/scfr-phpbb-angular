@@ -5,8 +5,8 @@
     <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
   </md-card-header>
   <md-card-actions>
-    <button md-button (click)="logoutUser()">Logout</button>
-    <button md-button><md-icon>{{currentTpl?.NOTIFICATIONS_COUNT > 0 ? 'notifications_active' : 'notifications_none'}}</md-icon> {{currentTpl?.NOTIFICATIONS_COUNT}}</button>
-    <button md-button><md-icon>{{currentTpl?.PRIVATE_MESSAGE_COUNT > 0 ? 'email' : 'mail_outline'}}</md-icon> {{currentTpl?.PRIVATE_MESSAGE_COUNT}}</button>
+    <button fxFlex md-button (click)="logoutUser()">Logout</button>
+    <button fxFlex md-button><md-icon>{{currentTpl?.NOTIFICATIONS_COUNT > 0 ? 'notifications_active' : 'notifications_none'}}</md-icon> {{currentTpl?.NOTIFICATIONS_COUNT}}</button>
+    <button fxFlex md-button><md-icon>{{currentTpl?.PRIVATE_MESSAGE_COUNT > 0 ? 'email' : 'mail_outline'}}</md-icon> {{currentTpl?.PRIVATE_MESSAGE_COUNT}}</button>
   </md-card-actions>
 </md-card>

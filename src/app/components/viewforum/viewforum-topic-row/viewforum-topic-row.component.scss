@@ -3,5 +3,14 @@
     font-family:"Electrolize";
    .topic-title {
         font-family: 'Heebo', sans-serif;
+        font-size:1.2rem;
+   }
+   .topic-title-sub {
+       .topic-title-sub-author {
+           display:inline;
+           .topic-title-sub-author-link {
+               font-weight:bold;
+           }
+       }
    }
 }

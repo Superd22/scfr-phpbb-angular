@@ -12,8 +12,8 @@ import { PhpbbFormHelperService } from "../../../services/phpbb-form-helper.serv
 })
 export class ViewprofileComponent extends PhpbbComponent {
 
-  constructor(phpbbapi: PhpbbApiService, transition: Transition, translate: StateTranslate, private formHelper: PhpbbFormHelperService) {
-    super(phpbbapi, transition, translate)
+  constructor(private formHelper: PhpbbFormHelperService) {
+    super()
   }
 
   ngOnInit() {

@@ -22,8 +22,8 @@ export class ViewtopicComponent extends PhpbbComponent {
   public PER_PAGE: number;
   public editedMessage: number = 0;
 
-  constructor(public PhpbbService: PhpbbService, phpbbApi: PhpbbApiService, transition: Transition, translate:StateTranslate) {
-    super(phpbbApi, transition, translate);
+  constructor(public PhpbbService: PhpbbService) {
+    super();
   }
 
   ngOnInit() {

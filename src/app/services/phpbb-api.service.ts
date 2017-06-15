@@ -1,3 +1,4 @@
+import { ViewforumComponent } from './../components/viewforum/viewforum.component';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { PhpbbAjaxMessageResponse } from './../interfaces/phpbb/phpbb-ajax-message-response';
 import { MdSnackBar } from '@angular/material';
@@ -96,7 +97,7 @@ export class PhpbbApiService {
         return this.http.get(`${baseUrl}${page}`, { headers: headers, search: this.buildParameters(queries, raw), withCredentials: true })
             .map((res: Response) => {
                 let ret = res.json();
-                
+
                 this.handleSID(ret);
 
                 return ret;
@@ -128,7 +129,9 @@ export class PhpbbApiService {
     }
 
     public getForumById(forum: number): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.getPage('viewforum.php', { f: forum });
+        if (ViewforumComponent.hasLocalSortPref(forum))
+            return this.postPage('viewforum.php', ViewforumComponent.localSortPref(forum), { f: forum });
+        else return this.getPage('viewforum.php', { f: forum });
     }
 
     public getTopicById(topic: number, offset: number = 0): Observable<PhpbbTemplateResponse.DefaultResponse> {

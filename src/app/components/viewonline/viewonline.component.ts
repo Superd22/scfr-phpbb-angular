@@ -11,8 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewonlineComponent extends PhpbbComponent {
 
-  constructor(phpbbapi: PhpbbApiService, transition: Transition, translate: StateTranslate) {
-    super(phpbbapi, transition, translate)
+  constructor() {
+    super()
    }
 
   ngOnInit() {

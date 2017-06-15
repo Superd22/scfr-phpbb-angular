@@ -31,8 +31,8 @@ export class UcpComponent extends PhpbbComponent implements OnInit {
     return this.transition.params()["page"];
   }
 
-  constructor(protected api: PhpbbApiService, protected transition: Transition, protected translate: StateTranslate, private state: StateService) {
-    super(api, transition, translate);
+  constructor(protected api: PhpbbApiService, protected transition: Transition, protected translate: StateTranslate) {
+    super();
   }
 
   ngOnInit() {
