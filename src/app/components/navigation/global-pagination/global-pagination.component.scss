@@ -1,0 +1,38 @@
+@import './src/assets/material/v7/main';
+
+$border: map-get($scfr-mat-light-blue, 600);
+$bg: map-get($scfr-mat-blue-grey-background,700);
+$angle-size: 26px;
+.global {
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    width: 100%;
+    align-items: flex-end;
+    font-family: "Electrolize";
+    .bar {
+        background: $bg;
+        height:15px;
+        border-top:1px solid $border;
+    }
+    .nav {
+        border-top:1px solid $border;
+        .angle {
+            &:before {
+                content:"";
+                width:$angle-size;
+                height:$angle-size;
+                background: $bg;
+                display: block;
+                position: absolute;
+                margin-left: - ($angle-size/2 + 1);
+                transform: skew(-45deg);
+                border-left: 2px solid $border;
+                }
+        }
+        .pagination {
+            background: $bg;
+        }
+    }
+    
+}

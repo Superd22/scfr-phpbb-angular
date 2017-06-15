@@ -128,10 +128,12 @@ export class PhpbbApiService {
         return this.getPage('ucp.php', { i: 'pm', folder: 'inbox' });
     }
 
-    public getForumById(forum: number): Observable<PhpbbTemplateResponse.DefaultResponse> {
+    public getForumById(forum: number, start?: number): Observable<PhpbbTemplateResponse.DefaultResponse> {
+        let params: { f: number, start: number } = { f: forum, start: start };
+
         if (ViewforumComponent.hasLocalSortPref(forum))
-            return this.postPage('viewforum.php', ViewforumComponent.localSortPref(forum), { f: forum });
-        else return this.getPage('viewforum.php', { f: forum });
+            return this.postPage('viewforum.php', ViewforumComponent.localSortPref(forum), params);
+        else return this.getPage('viewforum.php', params);
     }
 
     public getTopicById(topic: number, offset: number = 0): Observable<PhpbbTemplateResponse.DefaultResponse> {

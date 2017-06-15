@@ -37,3 +37,4 @@
         <scfr-forum-viewforum-topic-row *ngFor="let topic of topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
     </div>
 </div>
+<scfr-forum-global-pagination [page]="CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="TOTAL_PAGES"></scfr-forum-global-pagination>

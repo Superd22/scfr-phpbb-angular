@@ -108,9 +108,10 @@ export class StateTranslate {
         var trans_page = "phpbb.seo.index";
 
         if (typeof forumId === "undefined") forumId = trans.params()["f"];
+        let start = params["pageNumber"] ? (params["pageNumber"] - 1) * 20 : null;
 
         if (forumId > 0 && this.shouldParseAgain) {
-            return this.phpbbApi.getForumById(forumId)
+            return this.phpbbApi.getForumById(forumId, start)
                 .map(
                 (data) => {
                     let template = data["@template"];
