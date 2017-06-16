@@ -8,6 +8,9 @@ a img, img {
 }
 .mat-sidenav-content {
         width:100%;
+        // Workaround for position fixed & stick & aabsolute inside the content
+        // @see https://github.com/angular/material2/issues/998
+        transform:none !important;
 }
 .main-navigator {
         .mat-button:hover .mat-button-focus-overlay {
@@ -27,8 +30,6 @@ a img, img {
     background: map_get($scfr-mat-light-blue,900);  
 }
 
-// Workaround for position fixed & stick & aabsolute inside the content
-// @see https://github.com/angular/material2/issues/998
-.mat-sidenav-content {
-        transform:none !important;
+.mat-sidenav.mat-sidenav-side {
+        z-index:99 !important;
 }
