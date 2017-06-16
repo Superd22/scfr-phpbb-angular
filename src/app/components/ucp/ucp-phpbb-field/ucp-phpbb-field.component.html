@@ -27,12 +27,16 @@
     <scfr-forum-post-editor [(message)]="model" [placeholder]="display_name"></scfr-forum-post-editor>
   </ng-container>
 
-  <ng-container *ngSwitchCase="'hidden'">      
+  <ng-container *ngSwitchCase="'checkbox'">
+    <md-checkbox [(ngModel)]="model" [mdTooltip]="explain"> {{display_name}} </md-checkbox>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'hidden'">
     <input type="hidden" [(ngModel)]="model" />
   </ng-container>
 
-    <ng-container *ngSwitchCase="'file'">      
-    <input type="file" #file (change)="setFile(file.files)"/>
+  <ng-container *ngSwitchCase="'file'">
+    <input type="file" #file (change)="setFile(file.files)" />
   </ng-container>
 
   <ng-container *ngSwitchDefault>

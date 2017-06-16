@@ -39,7 +39,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
   private error;
 
   @Input()
-  public type: "text" | "url" | "textarea" | "select" | "radio" | "editor" | string = null;
+  public type: "text" | "url" | "textarea" | "select" | "radio" | "editor" | "checkbox" | string = null;
   @Input()
   public options;
 
@@ -116,8 +116,9 @@ export class UcpPhpbbFieldComponent implements OnInit {
     if (input_html.indexOf("<textarea") > -1) return "textarea";
     if (input_html.indexOf("type=\"radio\"") > -1) return "radio";
     if (input_html.indexOf("<select") > -1) return "select";
+    if (input_html.indexOf("<select") > -1) return "select";
 
-    let regex = /type=["'](text|url|hidden|file|number)["']/;
+    let regex = /type=["'](text|url|hidden|file|number|checkbox)["']/;
     let match = regex.exec(input_html);
     if(match) return match[1];
     else throw "COULDN'T EXTRAPOLATE TYPE OF INPUT";
