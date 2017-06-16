@@ -40,8 +40,6 @@ export class ViewmessageComponent implements OnInit {
 
   ngOnInit() {
     this.initPost();
-
-    console.log("dis", this);
   }
 
   /**
