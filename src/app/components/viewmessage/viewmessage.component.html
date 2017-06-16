@@ -7,7 +7,15 @@
         <span class="message-header-username" [mdTooltip]="postrow.RANK_TITLE" [ngStyle]="{'background-color': postrow.POST_AUTHOR_COLOUR}"
           uiSref="phpbb.seo.viewprofile" [uiParams]="{userId:postrow.POSTER_ID, user_slug: postrow.POST_AUTHOR | seoUrl}">{{postrow.POST_AUTHOR}}</span>
       </div>
-      <div class="message-header-bar" fxFlex></div>
+      <div class="message-header-middle" fxFlex>
+        <div class="message-header-bar">
+        </div>
+        <div class="message-header-sub-bar">
+          <button md-icon-button><md-icon>report_problem</md-icon></button>
+          <button md-icon-button><md-icon>link</md-icon></button>
+          <em>{{postrow.POST_DATE}}</em>
+        </div>
+      </div>
       <div class="message-header-info-right" fxLayout *ngIf="displayInfoRight()">
 
         <div class="right-details">

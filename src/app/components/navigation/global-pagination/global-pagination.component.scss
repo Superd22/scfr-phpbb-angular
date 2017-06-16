@@ -11,6 +11,7 @@ $angle-size: 26px;
     width: 100%;
     align-items: flex-end;
     font-family: "Electrolize";
+    z-index:90;
     .bar {
         background: $bg;
         height:15px;
