@@ -72,6 +72,9 @@ import { InformationsComponent } from './components/informations/informations.co
 import { GlobalPaginationComponent } from './components/navigation/global-pagination/global-pagination.component';
 import { BackgroundComponent } from './components/background/background.component';
 import { SpinnerLoadingComponent } from './components/loading/spinner-loading/spinner-loading.component';
+import { NotificationsService } from "./services/notifications.service";
+import { NotificationsComponent } from './components/navigation/notifications/notifications.component';
+import { ANotificationRowComponent } from './components/navigation/notifications/a-notification-row/a-notification-row.component';
 
 @NgModule({
     declarations: [
@@ -124,6 +127,8 @@ import { SpinnerLoadingComponent } from './components/loading/spinner-loading/sp
         GlobalPaginationComponent,
         BackgroundComponent,
         SpinnerLoadingComponent,
+        NotificationsComponent,
+        ANotificationRowComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -142,11 +147,11 @@ import { SpinnerLoadingComponent } from './components/loading/spinner-loading/sp
     entryComponents: [
         DialogDeleteComponent
     ],
-    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,PhpbbFormHelperService],
+    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, NotificationsService],
     bootstrap: [AppComponent],
 })
 export class AppModule {
     constructor(private injector: Injector) {
         ServiceLocator.injector = this.injector;
     }
- }
+}
