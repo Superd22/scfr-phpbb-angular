@@ -1,0 +1,25 @@
+<md-card class="notif" [ngClass]="{active: notif.UNREAD}">
+
+  <md-card-header>
+    <md-card-title class="notif-title">
+      <strong class="title">{{notifType}}</strong>
+      <time>{{notif.TIME}}</time>
+
+      <span class="seen"><button md-icon-button color="primary" (click)="markAsSeen($event)"><md-icon>remove_red_eye</md-icon></button></span>
+    </md-card-title>
+    <md-card-subtitle class="notif-authors">
+      <span *ngFor="let u of users" [ngStyle]="{color: u.color}">{{u.name}} </span>
+      <span> {{endText}} </span>
+    </md-card-subtitle>
+
+  </md-card-header>
+
+  <md-card-content class="notif-body" fxLayout>
+    <span fxFlex>{{reference}}</span>
+
+    <img class="avatar" src="https://starcitizen.fr/Forum/{{img}}">
+  </md-card-content>
+
+
+
+</md-card>

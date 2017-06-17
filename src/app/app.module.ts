@@ -73,6 +73,8 @@ import { GlobalPaginationComponent } from './components/navigation/global-pagina
 import { BackgroundComponent } from './components/background/background.component';
 import { SpinnerLoadingComponent } from './components/loading/spinner-loading/spinner-loading.component';
 import { NotificationsService } from "./services/notifications.service";
+import { NotificationsComponent } from './components/navigation/notifications/notifications.component';
+import { ANotificationRowComponent } from './components/navigation/notifications/a-notification-row/a-notification-row.component';
 
 @NgModule({
     declarations: [
@@ -125,6 +127,8 @@ import { NotificationsService } from "./services/notifications.service";
         GlobalPaginationComponent,
         BackgroundComponent,
         SpinnerLoadingComponent,
+        NotificationsComponent,
+        ANotificationRowComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

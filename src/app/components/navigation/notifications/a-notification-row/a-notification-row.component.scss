@@ -1,0 +1,49 @@
+@import './src/assets/material/v7/main';
+
+.title {
+    color:  map-get($scfr-mat-light-blue, A400);
+}
+.avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.notif-body {
+    align-items: center;
+}
+.notif {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 30px -10px black inset;
+    cursor:pointer;
+    transition:1s;
+    .seen {
+        display: block;
+        position: absolute;
+        right: -50px;
+        top: 0px;
+        transition:0.5s;
+        display:none;
+    }
+    &:hover {
+        .seen {
+            right:0px;
+        }
+    }
+
+    &.active {
+        .seen {
+            display:block;
+        }
+        background: rgba(47, 84, 115, 0.1);
+        border-left: 3px solid #8caecb;
+        box-shadow: 100px 0px 100px -100px rgba(140, 174, 203, 0.4) inset;
+    }
+    .mat-card-header {
+        margin: 0px -8px;
+        margin-bottom: -15px;
+    }
+}
