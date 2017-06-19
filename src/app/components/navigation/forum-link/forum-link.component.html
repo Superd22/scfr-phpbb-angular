@@ -1,11 +1,11 @@
-<ng-container *ngIf="forum">
-  <div class="forum-link-wrapper" fxLayout>
+<div *ngIf="forum">
+  <div class="forum-link-wrapper" [ngClass]="{new: forum.UNREAD}" fxLayout>
     <button class="forum-link" md-button uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}">{{forum.FORUM_NAME}}</button>
     <button md-icon-button *ngIf="subForumsToDisplay && cacheChildren?.length > 0 " (click)="toggleDisplaySub = !toggleDisplaySub"><md-icon>{{toggleDisplaySub ? 'arrow_drop_up' : 'arrow_drop_down' }}</md-icon></button>
   </div>
-  <div *ngIf="toggleDisplaySub">
+  <div [hidden]="!toggleDisplaySub">
     <ul class="sub-forums">
       <scfr-forum-navigation-forum-link *ngFor="let fu of cacheChildren" [forum]="fu" [navCo]="navCo" [depth]="depth+1"></scfr-forum-navigation-forum-link>
     </ul>
   </div>
-</ng-container>
+</div>

@@ -111,6 +111,7 @@ export module UnreadResponse {
         S_IS_POST?: boolean;
         level: Level[];
         S_LAST_ROW?: boolean;
+        UNREAD: boolean;
     }
 
     export interface Template {

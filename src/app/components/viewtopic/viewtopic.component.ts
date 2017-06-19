@@ -1,3 +1,5 @@
+import { Collected, CollectorEvent } from 'ng2-rx-collector';
+import { PhpbbWebsocketService } from './../../services/phpbb-websocket.service';
 import { PhpbbComponent } from './../phpbb/phpbb-component.component';
 import { StateTranslate } from './../../services/state-translate.service';
 import { UnicodeToUtf8Pipe } from './../../pipes/unicode-to-utf8.pipe';
@@ -22,15 +24,24 @@ export class ViewtopicComponent extends PhpbbComponent {
   public S_NUM_POSTS: number;
   public PER_PAGE: number;
   public editedMessage: number = 0;
-
   public fetchingNewPosts: boolean = false;
 
-  constructor(public PhpbbService: PhpbbService, public UI: UiServiceService) {
+  public newPosts: number = 0;
+
+
+
+  @Collected() private collected: CollectorEvent;
+
+  constructor(public PhpbbService: PhpbbService, public UI: UiServiceService, private ws: PhpbbWebsocketService) {
     super();
+
   }
 
   ngOnInit() {
     super.ngOnInit();
+    this.ws.onReply(this.TOPIC_ID).takeUntil(this.collected).subscribe((data) => {
+      this.newPosts++;
+    });
   }
 
   public changePage(n: number) {

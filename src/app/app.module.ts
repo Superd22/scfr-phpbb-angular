@@ -73,6 +73,7 @@ import { GlobalPaginationComponent } from './components/navigation/global-pagina
 import { BackgroundComponent } from './components/background/background.component';
 import { SpinnerLoadingComponent } from './components/loading/spinner-loading/spinner-loading.component';
 import { NotificationsService } from "./services/notifications.service";
+import { PhpbbWebsocketService } from "./services/phpbb-websocket.service";
 import { NotificationsComponent } from './components/navigation/notifications/notifications.component';
 import { ANotificationRowComponent } from './components/navigation/notifications/a-notification-row/a-notification-row.component';
 
@@ -147,7 +148,10 @@ import { ANotificationRowComponent } from './components/navigation/notifications
     entryComponents: [
         DialogDeleteComponent
     ],
-    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, NotificationsService],
+    providers: [
+        PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, 
+        NotificationsService, PhpbbWebsocketService
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {
