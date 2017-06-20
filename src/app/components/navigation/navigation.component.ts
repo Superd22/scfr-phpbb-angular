@@ -66,7 +66,7 @@ export class NavigationComponent implements OnInit {
         })
 
         this.forumList = [];
-        this.forumList = jumpbox;
+        this.forumList = UnicodeToUtf8Pipe.forEach(jumpbox);
     }
 
     public shouldFilterDisplay() {

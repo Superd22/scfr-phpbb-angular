@@ -23,7 +23,7 @@ export class PhpbbLanguageComponent implements OnInit {
    * and replaces them with Language content if available.
    */
   get(target, prop: string): any {
-    if (this[prop]) return this[prop];
+    if (this[prop] != undefined) return this[prop];
     if (prop.indexOf("L_") === 0) return this._language_service.getTranslation(prop);
   }
 

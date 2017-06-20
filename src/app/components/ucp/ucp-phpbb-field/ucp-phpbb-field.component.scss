@@ -1,0 +1,29 @@
+@import './src/assets/material/v7/main';
+
+.mat-input-container {
+    flex: 1 1 100%;
+    width: 100%;
+}
+.form-container {
+    margin:10px;
+    font-size: 1rem;
+}
+.name {
+    color: map_get($scfr-mat-light-blue,600);
+    display: block;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+md-hint {
+    font-size:0.8rem;
+    color:grey;
+    font-family: "Electrolize";
+}
+md-radio-button {
+    margin:5px;
+}
+.mat-input-placeholder {
+    font-size:1rem;
+    color: map_get($scfr-mat-light-blue,600);
+}

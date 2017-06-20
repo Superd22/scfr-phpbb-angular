@@ -1,3 +1,4 @@
+import { RegisterComponent } from './../../components/ucp/register/register.component';
 import { Transition } from '@uirouter/angular';
 import { ViewconvoComponent } from './../../components/ucp/pm/viewconvo/viewconvo.component';
 import { PmComponent } from './../../components/ucp/pm/pm.component';
@@ -11,6 +12,18 @@ export const psoUcp = {
         i:null,
     },
     component: UcpComponent,
+};
+
+export const psoUcpRegister = {
+    name: 'phpbb.seo.register',
+    url: '/register/',
+    component: RegisterComponent,
+    params: {
+        mode:null,
+        i:null,
+        subPage: "register",
+        page:null,
+    }
 };
 
 export const psoUcpPage = {
