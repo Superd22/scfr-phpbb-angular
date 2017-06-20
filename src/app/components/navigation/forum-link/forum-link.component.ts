@@ -21,8 +21,8 @@ export class ForumLinkComponent implements OnInit, AfterViewInit {
   public toggleDisplaySub: boolean;
   public cacheChildren;
 
-  @ViewChildren(ForumLinkComponent)
-  public children: QueryList<ForumLinkComponent>;
+  //@ViewChildren(ForumLinkComponent)
+  //public children: QueryList<ForumLinkComponent>;
 
   @Output() public unreadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -37,7 +37,7 @@ export class ForumLinkComponent implements OnInit, AfterViewInit {
 
     this.setUnread(this.forum.UNREAD);
 
-    this.ws.onNewPostsInForum(Number(this.forum.FORUM_ID)).takeUntil(this.collected).subscribe(
+    this.ws.onNewPostsInForum(Number(this.forum.FORUM_ID), false).takeUntil(this.collected).subscribe(
       data => {
         this.setUnread(true);
       }
@@ -46,41 +46,11 @@ export class ForumLinkComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.children != undefined) {
-      this.children.forEach(child => {
-        if (child.forum.UNREAD) this.setUnread(true);
 
-        child.unreadChange.subscribe((unread) => {
-          this.setUnread(unread, true);
-        });
-
-      });
-    }
   }
 
-  public setUnread(unread: boolean, fromChild?: boolean) {
-    // We can broadcast 
-    if (unread || !fromChild) {
+  public setUnread(unread: boolean) {
       this.forum.UNREAD = unread;
-      this.unreadChange.next(unread);
-    }
-    else if (fromChild) {
-      let stahp = false;
-      // Our child just turned false, we need to check all the others
-      for (let i = 0; i < this.children.length; i++) {
-        let c = this.children[i];
-
-        if (c.forum.UNREAD == true) {
-          stahp = true;
-          break;
-        }
-      }
-
-      this.forum.UNREAD = stahp;
-      this.unreadChange.next(stahp);
-    }
-
-    this.cdRef.detectChanges();
   }
 
   /**

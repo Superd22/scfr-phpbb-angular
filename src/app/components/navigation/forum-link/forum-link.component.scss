@@ -8,7 +8,6 @@
         }
         &.new {
             background: rgba(81, 195, 250, 0.27);
-            box-shadow: 40px 0px 111px -30px rgba(87, 247, 255, 0.61) inset, -40px 0px 111px -30px rgba(255, 149, 87, 0.3) inset;
             font-weight: bolder;
             color: white;
         }
@@ -16,7 +15,10 @@
     .forum-link {
         width:100%;
         text-align:left;
-
+        &.mat-button {
+            font-family: 'Heebo', sans-serif;
+            text-transform:uppercase;
+        }
     }
     .sub-forums {
         padding-left:20px;

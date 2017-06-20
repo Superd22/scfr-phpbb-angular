@@ -1,4 +1,3 @@
-import { PhpbbWebsocketService } from './phpbb-websocket.service';
 import { ServiceLocator } from './ServiceLocator';
 import { StateTranslate } from './state-translate.service';
 import { Transition } from '@uirouter/angular';
@@ -18,7 +17,7 @@ export class LoginService {
     public phpbbApi: PhpbbApiService;
     public userStatus = new BehaviorSubject<{ status: boolean, message?: string }>({ status: false });
 
-    constructor(public mdToast: MdSnackBar, public ws: PhpbbWebsocketService) {
+    constructor(public mdToast: MdSnackBar) {
         this.phpbbApi = ServiceLocator.injector.get(PhpbbApiService);
         this.authenticationCheck();
     }

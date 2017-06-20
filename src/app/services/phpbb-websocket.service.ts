@@ -1,6 +1,7 @@
 import { PhpbbWebSocket } from './../interfaces/phpbb/phpbb-ws';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
+import { StateTranslate } from "./state-translate.service";
 
 @Injectable()
 export class PhpbbWebsocketService {
@@ -8,8 +9,9 @@ export class PhpbbWebsocketService {
   private _ws: WebSocket;
 
   private _wsOnMessage: Observable<PhpbbWebSocket.WSMessage>;
+  private _userId: number = 1;
 
-  constructor() {
+  constructor(private stateT:StateTranslate) {
     /** @todo url */
     console.log("[WS] Connecting to ws");
     this._ws = new WebSocket("ws://" + location.hostname + ":8080");
@@ -25,6 +27,10 @@ export class PhpbbWebsocketService {
     this._wsOnMessage.subscribe((ev) => {
       console.log("PHPBBWS", ev);
     });
+
+    this.stateT.latestTemplateData.subscribe((data) => {
+      this._userId = Number(data['CURRENT_USER_ID']);
+    });
   }
 
 
@@ -36,17 +42,21 @@ export class PhpbbWebsocketService {
     return this._wsOnMessage.filter((data) => data.event == "PHPBB_POSTING");
   }
 
-  public onNewThread(forum_id: number): Observable<PhpbbWebSocket.WSPostingEvent> {
-    return this.onPosting.filter((msg) => msg.data.mode == "post" && Number(msg.data.data.forum_id) == forum_id);
+  public onNewThread(forum_id: number, includeOwnEvents: boolean = true): Observable<PhpbbWebSocket.WSPostingEvent> {
+    return this.onPosting.filter((msg) => this.notOwn(includeOwnEvents,msg) && msg.data.mode == "post" && Number(msg.data.data.forum_id) == forum_id);
   }
 
-  public onNewPostsInForum(forum_id:number): Observable<PhpbbWebSocket.WSPostingEvent> {
-    return this.onPosting.filter((msg) => msg.data.mode != "edit" && Number(msg.data.data.forum_id) == forum_id);
+  public onNewPostsInForum(forum_id: number, includeOwnEvents: boolean = true): Observable<PhpbbWebSocket.WSPostingEvent> {
+    return this.onPosting.filter((msg) => this.notOwn(includeOwnEvents,msg) && msg.data.mode != "edit" && Number(msg.data.data.forum_id) == forum_id);
   }
 
-  public onReply(topic_id: number): Observable<PhpbbWebSocket.WSPostingEvent> {
-    return this.onPosting.filter((msg) => msg.data.mode == "reply" && Number(msg.data.data.topic_id) == topic_id);
+  public onReply(topic_id: number, includeOwnEvents: boolean = true): Observable<PhpbbWebSocket.WSPostingEvent> {
+    return this.onPosting.filter((msg) => this.notOwn(includeOwnEvents,msg) && msg.data.mode == "reply" && Number(msg.data.data.topic_id) == topic_id);
   }
 
+
+  private notOwn(include: boolean, msg) {
+    return include || Number(msg.data.data.poster_id) != this._userId;
+  }
 
 }
