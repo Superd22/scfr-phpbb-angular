@@ -1,3 +1,4 @@
+import { SCFRLocalStorage } from './../../../decorators/LocalStorage.decorator';
 import { StateTranslate } from './../../../services/state-translate.service';
 import { PhpbbWebsocketService } from './../../../services/phpbb-websocket.service';
 import { Collected, CollectorEvent } from 'ng2-rx-collector';
@@ -10,7 +11,7 @@ import { UnreadResponse } from "../../../models/Search/UnreadReponse";
   templateUrl: './forum-link.component.html',
   styleUrls: ['./forum-link.component.scss']
 })
-export class ForumLinkComponent implements OnInit, AfterViewInit {
+export class ForumLinkComponent implements OnInit {
 
   @Input("forum")
   public forum: UnreadResponse.JumpboxForum
@@ -19,7 +20,7 @@ export class ForumLinkComponent implements OnInit, AfterViewInit {
   @Input()
   public depth: number;
   public toggleDisplaySub: boolean;
-  public cacheChildren;
+  public cacheChildren: UnreadResponse.JumpboxForum[] = null;
 
   //@ViewChildren(ForumLinkComponent)
   //public children: QueryList<ForumLinkComponent>;
@@ -29,13 +30,14 @@ export class ForumLinkComponent implements OnInit, AfterViewInit {
   @Collected() private collected: CollectorEvent;
 
 
-  constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate, private cdRef:ChangeDetectorRef) { }
+  constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate) { }
 
   ngOnInit() {
     if (this.depth > 1) this.toggleDisplaySub = false;
     else this.toggleDisplaySub = true;
 
-    this.setUnread(this.forum.UNREAD);
+    this.subForumsToDisplay();
+    this.setUnread(this.computeUnreadStatus());
 
     this.ws.onNewPostsInForum(Number(this.forum.FORUM_ID), false).takeUntil(this.collected).subscribe(
       data => {
@@ -43,20 +45,49 @@ export class ForumLinkComponent implements OnInit, AfterViewInit {
       }
     );
 
+  SCFRLocalStorage("sidenav:toggle:forum:" + this.forum.FORUM_ID)(this, "toggleDisplaySub");
+
   }
 
-  ngAfterViewInit() {
+  /**
+   * Compute if this forum should be marked as unread or read based on its own status
+   * as well as the status of his children
+   * 
+   * @return boolean true for unread
+   */
+  public computeUnreadStatus(): boolean {
+    let CUSR = (children: UnreadResponse.JumpboxForum[]) => {
+      let unread = false;
 
+      if (!children || children.length == 0) return unread;
+
+      for (let i = 0; (i < children.length) && !unread; i++) {
+        if (children[i].UNREAD) {
+          unread = true;
+        }
+        else {
+          let childChildrens = this.navCo.forumMap.get(Number(children[i].FORUM_ID));
+          if (childChildrens) unread = CUSR(this.navCo.forumList.filter((forum) => childChildrens.indexOf(Number(forum.FORUM_ID)) > -1));
+        }
+      }
+
+      return unread;
+    }
+
+
+    return this.forum.UNREAD || CUSR(this.cacheChildren);
   }
 
   public setUnread(unread: boolean) {
-      this.forum.UNREAD = unread;
+    this.forum.UNREAD = unread;
   }
 
   /**
    * Convenience method to get the subforum we need to display
    */
-  public get subForumsToDisplay(): UnreadResponse.JumpboxForum[] {
+  public subForumsToDisplay(force?: boolean): UnreadResponse.JumpboxForum[] {
+    if (this.cacheChildren && !force) return this.cacheChildren;
+
     // Forums to display
     let disp = this.navCo.filteredForumList.extended;
     // The children we own

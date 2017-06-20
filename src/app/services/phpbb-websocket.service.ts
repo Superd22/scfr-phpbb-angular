@@ -43,19 +43,19 @@ export class PhpbbWebsocketService {
   }
 
   public onNewThread(forum_id: number, includeOwnEvents: boolean = true): Observable<PhpbbWebSocket.WSPostingEvent> {
-    return this.onPosting.filter((msg) => this.notOwn(includeOwnEvents,msg) && msg.data.mode == "post" && Number(msg.data.data.forum_id) == forum_id);
+    return this.onPosting.filter((msg) => this.notOwnEvents(includeOwnEvents,msg) && msg.data.mode == "post" && Number(msg.data.data.forum_id) == forum_id);
   }
 
   public onNewPostsInForum(forum_id: number, includeOwnEvents: boolean = true): Observable<PhpbbWebSocket.WSPostingEvent> {
-    return this.onPosting.filter((msg) => this.notOwn(includeOwnEvents,msg) && msg.data.mode != "edit" && Number(msg.data.data.forum_id) == forum_id);
+    return this.onPosting.filter((msg) => this.notOwnEvents(includeOwnEvents,msg) && msg.data.mode != "edit" && Number(msg.data.data.forum_id) == forum_id);
   }
 
   public onReply(topic_id: number, includeOwnEvents: boolean = true): Observable<PhpbbWebSocket.WSPostingEvent> {
-    return this.onPosting.filter((msg) => this.notOwn(includeOwnEvents,msg) && msg.data.mode == "reply" && Number(msg.data.data.topic_id) == topic_id);
+    return this.onPosting.filter((msg) => this.notOwnEvents(includeOwnEvents,msg) && msg.data.mode == "reply" && Number(msg.data.data.topic_id) == topic_id);
   }
 
 
-  private notOwn(include: boolean, msg) {
+  public notOwnEvents(include: boolean, msg) {
     return include || Number(msg.data.data.poster_id) != this._userId;
   }
 
