@@ -353,7 +353,7 @@ export class StateTranslate {
     private transform_ucp(transition: Transition): Observable<any> {
         let params = transition.params();
         let newParam: any = Object.assign({}, params);
-        let stateTarget = "phpbb.seo.ucp";
+        let stateTarget = transition.$to().name == "phpbb.seo.register" ? "phpbb.seo.register" : "phpbb.seo.ucp";
 
 
         /**
@@ -394,7 +394,8 @@ export class StateTranslate {
             membre: "membership",
             manage: "manage",
             amis: "friends",
-            indesirables: "foes"
+            indesirables: "foes",
+            register: "register",
         };
 
         function get_pretty_state(i) {
@@ -429,7 +430,10 @@ export class StateTranslate {
             if (!newParam.page) newParam.page = "general";
             if (!newParam.subPage) newParam.subPage = "";
 
-            let r = Observable.of(transition.router.stateService.target(stateTarget, newParam))
+            // We want a different page for register
+            let target = newParam.page == "register" ? "phpbb.seo.register" : stateTarget;
+
+            let r = Observable.of(transition.router.stateService.target(target, newParam))
 
             return r;
         }
@@ -443,11 +447,13 @@ export class StateTranslate {
             if (params.page && !params.i) newParam.i = pretty_states[params.page][0];
             if (params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
 
+            console.log(params);
 
             // Fetch the actual data
             return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode }).map(
                 (data) => {
                     newParam.phpbbResolved = data;
+                    console.log("go", stateTarget, newParam);
                     return transition.router.stateService.target(stateTarget, newParam);
                 }
             )
@@ -464,6 +470,7 @@ export class StateTranslate {
     public getCurrentStateDataView(transition: Transition, force?: boolean): Observable<any> {
 
         let stateName = transition.$to().name;
+        console.log(stateName);
         switch (stateName) {
             case "phpbb.seo.viewforum.posting":
             case "phpbb.seo.viewtopic.posting":
@@ -476,6 +483,8 @@ export class StateTranslate {
             case "phpbb.seo.viewprofile":
                 return this.transform_viewonline_viewprofile(transition, transition.params().userId);
             case "phpbb.seo.ucp":
+                return this.transform_ucp(transition);
+            case "phpbb.seo.register":
                 return this.transform_ucp(transition);
             //case "phpbb.seo.ucp.pm":
             //   return this.transform_ucp_pm(transition);
