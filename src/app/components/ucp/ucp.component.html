@@ -1,5 +1,5 @@
 <nav md-tab-nav-bar>
-  <a md-tab-link *ngFor="let link of tpl.navLinks" [active]="tabIsActive(link.id)" uiSref="phpbb.seo.ucp" [uiParams]="{page: link.id, i:null,mode:null,subPage:null, phpbbResolved:false}">
+  <a md-tab-link *ngFor="let link of navLinks" [active]="tabIsActive(link.id)" uiSref="phpbb.seo.ucp" [uiParams]="{page: link.id, i:null,mode:null,subPage:null, phpbbResolved:false}">
     {{link.name}}
   </a>
 </nav>

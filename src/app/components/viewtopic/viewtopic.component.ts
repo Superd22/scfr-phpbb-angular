@@ -33,7 +33,7 @@ export class ViewtopicComponent extends PhpbbComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.ws.onReply(this.TOPIC_ID).takeUntil(this.collected).subscribe((data) => {
+    this.ws.onReply(this.tpl.TOPIC_ID).takeUntil(this.collected).subscribe((data) => {
       this.newPosts++;
     });
   }

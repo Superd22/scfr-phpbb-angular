@@ -1,6 +1,6 @@
-import { PHPBBNotification, NotificationsService } from './../../../../services/notifications.service';
+import { NotificationsService } from './../../../../services/notifications.service';
 import { Component, OnInit, Input } from '@angular/core';
-
+import { PHPBBNotification } from './../../../../interfaces/phpbb/phpbb-notification';
 @Component({
   selector: 'scfr-forum-a-notification-row',
   templateUrl: './a-notification-row.component.html',

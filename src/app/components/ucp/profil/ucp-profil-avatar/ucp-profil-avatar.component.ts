@@ -10,7 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class UcpProfilAvatarComponent extends UcpSubPageFormComponent implements OnInit {
 
   public avatarDriverOptions: { id: string, name: string, explain: string, output: any }[] = [];
-  public selectedDriver: string;
+  public selectedDriver: string = "avatar_driver_local";
 
   constructor() {
     super();
