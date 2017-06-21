@@ -5,7 +5,7 @@
  * 
  * Will store in scfr:key and automatically return stored value on access
  */
-export let SCFRLocalStorage = (key?: string) => {
+export function SCFRLocalStorage(key?: string) {
     return (target: Object, propertyName: string): void => {
         key = key || propertyName;
 

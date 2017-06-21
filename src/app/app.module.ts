@@ -1,3 +1,4 @@
+import { NavPmComponent } from './components/navigation/pm/pm.component';
 import { EditorComponent } from './components/posting/editor/editor.component';
 import { ServiceLocator } from './services/ServiceLocator';
 import { PhpbbFormHelperService } from './services/phpbb-form-helper.service';
@@ -96,6 +97,7 @@ import { ANotificationRowComponent } from './components/navigation/notifications
         ViewmessageComponent,
         UcpComponent,
         PmComponent,
+        NavPmComponent,
         ViewconvoComponent,
         BottomLoggedInComponent,
         MessageActionBarComponent,
@@ -135,7 +137,7 @@ import { ANotificationRowComponent } from './components/navigation/notifications
             states: STATES,
             config: PhpbbRoutingConfig
         }),
-        BrowserModule,
+        BrowserModule.withServerTransition({appId: 'scfr-forum'}),
         FormsModule,
         HttpModule,
         BrowserAnimationsModule,

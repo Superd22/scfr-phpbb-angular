@@ -20,13 +20,14 @@ export class ViewforumComponent extends PhpbbComponent {
   public U_WATCH_FORUM_LINK;
   public U_WATCH_FORUM_TOGGLE;
   public FORUM_ID;
-
   /** number of topics per page */
   public PER_PAGE;
-
   public sortSt;
   public sortSk;
   public sortSd;
+
+  public S_SELECT_SORT_DAYS;
+  public S_HAS_SUBFORUM;
 
   public loadingTopics: boolean = false;
 
