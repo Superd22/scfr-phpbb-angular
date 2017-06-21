@@ -1,3 +1,4 @@
+import { NavPmComponent } from './components/navigation/pm/pm.component';
 import { EditorComponent } from './components/posting/editor/editor.component';
 import { ServiceLocator } from './services/ServiceLocator';
 import { PhpbbFormHelperService } from './services/phpbb-form-helper.service';
@@ -100,6 +101,7 @@ import { ReCaptchaModule } from 'angular2-recaptcha';
         ViewmessageComponent,
         UcpComponent,
         PmComponent,
+        NavPmComponent,
         ViewconvoComponent,
         BottomLoggedInComponent,
         MessageActionBarComponent,
@@ -141,7 +143,7 @@ import { ReCaptchaModule } from 'angular2-recaptcha';
             states: STATES,
             config: PhpbbRoutingConfig
         }),
-        BrowserModule,
+        BrowserModule.withServerTransition({appId: 'scfr-forum'}),
         FormsModule,
         HttpModule,
         BrowserAnimationsModule,

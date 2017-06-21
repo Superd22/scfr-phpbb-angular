@@ -6,10 +6,10 @@
 <md-menu #notificationDrawer="mdMenu" class="notif-drawer" [overlapTrigger]="false">
   <div class="menu-header" fxLayout>
     <div class="bar" fxFlex>
-      <h3>Notifications <md-icon [mdTooltip]="L_SEE_ALL">inbox</md-icon> </h3>
+      <h3>Notifications <md-icon [mdTooltip]="L_.SEE_ALL">inbox</md-icon> </h3>
       <div fxLayout fxLayoutAlign="flex-start center" class="moar">
         <span style="padding-right: 10px;">{{ notifs.latestNotifs?.length }} / {{notifs.unreadNotifCount}} </span>
-        <span><button md-button (click)="markAllRead($event)"><md-icon>remove_red_eye</md-icon> {{ L_MARK_ALL_READ }}</button></span>
+        <span><button md-button (click)="markAllRead($event)"><md-icon>remove_red_eye</md-icon> {{ L_.MARK_ALL_READ }}</button></span>
       </div>
 
     </div>

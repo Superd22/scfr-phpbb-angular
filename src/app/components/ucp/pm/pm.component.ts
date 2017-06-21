@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PmComponent implements OnInit {
 
-  constructor(private MPService: PrivateMessageService) { }
+  constructor(public MPService: PrivateMessageService) { }
 
   ngOnInit() {
   }

@@ -2,20 +2,20 @@
     <div class="forum-header" fxLayout fxLayoutAlign="start center">
         <div class="forum-name-container">
             <div fxLayout fxLayoutAlign="start center">
-                <h2 class="forum-title" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">
-                    {{FORUM_NAME}}
+                <h2 class="forum-title" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">
+                    {{tpl.FORUM_NAME}}
                 </h2>
-                <button *ngIf="U_WATCH_FORUM_LINK" md-icon-button (click)="toggleWatchForum()"><md-icon>{{S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
+                <button *ngIf="tpl.U_WATCH_FORUM_LINK" md-icon-button (click)="toggleWatchForum()"><md-icon>{{tpl.S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
             </div>
 
-            <em class="forum-sub-title">{{FORUM_DESC}}</em>
+            <em class="forum-sub-title">{{tpl.FORUM_DESC}}</em>
         </div>
 
         <div class="forum-actions-container">
-            <div class="forum-actions-sorting" *ngIf="S_SELECT_SORT_DAYS">
-                <scfr-forum-ucp-phpbb-field displayName="Afficher" [fullPHPBB]="S_SELECT_SORT_DAYS" [(model)]="sortSt" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
-                <scfr-forum-ucp-phpbb-field displayName="Trier par" [fullPHPBB]="S_SELECT_SORT_KEY" [(model)]="sortSk" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
-                <scfr-forum-ucp-phpbb-field displayName="Direction" [fullPHPBB]="S_SELECT_SORT_DIR" [(model)]="sortSd" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
+            <div class="forum-actions-sorting" *ngIf="tpl.S_SELECT_SORT_DAYS">
+                <scfr-forum-ucp-phpbb-field displayName="Afficher" [fullPHPBB]="tpl.S_SELECT_SORT_DAYS" [(model)]="sortSt" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
+                <scfr-forum-ucp-phpbb-field displayName="Trier par" [fullPHPBB]="tpl.S_SELECT_SORT_KEY" [(model)]="sortSk" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
+                <scfr-forum-ucp-phpbb-field displayName="Direction" [fullPHPBB]="tpl.S_SELECT_SORT_DIR" [(model)]="sortSd" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
             </div>
 
             <ng-container [ngTemplateOutlet]="newTopicButton"></ng-container>
@@ -24,7 +24,7 @@
     </div>
 
 
-    <div *ngIf="S_HAS_SUBFORUM">
+    <div *ngIf="tpl.S_HAS_SUBFORUM">
         <ul>
             <li *ngFor="let forum of forumrow">
                 <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}">{{forum.FORUM_NAME}}</a>
@@ -40,18 +40,18 @@
     </div>
 
 
-    <div *ngIf="topicrow && !loadingTopics" fxLayout="column">
-        <scfr-forum-viewforum-topic-row *ngFor="let topic of topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
+    <div *ngIf="tpl.topicrow && !loadingTopics" fxLayout="column">
+        <scfr-forum-viewforum-topic-row *ngFor="let topic of tpl.topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
     </div>
 </div>
 
-<scfr-forum-global-pagination [page]="CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="TOTAL_PAGES">
+<scfr-forum-global-pagination [page]="tpl.CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="tpl.TOTAL_PAGES">
     <ng-container [ngTemplateOutlet]="newTopicButton"></ng-container>
 </scfr-forum-global-pagination>
 
 <ng-template #newTopicButton>
-    <ng-container *ngIf="S_DISPLAY_POST_INFO">
-        <button *ngIf="!S_IS_LOCKED" md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
-        <button *ngIf="S_IS_LOCKED" md-button disabled="true"><md-icon>lock</md-icon> Forum verouillé </button>
+    <ng-container *ngIf="tpl.S_DISPLAY_POST_INFO">
+        <button *ngIf="!tpl.S_IS_LOCKED" md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
+        <button *ngIf="tpl.S_IS_LOCKED" md-button disabled="true"><md-icon>lock</md-icon> Forum verouillé </button>
     </ng-container>
 </ng-template>

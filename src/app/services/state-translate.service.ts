@@ -501,7 +501,7 @@ export class StateTranslate {
 
 
         keyArr.forEach((key) => {
-            component[key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
+            component["tpl"][key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
     }
 

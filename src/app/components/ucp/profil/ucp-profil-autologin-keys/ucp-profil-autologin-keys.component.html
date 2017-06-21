@@ -1,15 +1,15 @@
-<p>{{ucp.L_PROFILE_AUTOLOGIN_KEYS}}</p>
-<p class="error" *ngIf="ucp.error">{{ucp.error}}</p>
+<p>{{ucp.tpl.L_PROFILE_AUTOLOGIN_KEYS}}</p>
+<p class="error" *ngIf="ucp.tpl.error">{{ucp.tpl.error}}</p>
 
 <div class="keys" fxLayout="column" fxLayoutWrap>
   <div fxFlex="100">
-    <span fxFlex="25">{{ucp.L_LOGIN_KEY}}</span>
-    <span fxFlex="25">{{ucp.L_IP}}</span>
-    <span fxFlex="25">{{ucp.L_LOGIN_TIME}}</span>
-    <span fxFlex="25">{{ucp.L_MARK}}</span>
+    <span fxFlex="25">{{ucp.tpl.L_LOGIN_KEY}}</span>
+    <span fxFlex="25">{{ucp.tpl.L_IP}}</span>
+    <span fxFlex="25">{{ucp.tpl.L_LOGIN_TIME}}</span>
+    <span fxFlex="25">{{ucp.tpl.L_MARK}}</span>
   </div>
 
-  <div class="key-row" *ngFor="let sess of ucp.sessions" fxFlex="100">
+  <div class="key-row" *ngFor="let sess of ucp.tpl.sessions" fxFlex="100">
     <span fxFlex="25">{{sess.KEY}}</span>
     <span fxFlex="25">{{sess.IP}}</span>
     <span fxFlex="25">{{sess.LOGIN_TIME}}</span>
@@ -18,10 +18,10 @@
     </span>
   </div>
 
-  <div *ngIf="!ucp.sessions">
-    {{ucp.L_PROFILE_NO_AUTOLOGIN_KEYS}}
+  <div *ngIf="!ucp.tpl.sessions">
+    {{ucp.tpl.L_PROFILE_NO_AUTOLOGIN_KEYS}}
   </div>
 
-  <button md-button (click)="submit()">{{ucp.L_DELETE_MARKED}}</button>
-  <button md-button (click)="toggleMark()">{{ _allMarked ? ucp.L_UNMARK_ALL : ucp.L_MARK_ALL}}</button>
+  <button md-button (click)="submit()">{{ucp.tpl.L_DELETE_MARKED}}</button>
+  <button md-button (click)="toggleMark()">{{ _allMarked ? ucp.tpl.L_UNMARK_ALL : ucp.tpl.L_MARK_ALL}}</button>
 </div>

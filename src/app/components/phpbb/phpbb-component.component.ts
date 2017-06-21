@@ -17,6 +17,9 @@ export class PhpbbComponent extends PhpbbLanguageComponent implements OnInit {
   protected stateService: StateService;
   protected phpbbApi: PhpbbApiService;
 
+  /** holds received phpbb tpl if any */
+  public tpl: any = {};
+
   constructor() {
     super();
     this.doDI();

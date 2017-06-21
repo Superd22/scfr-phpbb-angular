@@ -17,12 +17,6 @@ import { UiServiceService } from "../../material/services/ui-service.service";
 })
 
 export class ViewtopicComponent extends PhpbbComponent {
-  public postrow: PhpbbPostMessage[];
-  public FORUM_ID: number;
-  public TOPIC_ID: number;
-  public CURRENT_PAGE: number;
-  public S_NUM_POSTS: number;
-  public PER_PAGE: number;
   public editedMessage: number = 0;
   public fetchingNewPosts: boolean = false;
 
@@ -39,7 +33,7 @@ export class ViewtopicComponent extends PhpbbComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.ws.onReply(this.TOPIC_ID).takeUntil(this.collected).subscribe((data) => {
+    this.ws.onReply(this.tpl.TOPIC_ID).takeUntil(this.collected).subscribe((data) => {
       this.newPosts++;
     });
   }

@@ -16,13 +16,6 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class PostingComponent extends PhpbbComponent {
-  S_HIDDEN_FIELDS: any;
-  /** raw message from the template */
-  MESSAGE: string;
-  /** raw subject from the template  */
-  SUBJECT: string;
-  S_FORM_TOKEN: string;
-
   /** if we're currently fetching data */
   public busy: boolean;
 
@@ -46,8 +39,8 @@ export class PostingComponent extends PhpbbComponent {
    * Assigns / creates our post object from the template var we got
    */
   private initAssign() {
-    if (this.MESSAGE) this.post.message = this.MESSAGE;
-    if (this.SUBJECT) this.post.subject = this.SUBJECT;
+    if (this.tpl.MESSAGE) this.post.message = this.tpl.MESSAGE;
+    if (this.tpl.SUBJECT) this.post.subject = this.tpl.SUBJECT;
   }
 
   /**
