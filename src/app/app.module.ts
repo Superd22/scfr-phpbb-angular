@@ -74,8 +74,12 @@ import { GlobalPaginationComponent } from './components/navigation/global-pagina
 import { BackgroundComponent } from './components/background/background.component';
 import { SpinnerLoadingComponent } from './components/loading/spinner-loading/spinner-loading.component';
 import { NotificationsService } from "./services/notifications.service";
+import { PhpbbWebsocketService } from "./services/phpbb-websocket.service";
 import { NotificationsComponent } from './components/navigation/notifications/notifications.component';
 import { ANotificationRowComponent } from './components/navigation/notifications/a-notification-row/a-notification-row.component';
+import { RegisterComponent } from './components/ucp/register/register.component';
+import { AgreementComponent } from './components/ucp/register/agreement/agreement.component';
+import { ReCaptchaModule } from 'angular2-recaptcha';
 
 @NgModule({
     declarations: [
@@ -131,6 +135,8 @@ import { ANotificationRowComponent } from './components/navigation/notifications
         SpinnerLoadingComponent,
         NotificationsComponent,
         ANotificationRowComponent,
+        RegisterComponent,
+        AgreementComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -144,12 +150,16 @@ import { ANotificationRowComponent } from './components/navigation/notifications
         MaterialModule,
         SCFRMaterialModule,
         FlexLayoutModule,
-        LanguageModuleModule
+        LanguageModuleModule,
+        ReCaptchaModule
     ],
     entryComponents: [
         DialogDeleteComponent
     ],
-    providers: [PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, NotificationsService],
+    providers: [
+        PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, 
+        NotificationsService, PhpbbWebsocketService
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {

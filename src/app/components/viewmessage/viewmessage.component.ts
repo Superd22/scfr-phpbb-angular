@@ -82,7 +82,7 @@ export class ViewmessageComponent implements OnInit {
 
     let match = regex.exec(this.postrow.POSTER_AVATAR)
 
-    if (!match[1]) return;
+    if (!match || !match[1]) return;
 
 
     if (match[1].indexOf('./') === 0) {

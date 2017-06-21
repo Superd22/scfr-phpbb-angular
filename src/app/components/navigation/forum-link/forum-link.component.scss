@@ -1,9 +1,24 @@
 :host() {
     width:100%;
+    .forum-link-wrapper {
+        transition: 1s;
+        &.active {
+            background: rgba(0, 0, 0, 0.45);
+            padding-left: 15px;
+        }
+        &.new {
+            background: rgba(81, 195, 250, 0.27);
+            font-weight: bolder;
+            color: white;
+        }
+    }
     .forum-link {
         width:100%;
         text-align:left;
-
+        &.mat-button {
+            font-family: 'Heebo', sans-serif;
+            text-transform:uppercase;
+        }
     }
     .sub-forums {
         padding-left:20px;

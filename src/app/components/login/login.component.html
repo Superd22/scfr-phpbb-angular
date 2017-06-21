@@ -13,6 +13,6 @@
   <md-card-actions>
     <md-checkbox [(ngModel)]="rememberMe">Remember Me</md-checkbox>
     <button md-button (click)="loginUser(username, password, rememberMe)">Login</button>
-    <button md-button>Register</button>
+    <button md-button uiSref="phpbb.seo.register">Register</button>
   </md-card-actions>
 </md-card>
