@@ -12,10 +12,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UcpComponent extends PhpbbComponent implements OnInit {
 
-  public t_block2: UCPSideLink[];
-  public ERROR: string;
-  public avatar_drivers;
-
   /** our tabs  */
   public navLinks: { name: string, id: string }[] = [
     { name: "Général", id: "general" },

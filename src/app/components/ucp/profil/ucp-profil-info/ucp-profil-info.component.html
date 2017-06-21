@@ -1,14 +1,14 @@
-<p *ngIf="ucp.error" class="error">{{ucp.ERROR}}</p>
+<p *ngIf="ucp.tpl.error" class="error">{{ucp.tpl.ERROR}}</p>
 <div>
-  <scfr-forum-ucp-phpbb-field type="select" displayName="Jour" name="bday_day" [required]="true" [options]="ucp.S_BIRTHDAY_DAY_OPTIONS.options"
-    [model]="ucp.S_BIRTHDAY_DAY_OPTIONS.selected">
+  <scfr-forum-ucp-phpbb-field type="select" displayName="Jour" name="bday_day" [required]="true" [options]="ucp.tpl.S_BIRTHDAY_DAY_OPTIONS.options"
+    [model]="ucp.tpl.S_BIRTHDAY_DAY_OPTIONS.selected">
   </scfr-forum-ucp-phpbb-field>
-  <scfr-forum-ucp-phpbb-field type="select" displayName="Mois" name="bday_month" [required]="true" [options]="ucp.S_BIRTHDAY_MONTH_OPTIONS.options"
-    [model]="ucp.S_BIRTHDAY_MONTH_OPTIONS.selected"></scfr-forum-ucp-phpbb-field>
-  <scfr-forum-ucp-phpbb-field type="select" displayName="Année" name="bday_year" [required]="true" [options]="ucp.S_BIRTHDAY_YEAR_OPTIONS.options"
-    [model]="ucp.S_BIRTHDAY_YEAR_OPTIONS.selected"></scfr-forum-ucp-phpbb-field>
+  <scfr-forum-ucp-phpbb-field type="select" displayName="Mois" name="bday_month" [required]="true" [options]="ucp.tpl.S_BIRTHDAY_MONTH_OPTIONS.options"
+    [model]="ucp.tpl.S_BIRTHDAY_MONTH_OPTIONS.selected"></scfr-forum-ucp-phpbb-field>
+  <scfr-forum-ucp-phpbb-field type="select" displayName="Année" name="bday_year" [required]="true" [options]="ucp.tpl.S_BIRTHDAY_YEAR_OPTIONS.options"
+    [model]="ucp.tpl.S_BIRTHDAY_YEAR_OPTIONS.selected"></scfr-forum-ucp-phpbb-field>
 
-  <dl *ngFor="let pf of ucp.profile_fields">
+  <dl *ngFor="let pf of ucp.tpl.profile_fields">
     <scfr-forum-ucp-phpbb-field [explain]="pf.LANG_EXPLAIN" [error]="pf.ERROR" [displayName]="pf.LANG_NAME" [required]="pf.S_REQUIRED"
       [fullPHPBB]="pf.FIELD"></scfr-forum-ucp-phpbb-field>
   </dl>

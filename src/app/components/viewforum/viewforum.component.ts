@@ -14,21 +14,9 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ViewforumComponent extends PhpbbComponent {
-  /** if we're watching this forum */
-  public S_WATCHING_FORUM;
-  /**  */
-  public U_WATCH_FORUM_LINK;
-  public U_WATCH_FORUM_TOGGLE;
-  public FORUM_ID;
-  /** number of topics per page */
-  public PER_PAGE;
   public sortSt;
   public sortSk;
   public sortSd;
-
-  public S_SELECT_SORT_DAYS;
-  public S_HAS_SUBFORUM;
-
   public loadingTopics: boolean = false;
 
   constructor() {
@@ -41,16 +29,16 @@ export class ViewforumComponent extends PhpbbComponent {
 
 
   public toggleWatchForum() {
-    this.phpbbApi.getPhpbbAjaxPage(this.U_WATCH_FORUM_LINK).subscribe(
+    this.phpbbApi.getPhpbbAjaxPage(this.tpl.U_WATCH_FORUM_LINK).subscribe(
       (data) => {
         if (data.S_ERROR)
           return this.phpbbApi.errorSnackBar(data.MESSAGE_TEXT);
 
-        this.S_WATCHING_FORUM = !this.S_WATCHING_FORUM;
+        this.tpl.S_WATCHING_FORUM = !this.tpl.S_WATCHING_FORUM;
 
-        let old = this.U_WATCH_FORUM_LINK;
-        this.U_WATCH_FORUM_LINK = this.U_WATCH_FORUM_TOGGLE;
-        this.U_WATCH_FORUM_TOGGLE = old;
+        let old = this.tpl.U_WATCH_FORUM_LINK;
+        this.tpl.U_WATCH_FORUM_LINK = this.tpl.U_WATCH_FORUM_TOGGLE;
+        this.tpl.U_WATCH_FORUM_TOGGLE = old;
 
         return this.phpbbApi.openSnackBar(data.MESSAGE_TEXT);
       }
@@ -77,7 +65,7 @@ export class ViewforumComponent extends PhpbbComponent {
    */
   private fetchSorted() {
     // Fetch new data
-    this.phpbbApi.getForumById(this.FORUM_ID).subscribe((data) => {
+    this.phpbbApi.getForumById(this.tpl.FORUM_ID).subscribe((data) => {
       // repopulate all templates
       this.translate.updateStateData(this, data);
     });
@@ -89,7 +77,7 @@ export class ViewforumComponent extends PhpbbComponent {
   }
 
   public updateLocalSortPref() {
-    localStorage.setItem("forum:" + this.FORUM_ID + ":sort", JSON.stringify({
+    localStorage.setItem("forum:" + this.tpl.FORUM_ID + ":sort", JSON.stringify({
       st: this.sortSt,
       sd: this.sortSd,
       sk: this.sortSk,
@@ -98,7 +86,7 @@ export class ViewforumComponent extends PhpbbComponent {
   }
 
   public get localSortPref(): ForumSortPref {
-    return ViewforumComponent.localSortPref(this.FORUM_ID);
+    return ViewforumComponent.localSortPref(this.tpl.FORUM_ID);
   }
 
   public static hasLocalSortPref(forumId: number): boolean {

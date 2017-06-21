@@ -61,14 +61,14 @@ export class UcpSubPageFormComponent implements OnInit {
     param.i = this.state.params.i;
     param.mode = this.state.params.mode;
 
-    this.ucp.ERROR = null;
+    this.ucp.tpl.ERROR = null;
     this.formHelper.postToPhpbbWFields("ucp.php", this.fields, this.ucp, param, { submit: "Submit" }).subscribe(
       (data) => {
         let tpl = data['@template'];
 
         if (tpl.ERROR) {
           this.api.errorSnackBar(tpl.ERROR);
-          this.ucp.ERROR = tpl.ERROR;
+          this.ucp.tpl.ERROR = tpl.ERROR;
         }
         else {
           this.api.openSnackBar("Profil mis à jour !");

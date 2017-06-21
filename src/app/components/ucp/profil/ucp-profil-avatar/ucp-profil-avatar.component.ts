@@ -25,7 +25,7 @@ export class UcpProfilAvatarComponent extends UcpSubPageFormComponent implements
   }
 
   private handleAvatarDrivers() {
-    this.ucp.avatar_drivers.forEach((driver) => {
+    this.ucp.tpl.avatar_drivers.forEach((driver) => {
       if (driver.SELECTED) this.selectedDriver = driver.DRIVER;
       this.avatarDriverOptions.push({ id: driver.DRIVER, name: driver.L_TITLE, explain: driver.L_EXPLAIN, output: this.getDriveOutputAsForms(driver) });
     });

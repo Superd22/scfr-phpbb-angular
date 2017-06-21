@@ -1,7 +1,7 @@
 <div class="container" fxLayoutWrap>
     <div class="top-details">
-        <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: FORUM_ID}">{{FORUM_NAME}}</a></h2>
-        <h3 class="topic-title"><a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: FORUM_ID, topicId: TOPIC_ID}">{{TOPIC_TITLE}}</a></h3>
+        <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">{{tpl.FORUM_NAME}}</a></h2>
+        <h3 class="topic-title"><a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: tpl.FORUM_ID, topicId: tpl.TOPIC_ID}">{{tpl.TOPIC_TITLE}}</a></h3>
         <ng-container [ngTemplateOutlet]="replyButton"></ng-container>
     </div>
 
@@ -11,14 +11,14 @@
         </div>
     </div>
 
-    <div *ngIf="postrow && !fetchingNewPosts" fxFlex="100">
-        <app-viewmessage *ngFor="let post of postrow" [postrow]="post" [editable]="true" [(edit)]="editedMessage"></app-viewmessage>
+    <div *ngIf="tpl.postrow && !fetchingNewPosts" fxFlex="100">
+        <app-viewmessage *ngFor="let post of tpl.postrow" [postrow]="post" [editable]="true" [(edit)]="editedMessage"></app-viewmessage>
     </div>
 
 
 </div>
 
-<scfr-forum-global-pagination [page]="CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="TOTAL_PAGES">
+<scfr-forum-global-pagination [page]="tpl.CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="tpl.TOTAL_PAGES">
     <ng-container [ngTemplateOutlet]="replyButton"></ng-container>
 </scfr-forum-global-pagination>
 

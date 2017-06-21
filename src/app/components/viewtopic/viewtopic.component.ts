@@ -15,12 +15,6 @@ import { UiServiceService } from "../../material/services/ui-service.service";
 })
 
 export class ViewtopicComponent extends PhpbbComponent {
-  public postrow: PhpbbPostMessage[];
-  public FORUM_ID: number;
-  public TOPIC_ID: number;
-  public CURRENT_PAGE: number;
-  public S_NUM_POSTS: number;
-  public PER_PAGE: number;
   public editedMessage: number = 0;
 
   public fetchingNewPosts: boolean = false;

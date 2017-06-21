@@ -2,44 +2,44 @@
   <div class="topic-icon"></div>
 
   <div class="topic-title-container" fxFlex="100">
-    <a uiSref="phpbb.seo.viewtopic" class="topic-title" [uiParams]="{forumId: FORUM_ID, topicId: topic.TOPIC_ID}">{{topic.TOPIC_TITLE}}</a>
+    <a uiSref="phpbb.seo.viewtopic" class="topic-title" [uiParams]="{forumId: topic.FORUM_ID, topicId: topic.TOPIC_ID}">{{topic.TOPIC_TITLE}}</a>
     <button md-button *ngIf="topic.S_TOPIC_UNAPPROVED || topic.S_POSTS_UNAPPROVED">
-      <a href="{{topic.U_MCP_QUEUE}}" title="{{L_TOPIC_UNAPPROVED}}">
-        <md-icon>sentiment_neutral</md-icon>{{L_TOPIC_UNAPPROVED}}
+      <a href="{{topic.U_MCP_QUEUE}}" title="{{L_.TOPIC_UNAPPROVED}}">
+        <md-icon>sentiment_neutral</md-icon>{{L_.TOPIC_UNAPPROVED}}
       </a>
 		</button>
 
     <button md-button *ngIf="topic.S_TOPIC_DELETED">
-      <a href="{{topic.U_MCP_QUEUE}}" title="{{L_TOPIC_DELETED}}">
-				<md-icon>autorenew</md-icon>{{L_TOPIC_DELETED}}<
+      <a href="{{topic.U_MCP_QUEUE}}" title="{{L_.TOPIC_DELETED}}">
+				<md-icon>autorenew</md-icon>{{L_.TOPIC_DELETED}}<
 			</a>
     </button>
 
     <button md-button *ngIf="topic.S_TOPIC_REPORTED">
-      <a href="{topic.U_MCP_REPORT}" title="{{L_TOPIC_REPORTED}}">
-        <md-icon>priority_high</md-icon>{{L_TOPIC_REPORTED}}
+      <a href="{topic.U_MCP_REPORT}" title="{{L_.TOPIC_REPORTED}}">
+        <md-icon>priority_high</md-icon>{{L_.TOPIC_REPORTED}}
       </a>
     </button>
 
     <div class="topic-title-sub">
-      <div class="topic-title-sub-author">{{L_LAST_POST}} {{L_POST_BY_AUTHOR}}
+      <div class="topic-title-sub-author">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
         <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: topicAuthor.userColor}" [uiParams]="{userId: topicAuthor?.userId}" class="topic-title-sub-author-link">
           {{topicAuthor?.userName}}
         </a>
       </div>
-      <a href="{{topic.U_LAST_POST}}" title="{{L_GOTO_LAST_POST}}">{{topic.FIRST_POST_TIME}}</a>
+      <a href="{{topic.U_LAST_POST}}" title="{{L_.GOTO_LAST_POST}}">{{topic.FIRST_POST_TIME}}</a>
     </div>
 
   </div>
 
   <div class="topic-stats" fxFlex="25">
     <dl>
-      <dt>{{L_REPLIES}}</dt><dd>{{topic.REPLIES}}</dd>
-      <dt>{{L_VIEWS}}</dt><dd>{{topic.VIEWS}}</dd>
+      <dt>{{L_.REPLIES}}</dt><dd>{{topic.REPLIES}}</dd>
+      <dt>{{L_.VIEWS}}</dt><dd>{{topic.VIEWS}}</dd>
     </dl>
 
   </div>
-  <div class="topic-last-reply" fxFlex="25">{{L_LAST_POST}}{{L_POST_BY_AUTHOR}}
+  <div class="topic-last-reply" fxFlex="25">{{L_.LAST_POST}}{{L_.POST_BY_AUTHOR}}
     <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: replyAuthor.userColor}" [uiParams]="{userId: replyAuthor?.userId}" class="topic-title-sub-author-link">
           {{replyAuthor?.userName}}
     </a>
