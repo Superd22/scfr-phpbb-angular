@@ -1,30 +1,30 @@
-<md-card *ngIf="register.USERNAME == undefined">
+<md-card *ngIf="register.tpl.USERNAME == undefined">
   <md-card-header>
     <md-card-title>
-      <h2>{{register.SITENAME}} - {{L_REGISTRATION}}</h2>
+      <h2>{{register.tpl.SITENAME}} - {{L_.REGISTRATION}}</h2>
     </md-card-title>
   </md-card-header>
-  <ng-container *ngIf="register.S_SHOW_COPPA || register.S_REGISTRATION">
+  <ng-container *ngIf="register.tpl.S_SHOW_COPPA || register.tpl.S_REGISTRATION">
 
     <md-card-content>
-      <p *ngIf="register.S_SHOW_COPPA" [innerHtml]="register.L_COPPA_BIRTHDAY"></p>
-      <p *ngIf="!register.S_SHOW_COPPA" [innerHtml]="register.L_TERMS_OF_USE"></p>
+      <p *ngIf="register.tpl.S_SHOW_COPPA" [innerHtml]="register.tpl.L_COPPA_BIRTHDAY"></p>
+      <p *ngIf="!register.tpl.S_SHOW_COPPA" [innerHtml]="register.tpl.L_TERMS_OF_USE"></p>
     </md-card-content>
 
 
     <md-card-actions>
-      <ng-container *ngIf="register.S_SHOW_COPPA">
-        <strong><a href="{{U_COPPA_NO}}" class="button1">{{L_COPPA_NO}}</a></strong>&nbsp; <a href="{{U_COPPA_YES}}" class="button2">{{L_COPPA_YES}}</a>
+      <ng-container *ngIf="register.tpl.S_SHOW_COPPA">
+        <strong><a href="{{register.tpl.U_COPPA_NO}}" class="button1">{{register.tpl.L_COPPA_NO}}</a></strong>&nbsp; <a href="{{U_COPPA_YES}}" class="button2">{{L_COPPA_YES}}</a>
       </ng-container>
 
-      <ng-container *ngIf="!register.S_SHOW_COPPA">
-        <button md-button (click)="submit()">{{L_AGREE}}</button>
-        <button md-button color="warn" uiSref="phpbb.seo.index">{{L_NOT_AGREE}}</button>
+      <ng-container *ngIf="!register.tpl.S_SHOW_COPPA">
+        <button md-button (click)="submit()">{{L_.AGREE}}</button>
+        <button md-button color="warn" uiSref="phpbb.seo.index">{{L_.NOT_AGREE}}</button>
       </ng-container>
     </md-card-actions>
   </ng-container>
 
-  <ng-container *ngIf="register.S_AGREEMENT">
+  <ng-container *ngIf="register.tpl.S_AGREEMENT">
 
   </ng-container>
 </md-card>

@@ -19,6 +19,7 @@ export class PhpbbLanguageComponent implements OnInit {
     get: (target, prop: string) => {
       if (this[prop]) return this[prop];
       if (this['tpl'] && this["tpl"][prop]) return this["tpl"][prop];
+      if (this['tpl'] && this["tpl"]["L_"+prop]) return this["tpl"]["L_"+prop];
       return this._language_service.getTranslation(prop);
     }
   });

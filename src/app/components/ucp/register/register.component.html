@@ -5,28 +5,28 @@
 <md-card class="form">
   <md-card-header>
     <md-card-title>
-      <h2>{{SITENAME}} - {{L_REGISTRATION}}</h2>
+      <h2>{{tpl.SITENAME}} - {{L_.REGISTRATION}}</h2>
     </md-card-title>
     <md-card-subtitle>
       <p *ngIf="ERROR" [innerHTML]="ERROR" class="error"></p>
       <p *ngIf="L_REG_COND">
-        {{L_REG_COND}}
+        {{L_.REG_COND}}
       </p>
     </md-card-subtitle>
   </md-card-header>
   <md-card-content fxLayout="column">
-    <scfr-forum-ucp-phpbb-field fxFlex [displayName]="L_USERNAME" [explain]="L_USERNAME_EXPLAIN" [model]="USERNAME" name="username"></scfr-forum-ucp-phpbb-field>
-    <scfr-forum-ucp-phpbb-field fxFlex [displayName]="L_EMAIL_ADDRESS" [model]="EMAIL" name="email" type="email"></scfr-forum-ucp-phpbb-field>
-    <scfr-forum-ucp-phpbb-field fxFlex [displayName]="L_NEW_PASSWORD" [explain]="L_PASSWORD_EXPLAIN" [model]="PASSWORD" name="new_password"
+    <scfr-forum-ucp-phpbb-field fxFlex [displayName]="L_.USERNAME" [explain]="L_.USERNAME_EXPLAIN" [model]="tpl.USERNAME" name="username"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field fxFlex [displayName]="L_.EMAIL_ADDRESS" [model]="tpl.EMAIL" name="email" type="email"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field fxFlex [displayName]="L_.NEW_PASSWORD" [explain]="L_.PASSWORD_EXPLAIN" [model]="tpl.PASSWORD" name="new_password"
       type="password"></scfr-forum-ucp-phpbb-field>
-    <scfr-forum-ucp-phpbb-field fxFlex [displayName]="L_CONFIRM_PASSWORD" [model]="PASSWORD_CONFIRM" name="password_confirm"
+    <scfr-forum-ucp-phpbb-field fxFlex [displayName]="L_.CONFIRM_PASSWORD" [model]="tpl.PASSWORD_CONFIRM" name="password_confirm"
       type="password"></scfr-forum-ucp-phpbb-field>
 
     <br />
 
 
     <strong>{{L_ITEMS_REQUIRED}}</strong><br />
-    <scfr-forum-ucp-phpbb-field *ngFor="let pf of profile_fields" fxFlex [explain]="pf.LANG_EXPLAIN" [displayName]="pf.LANG_NAME"
+    <scfr-forum-ucp-phpbb-field *ngFor="let pf of tpl.profile_fields" fxFlex [explain]="pf.LANG_EXPLAIN" [displayName]="pf.LANG_NAME"
       [fullPHPBB]="pf.FIELD"></scfr-forum-ucp-phpbb-field>
 
     <re-captcha (captchaResponse)="capchaCallback($event)" site_key="6LccPSYUAAAAAL-NZ0q_M-3X6vfHPfB59WeWI4d8" theme="dark"></re-captcha>
@@ -34,7 +34,7 @@
   </md-card-content>
 
   <md-card-actions>
-    <button md-button color="accent" (click)="submit()">{{L_SUBMIT}}</button>
+    <button md-button color="accent" (click)="submit()">{{L_.SUBMIT}}</button>
   </md-card-actions>
 </md-card>
 <!--
