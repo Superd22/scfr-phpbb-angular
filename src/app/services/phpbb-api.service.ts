@@ -44,12 +44,14 @@ export class PhpbbApiService {
 
     /**
      * Convenience function to send a POST payload to a forum page
+     * 
      * @param page the target page
      * @param query the POST data
      * @param params the optionals get paramaters to append to the page url
      * @param raw if we want raw HTML return instead of JSON return.
+     * @param forcetSetAsTpl force the return value to be set as the new tpl.
      */
-    public postPage(page, query, params?: any, raw?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
+    public postPage(page, query, params?: any, raw?: boolean, forcetSetAsTpl?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
         /** No explicit content-type so the browser can auto-identify it and set the boundary.
          * @see https://stackoverflow.com/a/39281156
          */
@@ -68,6 +70,7 @@ export class PhpbbApiService {
                     let ret = res.json();
                     this.handleSID(ret);
 
+                    if (forcetSetAsTpl) this.setTpl(ret['@template']);
                     return ret;
                 } catch (error) {
                     // We don't have a JSON thingy, most likely we got redirected by PHPBB.
@@ -89,20 +92,27 @@ export class PhpbbApiService {
      * @param page the target page
      * @param queries the GET data
      * @param raw if we want raw HTML return instead of JSON return.
+     * @param XLMHttpRequest send the data as an XLMHttpRequest.
+     * @param forcetSetAsTpl force the return value to be set as the new tpl.
      */
-    public getPage(page, queries?: {}, raw?: boolean, XLMHttpRequest?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
+    public getPage(page, queries?: {}, raw?: boolean, XLMHttpRequest?: boolean, forcetSetAsTpl?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
         let headers = null;
         if (XLMHttpRequest) headers = new Headers({ 'X-Requested-With': 'XMLHttpRequest' });
 
         return this.http.get(`${baseUrl}${page}`, { headers: headers, search: this.buildParameters(queries, raw), withCredentials: true })
             .map((res: Response) => {
                 let ret = res.json();
-
                 this.handleSID(ret);
 
+
+                if (forcetSetAsTpl) this.setTpl(ret['@template']);
                 return ret;
             })
             .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+    }
+
+    private setTpl(tpl: any) {
+        if (tpl) this.stranslate.latestTemplateData.next(tpl);
     }
 
     public getPhpbbAjaxPage(page, queries?: {}): Observable<PhpbbAjaxMessageResponse> {
@@ -160,13 +170,12 @@ export class PhpbbApiService {
      */
     public getSearch(searchId: string): Observable<PhpbbTemplateResponse.DefaultResponse> {
         let params = { search_id: searchId };
-        return this.getPage('search.php', params);
+        return this.getPage('search.php', params, false, false, true);
     }
 
     // LOGIN
     public authenticate(username, password, sid, remember): Observable<IndexResponse.IndexRoot> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
         let redirect = `index.php?${callback}`;
         let params: any = {
             username: username,
@@ -177,9 +186,8 @@ export class PhpbbApiService {
             mode: 'login'
         };
         if (remember) params.autologin = true;
-        return this.http.post(`${baseUrl}ucp.php`, this.buildParameters(params), { headers: headers, withCredentials: true })
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+
+        return this.postPage("ucp.php", params, null, false, true);
     }
 
     // Performs logout of PhpBB anc calls getAuthentification afterwards
@@ -191,8 +199,7 @@ export class PhpbbApiService {
     }
 
     public getAuthentication(): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.getPage('').map(data => {
-            this.stranslate.latestTemplateData.next(data['@template']);
+        return this.getPage('', {}, false, false, true).map(data => {
             return data;
         });
     }
