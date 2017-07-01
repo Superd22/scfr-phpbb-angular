@@ -8,6 +8,8 @@ import { UnreadResponse } from "../../../models/Search/UnreadReponse";
 export class ReinsertForumsPipe implements PipeTransform {
 
   /**
+   * Will filter from a forum list and a filteredForumsPipeResult all the forums that needs
+   * be displayed on a given depth level
    * 
    * @param forums forum we wanted to display based on previous pipes
    * @param args the filtered results contaning the xtended we actually wanna display
@@ -36,7 +38,6 @@ export class ReinsertForumsPipe implements PipeTransform {
         }
       }
     });
-
 
 
     return forums;

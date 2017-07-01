@@ -158,7 +158,7 @@ export class PhpbbApiService {
 
     public getPrivateMessageList(): Observable<PhpbbTemplateResponse.DefaultResponse> {
         let params = { i: 'pm', folder: 'inbox' };
-        return this.getPage('ucp.php', params);
+        return this.getPage('ucp.php', params, false, false, true);
     }
 
     public getApi(page, params?) {

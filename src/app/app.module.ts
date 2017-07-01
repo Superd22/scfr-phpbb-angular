@@ -80,6 +80,7 @@ import { ANotificationRowComponent } from './components/navigation/notifications
 import { RegisterComponent } from './components/ucp/register/register.component';
 import { AgreementComponent } from './components/ucp/register/agreement/agreement.component';
 import { ReCaptchaModule } from 'angular2-recaptcha';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
     declarations: [
@@ -151,7 +152,8 @@ import { ReCaptchaModule } from 'angular2-recaptcha';
         SCFRMaterialModule,
         FlexLayoutModule,
         LanguageModuleModule,
-        ReCaptchaModule
+        ReCaptchaModule,
+        MomentModule
     ],
     entryComponents: [
         DialogDeleteComponent

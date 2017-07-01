@@ -14,16 +14,13 @@ import { UnreadResponse } from "../../../models/Search/UnreadReponse";
 export class ForumLinkComponent implements OnInit {
 
   @Input("forum")
-  public forum: UnreadResponse.JumpboxForum
+  public forum: UnreadResponse.JumpboxForum;
   @Input("navCo")
   public navCo: NavigationComponent;
   @Input()
   public depth: number;
   public toggleDisplaySub: boolean;
   public cacheChildren: UnreadResponse.JumpboxForum[] = null;
-
-  //@ViewChildren(ForumLinkComponent)
-  //public children: QueryList<ForumLinkComponent>;
 
   @Output() public unreadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -50,10 +47,19 @@ export class ForumLinkComponent implements OnInit {
   }
 
   /**
+   * If this current forum is shown to the user, based on its search
+   * @return boolean
+   */
+  public get visible():boolean {
+    // Visible if we're in the extended results of the user's search.
+    return this.navCo.filteredForumList.extended.indexOf(Number(this.forum.FORUM_ID)) > -1;
+  }
+
+  /**
    * Compute if this forum should be marked as unread or read based on its own status
    * as well as the status of his children
    * 
-   * @return boolean true for unread
+   * @return true for unread
    */
   public computeUnreadStatus(): boolean {
     let CUSR = (children: UnreadResponse.JumpboxForum[]) => {
@@ -84,6 +90,7 @@ export class ForumLinkComponent implements OnInit {
 
   /**
    * Convenience method to get the subforum we need to display
+   * @param force if we want to force the update (uses cache otherwise.)
    */
   public subForumsToDisplay(force?: boolean): UnreadResponse.JumpboxForum[] {
     if (this.cacheChildren && !force) return this.cacheChildren;

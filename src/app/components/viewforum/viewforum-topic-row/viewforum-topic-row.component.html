@@ -22,12 +22,12 @@
     </button>
 
     <div class="topic-title-sub">
-      <div class="topic-title-sub-author">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
+      <div class="topic-title-sub-author">
         <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: topicAuthor.userColor}" [uiParams]="{userId: topicAuthor?.userId}" class="topic-title-sub-author-link">
           {{topicAuthor?.userName}}
         </a>
       </div>
-      <a href="{{topic.U_LAST_POST}}" title="{{L_.GOTO_LAST_POST}}">{{topic.FIRST_POST_TIME}}</a>
+      <a href="{{topic.U_LAST_POST}}" title="{{L_.GOTO_LAST_POST}}" class="topic-time">{{topic.FIRST_POST_TIME | amTimeAgo}}</a>
     </div>
 
   </div>
@@ -39,11 +39,11 @@
     </dl>
 
   </div>
-  <div class="topic-last-reply" fxFlex="25">{{L_.LAST_POST}}{{L_.POST_BY_AUTHOR}}
+  <div class="topic-last-reply" fxFlex="25">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
     <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: replyAuthor.userColor}" [uiParams]="{userId: replyAuthor?.userId}" class="topic-title-sub-author-link">
           {{replyAuthor?.userName}}
     </a>
 
-    {{topic.LAST_POST_TIME}}
+    {{topic.LAST_POST_TIME | amTimeAgo}}
   </div>
 </div>

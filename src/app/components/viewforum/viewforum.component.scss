@@ -1,5 +1,16 @@
 @import './src/assets/material/v7/main';
 
+.forum-header {
+    .forum-name-container {
+        flex: 1 1 100%;
+    }
+
+    .forum-actions-container {
+        // Material floating placeholder align
+        padding-top: 6px;
+    }
+}
+
 .forum-name-container {
     .forum-title {
         font-family: 'Heebo', sans-serif;
@@ -14,4 +25,11 @@
     }
     padding-left:10px;
     border-left:4px solid map_get($scfr-mat-light-blue, 600);
+}
+
+.topicrow {
+    margin: 0px -20px;
+    .topicrow-header {
+        padding: 5px 20px;
+    }
 }

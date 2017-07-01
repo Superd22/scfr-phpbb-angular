@@ -9,10 +9,20 @@ export class FilteredForumsPipe implements PipeTransform {
   private filtered: FilteredForumsPipeResult;
   private map: Map<number, number>;
 
+  /**
+   * Will extend a list of forum that matched a search and compute all of their respective parents
+   * so that we can show a full hiearchy.
+   * @param forums our list of forums
+   * @param filtered our filter object (will get modified during execution)
+   * @param map the child/parent map
+   * 
+   * @return forums (untouched) 
+   */
   transform(forums: UnreadResponse.JumpboxForum[], filtered: FilteredForumsPipeResult, map: Map<number, number>): any {
     
     if(!forums) return [];
     this.map = map;
+    // this.fltered is reference to filtered.
     this.filtered = filtered;
 
     this.filtered.original = [];
@@ -32,6 +42,10 @@ export class FilteredForumsPipe implements PipeTransform {
     return forums;
   }
 
+  /**
+   * For a given child forum, add its parent to the list
+   * @param child the id of the child forum
+   */
   public addDaddy(child: number) {
     if (child == 0) return;
 

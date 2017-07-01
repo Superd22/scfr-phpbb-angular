@@ -11,6 +11,10 @@
             font-weight: bolder;
             color: white;
         }
+        &.hidden {
+            // important because fxFlex will set display:flex on elem.
+            display: none !important;
+        }
     }
     .forum-link {
         width:100%;

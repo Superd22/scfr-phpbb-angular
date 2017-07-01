@@ -7,7 +7,7 @@
         </md-toolbar>
         <ul class="main-navigator-list" fxFlex>
             <scfr-forum-navigation-forum-link *ngFor="let forum of forumList | lookForForum:searchForum | filteredForums:filteredForumList:reverseMap | reinsertForums:filteredForumList:reverseMap:forumList:0:searchForum"
-                [forum]="forum" [navCo]="this" [depth]="2"></scfr-forum-navigation-forum-link>
+                [forum]="forum" [navCo]="this" [depth]="0"></scfr-forum-navigation-forum-link>
         </ul>
     </div>
     <app-login class="navigator-bottom"></app-login>

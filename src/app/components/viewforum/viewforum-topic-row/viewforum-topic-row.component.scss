@@ -1,18 +1,21 @@
 @import './src/assets/material/v7/main';
 
 $border: map-get($scfr-mat-light-blue, 600);
-$main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,700),0.7);
+$main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,500),0.5);
 $color:  map-get($scfr-mat-light-blue, 200);
 
 .topic-row {
-    padding: 10px;
+    padding: 5px 20px;
     font-family:"Electrolize";
-    background:$main-bg;
+    background: $main-bg;
     border-bottom:1px solid rgba(255,255,255,0.1);
+    border-top:1px solid rgba(0,0,0,0.2);
     align-items: center;
+    &:first-of-type {border-top: none;}
    .topic-title {
         font-family: 'Heebo', sans-serif;
         font-size:1.2rem;
+        text-decoration: none;
    }
    .topic-title-sub {
        .topic-title-sub-author {
@@ -20,6 +23,10 @@ $color:  map-get($scfr-mat-light-blue, 200);
            .topic-title-sub-author-link {
                font-weight:bold;
            }
+       }
+       .topic-time {
+           text-decoration: none;
+            color: darken($color, 20%);
        }
    }
    .topic-stats {

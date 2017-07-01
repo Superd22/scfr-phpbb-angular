@@ -447,13 +447,10 @@ export class StateTranslate {
             if (params.page && !params.i) newParam.i = pretty_states[params.page][0];
             if (params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
 
-            console.log(params);
-
             // Fetch the actual data
             return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode }).map(
                 (data) => {
                     newParam.phpbbResolved = data;
-                    console.log("go", stateTarget, newParam);
                     return transition.router.stateService.target(stateTarget, newParam);
                 }
             )
@@ -470,7 +467,6 @@ export class StateTranslate {
     public getCurrentStateDataView(transition: Transition, force?: boolean): Observable<any> {
 
         let stateName = transition.$to().name;
-        console.log(stateName);
         switch (stateName) {
             case "phpbb.seo.viewforum.posting":
             case "phpbb.seo.viewtopic.posting":
