@@ -18,6 +18,8 @@ export class HeaderBarComponent implements OnInit {
   public select: boolean = false;
   public navlinks: NavLink[] = [];
 
+  public busy:boolean;
+
   public selectedForum: number;
 
   public get toggle() {
@@ -41,6 +43,8 @@ export class HeaderBarComponent implements OnInit {
         this.selectedForum = this.navlinks[(this.navlinks.length - 1)].FORUM_ID;
       }
     });
+
+    this.stateT.loading.subscribe( loading => this.busy = loading);
 
     this.layout.lt_sm.subscribe((lt_sm) => {
       this.select = lt_sm;

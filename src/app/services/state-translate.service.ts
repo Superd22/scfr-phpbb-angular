@@ -20,6 +20,10 @@ export class StateTranslate {
     private router: UIRouter = null;
     private _latestTemplateData: ReplaySubject<any> = new ReplaySubject(1);
     public get latestTemplateData(): ReplaySubject<any> { return this._latestTemplateData; }
+    private _busy:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public get loading():BehaviorSubject<boolean> {
+        return this._busy;
+    }
     private phpbbApi: PhpbbApiService
 
     constructor(private http: Http, private login: LoginService) {
@@ -465,28 +469,37 @@ export class StateTranslate {
      * @param force force the update of this state
      */
     public getCurrentStateDataView(transition: Transition, force?: boolean): Observable<any> {
-
         let stateName = transition.$to().name;
+        this._busy.next(true);
+
+        let next:Observable<any> = Observable.of(new Object()).map(() => true);
         switch (stateName) {
             case "phpbb.seo.viewforum.posting":
             case "phpbb.seo.viewtopic.posting":
             case "phpbb.seo.viewtopic.edit":
-                return this.getPosting(transition, transition.params());
+                 next = this.getPosting(transition, transition.params());
+            break;
             case "phpbb.seo.viewforum":
-                return this.transform_viewforum(transition, transition.params().forumId);
+                next = this.transform_viewforum(transition, transition.params().forumId);
+            break;
             case "phpbb.seo.viewtopic":
-                return this.transform_viewtopic(transition, transition.params().topicId);
+                next = this.transform_viewtopic(transition, transition.params().topicId);
+            break;
             case "phpbb.seo.viewprofile":
-                return this.transform_viewonline_viewprofile(transition, transition.params().userId);
+                next = this.transform_viewonline_viewprofile(transition, transition.params().userId);
+            break;
             case "phpbb.seo.ucp":
-                return this.transform_ucp(transition);
+                next = this.transform_ucp(transition);
+            break;
             case "phpbb.seo.register":
-                return this.transform_ucp(transition);
+                next = this.transform_ucp(transition);
+            break;
             //case "phpbb.seo.ucp.pm":
             //   return this.transform_ucp_pm(transition);
+            //break;
         }
 
-        return Observable.of(new Object()).map(() => true);
+        return next;
     }
 
     public unwrapTplData(component, tpl) {

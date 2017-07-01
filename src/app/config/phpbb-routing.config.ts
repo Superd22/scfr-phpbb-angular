@@ -28,9 +28,16 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
         );
     }
 
+    function successHook() {
+        router.transitionService.onSuccess({to: "phpbb.seo.**"}, () => {
+            // we're done loading.
+            stateTranslate.loading.next(false);
+        });
+    }
+
     // Register legacy Hook
     legacyHook();
     seoHook();
-
+    successHook();
     //vis.visualizer(router);
 }
