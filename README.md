@@ -15,7 +15,9 @@ change `app/services/phpbb-api.service` `const baseUrl` to new domain (@todo set
 - phpbb >3.2.x
 - required extensions :
   - *clone in `ext/scfr/`*
-  - [phpbbJsonTemplate](https://github.com/Superd22/phpbb-json-template)
-  - [wsbb](https://github.com/Superd22/PHPBB-Websocket)
-- activate both extensions.
+  - [scfr/phpbbJsonTemplate](https://github.com/Superd22/phpbb-json-template)
+  - [scfr/wsbb](https://github.com/Superd22/PHPBB-Websocket)
+  - [scfr/sibylla](https://github.com/Superd22/phpbb-sibylla)
+  - [scfr/main](https://github.com/Superd22/phpbb-scfr-main)
+- activate all extensions.
 - (*opt*) launch websocket server via `php server/main.php` in `ext/scfr/wsbb`
