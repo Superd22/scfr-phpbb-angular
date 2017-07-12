@@ -1,5 +1,10 @@
+import { IBBcode } from './interfaces/bbcode.interface';
+import { IPHPBBCustomTag } from './interfaces/phpbb-custom-tag.interface';
+import { baseBBcode } from './enums/base-bbcode.enum';
+import { StateTranslate } from './../../../services/state-translate.service';
+import { IPhpbbTemplate } from './../../../interfaces/phpbb/phpbb-tpl';
 import { PostingComponent } from './../posting.component';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'scfr-forum-post-editor',
@@ -17,7 +22,19 @@ export class EditorComponent implements OnInit {
   @Input()
   public placeholder: string = "Message";
 
-  constructor() { }
+  public baseBB = baseBBcode;
+  public customBB: IBBcode[] = [];
+
+  @Input("tpl")
+  private _tpl: IPhpbbTemplate;
+
+  @ViewChild('editor')
+  private _editor;
+  public get editor(): ElementRef { return this._editor; }
+
+
+
+  constructor(private stateT: StateTranslate) { }
 
 
   public get message() {
@@ -30,6 +47,41 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.handleTpl();
+    this.initEditor();
   }
 
+  /**
+   * Initiliaze the editor, handling the inputs and generating bbcode & such
+   */
+  private initEditor() {
+    this.computeCustomBBcode();
+  }
+
+  /**
+   * Ensures the necessery phpbb template data are present.
+   */
+  private handleTpl() {
+    // if we have no supplied tpl, fetch the latest.
+    if (!this._tpl)
+      this.stateT.latestTemplateData.asObservable().first().subscribe((tpl) => {
+        this._tpl = tpl;
+      });
+  }
+
+  private computeCustomBBcode() {
+    if (this._tpl && this._tpl.custom_tags) {
+
+      this._tpl.custom_tags.forEach((custom: IPHPBBCustomTag) => {
+        this.customBB.push({
+          name: custom.BBCODE_TAG,
+          code: this.explodeBBcodeName(custom.BBCODE_NAME),
+        });
+      });
+    }
+  }
+
+  private explodeBBcodeName(name: string): string[] {
+    return name.replace("'", "").split(",");
+  }
 }

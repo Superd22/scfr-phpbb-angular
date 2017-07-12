@@ -10,6 +10,7 @@ import { SeoUrlPipe } from '../pipes/seo-url.pipe';
 import { Injectable, Inject } from "@angular/core";
 import { Http, URLSearchParams } from "@angular/http";
 import { ReplaySubject } from "rxjs/ReplaySubject";
+import { IPhpbbTemplate } from "app/interfaces/phpbb/phpbb-tpl";
 
 
 @Injectable()
@@ -18,10 +19,10 @@ export class StateTranslate {
     private shouldParseAgain = true;
     private onceResolved = false;
     private router: UIRouter = null;
-    private _latestTemplateData: ReplaySubject<any> = new ReplaySubject(1);
-    public get latestTemplateData(): ReplaySubject<any> { return this._latestTemplateData; }
-    private _busy:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    public get loading():BehaviorSubject<boolean> {
+    private _latestTemplateData: ReplaySubject<IPhpbbTemplate> = new ReplaySubject(1);
+    public get latestTemplateData(): ReplaySubject<IPhpbbTemplate> { return this._latestTemplateData; }
+    private _busy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public get loading(): BehaviorSubject<boolean> {
         return this._busy;
     }
     private phpbbApi: PhpbbApiService
@@ -240,7 +241,7 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
     }
 
-    private checkAuthLogin(trans, tpl: any) {
+    private checkAuthLogin(trans, tpl: IPhpbbTemplate) {
         // To do callback once logged-in.
         // To do logged in but not authed enough.
 
@@ -472,28 +473,28 @@ export class StateTranslate {
         let stateName = transition.$to().name;
         this._busy.next(true);
 
-        let next:Observable<any> = Observable.of(new Object()).map(() => true);
+        let next: Observable<any> = Observable.of(new Object()).map(() => true);
         switch (stateName) {
             case "phpbb.seo.viewforum.posting":
             case "phpbb.seo.viewtopic.posting":
             case "phpbb.seo.viewtopic.edit":
-                 next = this.getPosting(transition, transition.params());
-            break;
+                next = this.getPosting(transition, transition.params());
+                break;
             case "phpbb.seo.viewforum":
                 next = this.transform_viewforum(transition, transition.params().forumId);
-            break;
+                break;
             case "phpbb.seo.viewtopic":
                 next = this.transform_viewtopic(transition, transition.params().topicId);
-            break;
+                break;
             case "phpbb.seo.viewprofile":
                 next = this.transform_viewonline_viewprofile(transition, transition.params().userId);
-            break;
+                break;
             case "phpbb.seo.ucp":
                 next = this.transform_ucp(transition);
-            break;
+                break;
             case "phpbb.seo.register":
                 next = this.transform_ucp(transition);
-            break;
+                break;
             //case "phpbb.seo.ucp.pm":
             //   return this.transform_ucp_pm(transition);
             //break;

@@ -1,3 +1,4 @@
+import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
 import { PhpbbLanguageComponent } from './../../language-module/components/phpbb-language/phpbb-language.component';
 import { ServiceLocator } from './../../services/ServiceLocator';
 import { StateTranslate } from './../../services/state-translate.service';
@@ -18,7 +19,7 @@ export class PhpbbComponent extends PhpbbLanguageComponent implements OnInit {
   protected phpbbApi: PhpbbApiService;
 
   /** holds received phpbb tpl if any */
-  public tpl: any = {};
+  public tpl: IPhpbbTemplate = {};
 
   constructor() {
     super();

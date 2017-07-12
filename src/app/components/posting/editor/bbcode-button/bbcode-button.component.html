@@ -1,0 +1,2 @@
+<button md-icon-button *ngIf="bbcode?.icon" (click)="applyBBcode($event)"><md-icon>{{bbcode?.icon}}</md-icon></button>
+<button md-button *ngIf="!bbcode?.icon" (click)="applyBBcode($event)">{{bbcode?.name}}</button>

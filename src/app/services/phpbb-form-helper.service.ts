@@ -1,3 +1,4 @@
+import { IPhpbbTemplate } from './../interfaces/phpbb/phpbb-tpl';
 import { PhpbbApiService } from './phpbb-api.service';
 import { UcpPhpbbFieldComponent } from './../components/ucp/ucp-phpbb-field/ucp-phpbb-field.component';
 import { Injectable, QueryList } from '@angular/core';
@@ -33,7 +34,7 @@ export class PhpbbFormHelperService {
    * @param tpl the template data to look in
    * @return object whose property are the hidden fields
    */
-  public getHiddensFromTemplateAsObject(tpl): any {
+  public getHiddensFromTemplateAsObject(tpl: IPhpbbTemplate): any {
     if (!tpl.S_FORM_TOKEN && !tpl.S_HIDDEN_FIELDS) return {};
 
     /** this expects *ALL* the forms to have value directly following name. */
@@ -124,7 +125,7 @@ export class PhpbbFormHelperService {
    * @param extraGet additional parameters to send via get
    * @param extraPost additional paramters to send via post
    */
-  public postToPhpbbWFields(page: string, fields: QueryList<UcpPhpbbFieldComponent>, tpl?, extraGet?, extraPost?) {
+  public postToPhpbbWFields(page: string, fields: QueryList<UcpPhpbbFieldComponent>, tpl?: IPhpbbTemplate, extraGet?, extraPost?) {
     let post: any = {};
 
     fields.forEach((field) => {

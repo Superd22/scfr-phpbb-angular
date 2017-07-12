@@ -18,7 +18,8 @@ export class ViewmessageComponent implements OnInit {
   @Input("post") public post: SimplePost;
   /** if this post is editable */
   @Input("editable") public editable: boolean = false;
-
+  /** if we're displaying a full post or a simple post */
+  public simplePostMod: boolean = false;
   public avatarUrl: string = "";
 
   @Output() editChange = new EventEmitter();
@@ -48,6 +49,7 @@ export class ViewmessageComponent implements OnInit {
   private initPost() {
     if (this.post) {
       this.sanitizeMessage();
+      this.simplePostMod = true;
       return;
     }
     if (this.postrow) {
@@ -93,8 +95,8 @@ export class ViewmessageComponent implements OnInit {
   }
 
   public displayInfoRight(): boolean {
-    return this.postrow.J_IS_JULIET && this.tpl.S_USER_IS_JULIET || 
-    (this.postrow.G_SHOW_H || this.postrow.G_SHOW_G) && !(this.tpl.S_USER_IS_JULIET && this.postrow.J_IS_JULIET)
+    return this.postrow.J_IS_JULIET && this.tpl.S_USER_IS_JULIET ||
+      (this.postrow.G_SHOW_H || this.postrow.G_SHOW_G) && !(this.tpl.S_USER_IS_JULIET && this.postrow.J_IS_JULIET)
   }
 
 }

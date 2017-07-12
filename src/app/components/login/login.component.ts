@@ -1,3 +1,5 @@
+import { StateTranslate } from './../../services/state-translate.service';
+import { PhpbbApiService } from './../../services/phpbb-api.service';
 import { UIRouter, StateService, Transition } from '@uirouter/angular';
 import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
 import { LoginService } from '../../services/login.service';
@@ -16,10 +18,13 @@ export class LoginComponent implements OnInit {
   public rememberMe: boolean;
   public _shouldToast: boolean;
 
+  public explain: string;
+
   // State to redirect to.
   @Input() redirect: Transition;
 
-  constructor(public LoginService: LoginService, private transition: StateService, private snackBar: MdSnackBar) {
+  constructor(public LoginService: LoginService, private transition: StateService, private snackBar: MdSnackBar, private stateT: StateTranslate) {
+    this.explain = transition.params["error"];
   }
 
   ngOnInit() {
