@@ -1,3 +1,4 @@
+import { ContenteditableDirective } from './components/posting/editor/directives/content-editable.directive';
 import { NavPmComponent } from './components/navigation/pm/pm.component';
 import { EditorComponent } from './components/posting/editor/editor.component';
 import { ServiceLocator } from './services/ServiceLocator';
@@ -140,6 +141,7 @@ import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button
         RegisterComponent,
         AgreementComponent,
         BbcodeButtonComponent,
+        ContenteditableDirective
     ],
     imports: [
         UIRouterModule.forRoot({
