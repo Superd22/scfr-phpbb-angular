@@ -14,7 +14,8 @@ import { UcpResponse } from '../models/UcpResponse';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 
-const baseUrl = 'http://www.newforum.fr/';
+// Will be broken by SSR
+const baseUrl = 'http://'+window.location.hostname+"/";
 const callback = 'scfr_json_callback=true';
 
 @Injectable()
