@@ -1,3 +1,5 @@
+import { StateTranslate } from './../../../services/state-translate.service';
+import { IPhpbbTemplate } from './../../../interfaces/phpbb/phpbb-tpl';
 import { PostingComponent } from './../posting.component';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
@@ -17,7 +19,11 @@ export class EditorComponent implements OnInit {
   @Input()
   public placeholder: string = "Message";
 
-  constructor() { }
+  @Input("tpl")
+  private _tpl: IPhpbbTemplate;
+
+  constructor(private stateT: StateTranslate) {
+  }
 
 
   public get message() {
@@ -30,6 +36,24 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.handleTpl();
+    this.initEditor();
   }
 
+  /**
+   * Initiliaze the editor, handling the inputs and generating bbcode & such
+   */
+  private initEditor() {
+  }
+
+  /**
+   * Ensures the necessery phpbb template data are present.
+   */
+  private handleTpl() {
+    // if we have no supplied tpl, fetch the latest.
+    if (!this._tpl)
+      this.stateT.latestTemplateData.asObservable().first().subscribe((tpl) => {
+        this._tpl = tpl;
+      });
+  }
 }

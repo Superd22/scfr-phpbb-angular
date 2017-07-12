@@ -81,6 +81,7 @@ import { RegisterComponent } from './components/ucp/register/register.component'
 import { AgreementComponent } from './components/ucp/register/agreement/agreement.component';
 import { ReCaptchaModule } from 'angular2-recaptcha';
 import { MomentModule } from 'angular2-moment';
+import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button/bbcode-button.component';
 
 @NgModule({
     declarations: [
@@ -138,6 +139,7 @@ import { MomentModule } from 'angular2-moment';
         ANotificationRowComponent,
         RegisterComponent,
         AgreementComponent,
+        BbcodeButtonComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
