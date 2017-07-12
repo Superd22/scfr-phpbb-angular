@@ -1,0 +1,16 @@
+@import './src/assets/material/v7/main';
+.top-details{
+  .forum-title {
+    font-family: 'Heebo', sans-serif;
+    text-transform:uppercase;
+    font-size: 2rem;
+    margin:0px;
+  }
+
+  .topic-title {
+    font-family: Electrolize;
+    font-style: normal;
+  }
+  padding-left:10px;
+  border-left:4px solid map_get($scfr-mat-light-blue, 600);
+}
