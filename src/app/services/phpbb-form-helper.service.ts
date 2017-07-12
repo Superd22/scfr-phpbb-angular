@@ -34,6 +34,7 @@ export class PhpbbFormHelperService {
    * @return object whose property are the hidden fields
    */
   public getHiddensFromTemplateAsObject(tpl): any {
+    console.log("gethidden", tpl);
     if (!tpl.S_FORM_TOKEN && !tpl.S_HIDDEN_FIELDS) return {};
 
     /** this expects *ALL* the forms to have value directly following name. */

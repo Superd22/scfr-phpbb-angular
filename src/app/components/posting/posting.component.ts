@@ -1,3 +1,4 @@
+import { MdSnackBar } from '@angular/material';
 import { PhpbbFormHelperService } from './../../services/phpbb-form-helper.service';
 import { UIRouter } from '@uirouter/angular';
 import { Observable } from 'rxjs/Rx';
@@ -26,7 +27,7 @@ export class PostingComponent extends PhpbbComponent {
 
   public preview: SimplePost;
 
-  constructor(private formHelper: PhpbbFormHelperService, protected transition: Transition) {
+  constructor(private formHelper: PhpbbFormHelperService, protected transition: Transition, protected snack: MdSnackBar) {
     super();
   }
 
@@ -63,6 +64,10 @@ export class PostingComponent extends PhpbbComponent {
             id: 0,
           }
         else this.preview = null;
+
+        if (tpl.ERROR) {
+          this.snack.open(tpl.ERROR);
+        }
       }
     );
   }
@@ -105,7 +110,7 @@ export class PostingComponent extends PhpbbComponent {
       opts.mode = "edit";
     }
 
-    if(this.transition.params().quote) {
+    if (this.transition.params().quote) {
       opts.p = null;
       opts.mode = "reply"
     }
@@ -118,7 +123,7 @@ export class PostingComponent extends PhpbbComponent {
    * @param mode "preview" for generating a preview | "post" for posting the message
    */
   private forPHPBBPostingFORM(mode: "preview" | "post") {
-    let form = Object.assign(this.formHelper.getHiddensFromTemplateAsObject(this), {
+    let form = Object.assign(this.formHelper.getHiddensFromTemplateAsObject(this.tpl), {
       subject: this.post.subject,
       message: this.post.message,
       addbbcode20: 100,
