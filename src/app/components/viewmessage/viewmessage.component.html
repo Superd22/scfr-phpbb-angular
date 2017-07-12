@@ -1,7 +1,7 @@
 <md-card style="margin: 10px 0px;" [id]="post.id" class="message">
   <div *ngIf="!isEditMod()">
 
-    <div class="message-header">
+    <div class="message-header" *ngIf="!simplePostMod">
       <div class="message-header-user-left" fxLayout [ngClass]="{border: postrow.POST_AUTHOR_COLOUR}">
         <div class="message-header-avatar" [ngStyle]="{'background-image': 'url('+avatarUrl+')', 'border-color':postrow.POST_AUTHOR_COLOUR}"></div>
         <span class="message-header-username" [mdTooltip]="postrow.RANK_TITLE" [ngStyle]="{'background-color': postrow.POST_AUTHOR_COLOUR}"
