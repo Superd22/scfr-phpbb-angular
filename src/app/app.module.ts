@@ -84,6 +84,8 @@ import { ReCaptchaModule } from 'angular2-recaptcha';
 import { MomentModule } from 'angular2-moment';
 import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button/bbcode-button.component';
 
+import { SanitizeHtml } from './pipes/sanitize-html.pipe';
+
 @NgModule({
     declarations: [
         SeoUrlPipe,
@@ -141,7 +143,8 @@ import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button
         RegisterComponent,
         AgreementComponent,
         BbcodeButtonComponent,
-        ContenteditableDirective
+        ContenteditableDirective,
+        SanitizeHtml,
     ],
     imports: [
         UIRouterModule.forRoot({

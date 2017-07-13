@@ -57,8 +57,9 @@
 
 
     </div>
-    <md-card-content>
-      <div class="post-inner" [innerHTML]="post.message"></div>
+    <md-card-content *ngIf="post.message">
+      <div [innerHTML]="(post.message | unsafeHtml)" class="post-inner" >
+      </div>
     </md-card-content>
     <md-card-actions>
       <scfr-forum-message-action-bar *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>

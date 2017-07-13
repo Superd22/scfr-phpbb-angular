@@ -2,7 +2,7 @@ import { StateTranslate } from './../../services/state-translate.service';
 import { SimplePost } from './../../interfaces/simple-post';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PhpbbPostMessage } from '../../interfaces/phpbb/phpbb-post-message';
-import { DomSanitizer } from "@angular/platform-browser/";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser/";
 @Component({
   selector: 'app-viewmessage',
   templateUrl: './viewmessage.component.html',
@@ -35,7 +35,7 @@ export class ViewmessageComponent implements OnInit {
     this.editChange.emit(this._edit);
   }
 
-  constructor(private sanitizer: DomSanitizer, private stateT: StateTranslate) {
+  constructor(public sanitizer: DomSanitizer, private stateT: StateTranslate) {
     this.stateT.latestTemplateData.subscribe((data) => this.tpl = data);
   }
 
@@ -63,6 +63,10 @@ export class ViewmessageComponent implements OnInit {
 
   private sanitizeMessage() {
     this.post.message = this.sanitizer.bypassSecurityTrustHtml(String(this.post.message));
+  }
+
+  public get htmlMessage(): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(String(this.post.message));;
   }
 
   isEditMod() {
