@@ -1,6 +1,7 @@
 <div fxLayout fxLayoutWrap>
   <md-toolbar class="top-bbcode" fxFlex="100">
-      <scfr-forum-bbcode-button *ngFor="let bbcode of baseBB" [bbcode]="bbcode"></scfr-forum-bbcode-button>
+    <scfr-forum-bbcode-color></scfr-forum-bbcode-color>
+    <scfr-forum-bbcode-button *ngFor="let bbcode of baseBB" [bbcode]="bbcode"></scfr-forum-bbcode-button>
     <md-toolbar-row>
       <scfr-forum-bbcode-button *ngFor="let bbcode of customBB" [bbcode]="bbcode"></scfr-forum-bbcode-button>
     </md-toolbar-row>

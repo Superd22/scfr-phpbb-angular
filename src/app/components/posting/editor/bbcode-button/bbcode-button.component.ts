@@ -42,7 +42,7 @@ export class BbcodeButtonComponent implements OnInit {
     this.editor.editor.nativeElement.focus();
   }
 
-  private replaceMsgWithCode(start: number, end?: number) {
+  protected replaceMsgWithCode(start: number, end?: number) {
     let newMessage = this.editor.message;
     if (end === null || end === undefined) end = start;
 
@@ -67,7 +67,7 @@ export class BbcodeButtonComponent implements OnInit {
    * @param newSub substr to insert at the specified index
    * @return {string} the newly constructed string
    */
-  private stringSplice(original: string, start: number, del: number, newSub: string): string {
+  protected stringSplice(original: string, start: number, del: number, newSub: string): string {
     return original.slice(0, start) + newSub + original.slice(start + Math.abs(del));
   }
 
@@ -75,7 +75,7 @@ export class BbcodeButtonComponent implements OnInit {
    * Check if there is a valid selection into the editor
    * @return Selection a selection inside the editor, or null.
    */
-  private checkForSelection(): { start: number, end: number } {
+  protected checkForSelection(): { start: number, end: number } {
     let editor: HTMLTextAreaElement = this.editor.editor.nativeElement;
     return { start: editor.selectionStart, end: editor.selectionEnd };
   }

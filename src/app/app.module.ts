@@ -15,6 +15,7 @@ import { NgModule, Injector } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { UIRouterModule } from '@uirouter/angular';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { PhpbbApiService } from './services/phpbb-api.service';
 import { PhpbbService } from './services/phpbb.service';
@@ -85,6 +86,7 @@ import { MomentModule } from 'angular2-moment';
 import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button/bbcode-button.component';
 
 import { SanitizeHtml } from './pipes/sanitize-html.pipe';
+import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/bbcode-color.component';
 
 @NgModule({
     declarations: [
@@ -145,6 +147,7 @@ import { SanitizeHtml } from './pipes/sanitize-html.pipe';
         BbcodeButtonComponent,
         ContenteditableDirective,
         SanitizeHtml,
+        BbcodeColorComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -160,7 +163,8 @@ import { SanitizeHtml } from './pipes/sanitize-html.pipe';
         FlexLayoutModule,
         LanguageModuleModule,
         ReCaptchaModule,
-        MomentModule
+        MomentModule,
+        ColorPickerModule
     ],
     entryComponents: [
         DialogDeleteComponent
