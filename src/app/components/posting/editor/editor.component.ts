@@ -76,12 +76,13 @@ export class EditorComponent implements OnInit {
         this.customBB.push({
           name: custom.BBCODE_TAG,
           code: this.explodeBBcodeName(custom.BBCODE_NAME),
+          help: custom.BBCODE_HELPLINE
         });
       });
     }
   }
 
   private explodeBBcodeName(name: string): string[] {
-    return name.replace("'", "").split(",");
+    return name.replace(new RegExp(/'/g), "").split(",");
   }
 }
