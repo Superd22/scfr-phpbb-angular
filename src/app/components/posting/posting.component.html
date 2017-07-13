@@ -1,4 +1,11 @@
-<md-card>
+<md-card *ngIf="preview" class="preview">
+  <md-card-title>Previsualiser</md-card-title>
+  <md-card-content>
+    <app-viewmessage [editable]="false" [post]="preview"></app-viewmessage>
+  </md-card-content>
+</md-card>
+
+<md-card class="posting">
   <md-card-subtitle>{{L_.INFORMATION}}</md-card-subtitle>
   <md-card-title>
     <md-input-container>
@@ -6,10 +13,6 @@
     </md-input-container>
   </md-card-title>
   <md-card-content fxLayout="column" fxLayoutWrap>
-
-    <div *ngIf="preview">
-      <app-viewmessage [editable]="false" [post]="preview"></app-viewmessage>
-    </div>
 
     <scfr-forum-post-editor [(message)]="post.message"></scfr-forum-post-editor>
 

@@ -4,12 +4,13 @@ import { baseBBcode } from './enums/base-bbcode.enum';
 import { StateTranslate } from './../../../services/state-translate.service';
 import { IPhpbbTemplate } from './../../../interfaces/phpbb/phpbb-tpl';
 import { PostingComponent } from './../posting.component';
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'scfr-forum-post-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss']
+  styleUrls: ['./editor.component.scss'],
+  encapsulation:ViewEncapsulation.None,
 })
 export class EditorComponent implements OnInit {
 

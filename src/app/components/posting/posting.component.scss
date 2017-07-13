@@ -1,0 +1,11 @@
+@import './src/assets/material/v7/main';
+
+$light-bg: map-get($scfr-mat-blue-grey-background,500);
+
+.preview, .posting {
+    background:$light-bg;
+}
+
+md-card {
+    margin:20px;
+}
