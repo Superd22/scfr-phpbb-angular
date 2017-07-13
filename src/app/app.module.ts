@@ -6,6 +6,7 @@ import { PhpbbFormHelperService } from './services/phpbb-form-helper.service';
 import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
 import { PrivateMessageService } from './services/private-message.service';
 import { SCFRMaterialModule } from './material/material.module';
+import { HeaderModule } from './header/header.module';
 import { PmComponent } from './components/ucp/pm/pm.component';
 import { UcpComponent } from './components/ucp/ucp.component';
 import { ViewmessageComponent } from './components/viewmessage/viewmessage.component';
@@ -164,6 +165,7 @@ import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/b
         LanguageModuleModule,
         ReCaptchaModule,
         MomentModule,
+        HeaderModule,
         ColorPickerModule
     ],
     entryComponents: [

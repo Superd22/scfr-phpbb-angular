@@ -1,0 +1,9 @@
+<div class="global-nav-bar" fxLayout="column">
+  <div class="logo" fxFlex>
+    <img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr">
+  </div>
+
+  <div class="main-links" fxFlex="100">
+    <scfr-forum-main-link *ngFor="let link of topLinks" [link]="link"></scfr-forum-main-link>
+  </div>
+</div>

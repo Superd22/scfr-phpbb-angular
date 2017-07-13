@@ -1,0 +1,12 @@
+$line-height: 64px;
+
+.global-nav-bar {
+    height: $line-height;
+    display: inline-flex;
+    .logo {
+        img {
+            height: $line-height*1.50; 
+            margin-top: -($line-height*0.25);
+        }
+    }
+}
