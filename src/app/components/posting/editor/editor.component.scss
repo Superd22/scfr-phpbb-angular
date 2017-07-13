@@ -1,4 +1,15 @@
+@import './src/assets/material/v7/main';
+$dark-bg: map-get($scfr-mat-blue-grey-background,800);
+$darker-bg: map-get($scfr-mat-blue-grey-background,900);
+.text-editor {
+    .mat-input-flex {
+        background:$dark-bg;
+        .mat-input-infix {
+            padding:15px;
+            padding-top:0px;
+        }
+    }
+}
 .top-bbcode {
-
-    
+        background:$darker-bg;    
 }
