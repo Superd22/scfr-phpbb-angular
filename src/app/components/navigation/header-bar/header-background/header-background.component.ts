@@ -11,10 +11,17 @@ export class HeaderBackgroundComponent implements OnInit {
 
   private _customForum: string = null;
   private _userSelected: number = 0;
+  public guildMod: boolean = false;
 
   constructor(private stateT: StateTranslate, private sanitizer: DomSanitizer) {
     this.stateT.latestTemplateData.subscribe((tpl) => {
-      if (tpl['S_JU_BAN']) {
+      this.guildMod = false;
+
+      if (tpl['GUILD_BANNER']) {
+        this._customForum = tpl['GUILD_BANNER'];
+        this.guildMod = true;
+      }
+      else if (tpl['S_JU_BAN']) {
         this._customForum = tpl['S_JU_BAN'];
       }
       else {

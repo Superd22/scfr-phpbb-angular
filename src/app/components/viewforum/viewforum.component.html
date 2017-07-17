@@ -8,7 +8,7 @@
                 <button *ngIf="tpl.U_WATCH_FORUM_LINK" md-icon-button (click)="toggleWatchForum()"><md-icon>{{tpl.S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
             </div>
 
-            <em class="forum-sub-title">{{tpl.FORUM_DESC}}</em>
+            <em class="forum-sub-title" [innerHTML]="tpl.FORUM_DESC"></em>
         </div>
 
         <div class="forum-actions-container">

@@ -90,6 +90,7 @@ import { SanitizeHtml } from './pipes/sanitize-html.pipe';
 import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/bbcode-color.component';
 import { HeaderBackgroundComponent } from './components/navigation/header-bar/header-background/header-background.component';
 import { FloatingMainHeaderDirective } from './directives/floating-main-header.directive';
+import { ImageHeaderFitDirective } from './directives/image-header-fit.directive';
 
 @NgModule({
     declarations: [
@@ -153,6 +154,7 @@ import { FloatingMainHeaderDirective } from './directives/floating-main-header.d
         BbcodeColorComponent,
         HeaderBackgroundComponent,
         FloatingMainHeaderDirective,
+        ImageHeaderFitDirective,
     ],
     imports: [
         UIRouterModule.forRoot({
