@@ -3,6 +3,7 @@ $line-height: 64px;
 .global-nav-bar {
     height: $line-height;
     display: inline-flex;
+    margin-top:15px;
     .logo {
         img {
             height: $line-height*1.50; 

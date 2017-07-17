@@ -10,7 +10,7 @@
 
   <dl *ngFor="let pf of ucp.tpl.profile_fields">
     <scfr-forum-ucp-phpbb-field [explain]="pf.LANG_EXPLAIN" [error]="pf.ERROR" [displayName]="pf.LANG_NAME" [required]="pf.S_REQUIRED"
-      [fullPHPBB]="pf.FIELD"></scfr-forum-ucp-phpbb-field>
+      [fullPHPBB]="pf.FIELD" (modelChange)="changeCustom($event, pf.FIELD_ID)"></scfr-forum-ucp-phpbb-field>
   </dl>
 </div>
 <button md-button color="primary" (click)="submit()">Valider</button>
