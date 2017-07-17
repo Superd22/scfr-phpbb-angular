@@ -7,3 +7,10 @@
     margin-top:-40px;
     height:40px;
 }
+
+.toggle-menu {
+    transition:0.5s;
+    &.toggled {
+        transform:rotate(90deg);
+    }
+}
