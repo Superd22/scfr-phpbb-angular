@@ -6,6 +6,7 @@ import { PhpbbFormHelperService } from './services/phpbb-form-helper.service';
 import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
 import { PrivateMessageService } from './services/private-message.service';
 import { SCFRMaterialModule } from './material/material.module';
+import { HeaderModule } from './header/header.module';
 import { PmComponent } from './components/ucp/pm/pm.component';
 import { UcpComponent } from './components/ucp/ucp.component';
 import { ViewmessageComponent } from './components/viewmessage/viewmessage.component';
@@ -87,6 +88,9 @@ import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button
 
 import { SanitizeHtml } from './pipes/sanitize-html.pipe';
 import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/bbcode-color.component';
+import { HeaderBackgroundComponent } from './components/navigation/header-bar/header-background/header-background.component';
+import { FloatingMainHeaderDirective } from './directives/floating-main-header.directive';
+import { ImageHeaderFitDirective } from './directives/image-header-fit.directive';
 
 @NgModule({
     declarations: [
@@ -148,6 +152,9 @@ import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/b
         ContenteditableDirective,
         SanitizeHtml,
         BbcodeColorComponent,
+        HeaderBackgroundComponent,
+        FloatingMainHeaderDirective,
+        ImageHeaderFitDirective,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -164,6 +171,7 @@ import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/b
         LanguageModuleModule,
         ReCaptchaModule,
         MomentModule,
+        HeaderModule,
         ColorPickerModule
     ],
     entryComponents: [

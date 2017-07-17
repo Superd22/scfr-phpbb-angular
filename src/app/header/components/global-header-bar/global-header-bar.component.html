@@ -1,0 +1,37 @@
+<div class="global-nav-bar" fxLayout="column">
+  <div class="logo" fxFlex>
+    <img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr">
+  </div>
+
+  <div class="main-links" fxFlex="100">
+    <scfr-forum-main-link *ngFor="let link of topLinks" [link]="link">
+      <ng-container [ngSwitch]="link.name">
+        <ng-container *ngSwitchCase="'News'">
+
+          <ul class="primary">
+            <li><a href="//starcitizen.fr">Index</a></li>
+            <li><a href="{{WPHeader?.links['categories']}}">Catégories</a></li>
+            <li>Recherche</li>
+          </ul>
+          
+          <ul class="secondary" *ngFor="let cat of WPHeader?.news.categories">
+            <a href="{{cat.link}}"> {{cat.name}} </a>
+            <li *ngFor="let subc of cat.sub">
+              <a href="{{subc.link}}">{{subc.name}}</a>
+            </li>
+          </ul>
+
+        </ng-container>
+        <ng-container *ngSwitchCase="'Star Citizen'">.asd..</ng-container>
+        <ng-container *ngSwitchCase="'Communauté'">.asd..</ng-container>
+        <ng-container *ngSwitchCase="'Outils'">
+          <scfr-forum-small-secondary-link>
+            <a href="http://starcitizen-traduction.fr/parrainage/" target="_blank">
+              <img src="https://starcitizen.fr/wp-content/uploads/2016/02/tradteam-logo-32x32.png"> Parrainage
+            </a>
+          </scfr-forum-small-secondary-link>
+        </ng-container>
+      </ng-container>
+    </scfr-forum-main-link>
+  </div>
+</div>

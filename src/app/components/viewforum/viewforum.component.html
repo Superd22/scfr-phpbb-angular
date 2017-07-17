@@ -1,5 +1,5 @@
 <div class="container" fxLayout="column" fxLayoutWrap>
-    <div class="forum-header" fxLayout fxLayoutAlign="start start">
+    <div class="forum-header" fxLayout fxLayoutAlign="start start" scfrForumFloatingMainHeader>
         <div class="forum-name-container">
             <div fxLayout fxLayoutAlign="start center">
                 <h2 class="forum-title" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">
@@ -8,7 +8,7 @@
                 <button *ngIf="tpl.U_WATCH_FORUM_LINK" md-icon-button (click)="toggleWatchForum()"><md-icon>{{tpl.S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
             </div>
 
-            <em class="forum-sub-title">{{tpl.FORUM_DESC}}</em>
+            <em class="forum-sub-title" [innerHTML]="tpl.FORUM_DESC"></em>
         </div>
 
         <div class="forum-actions-container">

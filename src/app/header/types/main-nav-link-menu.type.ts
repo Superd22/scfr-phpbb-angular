@@ -1,0 +1,1 @@
+export type MainNavLinkMenuType = "none" | "full" | "small";
