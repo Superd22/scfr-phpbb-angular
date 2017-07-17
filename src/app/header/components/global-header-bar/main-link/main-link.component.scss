@@ -1,4 +1,75 @@
+$bar-background: rgba(38,50,58,0.9);
+
 button {
     flex:1 1 100%;
+    min-width:160px;
+    height: 100%;
+    padding:20px 35px;
+    font-family:"Electrolize";
+    text-transform: uppercase;
+    background:none;
+    border:0px;
+    outline:none;
+    cursor:pointer;
+    font-size:17px;
+    color:white;
+    z-index:11;
+    position:sticky;
+
+    &:hover {
+        background:#6abbcf;
+    }
+
+    &:focus {
+        background-color: rgba(255,255,255,0.15);
+    }
+
+}
+
+:host /deep/ .extended-menu {
+    position:fixed;
+    background: $bar-background;
+    font-family: "Electrolize";
+    z-index:10;
+    top:0px;
+    min-width:160px;
+    padding-top:64px;
     display:flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    &:not(.small) {
+        left:0px  !important;
+        width:100%;
+    }
+    &.small {
+        width:auto;
+    }
+
+    ul {
+        &.primary {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 25px;
+            list-style-type: none;
+            padding-left:0px;
+            li {
+                display:inline-block;
+                padding: 10px 30px;
+                cursor:pointer;
+                font-size:2em;
+                text-transform: uppercase;
+                &:hover {
+                    background:white;
+                    color:black;
+                }
+            }
+        }
+
+        &.secondary {
+            display:inline-block;
+            flex: 1 1;
+            padding: 10px 50px;
+        }
+    }
 }

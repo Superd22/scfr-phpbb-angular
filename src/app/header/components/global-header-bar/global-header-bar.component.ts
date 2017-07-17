@@ -1,5 +1,7 @@
+import { IMainHeaderBarWP } from './../../interfaces/main-header-bar-wp.interface';
 import { mainLinks } from './../../enums/main-links.const';
 import { Component, OnInit } from '@angular/core';
+import { GlobalHeaderService } from "app/header/services/global-header.service";
 
 @Component({
   selector: 'scfr-forum-global-header-bar',
@@ -9,10 +11,17 @@ import { Component, OnInit } from '@angular/core';
 export class GlobalHeaderBarComponent implements OnInit {
 
   public topLinks = mainLinks;
+  public WPHeader: IMainHeaderBarWP;
 
-  constructor() { }
+  constructor(private api: GlobalHeaderService) {
+    this.api.getHeaderData().subscribe((wpHeader) => {
+      this.WPHeader = wpHeader;
+    });
+  }
 
   ngOnInit() {
+
   }
+
 
 }
