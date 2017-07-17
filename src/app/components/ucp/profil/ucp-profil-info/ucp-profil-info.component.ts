@@ -1,3 +1,4 @@
+import { StateTranslate } from './../../../../services/state-translate.service';
 import { UcpPhpbbFieldComponent } from './../../ucp-phpbb-field/ucp-phpbb-field.component';
 import { PhpbbApiService } from './../../../../services/phpbb-api.service';
 import { PhpbbFormHelperService } from './../../../../services/phpbb-form-helper.service';
@@ -13,7 +14,7 @@ import { UcpSubPageFormComponent } from "../../ucp-sub-page-form/ucp-sub-page-fo
 })
 export class UcpProfilInfoComponent extends UcpSubPageFormComponent implements OnInit {
 
-  constructor() {
+  constructor(protected stateT: StateTranslate) {
     super();
   }
 
@@ -24,5 +25,18 @@ export class UcpProfilInfoComponent extends UcpSubPageFormComponent implements O
   private parseOptions() {
     this.formHelper.handleAllOptions(this.ucp, ["S_BIRTHDAY_DAY_OPTIONS", "S_BIRTHDAY_MONTH_OPTIONS", "S_BIRTHDAY_YEAR_OPTIONS"]);
   }
-  
+
+  public changeCustom(event, type) {
+    if (type == "pf_custom_bg")
+      this.updateHeaderImage(event);
+  }
+
+  protected updateHeaderImage(newValue) {
+    this.stateT.latestTemplateData.asObservable().first().subscribe(
+      (tpl) => {
+        tpl['PROFILE_CUSTOM_BG_VALUE'] = newValue;
+        this.stateT.latestTemplateData.next(tpl);
+      }
+    ).unsubscribe();
+  }
 }
