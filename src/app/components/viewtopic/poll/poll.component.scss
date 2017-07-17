@@ -1,0 +1,88 @@
+@import './src/assets/material/v7/main';
+$dark-bg:  map-get($scfr-mat-blue-grey-background,800);
+
+.chart-selector {
+    .mat-icon  {
+        background: map-get($scfr-mat-blue-grey-background,500);
+        margin-right: -5px;
+        padding: 5px;
+        cursor:pointer;
+        &.selected {
+            color: map-get($scfr-mat-cyan,500);
+        }
+        &:hover {
+            color: map-get($scfr-mat-cyan,800);
+        }
+    }
+}
+
+.poll-container {
+    min-height:300px;
+    background:$dark-bg;
+    position:relative;
+    padding:15px;
+    h3 {
+        margin: 0px;
+        margin-bottom: 10px;
+        font-family: "Electrolize";
+        font-size: 2rem;
+        letter-spacing: 3px;
+        line-height: 2rem;
+        text-transform: uppercase;
+        font-weight: lighter;
+        background: map-get($scfr-mat-blue-grey-background,500);
+        padding: 10px;
+        color: map-get($scfr-mat-light-blue,500);
+    }
+    .inside {
+        position:relative;
+        z-index:1;
+    }
+    &:before {
+        content:'';
+        position: absolute;
+        top:0px;
+        left:0px;
+        width: 100%;
+        height:100%;
+        background:url(/assets/images/pollback.jpg);
+        background-size:cover;
+        background-repeat:no-repeat;
+        z-index: 0;
+        opacity:0.4;
+    }
+}
+
+.options {
+    .opt {
+        font-family:"Electrolize";
+        background: transparentize(map-get($scfr-mat-blue-grey-background,500), 0.5);
+        margin:5px 0px;
+        text-transform: uppercase;
+        md-checkbox {
+            margin-top: -5px;
+            padding:0px;
+        }
+
+        .badge {
+            position: absolute;
+            right: -16px;
+            width: 32px;
+            line-height: 24px;
+            height: 24px;
+            text-align: center;
+            border-radius: 25%;
+            top: 12px;
+            font-weight: bolder;
+            color: black;
+        }
+    }
+}
+
+:host /deep/ .chart {
+    max-height:600px;
+    text {
+        fill: white;
+        font-family: "Electrolize";
+    }
+}

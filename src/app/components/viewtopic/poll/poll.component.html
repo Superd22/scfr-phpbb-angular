@@ -1,0 +1,31 @@
+<div class="poll-container" *ngIf="tpl.S_HAS_POLL">
+  <div class="inside" fxLayout fxLayoutWrap>
+
+    <h3>{{tpl.POLL_QUESTION}}</h3>
+
+    <div fxFlex="100">
+      <div class="chart-selector">
+        <md-icon (click)="pie=false" [ngClass]="{selected: !pie}">insert_chart</md-icon>
+        <md-icon (click)="pie=true" [ngClass]="{selected: pie}">pie_chart</md-icon>
+      </div>
+    </div>
+
+    <md-nav-list class="options" fxFlex="40" fxFlex.lt-md="100%">
+      <md-list-item class="opt" *ngFor="let opt of options; let i = index">
+
+        <md-checkbox md-list-icon></md-checkbox>
+        <p md-line>{{opt.POLL_OPTION_CAPTION}}
+          <span class="badge" [style.background]="colors.domain[i]">{{opt.POLL_OPTION_RESULT}}</span>
+        </p>
+      </md-list-item>
+    </md-nav-list>
+
+    <div class="chart" fxFlex [ngClass]="{pie:pie}" *ngIf="chartData && chartData.length > 0">
+      <ngx-charts-bar-horizontal *ngIf="!pie" [xAxis]="true" [yAxis]="true" [xAxisLabel]="true" [results]="chartData" [legend]="false"
+        [scheme]="colors"></ngx-charts-bar-horizontal>
+      <ngx-charts-pie-chart *ngIf="pie" [results]="chartData" [legend]="false" [labels]="true" [scheme]="colors"></ngx-charts-pie-chart>
+    </div>
+
+
+  </div>
+</div>

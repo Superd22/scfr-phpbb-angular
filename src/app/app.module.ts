@@ -91,6 +91,8 @@ import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/b
 import { HeaderBackgroundComponent } from './components/navigation/header-bar/header-background/header-background.component';
 import { FloatingMainHeaderDirective } from './directives/floating-main-header.directive';
 import { ImageHeaderFitDirective } from './directives/image-header-fit.directive';
+import { PollComponent } from './components/viewtopic/poll/poll.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
     declarations: [
@@ -155,6 +157,7 @@ import { ImageHeaderFitDirective } from './directives/image-header-fit.directive
         HeaderBackgroundComponent,
         FloatingMainHeaderDirective,
         ImageHeaderFitDirective,
+        PollComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -172,6 +175,7 @@ import { ImageHeaderFitDirective } from './directives/image-header-fit.directive
         ReCaptchaModule,
         MomentModule,
         HeaderModule,
+        NgxChartsModule,
         ColorPickerModule
     ],
     entryComponents: [
