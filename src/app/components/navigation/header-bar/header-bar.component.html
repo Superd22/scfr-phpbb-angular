@@ -1,5 +1,7 @@
-<md-toolbar>
-  <button md-icon-button (click)="toggle = !toggle"><md-icon>{{toggle ? 'arrow_back' : 'menu'}}</md-icon></button>
+<scfr-forum-global-header-bar class="global-header"></scfr-forum-global-header-bar>
+<scfr-forum-header-background></scfr-forum-header-background>
+<div class="main-forum-nav">
+  <button md-icon-button (click)="toggle = !toggle"><md-icon>{{toggle ? 'menu' : 'menu'}}</md-icon></button>
 
   <button md-icon-button uiSref="phpbb.seo.index"  color="primary"><md-icon>home</md-icon></button>
 
@@ -15,5 +17,5 @@
       {{link.FORUM_NAME}}
     </md-option>
   </md-select>
-</md-toolbar>
+</div>
 <md-progress-bar *ngIf="busy" color="accent" mode="indeterminate"></md-progress-bar>

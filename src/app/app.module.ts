@@ -88,6 +88,8 @@ import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button
 
 import { SanitizeHtml } from './pipes/sanitize-html.pipe';
 import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/bbcode-color.component';
+import { HeaderBackgroundComponent } from './components/navigation/header-bar/header-background/header-background.component';
+import { FloatingMainHeaderDirective } from './directives/floating-main-header.directive';
 
 @NgModule({
     declarations: [
@@ -149,6 +151,8 @@ import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/b
         ContenteditableDirective,
         SanitizeHtml,
         BbcodeColorComponent,
+        HeaderBackgroundComponent,
+        FloatingMainHeaderDirective,
     ],
     imports: [
         UIRouterModule.forRoot({
