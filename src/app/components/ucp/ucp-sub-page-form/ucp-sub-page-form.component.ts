@@ -62,7 +62,7 @@ export class UcpSubPageFormComponent implements OnInit {
     param.mode = this.state.params.mode;
 
     this.ucp.tpl.ERROR = null;
-    this.formHelper.postToPhpbbWFields("ucp.php", this.fields, this.ucp, param, { submit: "Submit" }).subscribe(
+    this.formHelper.postToPhpbbWFields("ucp.php", this.fields, this.ucp.tpl, param, { submit: "Submit" }).subscribe(
       (data) => {
         let tpl = data['@template'];
 
