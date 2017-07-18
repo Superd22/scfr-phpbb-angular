@@ -109,7 +109,6 @@ export class PollComponent implements OnInit {
 
     this.form.postToPhpbbWFieldObject(new UnicodeToUtf8Pipe().transform(this.tpl.S_POLL_ACTION), post, this.tpl, null, null, true).subscribe(
       (caca) => {
-        console.log("caca");
       }
     );
   }

@@ -28,8 +28,6 @@ export class HeaderBackgroundComponent implements OnInit {
         this._customForum = null;
         this._userSelected = tpl['PROFILE_CUSTOM_BG_VALUE'];
       }
-
-      console.log(this, this.headerImage);
     });
   }
 
