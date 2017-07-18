@@ -442,7 +442,7 @@ export class StateTranslate {
 
             return r;
         }
-        else if (!params.phpbbResolved) {
+        else if (!params.phpbbResolved || !params.phpbbResolved['@template']['S_IN_UCP']) {
             // We're in SEO mod
             // Validate i & m first
             if (params.i) newParam.page = get_pretty_state(params.i);
@@ -460,6 +460,7 @@ export class StateTranslate {
                 }
             )
         }
+
         // We had everything we wanted.
         return Observable.of(true);
     }
