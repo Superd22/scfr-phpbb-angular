@@ -1,7 +1,8 @@
 <div class="poll-container" *ngIf="tpl.S_HAS_POLL">
   <div class="inside" fxLayout fxLayoutWrap>
 
-    <h3>{{tpl.POLL_QUESTION}}</h3>
+    <h3><span>[SONDAGE]</span> {{tpl.POLL_QUESTION}}</h3>
+    <span *ngIf="tpl.S_CAN_VOTE" class="poll_max_votes" [innerHTML]="tpl.L_MAX_VOTES"></span>
 
     <div fxFlex="100">
       <div class="chart-selector">
@@ -11,9 +12,10 @@
     </div>
 
     <md-nav-list class="options" fxFlex="40" fxFlex.lt-md="100%">
-      <md-list-item class="opt" *ngFor="let opt of options; let i = index">
+      <md-list-item class="opt" *ngFor="let opt of options; let i = index" [disableRipple]="!tpl.S_CAN_VOTE">
 
-        <md-checkbox md-list-icon></md-checkbox>
+        <md-checkbox md-list-icon *ngIf="tpl.S_CAN_VOTE" [disabled]="votes >= maxVote && !opt.POLL_OPTION_VOTED" [value]="opt.POLL_OPTION_ID" [(ngModel)]="opt.POLL_OPTION_VOTED"></md-checkbox>
+
         <p md-line>{{opt.POLL_OPTION_CAPTION}}
           <span class="badge" [style.background]="colors.domain[i]">{{opt.POLL_OPTION_RESULT}}</span>
         </p>
@@ -26,6 +28,8 @@
       <ngx-charts-pie-chart *ngIf="pie" [results]="chartData" [legend]="false" [labels]="true" [scheme]="colors"></ngx-charts-pie-chart>
     </div>
 
+
+    <button md-button (click)="sendVote()">Voter</button>
 
   </div>
 </div>
