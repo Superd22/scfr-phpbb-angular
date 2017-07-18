@@ -15,7 +15,7 @@ import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angul
 import { Observable } from "rxjs/Observable";
 
 // Will be broken by SSR
-const baseUrl = 'http://'+window.location.hostname+"/";
+const baseUrl = 'http://' + window.location.hostname + "/";
 const callback = 'scfr_json_callback=true';
 
 @Injectable()
@@ -59,11 +59,16 @@ export class PhpbbApiService {
         //let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
 
         let options = new RequestOptions({ method: "post", withCredentials: true, params: this.buildParameters(params, raw) });
-        let body = new FormData();
+        let body: FormData;
 
-        Object.keys(query).forEach(key => {
-            body.set(key, query[key]);
-        });
+        if (query instanceof FormData) { body = query; }
+        else {
+            body = new FormData();
+
+            Object.keys(query).forEach(key => {
+                body.set(key, query[key]);
+            });
+        }
 
         return this.http.post(`${baseUrl}${page}`, body, options)
             .map((res: Response) => {
