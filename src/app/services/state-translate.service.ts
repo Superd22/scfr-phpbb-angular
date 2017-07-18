@@ -475,30 +475,35 @@ export class StateTranslate {
         this._busy.next(true);
 
         let next: Observable<any> = Observable.of(new Object()).map(() => true);
-        switch (stateName) {
-            case "phpbb.seo.viewforum.posting":
-            case "phpbb.seo.viewtopic.posting":
-            case "phpbb.seo.viewtopic.edit":
-                next = this.getPosting(transition, transition.params());
-                break;
-            case "phpbb.seo.viewforum":
-                next = this.transform_viewforum(transition, transition.params().forumId);
-                break;
-            case "phpbb.seo.viewtopic":
-                next = this.transform_viewtopic(transition, transition.params().topicId);
-                break;
-            case "phpbb.seo.viewprofile":
-                next = this.transform_viewonline_viewprofile(transition, transition.params().userId);
-                break;
-            case "phpbb.seo.ucp":
-                next = this.transform_ucp(transition);
-                break;
-            case "phpbb.seo.register":
-                next = this.transform_ucp(transition);
-                break;
-            //case "phpbb.seo.ucp.pm":
-            //   return this.transform_ucp_pm(transition);
-            //break;
+        try {
+            switch (stateName) {
+                case "phpbb.seo.viewforum.posting":
+                case "phpbb.seo.viewtopic.posting":
+                case "phpbb.seo.viewtopic.edit":
+                    next = this.getPosting(transition, transition.params());
+                    break;
+                case "phpbb.seo.viewforum":
+                    next = this.transform_viewforum(transition, transition.params().forumId);
+                    break;
+                case "phpbb.seo.viewtopic":
+                    next = this.transform_viewtopic(transition, transition.params().topicId);
+                    break;
+                case "phpbb.seo.viewprofile":
+                    next = this.transform_viewonline_viewprofile(transition, transition.params().userId);
+                    break;
+                case "phpbb.seo.ucp":
+                    next = this.transform_ucp(transition);
+                    break;
+                case "phpbb.seo.register":
+                    next = this.transform_ucp(transition);
+                    break;
+                //case "phpbb.seo.ucp.pm":
+                //   return this.transform_ucp_pm(transition);
+                //break;
+            }
+        }
+        catch(e) {
+            console.log("cached",e);
         }
 
         return next;
