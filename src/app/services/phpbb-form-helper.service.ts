@@ -111,8 +111,8 @@ export class PhpbbFormHelperService {
     for (let i = 0; i < options.length; i++) {
       let opt = options[i];
 
-      if (component[opt]) {
-        component[opt] = this.getOptionsAsObject(component[opt]);
+      if (component["tpl"][opt]) {
+        component["tpl"][opt] = this.getOptionsAsObject(component["tpl"][opt]);
       }
     }
   }
