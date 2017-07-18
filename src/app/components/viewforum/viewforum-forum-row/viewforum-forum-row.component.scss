@@ -1,0 +1,25 @@
+@import './src/assets/material/v7/main';
+$height: 150px;
+$bg: map-get($scfr-mat-blue-grey-background, 400);
+
+.subforum {
+    min-height: $height;
+    margin:20px;
+    background:$bg;
+    padding:10px;
+    h3 {
+        font-family: 'Heebo', sans-serif;
+        text-transform:uppercase;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        margin:0px;
+    }
+    em {
+        font-family: Electrolize;
+        font-style: normal;
+        text-align: justify;
+        font-weight: lighter;
+        display:block;
+    }
+}
+

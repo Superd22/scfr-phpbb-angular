@@ -1,3 +1,5 @@
+import { IPhpbbViewforumTopicrow } from './viewforum-topic-row/interfaces/phpbb-viewforum-topicrow.interface';
+import { IPhpbbViewforumForumrow } from './viewforum-forum-row/interfaces/phpbb-viewforum-forumrow.interface';
 export class PHPBBViewforum {
     BASE_URL: string;
     BOARD_URL: string;
@@ -192,13 +194,13 @@ export class PHPBBViewforum {
     U_VIEW_FORUM: string;
     U_WATCH_FORUM_LINK: string;
     U_WATCH_FORUM_TOGGLE: string;
-    forumrow: any[];
+    forumrow: IPhpbbViewforumForumrow[];
     jumpbox_forums: any[];
     jumpbox_map: { number: any[] };
     navlinks: any[];
     notifications: any[];
     pagination: any[];
     rules: any[];
-    topicrow: any[];
+    topicrow: IPhpbbViewforumTopicrow[];
     _SID: string;
 }

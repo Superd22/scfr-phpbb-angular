@@ -25,12 +25,8 @@
     </div>
 
 
-    <div *ngIf="tpl.S_HAS_SUBFORUM">
-        <ul>
-            <li *ngFor="let forum of forumrow">
-                <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}">{{forum.FORUM_NAME}}</a>
-            </li>
-        </ul>
+    <div *ngIf="tpl.S_HAS_SUBFORUM" fxLayout fxLayoutWrap>
+        <scfr-forum-viewforum-forum-row fxFlex="25" *ngFor="let forum of tpl.forumrow" [forum]="forum"></scfr-forum-viewforum-forum-row>
     </div>
 
 

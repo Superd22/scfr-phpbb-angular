@@ -1,3 +1,4 @@
+import { IPhpbbViewforumTopicrow } from './interfaces/phpbb-viewforum-topicrow.interface';
 import { PhpbbLanguageComponent } from './../../../language-module/components/phpbb-language/phpbb-language.component';
 import { UnicodeToUtf8Pipe } from './../../../pipes/unicode-to-utf8.pipe';
 import { DomSanitizer } from '@angular/platform-browser/';
@@ -11,13 +12,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ViewforumTopicRowComponent extends PhpbbLanguageComponent implements OnInit {
 
   @Input()
-  public topic;
+  public topic: IPhpbbViewforumTopicrow;
 
   public replyAuthor: ColoredLinkUser;
   public topicAuthor: ColoredLinkUser;
 
 
-  constructor(private s: DomSanitizer) { 
+  constructor(private s: DomSanitizer) {
     super();
   }
 

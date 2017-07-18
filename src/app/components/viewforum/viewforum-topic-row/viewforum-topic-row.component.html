@@ -1,4 +1,5 @@
-<div class="topic-row" fxFlex="100" fxLayout>
+<div class="topic-row" fxFlex="100" fxLayout  md-ripple
+[ngClass]="{announce: topic.S_POST_ANNOUNCE || topic.S_POST_GLOBAL, sticky: topic.S_POST_STICKY, locked: topic.S_TOPIC_LOCKED, unread: topic.S_UNREAD_TOPIC}">
   <div class="topic-icon"></div>
 
   <div class="topic-title-container" fxFlex="100">
@@ -34,16 +35,16 @@
 
   <div class="topic-stats" fxFlex="25">
     <dl>
-      <dt>{{L_.REPLIES}}</dt><dd>{{topic.REPLIES}}</dd>
-      <dt>{{L_.VIEWS}}</dt><dd>{{topic.VIEWS}}</dd>
+      <dt>{{L_.REPLIES}}</dt>
+      <dd>{{topic.REPLIES}}</dd>
+      <dt>{{L_.VIEWS}}</dt>
+      <dd>{{topic.VIEWS}}</dd>
     </dl>
 
   </div>
   <div class="topic-last-reply" fxFlex="25">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
     <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: replyAuthor.userColor}" [uiParams]="{userId: replyAuthor?.userId}" class="topic-title-sub-author-link">
           {{replyAuthor?.userName}}
-    </a>
-
-    {{topic.LAST_POST_TIME | amTimeAgo}}
+    </a> {{topic.LAST_POST_TIME | amTimeAgo}}
   </div>
 </div>

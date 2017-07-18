@@ -4,6 +4,7 @@
   <button md-icon-button class="toggle-menu" (click)="toggle = !toggle" [ngClass]="{toggled: toggle}"><md-icon>{{toggle ? 'menu' : 'menu'}}</md-icon></button>
 
   <ng-container *ngIf="!select">
+    <button md-icon-button uiSref="phpbb.seo.index"><md-icon color="primary" class="arrow">home</md-icon></button>
     <ng-container *ngFor="let link of navlinks">
       <md-icon color="primary" class="arrow">keyboard_arrow_right</md-icon>
       <button md-button color="primary" (click)="goToForum(link.FORUM_ID)">{{link.FORUM_NAME}}</button>

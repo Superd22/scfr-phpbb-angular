@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { IPhpbbViewforumForumrow } from './interfaces/phpbb-viewforum-forumrow.interface';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'scfr-forum-viewforum-forum-row',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewforumForumRowComponent implements OnInit {
 
+  @Input()
+  public forum: IPhpbbViewforumForumrow;
   constructor() { }
 
   ngOnInit() {
