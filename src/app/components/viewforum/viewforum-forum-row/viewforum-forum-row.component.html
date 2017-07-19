@@ -1,4 +1,8 @@
-<div class="subforum" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" [ngClass]="{unread: forum.S_UNREAD_FORUM, locked: S_LOCKED_FORUM}">
-    <h3>{{forum.FORUM_NAME}}</h3>
-    <em [innerHTML]="forum.FORUM_DESC"></em>
-</div>
+<md-card class="subforum" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" [ngClass]="{unread: forum.S_UNREAD_FORUM, locked: S_LOCKED_FORUM}">
+    <md-card-title>
+        <h3>{{forum.FORUM_NAME}}</h3>
+    </md-card-title>
+    <md-card-content>
+        <em [innerHTML]="forum.FORUM_DESC"></em>
+    </md-card-content>
+</md-card>

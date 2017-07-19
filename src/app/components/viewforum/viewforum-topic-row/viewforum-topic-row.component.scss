@@ -8,8 +8,7 @@ $color:  map-get($scfr-mat-light-blue, 200);
     padding: 5px 20px;
     font-family:"Electrolize";
     background: $main-bg;
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    border-top:1px solid rgba(0,0,0,0.2);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     align-items: center;
     position:relative;
 
@@ -88,8 +87,15 @@ $color:  map-get($scfr-mat-light-blue, 200);
        }
    }
    .topic-stats {
-       dl {
-            margin: 0px;
+       .val {
+            margin-right:20px;
+            color:map_get($scfr-mat-light-blue, 100);
+       }
+       .head {
+            font-weight: lighter;
+            color: #929292;
+            text-align:right;
+            padding-right:10px;
        }
    }
 }

@@ -1,5 +1,4 @@
-<div class="topic-row" fxFlex="100" fxLayout  md-ripple
-[ngClass]="{announce: topic.S_POST_ANNOUNCE || topic.S_POST_GLOBAL, sticky: topic.S_POST_STICKY, locked: topic.S_TOPIC_LOCKED, unread: topic.S_UNREAD_TOPIC}">
+<div class="topic-row" fxFlex="100" fxLayout md-ripple [ngClass]="{announce: topic.S_POST_ANNOUNCE || topic.S_POST_GLOBAL, sticky: topic.S_POST_STICKY, locked: topic.S_TOPIC_LOCKED, unread: topic.S_UNREAD_TOPIC}">
   <div class="topic-icon"></div>
 
   <div class="topic-title-container" fxFlex="100">
@@ -33,14 +32,12 @@
 
   </div>
 
-  <div class="topic-stats" fxFlex="25">
-    <dl>
-      <dt>{{L_.REPLIES}}</dt>
-      <dd>{{topic.REPLIES}}</dd>
-      <dt>{{L_.VIEWS}}</dt>
-      <dd>{{topic.VIEWS}}</dd>
-    </dl>
-
+  <div class="topic-stats" fxFlex="25" fxLayoutWrap>
+    <div fxFlex class="head">{{L_.REPLIES}} :</div>
+    <div fxFlex="25" class="val">{{topic.REPLIES}}</div>
+    <div fxFlex="100"></div>
+    <div fxFlex class="head">{{L_.VIEWS}} :</div>
+    <div fxFlex="25" class="val">{{topic.VIEWS}}</div>
   </div>
   <div class="topic-last-reply" fxFlex="25">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
     <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: replyAuthor.userColor}" [uiParams]="{userId: replyAuthor?.userId}" class="topic-title-sub-author-link">
