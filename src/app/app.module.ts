@@ -93,6 +93,7 @@ import { FloatingMainHeaderDirective } from './directives/floating-main-header.d
 import { ImageHeaderFitDirective } from './directives/image-header-fit.directive';
 import { PollComponent } from './components/viewtopic/poll/poll.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { UcpPmSwitchComponent } from './components/ucp/pm/ucp-pm-switch/ucp-pm-switch.component';
 
 @NgModule({
     declarations: [
@@ -158,6 +159,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         FloatingMainHeaderDirective,
         ImageHeaderFitDirective,
         PollComponent,
+        UcpPmSwitchComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
