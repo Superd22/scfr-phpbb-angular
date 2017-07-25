@@ -98,6 +98,7 @@ import { UcpPreferenceSwitchComponent } from './components/ucp/preference/ucp-pr
 import { UcpPreferencePersonelleComponent } from './components/ucp/preference/ucp-preference-personelle/ucp-preference-personelle.component';
 import { UcpPreferencePostingComponent } from './components/ucp/preference/ucp-preference-posting/ucp-preference-posting.component';
 import { UcpPreferenceViewComponent } from './components/ucp/preference/ucp-preference-view/ucp-preference-view.component';
+import { PhpbbUsernameComponent } from './components/phpbb/phpbb-username/phpbb-username.component';
 
 @NgModule({
     declarations: [
@@ -168,6 +169,7 @@ import { UcpPreferenceViewComponent } from './components/ucp/preference/ucp-pref
         UcpPreferencePersonelleComponent,
         UcpPreferencePostingComponent,
         UcpPreferenceViewComponent,
+        PhpbbUsernameComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

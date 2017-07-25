@@ -43,5 +43,8 @@
     }
 }
 .sub-forum-container {
-    margin-bottom:20px;
+    margin-bottom:20px + 21px;
+    > * {
+        margin: 10px 0px;
+    }
 }
