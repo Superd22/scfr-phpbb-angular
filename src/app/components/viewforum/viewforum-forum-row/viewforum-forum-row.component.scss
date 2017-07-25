@@ -1,25 +1,129 @@
 @import './src/assets/material/v7/main';
 $height: 150px;
-$bg: map-get($scfr-mat-blue-grey-background, 400);
+$t-mask-delay: 0.5s;
+    @mixin colorize($color, $hoverColor: false) {
+        $main: darken(desaturate($color,20%),20%);
+        @if $hoverColor != false {
+            $hoverColor: $hoverColor;
+        }
+        @else {
+            $hoverColor: $color;
+        }
+
+        border-bottom-color: $main;
+
+        &:hover {
+            border-bottom-color:$hoverColor;
+            background:transparentize($hoverColor, 0.9);
+        }
+    }
 
 .subforum {
-    min-height: $height;
-    margin:20px;
-    background:$bg;
-    padding:10px;
+    min-height: 150px;
+    height: 100%;
+    margin: 0px 20px;
+    padding: 10px 20px;
+    position:relative;
+    border-bottom:4px solid grey;
+    transition:0.5s;
+    overflow:hidden;
+
+
+    h3, em {
+        transition: 1s filter linear $t-mask-delay;
+        -webkit-transition: 1s -webkit-filter linear $t-mask-delay;
+        -moz-transition: 1s -moz-filter linear $t-mask-delay;
+        -ms-transition: 1s -ms-filter linear $t-mask-delay;
+        -o-transition: 1s -o-filter linear $t-mask-delay;
+        filter:blur(0px);
+    }
+
     h3 {
         font-family: 'Heebo', sans-serif;
         text-transform:uppercase;
         font-size: 1.5rem;
         line-height: 1.5rem;
-        margin:0px;
+        margin:10px 0px;
     }
     em {
-        font-family: Electrolize;
+        font-family: "Electrolize";
         font-style: normal;
         text-align: justify;
         font-weight: lighter;
         display:block;
+    }
+
+
+    @include colorize(map-get($scfr-mat-light-blue, 500));
+
+    &.unread {
+        $color: map-get($scfr-mat-cyan, 500);
+        @include colorize($color);
+
+        &:after {
+            content:'';
+            position:absolute;
+            width:100%;
+            height:100%;
+            top:0px;
+            left:0px;
+            box-shadow: 0px -110px 130px -130px $color inset;
+        }
+    }
+
+    &.locked {
+        @include colorize(black);
+    }
+
+    &:hover {
+        em, h3 {
+            filter:blur(3px);
+        }
+        .stats {
+            z-index:3;
+        }
+        .mask {
+            top:0px;
+        }
+    }
+    .stats {
+        padding: 10px 0px;
+        text-align:center;
+        font-family: "Electrolize";
+        color:#bdbdbd;
+        position:relative;
+
+        dt {
+            &:first-of-type {
+                border-right: 2px solid rgba(0,0,0,0.5);
+            }
+        }
+        dd {
+            margin:0px;
+            font-weight: bold;
+            
+            color: #efefef;
+            &:first-of-type {
+                border-right: 2px solid rgba(0,0,0,0.5);
+            }
+        }
+    }
+
+    .mask {
+        $padding: 30px;
+        position:absolute;
+        width: calc(100% - 60px);
+        height:100%;
+        left:0px;
+        top:1000px;
+        padding: $padding;
+        background:rgba(0,0,0,0.5);      
+        transition-delay: $t-mask-delay;  
+        transition:1s ease-out;
+
+        strong {
+            font-family: "Electrolize";
+        }
     }
 }
 

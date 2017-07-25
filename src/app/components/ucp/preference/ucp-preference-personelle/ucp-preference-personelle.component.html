@@ -1,0 +1,67 @@
+<div class="panel">
+	<div class="inner">
+
+		<fieldset>
+			<p *ngIf="ucp.tpl.error" class="error">{{ucp.tpl.ERROR}}</p>
+			<!-- EVENT ucp_prefs_personal_prepend -->
+			<dl>
+				<dt><label for="viewemail0">{{ucp.L_.SHOW_EMAIL}}{{ucp.L_.COLON}}</label></dt>
+				<dd>
+					<scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_VIEW_EMAIL" name="viewemail"></scfr-forum-ucp-phpbb-field>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="massemail1">{{ucp.L_.ADMIN_EMAIL}}{{ucp.L_.COLON}}</label></dt>
+				<dd>
+					<scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_MASS_EMAIL" name="massemail"></scfr-forum-ucp-phpbb-field>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="allowpm1">{{ucp.L_.ALLOW_PM}}{{ucp.L_.COLON}}</label><br /><span>{{ucp.L_.ALLOW_PM_EXPLAIN}}</span></dt>
+				<dd>
+					<scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_ALLOW_PM" name="allowpm"></scfr-forum-ucp-phpbb-field>
+			</dl>
+			<dl *ngIf="ucp.tpl.S_CAN_HIDE_ONLINE">
+				<dt><label for="hideonline0">{{ucp.L_.HIDE_ONLINE}}{{ucp.L_.COLON}}</label><br /><span>{{ucp.L_.HIDE_ONLINE_EXPLAIN}}</span></dt>
+				<dd>
+					<scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_HIDE_ONLINE" name="hideonline"></scfr-forum-ucp-phpbb-field>
+				</dd>
+			</dl>
+			<dl *ngIf="ucp.tpl.S_SELECT_NOTIFY">
+				<dt><label for="notifymethod0">{{ucp.L_.NOTIFY_METHOD}}{{ucp.L_.COLON}}</label></dt>
+				<dd>
+					<scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_NOTIFY_EMAIL" name="notifymethod"></scfr-forum-ucp-phpbb-field>
+					<scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_NOTIFY_IM" name="notifymethod"></scfr-forum-ucp-phpbb-field>
+				</dd>
+			</dl>
+
+			<!-- <dl *ngIf="ucp.tpl.S_MORE_LANGUAGES">
+				<dt><label for="lang">{{ucp.L_.BOARD_LANGUAGE}}{{ucp.L_.COLON}}</label></dt>
+				<dd><select name="lang" id="lang">{{ucp.S_LANG_OPTIONS}}</select></dd>
+			</dl> -->
+
+			<dl *ngIf="ucp.tpl.S_STYLE_OPTIONS && ucp.tpl.S_MORE_STYLES">
+				<dt><label for="user_style">{{ucp.L_.BOARD_STYLE}}{{ucp.L_.COLON}}</label></dt>
+				<dd><select name="user_style" id="user_style">{{ucp.S_STYLE_OPTIONS}}</select></dd>
+			</dl>
+
+			<!-- INCLUDE timezone_option.html -->
+
+			<!-- <dl>
+				<dt><label for="dateformat">{{ucp.L_.BOARD_DATE_FORMAT}}{{ucp.L_.COLON}</label><br /><span>{{ucp.L_.BOARD_DATE_FORMAT_EXPLAIN}}</span></dt>
+				<dd>
+					<select name="dateoptions" id="dateoptions">
+				{{ucp.S_DATEFORMAT_OPTIONS}}
+			</select>
+				</dd>
+				<dd id="custom_date" style="display:none;"><input type="text" name="dateformat" id="dateformat" value="{{ucp.DATE_FORMAT}}" maxlength="64" class="inputbox narrow"
+					 style="margin-top: 3px;" /></dd>
+			</dl> -->
+
+		</fieldset>
+
+	</div>
+</div>
+
+<button md-button color="primary" (click)="submit()">Valider</button>
+<button md-button (click)="reset()">Reset</button>

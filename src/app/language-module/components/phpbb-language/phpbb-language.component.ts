@@ -9,6 +9,11 @@ export class PhpbbLanguageComponent implements OnInit {
   protected _language_service: LanguageProviderService;
 
   /**
+   * Might hold something
+   */
+  public tpl;
+
+  /**
    * Holds the appopriate language data for the current user.
    */
   public L_: any = new Proxy({}, {
@@ -32,12 +37,6 @@ export class PhpbbLanguageComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-
-  get(target, prop: string): any {
-    if (this[prop] != undefined) return this[prop];
-    if (prop.indexOf("L_") === 0) return this._language_service.getTranslation(prop);
   }
 
 }

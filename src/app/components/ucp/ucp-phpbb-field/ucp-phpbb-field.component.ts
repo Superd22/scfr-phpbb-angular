@@ -39,9 +39,13 @@ export class UcpPhpbbFieldComponent implements OnInit {
   private error;
 
   @Input()
-  public type: "text" | "url" | "textarea" | "select" | "radio" | "editor" | "checkbox" | string = null;
+  public type: "text" | "url" | "textarea" | "select" | "radio" | "editor" | "checkbox" | "toggle" | string = null;
+
   @Input()
   public options;
+
+  @Input()
+  public toggleAsInt = true;
 
   private _reset: Subscription;
 
@@ -52,8 +56,8 @@ export class UcpPhpbbFieldComponent implements OnInit {
     this.genBackUp();
     this._reset = this.formHelper.resetToBackUp.subscribe(
       (reset) => {
-        if(reset === true) this.resetBackUp();
-        if(reset === false) this.genBackUp();
+        if (reset === true) this.resetBackUp();
+        if (reset === false) this.genBackUp();
       }
     );
   }
@@ -63,12 +67,12 @@ export class UcpPhpbbFieldComponent implements OnInit {
   }
 
   private genBackUp() {
-    if(this.isNotAReference(this._model)) this._backup = this._model;
+    if (this.isNotAReference(this._model)) this._backup = this._model;
     else this._backup = Object.assign({}, this._model);
   }
 
   public resetBackUp() {
-    if(this.isNotAReference(this._model)) this.model = this._backup;
+    if (this.isNotAReference(this._model)) this.model = this._backup;
     else this.model = Object.assign({}, this._backup);
   }
 
@@ -77,6 +81,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
   }
 
   public get model(): any {
+    if(this.toggleAsInt && this.type == "toggle") return Number(this._model);
     return this._model;
   }
 
@@ -120,7 +125,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
 
     let regex = /type=["'](text|url|hidden|file|number|checkbox)["']/;
     let match = regex.exec(input_html);
-    if(match) return match[1];
+    if (match) return match[1];
     else throw "COULDN'T EXTRAPOLATE TYPE OF INPUT";
   }
 

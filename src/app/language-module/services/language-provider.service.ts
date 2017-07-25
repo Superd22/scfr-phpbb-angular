@@ -1,3 +1,4 @@
+import { FRMemberListLanguage } from './../languages/memberlist.enum';
 import { FRCommonLanguage } from './../languages/common.enum';
 import { UCPLanguage } from './../languages/ucp.enum';
 import { Injectable } from '@angular/core';
@@ -5,16 +6,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LanguageProviderService {
 
-  private _langUCP = UCPLanguage;
-  private _langCommon = FRCommonLanguage;
-
   private _lang;
 
   /**
    * @todo handle multi lang
    */
   constructor() {
-    this._lang = Object.assign({}, this._langCommon, this._langUCP);
+    this._lang = Object.assign({}, FRCommonLanguage, UCPLanguage, FRMemberListLanguage);
   }
 
 

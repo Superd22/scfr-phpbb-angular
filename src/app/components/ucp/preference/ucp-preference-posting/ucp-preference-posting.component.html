@@ -1,0 +1,37 @@
+<div class="panel">
+  <div class="inner">
+
+    <fieldset>
+      <p class="error" *ngIf="ucp.tpl.error">{{ucp.tpl.ERROR}}</p>
+      <dl>
+        <dt><label for="bbcode1">{{ucp.L_.DEFAULT_BBCODE}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_BBCODE" name="bbcode"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label for="smilies1">{{ucp.L_.DEFAULT_SMILIES}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_SMILIES" name="smilies"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label for="sig1">{{ucp.L_.DEFAULT_ADD_SIG}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_SIG" name="sig"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label for="notify1">{{ucp.L_.DEFAULT_NOTIFY}}{{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_NOTIFY" name="notify"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <!-- EVENT ucp_prefs_post_append -->
+    </fieldset>
+
+  </div>
+</div>
+
+<button md-button color="primary" (click)="submit()">Valider</button>
+<button md-button (click)="reset()">Reset</button>
