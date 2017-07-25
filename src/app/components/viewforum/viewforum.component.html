@@ -25,7 +25,7 @@
     </div>
 
 
-    <div *ngIf="tpl.S_HAS_SUBFORUM" fxLayout fxLayoutWrap>
+    <div *ngIf="tpl.S_HAS_SUBFORUM" fxLayout fxLayoutWrap fxFlex="100" class="sub-forum-container">
         <scfr-forum-viewforum-forum-row fxFlex="25" *ngFor="let forum of tpl.forumrow" [forum]="forum"></scfr-forum-viewforum-forum-row>
     </div>
 
