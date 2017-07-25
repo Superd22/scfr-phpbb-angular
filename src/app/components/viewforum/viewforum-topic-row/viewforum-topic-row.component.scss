@@ -5,7 +5,7 @@ $main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,500),0.25);
 $color:  map-get($scfr-mat-light-blue, 200);
 
 .topic-row {
-    padding: 5px 20px;
+    padding: 10px 15px;
     font-family:"Electrolize";
     background: $main-bg;
     border: 1px solid rgba(0, 0, 0, 0.06);
@@ -69,9 +69,8 @@ $color:  map-get($scfr-mat-light-blue, 200);
    .topic-title {
         font-family: Electrolize;
         font-style: normal;
-        letter-spacing: 3.5px;
         font-weight: lighter;
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         text-decoration: none;
    }
    .topic-title-sub {
@@ -81,11 +80,11 @@ $color:  map-get($scfr-mat-light-blue, 200);
                font-weight:bold;
            }
        }
-       .topic-time {
-           text-decoration: none;
-            color: darken($color, 20%);
-       }
    }
+    .topic-time {
+        text-decoration: none;
+        color: darken($color, 20%);
+    }
    .topic-stats {
        .val {
             margin-right:20px;

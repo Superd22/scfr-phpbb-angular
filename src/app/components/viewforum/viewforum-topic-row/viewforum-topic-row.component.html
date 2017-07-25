@@ -39,9 +39,9 @@
     <div fxFlex class="head">{{L_.VIEWS}} :</div>
     <div fxFlex="25" class="val">{{topic.VIEWS}}</div>
   </div>
-  <div class="topic-last-reply" fxFlex="25">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
+  <div class="topic-last-reply" fxFlex="25" class="topic-time">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
     <a uiSref="phpbb.seo.viewprofile" [ngStyle]="{color: replyAuthor.userColor}" [uiParams]="{userId: replyAuthor?.userId}" class="topic-title-sub-author-link">
           {{replyAuthor?.userName}}
-    </a> {{topic.LAST_POST_TIME | amTimeAgo}}
+    </a> <br /> <span class="topic-time">{{topic.LAST_POST_TIME | amTimeAgo}}</span>
   </div>
 </div>
