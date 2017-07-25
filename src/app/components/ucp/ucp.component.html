@@ -14,6 +14,7 @@
       <div [ngSwitch]="currentPage">
         <scfr-forum-ucp-main-switch *ngSwitchCase="'general'" [ucp]="this"></scfr-forum-ucp-main-switch>
         <scfr-forum-ucp-profil-switch *ngSwitchCase="'profil'" [ucp]="this"></scfr-forum-ucp-profil-switch>
+        <scfr-forum-ucp-preference-switch *ngSwitchCase="'preferences'" [ucp]="this"></scfr-forum-ucp-preference-switch>
         <div *ngSwitchDefault>Default</div>
       </div>
     </md-card-content>

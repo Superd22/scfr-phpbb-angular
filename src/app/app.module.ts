@@ -94,6 +94,10 @@ import { ImageHeaderFitDirective } from './directives/image-header-fit.directive
 import { PollComponent } from './components/viewtopic/poll/poll.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UcpPmSwitchComponent } from './components/ucp/pm/ucp-pm-switch/ucp-pm-switch.component';
+import { UcpPreferenceSwitchComponent } from './components/ucp/preference/ucp-preference-switch/ucp-preference-switch.component';
+import { UcpPreferencePersonelleComponent } from './components/ucp/preference/ucp-preference-personelle/ucp-preference-personelle.component';
+import { UcpPreferencePostingComponent } from './components/ucp/preference/ucp-preference-posting/ucp-preference-posting.component';
+import { UcpPreferenceViewComponent } from './components/ucp/preference/ucp-preference-view/ucp-preference-view.component';
 
 @NgModule({
     declarations: [
@@ -160,6 +164,10 @@ import { UcpPmSwitchComponent } from './components/ucp/pm/ucp-pm-switch/ucp-pm-s
         ImageHeaderFitDirective,
         PollComponent,
         UcpPmSwitchComponent,
+        UcpPreferenceSwitchComponent,
+        UcpPreferencePersonelleComponent,
+        UcpPreferencePostingComponent,
+        UcpPreferenceViewComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
