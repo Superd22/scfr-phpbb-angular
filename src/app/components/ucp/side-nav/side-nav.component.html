@@ -1,7 +1,24 @@
 <div fxLayout fxLayoutWrap>
-  <button md-button *ngFor="let link of links" fxFlex="100" uiSref="phpbb.seo.ucp" [uiParams]="{mode: link.MODE, subPage:'', phpbbResolved:false}"
-    [uiOptions]="{refresh:true}"
+
+  <ng-container *ngFor="let link of links">
+    <ng-container *ngIf="link.S_FIRST_ROW" [ngTemplateOutlet]="mainButton" [ngOutletContext]="{link:link}"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="page == 'mp'">
+    <ng-container *ngFor="let folder of folders">
+
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngFor="let link of links">
+    <ng-container *ngIf="!link.S_FIRST_ROW" [ngTemplateOutlet]="mainButton" [ngOutletContext]="{link:link}"></ng-container>
+  </ng-container>
+
+</div>
+
+<ng-template #mainButton let-link="link">
+  <button md-button fxFlex="100" uiSref="phpbb.seo.ucp" [uiParams]="{mode: link.MODE, subPage:'', phpbbResolved:false}" [uiOptions]="{refresh:true}"
     [ngClass]="{'mat-raised-button':link.S_SELECTED, 'active': link.S_SELECTED}">
     {{link.L_TITLE}}
   </button>
-</div>
+</ng-template>

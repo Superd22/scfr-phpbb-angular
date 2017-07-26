@@ -492,6 +492,7 @@ export class StateTranslate {
                     next = this.transform_viewonline_viewprofile(transition, transition.params().userId);
                     break;
                 case "phpbb.seo.ucp":
+                case "phpbb.seo.ucp.pmConvo":
                     next = this.transform_ucp(transition);
                     break;
                 case "phpbb.seo.register":
