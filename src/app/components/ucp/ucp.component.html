@@ -4,7 +4,7 @@
   </a>
 </nav>
 <div fxLayout fxLayoutWrap>
-  <scfr-forum-ucp-side-nav [links]="tpl.t_block2" fxFlex.gt-sm="20"></scfr-forum-ucp-side-nav>
+  <scfr-forum-ucp-side-nav [ucp]="this" fxFlex.gt-sm="20"></scfr-forum-ucp-side-nav>
   <md-card fxFlex>
     <md-card-header>
       <h2>{{tpl.L_TITLE}}</h2>
@@ -15,6 +15,7 @@
         <scfr-forum-ucp-main-switch *ngSwitchCase="'general'" [ucp]="this"></scfr-forum-ucp-main-switch>
         <scfr-forum-ucp-profil-switch *ngSwitchCase="'profil'" [ucp]="this"></scfr-forum-ucp-profil-switch>
         <scfr-forum-ucp-preference-switch *ngSwitchCase="'preferences'" [ucp]="this"></scfr-forum-ucp-preference-switch>
+        <scfr-forum-ucp-pm-switch *ngSwitchCase="'mp'" [ucp]="this"></scfr-forum-ucp-pm-switch>
         <div *ngSwitchDefault>Default</div>
       </div>
     </md-card-content>
