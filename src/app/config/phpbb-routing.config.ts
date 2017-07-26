@@ -45,5 +45,5 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
     legacyHook();
     seoHook();
     successHook();
-    vis.visualizer(router);
+    //vis.visualizer(router);
 }

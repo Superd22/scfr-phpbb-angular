@@ -3,7 +3,7 @@
     {{link.name}}
   </a>
 </nav>
-<div fxLayout fxLayoutWrap>
+<div fxLayout fxLayoutWrap  class="ucp-page">
   <scfr-forum-ucp-side-nav [ucp]="this" fxFlex.gt-sm="20"></scfr-forum-ucp-side-nav>
   <md-card fxFlex>
     <md-card-header>
@@ -11,7 +11,7 @@
     </md-card-header>
     <md-card-content>
       {{currentPage}}
-      <div [ngSwitch]="currentPage" class="ucp-page">
+      <div [ngSwitch]="currentPage">
         <scfr-forum-ucp-main-switch *ngSwitchCase="'general'" [ucp]="this"></scfr-forum-ucp-main-switch>
         <scfr-forum-ucp-profil-switch *ngSwitchCase="'profil'" [ucp]="this"></scfr-forum-ucp-profil-switch>
         <scfr-forum-ucp-preference-switch *ngSwitchCase="'preferences'" [ucp]="this"></scfr-forum-ucp-preference-switch>
