@@ -1,3 +1,5 @@
+import { BehaviorSubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { LoginService } from './login.service';
 import { PhpbbApiService } from './phpbb-api.service';
 import { Injectable } from '@angular/core';
@@ -20,6 +22,13 @@ export interface IPHPBBPMConvo {
     messages: IPHPBBExtendedPM[];
     start: number;
     title: string;
+}
+
+export interface IPHPBBPMAdress {
+    id: number;
+    type: "group" | "user";
+    color: string;
+    name: string;
 }
 
 export interface IPHPBBExtendedPM {
@@ -54,6 +63,7 @@ export interface IPHPBBExtendedPM {
     root_level: number;
     to_address: string;
     user_id: number;
+    recipients: IPHPBBPMAdress[];
 }
 
 @Injectable()
@@ -65,8 +75,10 @@ export class PrivateMessageService {
     private _convoPerPage: number = 20;
     private _page: number = 1;
 
-    private _maxPage:number = 1;
+    private _maxPage: number = 1;
     private _count: number = 0;
+
+    private _adressCache: Map<string, BehaviorSubject<any>> = new Map<string, BehaviorSubject<any>>();
 
     constructor(private phpbbApi: PhpbbApiService, private login: LoginService) {
         this.login.userStatus.subscribe(
@@ -91,7 +103,7 @@ export class PrivateMessageService {
         if (oldValue < n) this.fetchConvos();
     }
 
-    public get maxPage():number { return this._maxPage; }
+    public get maxPage(): number { return this._maxPage; }
 
     public get page(): number { return this._page; }
     public set page(n: number) {
@@ -121,6 +133,35 @@ export class PrivateMessageService {
         this._currentConvo = null;
         if (this.convos)
             this._currentConvo = this.convos.find((cv) => cv.id == convo);
+    }
+
+    /**
+     * Helper function to parse a phpbb adress for recipents of PMs
+     * @param adress the adress of the pm
+     * @param force force reload if value exists in cache
+     */
+    public parseAdress(adress: string, force: boolean): Observable<any>[] {
+        if (!adress) throw "No adress given to ParseAdress";
+        let matchs = adress.split(":");
+
+        let fetch = [];
+        let finalAdresses = [];
+        if (matchs) matchs.forEach((adr) => {
+            if (!this._adressCache.has(adr)) this._adressCache.set(adr, new BehaviorSubject(null));
+            if (force || this._adressCache.get(adr).getValue() === null) fetch.push(adr);
+
+            finalAdresses.push(this._adressCache.get(adr));
+        });
+
+        if (fetch.length > 0) {
+            this.phpbbApi.getApi("PM/Adress", { adresses: fetch }).subscribe(
+                (data: any) => {
+
+                }
+            )
+        }
+
+        return finalAdresses;
     }
 
 }

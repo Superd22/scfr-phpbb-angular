@@ -5,6 +5,12 @@
   <md-card-subtitle><span [style.color]="'#'+MPService.currentConvo.author.color"> {{MPService.currentConvo.author.username}} </span></md-card-subtitle>
 </md-card-header>
 <md-card-content>
-  <div *ngFor="let mp of MPService.currentConvo.messages" style="margin:5px; border:1px solid grey" [innerHTML]="mp.message_text"></div>
+  <div *ngFor="let mp of MPService.currentConvo.messages" style="margin:5px; border:1px solid grey">
+    <div>{{mp.to_address}}</div>
+
+    <div class="content" [innerHTML]="mp.message_text">
+    </div>
+
+  </div>
 </md-card-content>
 </md-card>
