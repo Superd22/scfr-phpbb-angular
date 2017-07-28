@@ -1,16 +1,23 @@
-<md-card *ngIf="MPService.currentConvo" style="display: flex;flex-grow: 1; flex-direction: column;">
-<md-card-header>
-  <img md-card-avatar src="{{MPService.currentConvo.author.avatar}}">
-  <md-card-title>{{MPService.currentConvo.title}}</md-card-title>
-  <md-card-subtitle><span [style.color]="'#'+MPService.currentConvo.author.color"> {{MPService.currentConvo.author.username}} </span></md-card-subtitle>
-</md-card-header>
-<md-card-content>
-  <div *ngFor="let mp of MPService.currentConvo.messages" style="margin:5px; border:1px solid grey">
-    <div>{{mp.to_address}}</div>
+<md-card *ngIf="MPService.currentConvo" fxFlex="100">
+  <md-card-header>
 
-    <div class="content" [innerHTML]="mp.message_text">
-    </div>
+    <scfr-forum-ucp-pm-convo-group-avatar [convo]="MPService.currentConvo" md-card-avatar></scfr-forum-ucp-pm-convo-group-avatar>
 
-  </div>
-</md-card-content>
+    <md-card-title>{{MPService.currentConvo.title}}</md-card-title>
+
+    <md-card-subtitle>
+      <ng-container *ngFor="let target of MPService.currentConvo.participants; let index = index">
+        <scfr-forum-phpbb-username *ngIf="target.type == 'user' && index <= 5" [color]="target.color" [name]="target.name" [id]="target.id"></scfr-forum-phpbb-username>
+        <span *ngIf="index == 6"> et {{MPService.currentConvo.participants.length - 5}} autres...</span>
+      </ng-container>
+    </md-card-subtitle>
+
+  </md-card-header>
+  <md-card-content>
+      <scfr-forum-ucp-pm-viewmessage *ngFor="let mp of MPService.currentConvo.messages" [mp]='mp'></scfr-forum-ucp-pm-viewmessage>
+  </md-card-content>
+
+  <md-card-actions>
+    <button md-button color="primary"><md-icon>reply_all</md-icon> Répondre</button>
+  </md-card-actions>
 </md-card>

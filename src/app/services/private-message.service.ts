@@ -20,6 +20,8 @@ export interface IPHPBBPMConvo {
     id: number;
     last: number;
     messages: IPHPBBExtendedPM[];
+    /** users having sent a PM in this convo, besides the current user. */
+    participants: IPHPBBPMAdress[];
     start: number;
     title: string;
 }
@@ -29,6 +31,7 @@ export interface IPHPBBPMAdress {
     type: "group" | "user";
     color: string;
     name: string;
+    image: string;
 }
 
 export interface IPHPBBExtendedPM {

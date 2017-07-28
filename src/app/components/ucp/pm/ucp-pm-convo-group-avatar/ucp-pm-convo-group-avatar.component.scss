@@ -1,0 +1,36 @@
+$border-color: white;
+$base-height: 40px;
+$base-width: 40px;
+
+.avatars {
+        height:$base-height;
+        min-width:$base-width;
+        width:$base-width;
+        border-radius: 50%;
+        overflow: hidden;
+        > * {
+            height:20px;
+            background:#364c58;
+            overflow:hidden;
+            &.full {height:$base-height;}
+            &.b-left {border-left:1px solid $border-color;}
+            &.b-top {border-top:1px solid $border-color; margin-top: - ($base-height/2);}
+            img {
+                max-width: none;
+                width:$base-width;
+                height:$base-height;
+                &.lefty { margin-left: -50%; }
+                &.righty { margin-left: -50%; }
+            }
+
+            &.moar {
+                margin-top: 0px;
+                font-family: 'Heebo', sans-serif;
+                letter-spacing: 0px;
+                font-weight: bolder;
+                font-size: 11px;
+                padding-left: 2px;
+                padding-top: 0px;
+            }
+        }
+    }
