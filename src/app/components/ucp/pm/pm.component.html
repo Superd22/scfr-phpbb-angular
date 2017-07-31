@@ -1,16 +1,8 @@
-<div style="display:flex">
-  <md-list style="max-width:30%; display:flex; flex-direction: column;">
-    <md-list-item class="convo-row" *ngFor="let convo of MPService.convos" uiSref="phpbb.seo.ucp.pmConvo" [uiParams]="{pm_id: convo.id}"
-      md-ripple>
-      <img md-list-avatar src="{{convo.author.avatar}}">
-      <h3 md-line> {{ convo.title | unicodeToUtf8 }} </h3>
-      <p md-line>
-        <span [style.color]="'#'+convo.author.color"> {{convo.author.username}} </span>
-        <span class="demo-2"> -- </span>
-      </p>
-    </md-list-item>
+<div fxLayout>
+  <md-list fxFlex="30%">
+    <scfr-forum-ucp-pm-convo-row *ngFor="let convo of MPService.convos" [convo]="convo"></scfr-forum-ucp-pm-convo-row>
   </md-list>
-  <ui-view></ui-view>
+  <ui-view fxFlex="100%"></ui-view>
 </div>
 
 <scfr-forum-global-pagination [(page)]="MPService.page" [totalPage]="MPService.maxPage">
