@@ -1,13 +1,15 @@
 @import './src/assets/material/v7/main';
 
 .forum-header {
+    align-items: flex-end;
+
     .forum-name-container {
         flex: 1 1 100%;
     }
 
     .forum-actions-container {
         // Material floating placeholder align
-        padding-top: 6px;
+        margin-bottom: -10px;
     }
 }
 
