@@ -168,7 +168,7 @@ export class PhpbbApiService {
     }
 
     public getApi(page, params?) {
-        return this.getPage(`SCFRAPI/${page}`, params, true);
+        return this.getPage(`app.php/SCFRAPI/${page}`, params, true);
     }
 
     /*

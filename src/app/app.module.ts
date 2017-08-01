@@ -4,6 +4,8 @@ import { EditorComponent } from './components/posting/editor/editor.component';
 import { ServiceLocator } from './services/ServiceLocator';
 import { PhpbbFormHelperService } from './services/phpbb-form-helper.service';
 import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
+import { UCPPMViewmessageComponent } from './components/ucp/pm/viewconvo/viewmessage/viewmessage.component';
+
 import { PrivateMessageService } from './services/private-message.service';
 import { SCFRMaterialModule } from './material/material.module';
 import { HeaderModule } from './header/header.module';
@@ -94,6 +96,14 @@ import { ImageHeaderFitDirective } from './directives/image-header-fit.directive
 import { PollComponent } from './components/viewtopic/poll/poll.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PopOutLoginComponent } from './components/login/pop-out-login/pop-out-login.component';
+import { UcpPmSwitchComponent } from './components/ucp/pm/ucp-pm-switch/ucp-pm-switch.component';
+import { UcpPreferenceSwitchComponent } from './components/ucp/preference/ucp-preference-switch/ucp-preference-switch.component';
+import { UcpPreferencePersonelleComponent } from './components/ucp/preference/ucp-preference-personelle/ucp-preference-personelle.component';
+import { UcpPreferencePostingComponent } from './components/ucp/preference/ucp-preference-posting/ucp-preference-posting.component';
+import { UcpPreferenceViewComponent } from './components/ucp/preference/ucp-preference-view/ucp-preference-view.component';
+import { PhpbbUsernameComponent } from './components/phpbb/phpbb-username/phpbb-username.component';
+import { UcpPmConvoRowComponent } from './components/ucp/pm/ucp-pm-convo-row/ucp-pm-convo-row.component';
+import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo-group-avatar/ucp-pm-convo-group-avatar.component';
 
 @NgModule({
     declarations: [
@@ -160,6 +170,15 @@ import { PopOutLoginComponent } from './components/login/pop-out-login/pop-out-l
         ImageHeaderFitDirective,
         PollComponent,
         PopOutLoginComponent,
+        UcpPmSwitchComponent,
+        UcpPreferenceSwitchComponent,
+        UcpPreferencePersonelleComponent,
+        UcpPreferencePostingComponent,
+        UcpPreferenceViewComponent,
+        PhpbbUsernameComponent,
+        UcpPmConvoRowComponent,
+        UcpPmConvoGroupAvatarComponent,
+        UCPPMViewmessageComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

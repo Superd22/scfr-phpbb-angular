@@ -1,7 +1,7 @@
 <div [ngSwitch]="type" class="form-container">
 
   <ng-container *ngSwitchCase="'textarea'">
-    <md-input-container  floatPlaceholder="always">
+    <md-input-container floatPlaceholder="always">
       <textarea mdInput [(ngModel)]="model" placeholder="{{display_name}}" [required]="required"></textarea>
       <md-hint>{{explain}}</md-hint>
     </md-input-container>
@@ -39,8 +39,13 @@
     <input type="file" #file (change)="setFile(file.files)" />
   </ng-container>
 
+  <ng-container *ngSwitchCase="'toggle'">
+    <md-slide-toggle class="example-margin" [checked]="model == 1" (change)="model = !model">{{display_name}}</md-slide-toggle>
+  </ng-container>
+
+
   <ng-container *ngSwitchDefault>
-    <md-input-container floatPlaceholder="always" color="primary" >
+    <md-input-container floatPlaceholder="always" color="primary">
       <input mdInput [type]="type" [(ngModel)]="model" placeholder="{{display_name}}" [required]="required" />
       <md-hint>{{explain}}</md-hint>
     </md-input-container>

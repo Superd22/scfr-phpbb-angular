@@ -1,0 +1,13 @@
+@import './src/assets/material/v7/main';
+
+$border: transparentize(map-get($scfr-mat-light-blue, 200),0.85);
+$dark-bg:  map-get($scfr-mat-blue-grey-background,800);
+
+.content {
+    padding: 24px;
+}
+
+.pm-container {
+    margin: 14px 0px;
+    background:$dark-bg;
+}

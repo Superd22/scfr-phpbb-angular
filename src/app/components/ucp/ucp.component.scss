@@ -1,0 +1,25 @@
+@import './src/assets/material/v7/main';
+
+:host /deep/ .ucp-page {
+    .pannel {
+        .inner {
+
+        }
+    }
+
+    .mat-card-header {
+        h2 {
+            margin: -24px -40px;
+            padding: 18px 24px;
+            margin-bottom: 18px;
+            display: block;
+            width: 100%;
+            background: map-get($scfr-mat-light-blue, 700);
+        }
+    }
+
+    fieldset {
+        border:none;
+        padding:20px;
+    }
+}

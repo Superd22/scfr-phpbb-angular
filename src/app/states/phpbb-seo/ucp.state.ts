@@ -32,18 +32,8 @@ export const psoUcpPage = {
     component: UcpComponent,
 };
 
-export const psoPM = {
-    name: 'phpbb.seo.ucp.pm',
-    url: 'mp/',
-    views: {
-        '@': {
-            component: PmComponent,
-        }
-    }
-};
-
 export const psoPMConvo = {
-    name: 'phpbb.seo.ucp.pm.viewpm',
+    name: 'phpbb.seo.ucp.pmConvo',
     url: ':pm_id',
     resolve: [
         {
@@ -52,7 +42,7 @@ export const psoPMConvo = {
             resolveFn: psoPMConvoResolve
         }
     ],
-    component: ViewconvoComponent,
+    component: ViewconvoComponent
 };
 
 export function psoPMConvoResolve(trans: Transition) {

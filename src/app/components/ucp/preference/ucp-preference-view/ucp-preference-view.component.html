@@ -1,0 +1,92 @@
+<div class="panel">
+  <div class="inner">
+
+    <fieldset>
+      <!-- IF ERROR -->
+      <p class="error" *ngIf="ucp.tpl.ERROR">{{ucp.tpl.ERROR}}</p>
+      <!-- ENDIF -->
+      <!-- EVENT ucp_prefs_view_radio_buttons_prepend -->
+      <dl>
+        <dt><label for="images1">{{ucp.L_.VIEW_IMAGES}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_IMAGES" name="images"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label for="flash0">{{ucp.L_.VIEW_FLASH}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_FLASH" name="flash"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label for="smilies1">{{ucp.L_.VIEW_SMILIES}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_SMILIES" name="smilies"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label for="sigs1">{{ucp.L_.VIEW_SIGS}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_SIGS" name="sigs"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label for="avatars1">{{ucp.L_.VIEW_AVATARS}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_AVATARS" name="avatars"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl *ngIf="ucp.tpl.S_CHANGE_CENSORS">
+        <dt><label for="wordcensor1">{{ucp.L_.DISABLE_CENSORS}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field type="toggle" [(model)]="ucp.tpl.S_DISABLE_CENSORS" name="wordcensor"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+
+      <hr />
+
+      <dl>
+        <dt><label>{{ucp.L_.VIEW_TOPICS_DAYS}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field [fullPHPBB]="ucp.tpl.S_TOPIC_SORT_DAYS"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label>{{ucp.L_.VIEW_TOPICS_KEY}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field [fullPHPBB]="ucp.tpl.S_TOPIC_SORT_KEY"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label>{{ucp.L_.VIEW_TOPICS_DIR}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field [fullPHPBB]="ucp.tpl.S_TOPIC_SORT_DIR"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <hr />
+      <dl>
+        <dt><label>{{ucp.L_.VIEW_POSTS_DAYS}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field [fullPHPBB]="ucp.tpl.S_POST_SORT_DAYS"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label>{{ucp.L_.VIEW_POSTS_KEY}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field [fullPHPBB]="ucp.tpl.S_POST_SORT_KEY"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+      <dl>
+        <dt><label>{{ucp.L_.VIEW_POSTS_DIR}} {{ucp.L_.COLON}}</label></dt>
+        <dd>
+          <scfr-forum-ucp-phpbb-field [fullPHPBB]="ucp.tpl.S_POST_SORT_DIR"></scfr-forum-ucp-phpbb-field>
+        </dd>
+      </dl>
+
+    </fieldset>
+
+  </div>
+</div>
+
+<button md-button color="primary" (click)="submit()">Valider</button>
+<button md-button (click)="reset()">Reset</button>

@@ -1,0 +1,22 @@
+<md-card class="pm-container">
+    <md-card-header>
+        <md-card-title>
+            <scfr-forum-phpbb-username [color]="mp.author.color" [name]="mp.author.username" [id]="mp.author.user_id"></scfr-forum-phpbb-username>
+        </md-card-title>
+        <md-card-subtitle>
+            Envoyé le:  <br />
+            Envoyé à: <br/>
+            CCI: <br/>
+        </md-card-subtitle>
+        <img md-card-avatar [src]="mp.author.avatar">
+    </md-card-header>
+    <md-card-content>
+        <div fxFlex class="content" [innerHTML]="mp.message_text"></div>
+        <div fxFlex.lt-sm="100"></div>
+    </md-card-content>
+    <md-card-actions>
+        <button md-icon-button color="primary"><md-icon>reply_all</md-icon></button>
+        <button md-icon-button color="primary"><md-icon>reply</md-icon></button>
+        <button md-icon-button color="primary"><md-icon>format_quote</md-icon></button>
+    </md-card-actions>
+</md-card>

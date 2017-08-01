@@ -1,4 +1,17 @@
-<div class="subforum" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" [ngClass]="{unread: forum.S_UNREAD_FORUM, locked: S_LOCKED_FORUM}">
+<div md-ripple class="subforum" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" fxLayout fxLayoutWrap [ngClass]="{unread: forum.S_UNREAD_FORUM, locked: S_LOCKED_FORUM}">
     <h3>{{forum.FORUM_NAME}}</h3>
     <em [innerHTML]="forum.FORUM_DESC"></em>
+
+    <dl class="stats" fxFlex="100" fxLayout fxLayoutWrap>
+        <dt fxFlex="50">Topics</dt>
+        <dt fxFlex="50">Messages</dt>
+        <dd fxFlex="50">{{forum.TOPICS}}</dd>
+        <dd fxFlex="50">{{forum.POSTS}}</dd>
+    </dl>
+
+    <div class="mask">
+        <strong>{{forum.LAST_POST_SUBJECT}}</strong> <br />
+        <time mdTooltip="{{forum.LAST_POST_TIME}}">{{forum.LAST_POST_TIME | amTimeAgo}}</time>
+        par <scfr-forum-phpbb-username [name]="forum.LAST_POSTER" [color]="forum.LAST_POSTER_COLOUR" [html]="forum.LAST_POSTER_FULL"></scfr-forum-phpbb-username>
+    </div>
 </div>
