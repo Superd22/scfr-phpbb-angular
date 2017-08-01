@@ -4,6 +4,9 @@ $border: map-get($scfr-mat-light-blue, 600);
 $main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,500),0.25);
 $color:  map-get($scfr-mat-light-blue, 200);
 
+$font-size:1rem;
+$secondary-size: $font-size - 0.15rem;
+
 :host /deep/ .topic-row {
     padding: 10px 15px;
     font-family:"Electrolize";
@@ -63,16 +66,10 @@ $color:  map-get($scfr-mat-light-blue, 200);
 
     &.announce {
         @include colorify(#ff3b00);
-        .topic-title {
-            text-transform: uppercase;
-        }
     }
 
     &.sticky {
         @include colorify(#ffbc00);
-        .topic-title {
-            text-transform: uppercase;
-        }
     }
 
 
@@ -88,10 +85,11 @@ $color:  map-get($scfr-mat-light-blue, 200);
         font-family: Electrolize;
         font-style: normal;
         font-weight: lighter;
-        font-size: 1.15rem;
+        font-size: $font-size;
         text-decoration: none;
     }
     .topic-title-sub {
+        font-size:$secondary-size;
         .topic-title-sub-author {
            display:inline;
            .topic-title-sub-author-link {
@@ -100,19 +98,24 @@ $color:  map-get($scfr-mat-light-blue, 200);
         }
     }
     .topic-time {
+        font-size:$secondary-size;
         text-decoration: none;
         color: darken($color, 20%);
     }
     .topic-stats {
-       .val {
-            margin-right:20px;
-            color:map_get($scfr-mat-light-blue, 100);
-       }
-       .head {
-            font-weight: lighter;
-            color: #929292;
-            text-align:right;
-            padding-right:10px;
-       }
+        font-size:$secondary-size;
+        dl {
+            text-align: center;
+            margin:0px;
+            dt {
+                font-weight: lighter;
+                color: #929292;
+            }
+            dd {
+                color:map_get($scfr-mat-light-blue, 100);
+                margin:0px;
+            }
+        }
+
     }
 }
