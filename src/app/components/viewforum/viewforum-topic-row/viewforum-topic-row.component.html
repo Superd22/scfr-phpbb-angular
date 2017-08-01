@@ -30,12 +30,15 @@
 
   </div>
 
-  <div class="topic-stats" fxFlex="25" fxLayoutWrap>
-    <div fxFlex class="head">{{L_.REPLIES}} :</div>
-    <div fxFlex="25" class="val">{{topic.REPLIES}}</div>
-    <div fxFlex="100"></div>
-    <div fxFlex class="head">{{L_.VIEWS}} :</div>
-    <div fxFlex="25" class="val">{{topic.VIEWS}}</div>
+  <div class="topic-stats" fxFlex="25" fxLayout>
+    <dl fxFlex="50">
+      <dd>{{topic.VIEWS}}</dd>
+      <dt>{{L_.VIEWS}}</dt>
+    </dl>
+    <dl fxFlex="50">
+      <dd>{{topic.REPLIES}}</dd>
+      <dt>{{L_.REPLIES}}</dt>
+    </dl>
   </div>
   <div class="topic-last-reply" fxFlex="25" class="topic-time">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
     <scfr-forum-phpbb-username [name]="replyAuthor.userName" [color]="replyAuthor.userColor" [id]="replyAuthor.userId"></scfr-forum-phpbb-username>

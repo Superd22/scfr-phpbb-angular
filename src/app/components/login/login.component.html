@@ -1,26 +1,9 @@
 <app-bottom-logged-in></app-bottom-logged-in>
 
 <md-card *ngIf="!LoginService.loggedIn">
-  <md-card-header>
-    <md-card-title>
-      <h2>Login</h2>
-    </md-card-title>
-    <md-card-subtitle>
-      <h3>{{explain}}</h3>
-    </md-card-subtitle>
-  </md-card-header>
   <md-card-content>
-    <md-input-container>
-      <input mdInput placeholder="Login" maxlength="15" [(ngModel)]="username">
-    </md-input-container>
-    <md-input-container>
-      <input mdInput placeholder="password" maxlength="30" type="password" [(ngModel)]="password">
-    </md-input-container>
+    <div class="avatar-placeholder" md-card-avatar></div>
+    <button md-button (click)="displayLoginPopOut()">Login</button>
+   
   </md-card-content>
-
-  <md-card-actions>
-    <md-checkbox [(ngModel)]="rememberMe">Remember Me</md-checkbox>
-    <button md-button (click)="loginUser(username, password, rememberMe)">Login</button>
-    <button md-button uiSref="phpbb.seo.register">Register</button>
-  </md-card-actions>
 </md-card>

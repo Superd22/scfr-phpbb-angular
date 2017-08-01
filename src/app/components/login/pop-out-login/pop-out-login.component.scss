@@ -1,0 +1,24 @@
+@import './src/assets/material/v7/main';
+$bg:map-get($scfr-mat-blue-grey-background, 600);
+
+h2 {
+    text-align: center;
+    font-family: "Heebo";
+    text-transform: uppercase;
+}
+
+.content {
+    padding: 15px 50px;
+    md-progress-bar {
+        margin: 20px 0px;
+    }
+}
+
+input {
+    padding: 10px;
+    background: darken($bg, 10%);
+    font-family: "Heebo";
+    color:white;
+    border: 0px;
+    margin: 5px 10px;
+}

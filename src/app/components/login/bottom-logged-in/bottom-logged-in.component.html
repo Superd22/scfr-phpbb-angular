@@ -1,12 +1,19 @@
 <md-card *ngIf="LoginService.loggedIn">
   <md-card-header>
-    <img uiSref="phpbb.seo.viewprofile" [uiParams]="{userId: currentTpl?.S_USER_ID}" md-card-avatar [src]="LoginService.avatar">
-    <md-card-title>{{LoginService.username}}</md-card-title>
-    <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
+    <img uiSref="phpbb.seo.viewprofile" class="avatar" [uiParams]="{userId: currentTpl?.S_USER_ID}" md-card-avatar [src]="LoginService.avatar">
+    <div class="text">
+      <md-card-title>{{LoginService.username}}</md-card-title>
+      <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
+    </div>
+    <div class="tools" fxFlex fxLayout="column">
+      <button md-icon-button uiSref="phpbb.legacy" [uiParams]="{page:'ucp.php', phpbbResolved:null}" mdTooltip="Panneau de contrôle utilisateur" mdTooltipPosition="above"><md-icon>settings</md-icon></button>
+      <div fxFlex="100"></div>
+      <button md-icon-button (click)="LoginService.logoutUser()" mdTooltip="Se déconnecter" mdTooltipPosition="above"><md-icon>power_settings_new</md-icon></button>
+    </div>
   </md-card-header>
-  <md-card-actions>
+  <!-- <md-card-actions>
     <button fxFlex md-button (click)="LoginService.logoutUser()">Logout</button>
     <scfr-forum-notifications></scfr-forum-notifications>
     <button fxFlex md-button><md-icon>{{currentTpl?.PRIVATE_MESSAGE_COUNT > 0 ? 'email' : 'mail_outline'}}</md-icon> {{currentTpl?.PRIVATE_MESSAGE_COUNT}}</button>
-  </md-card-actions>
+  </md-card-actions> -->
 </md-card>

@@ -1,14 +1,16 @@
 <div class="main-navigator-wrapper" fxLayout="column">
     <div class="main-navigator" fxFlex fxLayout="column">
-        <md-toolbar>
-            <md-input-container fxFlex="100">
-                <input mdInput type="text" placeholder="Rechercher dans les forum" [(ngModel)]="searchForum">
-            </md-input-container>
-        </md-toolbar>
+
         <ul class="main-navigator-list" fxFlex>
             <scfr-forum-navigation-forum-link *ngFor="let forum of forumList | lookForForum:searchForum | filteredForums:filteredForumList:reverseMap | reinsertForums:filteredForumList:reverseMap:forumList:0:searchForum"
                 [forum]="forum" [navCo]="this" [depth]="0"></scfr-forum-navigation-forum-link>
         </ul>
+    </div>
+    <div class="search" fxLayout>
+        <md-icon fxFlex>search</md-icon>
+        <md-input-container fxFlex="100">
+            <input mdInput type="text" placeholder="Rechercher" [(ngModel)]="searchForum">
+        </md-input-container>
     </div>
     <app-login class="navigator-bottom"></app-login>
 </div>

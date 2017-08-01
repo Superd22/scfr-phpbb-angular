@@ -95,6 +95,7 @@ import { FloatingMainHeaderDirective } from './directives/floating-main-header.d
 import { ImageHeaderFitDirective } from './directives/image-header-fit.directive';
 import { PollComponent } from './components/viewtopic/poll/poll.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PopOutLoginComponent } from './components/login/pop-out-login/pop-out-login.component';
 import { UcpPmSwitchComponent } from './components/ucp/pm/ucp-pm-switch/ucp-pm-switch.component';
 import { UcpPreferenceSwitchComponent } from './components/ucp/preference/ucp-preference-switch/ucp-preference-switch.component';
 import { UcpPreferencePersonelleComponent } from './components/ucp/preference/ucp-preference-personelle/ucp-preference-personelle.component';
@@ -168,6 +169,7 @@ import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo
         FloatingMainHeaderDirective,
         ImageHeaderFitDirective,
         PollComponent,
+        PopOutLoginComponent,
         UcpPmSwitchComponent,
         UcpPreferenceSwitchComponent,
         UcpPreferencePersonelleComponent,
@@ -198,7 +200,7 @@ import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo
         ColorPickerModule
     ],
     entryComponents: [
-        DialogDeleteComponent
+        DialogDeleteComponent, PopOutLoginComponent
     ],
     providers: [
         PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, 

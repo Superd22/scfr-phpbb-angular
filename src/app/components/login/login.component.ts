@@ -4,6 +4,8 @@ import { UIRouter, StateService, Transition } from '@uirouter/angular';
 import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { PopOutLoginComponent } from "app/components/login/pop-out-login/pop-out-login.component";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,7 @@ export class LoginComponent implements OnInit {
   // State to redirect to.
   @Input() redirect: Transition;
 
-  constructor(public LoginService: LoginService, private transition: StateService, private snackBar: MdSnackBar, private stateT: StateTranslate) {
+  constructor(public LoginService: LoginService, private transition: StateService, private snackBar: MdSnackBar, private stateT: StateTranslate, public mdDialog: MdDialog) {
     this.explain = transition.params["error"];
   }
 
@@ -31,6 +33,10 @@ export class LoginComponent implements OnInit {
     this.LoginService.userStatus.subscribe(
       data => this.handleLogin(data)
     )
+  }
+
+  public displayLoginPopOut() {
+    let dialog = this.mdDialog.open(PopOutLoginComponent);
   }
 
   public loginUser(username: string, password: string, rememberMe) {

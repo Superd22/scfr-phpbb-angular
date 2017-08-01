@@ -1,5 +1,19 @@
 :host() {
     width:100%;
+    display:block;
+
+    .forum-link{
+        &.main {
+            $border-color: rgba(0,0,0,0.4);
+            border-bottom:1px solid $border-color;
+            padding:8px 0px;
+        }
+        &:not(.main) {
+            .forum-link:before {
+            }
+        }
+    }
+
     .forum-link-wrapper {
         transition: 1s;
         &.active {
@@ -21,7 +35,7 @@
         text-align:left;
         &.mat-button {
             font-family: 'Heebo', sans-serif;
-            text-transform:uppercase;
+            font-weight:normal;
         }
     }
     .sub-forums {
