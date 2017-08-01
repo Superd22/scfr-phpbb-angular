@@ -23,3 +23,12 @@ hr {
     height: 1px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 }
+
+.mat-sidenav {
+    background-color: transparentize(map_get($scfr-mat-blue-grey-background,500),0.2);
+    .navigator-bottom {
+        .mat-card {
+            background-color: map_get($scfr-mat-blue-grey-background,700);
+        }
+    }
+}
