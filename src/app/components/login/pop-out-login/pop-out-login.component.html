@@ -1,0 +1,21 @@
+<h2 md-dialog-title>Se connecter</h2>
+
+<md-dialog-content class="content" fxLayout fxLayoutWrap>
+  <div fxFlex="100" fxLayout fxLayoutWrap>
+      <input fxFlex="100" [(ngModel)]="username"  placeholder="Username" />
+      <input type="password" fxFlex="100" [(ngModel)]="password" placeholder="Password" />
+  </div>
+  <div fxFlex="100" style="margin:10px;">
+    <md-checkbox [(ngModel)]="rememberMe">Rester connecter</md-checkbox>
+  </div>
+
+
+  <md-progress-bar *ngIf="busy" color="accent" mode="indeterminate"></md-progress-bar>
+
+</md-dialog-content>
+
+<md-dialog-actions>
+  <button md-button uiSref="phpbb.seo.register" md-dialog-close>Register</button>
+  <div fxFlex></div>
+  <button md-button color="accent" (click)="login()" [disabled]="busy">Connexion</button>
+</md-dialog-actions>

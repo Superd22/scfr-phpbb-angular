@@ -93,6 +93,7 @@ import { FloatingMainHeaderDirective } from './directives/floating-main-header.d
 import { ImageHeaderFitDirective } from './directives/image-header-fit.directive';
 import { PollComponent } from './components/viewtopic/poll/poll.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PopOutLoginComponent } from './components/login/pop-out-login/pop-out-login.component';
 
 @NgModule({
     declarations: [
@@ -158,6 +159,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         FloatingMainHeaderDirective,
         ImageHeaderFitDirective,
         PollComponent,
+        PopOutLoginComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -179,7 +181,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         ColorPickerModule
     ],
     entryComponents: [
-        DialogDeleteComponent
+        DialogDeleteComponent, PopOutLoginComponent
     ],
     providers: [
         PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, 
