@@ -19,8 +19,14 @@ md-toolbar {
             overflow-y: auto;
             margin: 0;
             padding: 10px 0px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
     }
 
+    .search {
+        padding:24px;
+        padding-bottom:0px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        align-items: center;
+        .mat-icon {margin-right:14px;}
+    }
 }
