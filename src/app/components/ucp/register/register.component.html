@@ -8,8 +8,8 @@
       <h2>{{tpl.SITENAME}} - {{L_.REGISTRATION}}</h2>
     </md-card-title>
     <md-card-subtitle>
-      <p *ngIf="ERROR" [innerHTML]="ERROR" class="error"></p>
-      <p *ngIf="L_REG_COND">
+      <p *ngIf="tpl.ERROR" [innerHTML]="tpl.ERROR" class="error"></p>
+      <p *ngIf="tpl.L_REG_COND">
         {{L_.REG_COND}}
       </p>
     </md-card-subtitle>
@@ -25,7 +25,7 @@
     <br />
 
 
-    <strong>{{L_ITEMS_REQUIRED}}</strong><br />
+    <strong>{{tpl.L_ITEMS_REQUIRED}}</strong><br />
     <scfr-forum-ucp-phpbb-field *ngFor="let pf of tpl.profile_fields" fxFlex [explain]="pf.LANG_EXPLAIN" [displayName]="pf.LANG_NAME"
       [fullPHPBB]="pf.FIELD"></scfr-forum-ucp-phpbb-field>
 
