@@ -105,8 +105,6 @@ import { PhpbbUsernameComponent } from './components/phpbb/phpbb-username/phpbb-
 import { UcpPmConvoRowComponent } from './components/ucp/pm/ucp-pm-convo-row/ucp-pm-convo-row.component';
 import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo-group-avatar/ucp-pm-convo-group-avatar.component';
 
-//import { PaypalModule } from "@sibylla/juliet/src/app/paypal/paypal.module";
-
 @NgModule({
     declarations: [
         SeoUrlPipe,
