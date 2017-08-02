@@ -1,5 +1,5 @@
 <div class="container" fxLayout="column" fxLayoutWrap>
-    <div class="forum-header" fxLayout fxLayoutAlign="start start" scfrForumFloatingMainHeader>
+    <div class="forum-header" fxLayout scfrForumFloatingMainHeader>
         <div class="forum-name-container">
             <div fxLayout fxLayoutAlign="start center">
                 <h2 class="forum-title" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">
@@ -18,8 +18,6 @@
                 <scfr-forum-ucp-phpbb-field displayName="Trier par" [fullPHPBB]="tpl.S_SELECT_SORT_KEY" [(model)]="sortSk" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
                 <scfr-forum-ucp-phpbb-field displayName="Direction" [fullPHPBB]="tpl.S_SELECT_SORT_DIR" [(model)]="sortSd" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
             </div>
-
-            <ng-container [ngTemplateOutlet]="newTopicButton"></ng-container>
 
         </div>
     </div>
