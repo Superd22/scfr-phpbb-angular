@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ContenteditableDirective } from './components/posting/editor/directives/content-editable.directive';
 import { NavPmComponent } from './components/navigation/pm/pm.component';
 import { EditorComponent } from './components/posting/editor/editor.component';
@@ -186,6 +187,7 @@ import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo
             config: PhpbbRoutingConfig
         }),
         BrowserModule.withServerTransition({appId: 'scfr-forum'}),
+        CommonModule,
         FormsModule,
         HttpModule,
         BrowserAnimationsModule,

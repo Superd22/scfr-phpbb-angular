@@ -64,21 +64,7 @@ export class UcpSubPageFormComponent implements OnInit {
     this.ucp.tpl.ERROR = null;
     this.formHelper.postToPhpbbWFields("ucp.php", this.fields, this.ucp.tpl, param, { submit: "Submit" }).subscribe(
       (data) => {
-        let tpl = data['@template'];
-
-        if (tpl.ERROR) {
-          this.api.errorSnackBar(tpl.ERROR);
-          this.ucp.tpl.ERROR = tpl.ERROR;
-        }
-        else {
-          this.api.openSnackBar("Profil mis à jour !");
-          this.formHelper.regenAllBackUp()
-          // Do we really need this ?
-          // this.state.transitionTo(this.state.$current, null, { reload: true });
-        }
-
-
-
+       this.formHelper.ucpOnPostCallback(data, this.ucp);
       }
     )
   }

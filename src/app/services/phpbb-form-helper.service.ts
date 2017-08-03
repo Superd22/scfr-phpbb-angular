@@ -1,3 +1,4 @@
+import { UcpComponent } from './../components/ucp/ucp.component';
 import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
 import { PhpbbApiService } from './phpbb-api.service';
 import { UcpPhpbbFieldComponent } from './../components/ucp/ucp-phpbb-field/ucp-phpbb-field.component';
@@ -164,6 +165,20 @@ export class PhpbbFormHelperService {
     }
 
     return post;
+  }
+
+  public ucpOnPostCallback(data, ucp: UcpComponent) {
+    let tpl = data['@template'];
+
+    if (tpl.ERROR) {
+      this.api.errorSnackBar(tpl.ERROR);
+      ucp.tpl.ERROR = tpl.ERROR;
+    }
+    else {
+      this.api.openSnackBar("Profil mis à jour !");
+      this.regenAllBackUp()
+    }
+
   }
 
 }
