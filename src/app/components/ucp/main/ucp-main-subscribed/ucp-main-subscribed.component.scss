@@ -1,0 +1,32 @@
+.mat-list {
+    .mat-checkbox {
+        padding-top: 0px;
+        margin-top: -4px;
+    }
+    .mat-list-item {position:relative;}
+    h3, h4 {
+        display:inline-block;
+        font-weight: normal;
+        font-size: 1rem;
+    }
+    .forumrow {
+        h3 {
+            font-family: "Heebo";
+        }
+    }
+    .topicrow {
+        h3 {
+            font-family: "Electrolize";
+        }
+        h4 {
+            font-family: "Heebo";
+            &:after {
+                content: '//';
+                margin-left: 5px;
+                display: inline-block;
+                font-size: 0.8rem;
+                color: grey;
+            }
+        }
+    }
+}
