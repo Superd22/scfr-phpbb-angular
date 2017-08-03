@@ -197,7 +197,7 @@ import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo
         MomentModule,
         HeaderModule,
         NgxChartsModule,
-        ColorPickerModule
+        ColorPickerModule,
     ],
     entryComponents: [
         DialogDeleteComponent, PopOutLoginComponent
@@ -208,7 +208,7 @@ import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {
+export class SCFRForumModule {
     constructor(private injector: Injector) {
         ServiceLocator.injector = this.injector;
     }

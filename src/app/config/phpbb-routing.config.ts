@@ -3,7 +3,7 @@ import { StateTranslate } from '../services/state-translate.service';
 import { STATES } from '../states/_.states';
 import { UIRouter, StatesModule } from "@uirouter/angular";
 import { Inject, Injectable, Injector } from '@angular/core';
-import * as vis from '@uirouter/visualizer';
+//import * as vis from '@uirouter/visualizer';
 
 export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module: StatesModule) {
     let stateTranslate: StateTranslate = injector.get(StateTranslate);
