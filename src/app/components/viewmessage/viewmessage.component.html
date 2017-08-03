@@ -1,26 +1,19 @@
 <md-card style="margin: 10px 0px;" [id]="post.id" class="message">
   <div *ngIf="!isEditMod()">
 
-    <div class="message-header" *ngIf="!simplePostMod">
-      <div class="message-header-user-left" fxLayout [ngClass]="{border: postrow.POST_AUTHOR_COLOUR}">
-        <div class="message-header-avatar" [ngStyle]="{'background-image': 'url('+avatarUrl+')', 'border-color':postrow.POST_AUTHOR_COLOUR}"></div>
-        <span class="message-header-username" [mdTooltip]="postrow.RANK_TITLE" [ngStyle]="{'background-color': postrow.POST_AUTHOR_COLOUR}"
-          uiSref="phpbb.seo.viewprofile" [uiParams]="{userId:postrow.POSTER_ID, user_slug: postrow.POST_AUTHOR | seoUrl}">{{postrow.POST_AUTHOR}}</span>
+    <div class="message-header" *ngIf="!simplePostMod" fxLayout>
+      <div class="message-header-avatar">
+        <img [src]="avatarUrl">
       </div>
-      <div class="message-header-middle" fxFlex>
-        <div class="message-header-bar">
-        </div>
-        <div class="message-header-sub-bar">
-          <button md-icon-button><md-icon>report_problem</md-icon></button>
-          <button md-icon-button><md-icon>link</md-icon></button>
-          <em>{{postrow.POST_DATE}}</em>
-        </div>
-      </div>
-      <div class="message-header-info-right" fxLayout *ngIf="displayInfoRight()">
 
-        <div class="right-details">
+      <div class="message-header-middle" fxFlex fxLayout.lt-md="column" fxLayout.gt-md="row">
+        <div class="middle-left">
+          <scfr-forum-phpbb-username [mdTooltip]="postrow.RANK_TITLE" [color]="postrow.POST_AUTHOR_COLOUR" [name]="postrow.POST_AUTHOR"
+            [id]="postrow.POSTER_ID"></scfr-forum-phpbb-username>
+        </div>
+        <div fxFlex></div>
+        <div class="middle-right">
 
-          <!-- connected user is juliet and poster user is juliet too, display full ju -->
           <a *ngIf="postrow.J_IS_JULIET && tpl.S_USER_IS_JULIET" href="{{postrow.J_U_SQ}}">
             <div class="squad_title">
               <div class="main"><img src='{{postrow.JU_RANK_IMG}}' class='forum_rank'> {{postrow.JU_RANK}}</div>
@@ -36,29 +29,28 @@
               <div class="secondary">{{postrow.G_SQ_NAME}}</div>
             </a>
           </div>
+
         </div>
-
-        <div class="right-logo">
-
-          <ng-container *ngIf="postrow.J_IS_JULIET && tpl.S_USER_IS_JULIET">
-            <a href="{{postrow.J_U_SQ}}">
-              <div class="logo" [ngStyle]="{'background-image': 'url('+postrow.J_SQ_LOGO+')'}"></div>
-            </a>
-          </ng-container>
-
-          <ng-container *ngIf="postrow.G_SHOW_G && postrow.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow.J_IS_JULIET)">
-            <a href="{{postrow.G_U_SQ}}">
-              <div class="logo" [ngStyle]="{'background-image': 'url('+postrow.G_SQ_LOGO+')' }"></div>
-            </a>
-          </ng-container>
-        </div>
-
       </div>
 
+      <div class="message-header-logo">
+        <ng-container *ngIf="postrow.J_IS_JULIET && tpl.S_USER_IS_JULIET">
+          <a href="{{postrow.J_U_SQ}}">
+            <img class="logo" [src]="postrow.J_SQ_LOGO">
+          </a>
+        </ng-container>
 
+        <ng-container *ngIf="postrow.G_SHOW_G && postrow.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow.J_IS_JULIET)">
+          <a href="{{postrow.G_U_SQ}}">
+            <img class="logo" [src]="postrow.G_SQ_LOGO">
+          </a>
+        </ng-container>
+
+        <div class="fix" *ngIf="!(postrow.G_SHOW_G && postrow.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow.J_IS_JULIET))"></div>
+      </div>
     </div>
     <md-card-content *ngIf="post.message">
-      <div [innerHTML]="(post.message | unsafeHtml)" class="post-inner" >
+      <div [innerHTML]="(post.message | unsafeHtml)" class="post-inner">
       </div>
     </md-card-content>
     <md-card-actions>
