@@ -1,0 +1,21 @@
+
+
+// Load zone.js for the server.
+require('zone.js/dist/zone-node');
+
+// Import renderModuleFactory from @angular/platform-server.
+var renderModuleFactory = require('@angular/platform-server').renderModuleFactory;
+
+// Import the AOT compiled factory for your AppServerModule.
+// This import will change with the hash of your built server bundle.
+window = { location: {hostname:undefined}, hostname: undefined };
+document = { hostname: undefined };
+const location = { hostname: undefined };
+
+var AppServerModuleNgFactory = require('./dist-server/main.88aff04a706f4a9e6ddc.bundle').AppServerModuleNgFactory;
+
+// Load the index.html file.
+var index = require('fs').readFileSync('./src/index.html', 'utf8');
+
+// Render to HTML and log it to the console.
+renderModuleFactory(AppServerModuleNgFactory, { document: index, url: '/' }).then(html => console.log(html));

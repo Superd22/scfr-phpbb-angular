@@ -15,10 +15,7 @@
         "lib": [
             "es2016",
             "dom"
-        ]
-    },
-    "angularCompilerOptions": {
-        "genDir": "src/ngfactory",
-        "entryModule": "./src/app#AppModule"
+        ],
+        "allowJs": true
     }
 }
