@@ -53,6 +53,8 @@ export class StateTranslate {
                     }
                 case "ucp":
                     return this.transform_ucp(trans);
+                case "search":
+                    return this.transform_search(trans);
             }
         }
     }
@@ -76,6 +78,10 @@ export class StateTranslate {
         return okay;
     }
 
+    private transform_search(trans: Transition) {
+        
+    }
+
     /**
      * Handles the transformation and proper fetching of a viewtopic event
      * @param trans the transition we're coming from
@@ -85,6 +91,8 @@ export class StateTranslate {
         let params = trans.params();
         var trans_param = Object.assign({}, params);
         let trans_page = "phpbb.seo.index";
+
+        console.log("trviewtopic", trans);
 
         if (typeof topicId === "undefined") topicId = trans.params()["t"];
         /** @todo allow n-sized pages */
@@ -261,6 +269,8 @@ export class StateTranslate {
     private getPosting(trans: Transition, param) {
 
         let params = Object.assign({}, param);
+
+        console.log("getposting", trans);
 
         if (this.isOnceResolved()) {
             this.setOnceResolved(false);
@@ -475,6 +485,7 @@ export class StateTranslate {
         this._busy.next(true);
 
         let next: Observable<any> = Observable.of(new Object()).map(() => true);
+        console.log("getcurrent", transition);
         try {
             switch (stateName) {
                 case "phpbb.seo.viewforum.posting":
@@ -503,8 +514,8 @@ export class StateTranslate {
                 //break;
             }
         }
-        catch(e) {
-            console.log("cached",e);
+        catch (e) {
+            console.log("cached", e);
         }
 
         return next;

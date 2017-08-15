@@ -1,3 +1,4 @@
+import { ViewtopicComponent } from './../viewtopic/viewtopic.component';
 import { StateTranslate } from './../../services/state-translate.service';
 import { SimplePost } from './../../interfaces/simple-post';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -18,6 +19,7 @@ export class ViewmessageComponent implements OnInit {
   @Input("post") public post: SimplePost;
   /** if this post is editable */
   @Input("editable") public editable: boolean = false;
+  @Input("viewtopic") public viewtopic: ViewtopicComponent = null;
   /** if we're displaying a full post or a simple post */
   public simplePostMod: boolean = false;
   public avatarUrl: string = "";

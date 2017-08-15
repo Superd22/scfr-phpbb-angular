@@ -1,6 +1,7 @@
-<button md-button uiSref=".edit" [uiParams]="{'postId': postrow.POST_ID, '#': postrow.POST_ID}" (click)="editThis()">EDIT</button>
-<button md-button (click)="deleteThis()">Delete</button>
-<button md-button>Report</button>
-<button md-button>Warn</button>
-<button md-button>Info</button>
-<button md-button uiSref=".posting" [uiParams]="{'postId': postrow.POST_ID, quote:true}">Quote</button>
+<button md-icon-button color="primary" [mdTooltip]="viewtopic.L_.BUTTON_EDIT" uiSref=".edit" [uiParams]="{'postId': postrow.POST_ID, '#': postrow.POST_ID}"
+    (click)="editThis()"><md-icon>edit</md-icon></button>
+<button md-icon-button color="primary" [mdTooltip]="viewtopic.L_.REPORT_POST"><md-icon>report</md-icon></button>
+<button md-icon-button color="primary" [mdTooltip]="viewtopic.L_.INFORMATION"><md-icon>info</md-icon></button>
+<button md-icon-button color="primary" uiSref=".posting" [uiParams]="{'postId': postrow.POST_ID, quote:true}" [mdTooltip]="viewtopic.L_.QUOTE"><md-icon>format_quote</md-icon></button>
+<button md-icon-button color="warn" (click)="deleteThis()" [mdTooltip]="viewtopic.L_.DELETE_POST"><md-icon>delete</md-icon></button>
+<button md-icon-button color="warn" [mdTooltip]="viewtopic.L_.WARN_USER"><md-icon>warning</md-icon></button>
