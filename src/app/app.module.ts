@@ -105,6 +105,10 @@ import { UcpPreferenceViewComponent } from './components/ucp/preference/ucp-pref
 import { PhpbbUsernameComponent } from './components/phpbb/phpbb-username/phpbb-username.component';
 import { UcpPmConvoRowComponent } from './components/ucp/pm/ucp-pm-convo-row/ucp-pm-convo-row.component';
 import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo-group-avatar/ucp-pm-convo-group-avatar.component';
+import { PostingOptionsSwitcherComponent } from './components/posting/posting-options-switcher/posting-options-switcher.component';
+import { PostingOptionsComponent } from './components/posting/posting-options-switcher/posting-options/posting-options.component';
+import { PostingAttachmentsComponent } from './components/posting/posting-options-switcher/posting-attachments/posting-attachments.component';
+import { PostingPollsComponent } from './components/posting/posting-options-switcher/posting-polls/posting-polls.component';
 
 @NgModule({
     declarations: [
@@ -180,6 +184,10 @@ import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo
         UcpPmConvoRowComponent,
         UcpPmConvoGroupAvatarComponent,
         UCPPMViewmessageComponent,
+        PostingOptionsSwitcherComponent,
+        PostingOptionsComponent,
+        PostingAttachmentsComponent,
+        PostingPollsComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

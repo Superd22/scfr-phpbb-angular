@@ -1,0 +1,20 @@
+<nav md-tab-nav-bar>
+
+  <a md-tab-link [active]="activeOption === 'options'" (click)="activeOption='options'">
+    {{posting.L_.OPTIONS}}
+  </a>
+
+  <a md-tab-link [active]="activeOption === 'attachments'" (click)="activeOption='attachments'">
+    {{posting.L_.ATTACHMENTS}}
+  </a>
+
+  <a md-tab-link [active]="activeOption === 'polls'" (click)="activeOption='polls'">
+    {{posting.L_.ADD_POLL}}
+  </a>
+
+</nav>
+<div>
+  <scfr-forum-posting-attachments [posting]="posting" [hidden]="activeOption != 'attachments'"></scfr-forum-posting-attachments>
+  <scfr-forum-posting-options [posting]="posting"  [hidden]="activeOption != 'options'"></scfr-forum-posting-options>
+  <scfr-forum-posting-polls [posting]="posting"  [hidden]="activeOption != 'polls'"></scfr-forum-posting-polls>
+</div>
