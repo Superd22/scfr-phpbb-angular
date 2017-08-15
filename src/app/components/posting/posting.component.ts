@@ -1,3 +1,6 @@
+import { PostingOptionsSwitcherComponent } from './posting-options-switcher/posting-options-switcher.component';
+import { IPostingOptionContainer } from './posting-options-switcher/posting-options-container.interface';
+import { UcpPhpbbFieldComponent } from './../ucp/ucp-phpbb-field/ucp-phpbb-field.component';
 import { MdSnackBar } from '@angular/material';
 import { PhpbbFormHelperService } from './../../services/phpbb-form-helper.service';
 import { UIRouter } from '@uirouter/angular';
@@ -8,7 +11,7 @@ import { StateTranslate } from './../../services/state-translate.service';
 import { Transition } from '@uirouter/angular';
 import { PhpbbApiService } from './../../services/phpbb-api.service';
 import { PhpbbComponent } from './../phpbb/phpbb-component.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-posting',
@@ -19,6 +22,9 @@ import { Component, OnInit } from '@angular/core';
 export class PostingComponent extends PhpbbComponent {
   /** if we're currently fetching data */
   public busy: boolean;
+
+  @ViewChildren(PostingOptionsSwitcherComponent)
+  private _postingOptions: QueryList<PostingOptionsSwitcherComponent>;
 
   public post: {
     message: string,
@@ -123,7 +129,21 @@ export class PostingComponent extends PhpbbComponent {
    * @param mode "preview" for generating a preview | "post" for posting the message
    */
   private forPHPBBPostingFORM(mode: "preview" | "post") {
-    let form = Object.assign(this.formHelper.getHiddensFromTemplateAsObject(this.tpl), {
+
+    let opts = {};
+
+    if (this._postingOptions) {
+      this._postingOptions.first.getFields().forEach((field) => {
+        // If we're falsy we don't wanna send
+        if(field.model) {
+          opts[field.form_name] = field.model;
+        }
+      });
+    }
+
+    console.log("opts", opts);
+
+    let form = Object.assign(this.formHelper.getHiddensFromTemplateAsObject(this.tpl), opts, {
       subject: this.post.subject,
       message: this.post.message,
       addbbcode20: 100,

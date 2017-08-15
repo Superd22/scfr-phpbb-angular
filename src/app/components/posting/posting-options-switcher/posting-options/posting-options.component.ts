@@ -1,12 +1,14 @@
+import { UcpPhpbbFieldComponent } from './../../../ucp/ucp-phpbb-field/ucp-phpbb-field.component';
+import { IPostingOptionContainer } from './../posting-options-container.interface';
 import { PostingComponent } from './../../posting.component';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
 
 @Component({
   selector: 'scfr-forum-posting-options',
   templateUrl: './posting-options.component.html',
   styleUrls: ['./posting-options.component.scss']
 })
-export class PostingOptionsComponent implements OnInit {
+export class PostingOptionsComponent implements OnInit, IPostingOptionContainer {
 
   @Input()
   public posting: PostingComponent;
@@ -46,5 +48,11 @@ export class PostingOptionsComponent implements OnInit {
   public set selectedTopicType(val: string) {
     this._selectedTopicType = val;
   }
+
+  @ViewChildren(UcpPhpbbFieldComponent) private _fields;
+  public getFields(): QueryList<UcpPhpbbFieldComponent> {
+    return this._fields;
+  }
+
 
 }

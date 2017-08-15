@@ -1,0 +1,14 @@
+@import './src/assets/material/v7/main';
+$dark-bg: map-get($scfr-mat-blue-grey-background,600);
+$darker-bg: map-get($scfr-mat-blue-grey-background,900);
+
+.posting-more {
+    nav {
+        background:$darker-bg;
+    }
+    .inside {    
+        padding: 8px 24px;
+        background:$dark-bg;
+        font-size:1rem;
+    }
+}

@@ -127,13 +127,24 @@ export class PhpbbFormHelperService {
    * @param extraPost additional paramters to send via post
    */
   public postToPhpbbWFields(page: string, fields: QueryList<UcpPhpbbFieldComponent>, tpl?: IPhpbbTemplate, extraGet?, extraPost?) {
+    let post = this.getFieldsFromFieldComponent(fields);
+
+    return this.postToPhpbbWFieldObject(page, post, tpl, extraGet, extraPost);
+  }
+
+  /**
+   * Returns an object to be sent to REST page from a QueryList of PHpbbFieldComponents
+   * @param fields a QueryList of UcpPhpbbFieldComponent
+   * @return object an object contaning all the data from those fields, ready to be sent.
+   */
+  public getFieldsFromFieldComponent(fields: any) {
     let post: any = {};
 
-    fields.forEach((field) => {
+    if(fields) fields.forEach((field) => {
       post[field.form_name] = field.model;
     });
 
-    return this.postToPhpbbWFieldObject(page, post, tpl, extraGet, extraPost);
+    return post;
   }
 
   /**
