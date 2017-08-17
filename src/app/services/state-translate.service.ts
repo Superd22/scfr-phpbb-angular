@@ -79,7 +79,7 @@ export class StateTranslate {
     }
 
     private transform_search(trans: Transition) {
-        
+
     }
 
     /**
@@ -365,6 +365,16 @@ export class StateTranslate {
         }
     }
 
+    public tranform_index(transition: Transition): Observable<any> {
+        let params = Object.assign({}, transition.params());
+
+        if (params.phpbbResolved && params.phpbbResolved['@template']['SCRIPT_NAME'] == 'index') return Observable.of(true);
+        return this.phpbbApi.getPage("index.php").map((data) => {
+            return transition.router.stateService.target("phpbb.seo.index", Object.assign(params, { phpbbResolved: data }));
+        });
+
+    }
+
     private transform_ucp(transition: Transition): Observable<any> {
         let params = transition.params();
         let newParam: any = Object.assign({}, params);
@@ -509,6 +519,8 @@ export class StateTranslate {
                 case "phpbb.seo.register":
                     next = this.transform_ucp(transition);
                     break;
+                case "phpbb.seo.index":
+                    next = this.tranform_index(transition);
                 //case "phpbb.seo.ucp.pm":
                 //   return this.transform_ucp_pm(transition);
                 //break;
