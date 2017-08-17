@@ -47,6 +47,7 @@ button {
 
     &:not(.small) {
         left:0px  !important;
+        top:-15px;
         position: absolute;
         width:100%;
     }
@@ -67,9 +68,16 @@ button {
                 cursor:pointer;
                 font-size:2em;
                 text-transform: uppercase;
+                margin:15px;
                 &:hover {
                     background:white;
-                    color:black;
+                }
+                a {
+                    text-decoration: none;
+                    padding: 10px 30px;
+                    &:hover {
+                        color:$bar-background;
+                    }
                 }
             }
         }

@@ -1,5 +1,5 @@
 <div class="global-nav-bar" [ngClass]="{logo:displayLogo}" fxLayout="column">
-  <div class="logo" fxFlex >
+  <div class="logo" fxFlex>
     <img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr">
   </div>
 
@@ -13,7 +13,7 @@
             <li><a href="{{WPHeader?.links['categories']}}">Catégories</a></li>
             <li>Recherche</li>
           </ul>
-          
+
           <ul class="secondary" *ngFor="let cat of WPHeader?.news.categories">
             <a href="{{cat.link}}"> {{cat.name}} </a>
             <li *ngFor="let subc of cat.sub">
@@ -22,8 +22,26 @@
           </ul>
 
         </ng-container>
-        <ng-container *ngSwitchCase="'Star Citizen'">.asd..</ng-container>
-        <ng-container *ngSwitchCase="'Communauté'">.asd..</ng-container>
+        <ng-container *ngSwitchCase="'Star Citizen'">
+          <ul class="primary">
+            <li *ngFor="let sub of SCM.pages">
+              <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
+                {{sub.title}} 
+              </a>
+            </li>
+          </ul>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'Communauté'">
+            <ul class="primary">
+                <li *ngFor="let sub of COM.pages">
+                  <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
+                    {{sub.title}} 
+                  </a>
+                </li>
+              </ul>
+        </ng-container>
+
         <ng-container *ngSwitchCase="'Outils'">
           <scfr-forum-small-secondary-link>
             <a href="http://starcitizen-traduction.fr/parrainage/" target="_blank">

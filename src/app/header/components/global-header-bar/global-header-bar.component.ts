@@ -1,3 +1,5 @@
+import { SCMenu } from './../../enums/star-citizen.const';
+import { COMMenu } from './../../enums/communaute.const';
 import { IMainHeaderBarWP } from './../../interfaces/main-header-bar-wp.interface';
 import { mainLinks } from './../../enums/main-links.const';
 import { Component, OnInit, Input } from '@angular/core';
@@ -13,7 +15,9 @@ export class GlobalHeaderBarComponent implements OnInit {
   public topLinks = mainLinks;
   public WPHeader: IMainHeaderBarWP;
   @Input()
-  public displayLogo:boolean = true;
+  public displayLogo: boolean = true;
+  public SCM = SCMenu;
+  public COM = COMMenu;
 
   constructor(private api: GlobalHeaderService) {
     this.api.getHeaderData().subscribe((wpHeader) => {
