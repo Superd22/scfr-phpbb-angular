@@ -1,50 +1,89 @@
-<section class="container" *ngIf="isLoggedIn">
-    <md-card class="col-2">
-        <md-card-title>Your Private Messages</md-card-title>
-        <md-card-content>
-            <md-list>
-                <md-list-item *ngFor="let pm of privateMessages">
-                    <h3 md-line>{{pm.SUBJECT}}</h3>
-                    <p md-line>
-                        <span> From: {{pm.MESSAGE_AUTHOR}}</span>
-                    </p>
-                </md-list-item>
-            </md-list>
-        </md-card-content>
-        <md-card-actions>
-            <button md-button>View More</button>
-        </md-card-actions>
-    </md-card>
-    <md-card class="col-2">
-        <md-card-title>Unread Messages</md-card-title>
-        <md-card-content>
-            <md-list *ngFor="let topic of unreadTopicList">
-                <md-list-item>
-                    <h3 md-line> {{topic.TOPIC_TITLE}}</h3>
-                    <p md-line>
-                        <span> {{topic.TOPIC_AUTHOR}}</span>
-                        <span> -- {{topic.LAST_POST_TIME}} </span>
-                    </p>
-                </md-list-item>
-            </md-list>
-        </md-card-content>
-        <md-card-actions>
-            <button md-button>View More</button>
-        </md-card-actions>
-    </md-card>
-</section>
-<section class="container">
-    <md-card class="col-2">
-        <md-card-content>
-            <md-list *ngFor="let topic of unreadTopicList">
-                <md-list-item>
-                    <h3 md-line> {{topic.TOPIC_TITLE}}</h3>
-                    <p md-line>
-                        <span> {{topic.TOPIC_AUTHOR}}</span>
-                        <span> -- {{topic.LAST_POST_TIME}} </span>
-                    </p>
-                </md-list-item>
-            </md-list>
-        </md-card-content>
-    </md-card>
-</section>
+<div class="index" fxLayout>
+
+    <div class="left" fxFlex="50%">
+
+        <div class="forums">
+            <h3>Les forums</h3>
+
+            <div class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout mdRipple>
+                <span class="forum-name" fxFlex="50">{{forum.FORUM_NAME}}</span>
+                <!--
+                <div class="topics">{{}}</div>
+                <div class="replies">{{}}</div> -->
+            </div>
+        </div>
+
+        <div class="messages">
+            <h3>Les derniers messages <button md-button color="primary">Voir tous les nouveaux messages</button></h3>
+
+            <div class="messages" fxLayout fxLayoutWrap>
+                <ng-container *ngFor="let message of unreadTopicList">
+                    <ng-container *ngTemplateOutlet="topicDetails;context:{topic:message}"></ng-container>
+                </ng-container>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="right" fxFlex="50%">
+        <div class="guide mat-elevation-z3" *ngIf="guideNouveau">
+            <div class="mask">
+                <h3>Guide des nouveaux</h3>
+
+                <nav class="parts">
+                    <li *ngFor="let partId of guideNewbiesParts">
+                        <a [href]="guideNouveau.pageList[partId].guid">{{guideNouveau.pageList[partId].post_title}}</a>
+                    </li>
+                </nav>
+            </div>
+        </div>
+
+
+        <div class="own-messages mat-elevation-z3" *ngIf="ownMessages">
+            <div class="mask">
+                <h3>Vos messages <button md-button color="primary">Voir tous vos messages</button></h3>
+
+                <div class="messages" fxLayout fxLayoutWrap>
+                    <ng-container *ngFor="let message of ownMessages">
+                        <ng-container *ngTemplateOutlet="topicDetails;context:{topic:message}"></ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="online" *ngIf="displayOnlineMembers">
+            <h3>En ligne <button md-button color="accent">{{onlineMembers.length}}</button></h3>
+
+            <img *ngFor="let user of displayOnlineMembers" class="avatar" [src]="user.avatar" [mdTooltip]="user.row.username" [style.border-color]="'#'+user.row.user_colour">
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #topicDetails let-topic="topic">
+    <div class="topic-row mat-elevation-z1" mdRipple>
+        <div class="lefty" fxFlex="100" fxLayout fxLayoutWrap>
+            <div class="title" fxFlex="100">
+                <span class="forum-name">{{topic.FORUM_TITLE}}</span><span class="topic-title">{{topic.TOPIC_TITLE}}</span>
+            </div>
+            <div class="details">
+                Dernier message par
+                <scfr-forum-phpbb-username [html]="topic.LAST_POST_AUTHOR_FULL"></scfr-forum-phpbb-username>
+                {{topic.LAST_POST_TIME | amTimeAgo}}
+            </div>
+        </div>
+        <div class="deets">
+            <div fxFlex="50">
+                <span>{{topic.TOPIC_VIEWS}}</span>
+                <em>vues</em>
+            </div>
+            <div fxFlex="50">
+                <span>{{topic.TOPIC_REPLIES}}</span>
+                <em>réponses</em>
+            </div>
+        </div>
+    </div>
+</ng-template>

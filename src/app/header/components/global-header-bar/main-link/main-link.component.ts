@@ -11,6 +11,8 @@ export class MainLinkComponent implements OnInit {
   @Input()
   public link: IMainNavLink
   public openMenu: boolean = false;
+  public leftOffset: string = "0px";
+
 
   constructor(private elRef: ElementRef) { }
 
@@ -21,6 +23,7 @@ export class MainLinkComponent implements OnInit {
   @HostListener('mouseenter')
   protected onMouseEnter() {
     this.openMenu = true;
+    this.getLeftOffset();
   }
 
   @HostListener('mouseleave')
@@ -36,8 +39,8 @@ export class MainLinkComponent implements OnInit {
     return this.link.menuType != "none";
   }
 
-  public get leftOffset(): string {
+  public getLeftOffset(): void {
     let rect = this.elRef.nativeElement.getBoundingClientRect();
-    return rect.left + "px";
+    this.leftOffset = rect.left + "px";
   }
 }
