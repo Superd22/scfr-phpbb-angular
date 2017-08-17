@@ -1,7 +1,9 @@
+import { StateTranslate } from './../../services/state-translate.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
 import { PhpbbService } from '../../services/phpbb.service';
 import { LoginService } from '../../services/login.service';
+import { UnreadResponse } from "app/models/Search/UnreadReponse";
 
 @Component({
     selector: 'app-index',
@@ -12,8 +14,10 @@ export class IndexComponent implements OnInit {
     public unreadTopicList;
     public privateMessages;
     public isLoggedIn;
+    /** all the availables forums */
+    public forumList: UnreadResponse.JumpboxForum[];
 
-    constructor(public phpbb: PhpbbService, public LoginService: LoginService) { }
+    constructor(public phpbb: PhpbbService, public LoginService: LoginService, protected stateT: StateTranslate) { }
 
     ngOnInit() {
         this.LoginService.userStatus.subscribe(
@@ -25,9 +29,22 @@ export class IndexComponent implements OnInit {
                 }
             }
         );
+
+        this.stateT.latestTemplateData.subscribe((data) => {
+            this.forumList = this.filterForumsToDisplay(data.jumpbox_forums);
+        });
     }
 
     ngOnDestroy() {
+    }
+
+    /**
+     * Filters all the forums to render only the top-most we need to display (categories)
+     * @param forums all the forums
+     * @return array of forums to display
+     */
+    private filterForumsToDisplay(forums: UnreadResponse.JumpboxForum[]): UnreadResponse.JumpboxForum[] {
+        return forums.filter((forum) => forum.FORUM_ID > 0 && !forum.level);
     }
 
     public getUnreadTopicList() {

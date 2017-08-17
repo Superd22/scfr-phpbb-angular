@@ -1,7 +1,65 @@
-.col-2{
-    width: 50%;
-    margin: 5px;
+@import './src/assets/material/v7/main';
+
+$bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
+
+@mixin common-topic-message() {
+    background: $bg-color;
+    padding: 18px;
+    margin: 8px;
+    cursor:pointer;
 }
-.container{
-    display: flex;
+
+.index {
+    padding:24px;
+    h3 {
+        font-family: 'Heebo', sans-serif;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        margin: 0px;
+        font-weight: bolder;
+        margin-bottom:1.5rem;
+
+        .mat-button {
+            vertical-align: text-bottom;
+        }
+    }
+
+    .forums {
+        padding-bottom:1.5rem;
+        .forum-row {
+            @include common-topic-message();
+            .forum-name {
+                font-family: 'Heebo', sans-serif;
+                font-size: 1.1rem;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    .messages {
+        padding-bottom:1.5rem;
+        .message-row {
+            @include common-topic-message();
+            .title {
+                .forum-name {
+                    font-family: 'Heebo', sans-serif;
+                    text-transform: uppercase;
+                    font-size:0.7rem;
+                    &:after {
+                        content: '//';
+                        margin: 0px 5px;
+                        display: inline-block;
+                        font-size: 0.9rem;
+                        color: #72bae0;
+                    }
+                }
+                .topic-title {
+                    font-family: 'Electrolize';
+                    font-size:1rem;
+                }
+            }
+        }
+    }
+    
 }

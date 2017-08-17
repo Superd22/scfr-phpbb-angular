@@ -1,3 +1,4 @@
+import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
@@ -14,7 +15,7 @@ export class PhpbbService {
 
     public getUnreadTopicList(force?: boolean) {
         let call = this.phpbbApi.getSearch('unreadposts').map(
-            data => data['@template'].searchresults,
+            data => UnicodeToUtf8Pipe.forEach(data['@template'].searchresults),
             err => console.log(err)
         );
 
