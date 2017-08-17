@@ -10,6 +10,7 @@ export class PhpbbService {
 
     private unreadTopics: ReplaySubject<any> = null;
     private privateMessages: ReplaySubject<any> = null;
+    private ownMessages: ReplaySubject<any> = null;
 
     constructor(private phpbbApi: PhpbbApiService) { }
 
@@ -20,6 +21,15 @@ export class PhpbbService {
         );
 
         return this.cacheOrFetch(call, "unreadTopics", force);
+    }
+
+    public getUserMessage(force?: boolean) {
+        let call = this.phpbbApi.getSearch('egosearch').map(
+            data => UnicodeToUtf8Pipe.forEach(data['@template'].searchresults),
+            err => console.log(err)
+        );
+
+        return this.cacheOrFetch(call, "ownMessages", force);
     }
 
     public getPrivateMessageList(force?: boolean) {

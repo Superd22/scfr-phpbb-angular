@@ -25,9 +25,59 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         }
     }
 
+
+    .topic-row {
+        @include common-topic-message();       
+        flex: 1 1 100%;     
+        padding: 12px;
+        margin: 4px;
+        position:relative;
+        .title {
+            .forum-name {
+                font-family: 'Heebo', sans-serif;
+                text-transform: uppercase;
+                font-size:0.7rem;
+                &:after {
+                    content: '//';
+                    margin: 0px 5px;
+                    display: inline-block;
+                    font-size: 0.9rem;
+                    color: #72bae0;
+                }
+            }
+            .topic-title {
+                font-family: 'Electrolize';
+                font-size:1rem;
+            }
+        }
+        .deets {
+            display: flex;
+            flex-wrap: wrap;
+            font-family: 'Electrolize';
+            font-size: 0.7rem;
+            flex: 1 1 25%;
+            > div {
+                align-self: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                em {
+                    font-style: normal;
+                    color:grey;
+                    padding-top:5px;
+                    text-transform: uppercase;
+                }
+                span {
+                    flex: 1 1 100%
+                }
+            }
+        }
+    }
+
     .forums {
         padding-bottom:1.5rem;
         .forum-row {
+            position: relative;
             @include common-topic-message();
             .forum-name {
                 font-family: 'Heebo', sans-serif;
@@ -39,44 +89,29 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
 
     .messages {
         padding-bottom:1.5rem;
-        .message-row {
-            @include common-topic-message();
-            .title {
-                .forum-name {
-                    font-family: 'Heebo', sans-serif;
-                    text-transform: uppercase;
-                    font-size:0.7rem;
-                    &:after {
-                        content: '//';
-                        margin: 0px 5px;
-                        display: inline-block;
-                        font-size: 0.9rem;
-                        color: #72bae0;
-                    }
-                }
-                .topic-title {
-                    font-family: 'Electrolize';
-                    font-size:1rem;
-                }
-            }
-        }
     }
     
-    .guide {
+
+    @mixin righty-background-row() {
         margin:14px;
-        background-image: url(//starcitizen.fr/wp-content/uploads/2016/09/Reliant_Kore_01-2.jpg);
-        background-position:center center;
-        background-repeat:no-repeat;
-        background-size:cover;
         min-height: 33vh;
         margin-top: 50px;
         display: flex;
+        background-position:center center;
+        background-repeat:no-repeat;
+        background-size:cover;
 
         .mask {
             padding:28px;
             flex: 1 1 100%;
-            background-color:transparentize($bg-color, 0.4);
+            background-color:transparentize($bg-color, 0.3);
         }
+    }
+
+    .guide {
+        background-image: url(//starcitizen.fr/wp-content/uploads/2016/09/Reliant_Kore_01-2-1024x576.jpg);
+
+        @include righty-background-row();
 
         .parts {
             margin: 24px 48px;
@@ -99,6 +134,17 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
                 &:first-of-type:before {
                     border-left:0px;
                 }
+            }
+        }
+    }
+
+    .own-messages {
+        @include righty-background-row();
+        background-image: url(//starcitizen.fr/wp-content/uploads/2017/04/26-1024x576.png);
+
+        .messages {
+            .topic-row {
+                background-color:darken($bg-color, 5%);
             }
         }
     }

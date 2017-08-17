@@ -5,7 +5,7 @@
         <div class="forums">
             <h3>Les forums</h3>
 
-            <div class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout>
+            <div class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout mdRipple>
                 <span class="forum-name" fxFlex="50">{{forum.FORUM_NAME}}</span>
                 <!--
                 <div class="topics">{{}}</div>
@@ -16,15 +16,10 @@
         <div class="messages">
             <h3>Les derniers messages <button md-button color="primary">Voir tous les nouveaux messages</button></h3>
 
-            <div class="message-row mat-elevation-z1" *ngFor="let message of unreadTopicList" fxLayout fxLayoutWrap>
-                <div class="title" fxFlex="100">
-                    <span class="forum-name">{{message.FORUM_TITLE}}</span><span class="topic-title">{{message.TOPIC_TITLE}}</span>
-                </div>
-                <div class="details">
-                    Dernier message par
-                    <scfr-forum-phpbb-username [html]="message.LAST_POST_AUTHOR_FULL"></scfr-forum-phpbb-username>
-                    {{LAST_POST_TIME | amTimeAgo}}
-                </div>
+            <div class="messages" fxLayout fxLayoutWrap>
+                <ng-container *ngFor="let message of unreadTopicList">
+                    <ng-container *ngTemplateOutlet="topicDetails;context:{topic:message}"></ng-container>
+                </ng-container>
             </div>
 
         </div>
@@ -43,6 +38,44 @@
                 </nav>
             </div>
         </div>
+
+
+        <div class="own-messages mat-elevation-z3" *ngIf="ownMessages">
+            <div class="mask">
+                <h3>Vos messages <button md-button color="primary">Voir tous vos messages</button></h3>
+
+                <div class="messages" fxLayout fxLayoutWrap>
+                    <ng-container *ngFor="let message of ownMessages">
+                        <ng-container *ngTemplateOutlet="topicDetails;context:{topic:message}"></ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
+
+<ng-template #topicDetails let-topic="topic">
+    <div class="topic-row mat-elevation-z1" mdRipple>
+        <div class="lefty" fxFlex="100" fxLayout fxLayoutWrap>
+            <div class="title" fxFlex="100">
+                <span class="forum-name">{{topic.FORUM_TITLE}}</span><span class="topic-title">{{topic.TOPIC_TITLE}}</span>
+            </div>
+            <div class="details">
+                Dernier message par
+                <scfr-forum-phpbb-username [html]="topic.LAST_POST_AUTHOR_FULL"></scfr-forum-phpbb-username>
+                {{topic.LAST_POST_TIME | amTimeAgo}}
+            </div>
+        </div>
+        <div class="deets">
+            <div fxFlex="50">
+                <span>{{topic.TOPIC_VIEWS}}</span>
+                <em>vues</em>
+            </div>
+            <div fxFlex="50">
+                <span>{{topic.TOPIC_REPLIES}}</span>
+                <em>réponses</em>
+            </div>
+        </div>
+    </div>
+</ng-template>

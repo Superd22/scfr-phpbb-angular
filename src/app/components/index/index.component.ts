@@ -14,7 +14,7 @@ import { UnreadResponse } from "app/models/Search/UnreadReponse";
 })
 export class IndexComponent implements OnInit {
     public unreadTopicList;
-    public privateMessages;
+    public ownMessages;
     public isLoggedIn;
     /** all the availables forums */
     public forumList: UnreadResponse.JumpboxForum[];
@@ -27,8 +27,7 @@ export class IndexComponent implements OnInit {
             (isLoggedIn) => {
                 this.isLoggedIn = isLoggedIn;
                 if (isLoggedIn) {
-                    this.getUnreadTopicList();
-                    this.getPrivateMessageList();
+                    this.getUserSpecificData();
                 }
             }
         );
@@ -38,7 +37,7 @@ export class IndexComponent implements OnInit {
         });
 
         this.wp.getGuideDesNouveaux().subscribe((guide) => {
-            if(guide) this.guideNouveau = guide;
+            if (guide) this.guideNouveau = guide;
         });
     }
 
@@ -54,19 +53,17 @@ export class IndexComponent implements OnInit {
         return forums.filter((forum) => forum.FORUM_ID > 0 && !forum.level);
     }
 
-    public getUnreadTopicList() {
+    public getUserSpecificData() {
         this.phpbb.getUnreadTopicList().subscribe(
             data => this.unreadTopicList = data ? data.slice(0, 5) : null,
             err => console.log(err)
         );
+
+        this.phpbb.getUserMessage().subscribe((data) => {
+            this.ownMessages = data ? data.slice(0, 5) : null
+        });
     }
 
-    public getPrivateMessageList() {
-        this.phpbb.getPrivateMessageList().subscribe(
-            data => this.privateMessages = data ? data.slice(0, 5) : null,
-            err => console.log(err)
-        );
-    }
 
     public get guideNewbiesParts() {
         return Object.keys(this.guideNouveau.pageTree);
