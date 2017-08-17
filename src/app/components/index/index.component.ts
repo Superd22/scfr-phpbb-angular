@@ -1,3 +1,5 @@
+import { IGuideDesNouveauxResponse } from './interfaces/guide-des-nouveaux.interface';
+import { WpService } from 'app/services/wp.service';
 import { StateTranslate } from './../../services/state-translate.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
@@ -16,8 +18,9 @@ export class IndexComponent implements OnInit {
     public isLoggedIn;
     /** all the availables forums */
     public forumList: UnreadResponse.JumpboxForum[];
+    public guideNouveau: IGuideDesNouveauxResponse;
 
-    constructor(public phpbb: PhpbbService, public LoginService: LoginService, protected stateT: StateTranslate) { }
+    constructor(public phpbb: PhpbbService, public LoginService: LoginService, protected stateT: StateTranslate, protected wp: WpService) { }
 
     ngOnInit() {
         this.LoginService.userStatus.subscribe(
@@ -32,6 +35,10 @@ export class IndexComponent implements OnInit {
 
         this.stateT.latestTemplateData.subscribe((data) => {
             this.forumList = this.filterForumsToDisplay(data.jumpbox_forums);
+        });
+
+        this.wp.getGuideDesNouveaux().subscribe((guide) => {
+            if(guide) this.guideNouveau = guide;
         });
     }
 
@@ -59,5 +66,9 @@ export class IndexComponent implements OnInit {
             data => this.privateMessages = data ? data.slice(0, 5) : null,
             err => console.log(err)
         );
+    }
+
+    public get guideNewbiesParts() {
+        return Object.keys(this.guideNouveau.pageTree);
     }
 }

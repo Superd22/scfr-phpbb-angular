@@ -62,4 +62,44 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         }
     }
     
+    .guide {
+        margin:14px;
+        background-image: url(//starcitizen.fr/wp-content/uploads/2016/09/Reliant_Kore_01-2.jpg);
+        background-position:center center;
+        background-repeat:no-repeat;
+        background-size:cover;
+        min-height: 33vh;
+        margin-top: 50px;
+        display: flex;
+
+        .mask {
+            padding:28px;
+            flex: 1 1 100%;
+            background-color:transparentize($bg-color, 0.4);
+        }
+
+        .parts {
+            margin: 24px 48px;
+            li {
+                padding:8px;
+                position:relative;
+                a {
+                    font-family: "Electrolize";
+                    text-decoration: none;
+                }
+                &:before {
+                    content: '';
+                    position: absolute;
+                    border-left: 1px solid white;
+                    width: 1px;
+                    height: 100%;
+                    left: 10px;
+                    top: -15px;
+                }
+                &:first-of-type:before {
+                    border-left:0px;
+                }
+            }
+        }
+    }
 }

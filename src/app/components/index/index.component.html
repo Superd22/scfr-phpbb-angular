@@ -14,7 +14,7 @@
         </div>
 
         <div class="messages">
-            <h3>Les derniers messages <button md-button color="primary">Voir tous les nouveaux messages</button></h3> 
+            <h3>Les derniers messages <button md-button color="primary">Voir tous les nouveaux messages</button></h3>
 
             <div class="message-row mat-elevation-z1" *ngFor="let message of unreadTopicList" fxLayout fxLayoutWrap>
                 <div class="title" fxFlex="100">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="details">
                     Dernier message par
-                    <scfr-forum-phpbb-username [html]="message.LAST_POST_AUTHOR_FULL"></scfr-forum-phpbb-username> 
+                    <scfr-forum-phpbb-username [html]="message.LAST_POST_AUTHOR_FULL"></scfr-forum-phpbb-username>
                     {{LAST_POST_TIME | amTimeAgo}}
                 </div>
             </div>
@@ -32,7 +32,17 @@
     </div>
 
     <div class="right" fxFlex="50%">
+        <div class="guide mat-elevation-z3" *ngIf="guideNouveau">
+            <div class="mask">
+                <h3>Guide des nouveaux</h3>
 
+                <nav class="parts">
+                    <li *ngFor="let partId of guideNewbiesParts">
+                        <a [href]="guideNouveau.pageList[partId].guid">{{guideNouveau.pageList[partId].post_title}}</a>
+                    </li>
+                </nav>
+            </div>
+        </div>
     </div>
 
 </div>

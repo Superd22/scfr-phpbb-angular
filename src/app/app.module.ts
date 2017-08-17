@@ -110,6 +110,7 @@ import { PostingOptionsComponent } from './components/posting/posting-options-sw
 import { PostingAttachmentsComponent } from './components/posting/posting-options-switcher/posting-attachments/posting-attachments.component';
 import { PostingPollsComponent } from './components/posting/posting-options-switcher/posting-polls/posting-polls.component';
 import { SearchComponent } from './components/search/search.component';
+import { WpService } from "app/services/wp.service";
 
 @NgModule({
     declarations: [
@@ -216,7 +217,7 @@ import { SearchComponent } from './components/search/search.component';
     ],
     providers: [
         PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, 
-        NotificationsService, PhpbbWebsocketService
+        NotificationsService, PhpbbWebsocketService, WpService
     ],
     bootstrap: [AppComponent],
 })
