@@ -109,6 +109,7 @@ import { PostingOptionsSwitcherComponent } from './components/posting/posting-op
 import { PostingOptionsComponent } from './components/posting/posting-options-switcher/posting-options/posting-options.component';
 import { PostingAttachmentsComponent } from './components/posting/posting-options-switcher/posting-attachments/posting-attachments.component';
 import { PostingPollsComponent } from './components/posting/posting-options-switcher/posting-polls/posting-polls.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
     declarations: [
@@ -188,6 +189,7 @@ import { PostingPollsComponent } from './components/posting/posting-options-swit
         PostingOptionsComponent,
         PostingAttachmentsComponent,
         PostingPollsComponent,
+        SearchComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
