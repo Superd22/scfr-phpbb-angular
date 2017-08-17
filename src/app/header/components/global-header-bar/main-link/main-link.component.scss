@@ -14,7 +14,7 @@ button {
     font-size:17px;
     color:white;
     z-index:11;
-    position:sticky;
+    position:relative;
 
     &:hover {
         background:#6abbcf;
@@ -47,6 +47,7 @@ button {
 
     &:not(.small) {
         left:0px  !important;
+        position: absolute;
         width:100%;
     }
     &.small {

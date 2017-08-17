@@ -6,12 +6,17 @@
 }
 
 md-toolbar {
-    background-color: map_get($scfr-mat-blue-grey-background,900);
+    background-color: map_get($scfr-mat-blue-grey-background,700);
     font-size:1em;
+    &.logo img {
+        height: 115px;
+        margin: 0px auto;
+    }
 }
 
 .main-navigator-wrapper {
     height:100vh;
+
     .main-navigator {
         .main-navigator-list {
             padding-left:0px;

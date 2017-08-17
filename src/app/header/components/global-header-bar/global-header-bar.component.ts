@@ -1,6 +1,6 @@
 import { IMainHeaderBarWP } from './../../interfaces/main-header-bar-wp.interface';
 import { mainLinks } from './../../enums/main-links.const';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GlobalHeaderService } from "app/header/services/global-header.service";
 
 @Component({
@@ -12,6 +12,8 @@ export class GlobalHeaderBarComponent implements OnInit {
 
   public topLinks = mainLinks;
   public WPHeader: IMainHeaderBarWP;
+  @Input()
+  public displayLogo:boolean = true;
 
   constructor(private api: GlobalHeaderService) {
     this.api.getHeaderData().subscribe((wpHeader) => {
