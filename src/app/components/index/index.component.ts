@@ -19,6 +19,7 @@ export class IndexComponent implements OnInit {
     /** all the availables forums */
     public forumList: UnreadResponse.JumpboxForum[];
     public guideNouveau: IGuideDesNouveauxResponse;
+    public onlineMembers = [];
 
     constructor(public phpbb: PhpbbService, public LoginService: LoginService, protected stateT: StateTranslate, protected wp: WpService) { }
 
@@ -34,6 +35,7 @@ export class IndexComponent implements OnInit {
 
         this.stateT.latestTemplateData.subscribe((data) => {
             this.forumList = this.filterForumsToDisplay(data.jumpbox_forums);
+            if(data.LOGGED_IN_USER_LIST) this.onlineMembers = data.LOGGED_IN_USER_LIST;
         });
 
         this.wp.getGuideDesNouveaux().subscribe((guide) => {
@@ -60,12 +62,16 @@ export class IndexComponent implements OnInit {
         );
 
         this.phpbb.getUserMessage().subscribe((data) => {
-            this.ownMessages = data ? data.slice(0, 5) : null
+            this.ownMessages = data ? data.slice(0, 3) : null
         });
     }
 
 
     public get guideNewbiesParts() {
         return Object.keys(this.guideNouveau.pageTree);
+    }
+
+    public get displayOnlineMembers() {
+        return this.onlineMembers.slice(0, 20);
     }
 }

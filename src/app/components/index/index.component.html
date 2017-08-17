@@ -51,6 +51,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="online" *ngIf="displayOnlineMembers">
+            <h3>En ligne <button md-button color="accent">{{onlineMembers.length}}</button></h3>
+
+            <div *ngFor="let user of displayOnlineMembers">
+                <img class="avatar" [src]="user.avatar" [mdTooltip]="user.row.username" [style.border-color]="'#'+user.row.user_colour">
+            </div>
+        </div>
+
     </div>
 
 </div>
