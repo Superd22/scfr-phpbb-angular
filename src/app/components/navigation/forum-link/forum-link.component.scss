@@ -1,3 +1,7 @@
+// Height of the skew for the "linked list" of sub-forums.
+$list-skew-height: 5px;
+$list-border-color: rgba(255, 255, 255, 0.3);
+
 :host() {
     width:100%;
     display:block;
@@ -31,12 +35,13 @@
             content: '';
             display: block;
             position: absolute;
-            width: 20px;
-            height: 100%;
-            //border-left: 1px solid rgba(255, 255, 255, 0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            top: -55%;
-            left: -7px;
+            width: 13px;
+            height: $list-skew-height;
+            border-left: 1px solid $list-border-color;
+            border-bottom: 1px solid $list-border-color;
+            top: 30%;
+            left: -4px;
+            transform: skew(45deg);
         }
     }
     .forum-link {
@@ -55,14 +60,18 @@
     .sub-forums {
         padding-left:20px;       
         position: relative;
-        &:not(.no-list):before {
+        .leftborder {
+            display: none;
+        }
+        &:not(.no-list) .leftborder {
             position: absolute;
-            content: '';
-            height: 100%;
+            display:block;
+            height: calc(100% - #{$list-skew-height});
             left: 13px;
             width: 1px;
-            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-left: 1px solid $list-border-color;
             top: -20px;
         }
+
     }
 }

@@ -111,6 +111,7 @@ import { PostingAttachmentsComponent } from './components/posting/posting-option
 import { PostingPollsComponent } from './components/posting/posting-options-switcher/posting-polls/posting-polls.component';
 import { SearchComponent } from './components/search/search.component';
 import { WpService } from "app/services/wp.service";
+import { ListStopAtBottomDirective } from './components/navigation/forum-link/directives/list-stop-at-bottom.directive';
 
 @NgModule({
     declarations: [
@@ -191,6 +192,7 @@ import { WpService } from "app/services/wp.service";
         PostingAttachmentsComponent,
         PostingPollsComponent,
         SearchComponent,
+        ListStopAtBottomDirective,
     ],
     imports: [
         UIRouterModule.forRoot({
