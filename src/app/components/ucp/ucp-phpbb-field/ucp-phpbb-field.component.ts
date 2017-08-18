@@ -1,11 +1,12 @@
 import { PhpbbFormHelperService } from './../../../services/phpbb-form-helper.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Subscription } from "rxjs/Rx";
 
 @Component({
   selector: 'scfr-forum-ucp-phpbb-field',
   templateUrl: './ucp-phpbb-field.component.html',
-  styleUrls: ['./ucp-phpbb-field.component.scss']
+  styleUrls: ['./ucp-phpbb-field.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 /**
  * Helper component to represent a field sent by PHPBB and that we wanna display/handle via angular.

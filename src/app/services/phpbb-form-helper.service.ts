@@ -141,7 +141,7 @@ export class PhpbbFormHelperService {
     let post: any = {};
 
     if (fields) fields.forEach((field) => {
-      post[field.form_name] = field.model;
+      if(field.model !== undefined) post[field.form_name] = field.model;
     });
 
     return post;

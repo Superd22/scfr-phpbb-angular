@@ -1,0 +1,52 @@
+@import './src/assets/material/v7/main';
+$dark-bg:  map-get($scfr-mat-blue-grey-background,800);
+
+[scfrForumFloatingMainHeader] {
+    position: relative;
+    margin-top: -170px !important;
+    margin-bottom: 120px !important;
+    font-family: 'Electrolize';
+    text-transform: uppercase;
+    text-align: center;
+
+    h2 {
+        font-size: 4rem;
+        line-height: 4rem;
+        margin: 0px;
+        font-weight: bolder;
+        letter-spacing: 1rem;
+    }
+
+    h3 {
+        color:rgb(197, 197, 197);
+        margin-top: 0px;
+        letter-spacing: 3px;
+    }
+}
+
+.search-body {
+    
+
+    .inner {
+        padding:16px;
+        margin:8px;
+        &.options {margin-top: 24px;}
+
+        scfr-forum-ucp-phpbb-field.main {
+            margin:8px;
+        }
+        
+            h3 {
+                font-family: 'Heebo', sans-serif;
+                text-transform: uppercase;
+                font-size: 1.5rem;
+                line-height: 1.5rem;
+                margin: 0px;
+                font-weight: bolder;
+                margin-bottom: 1.5rem;
+            }
+    }
+
+
+
+}
