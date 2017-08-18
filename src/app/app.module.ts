@@ -112,6 +112,7 @@ import { PostingPollsComponent } from './components/posting/posting-options-swit
 import { SearchComponent } from './components/search/search.component';
 import { WpService } from "app/services/wp.service";
 import { ListStopAtBottomDirective } from './components/navigation/forum-link/directives/list-stop-at-bottom.directive';
+import { SearchBodyComponent } from './components/search/search-body/search-body.component';
 
 @NgModule({
     declarations: [
@@ -193,6 +194,7 @@ import { ListStopAtBottomDirective } from './components/navigation/forum-link/di
         PostingPollsComponent,
         SearchComponent,
         ListStopAtBottomDirective,
+        SearchBodyComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

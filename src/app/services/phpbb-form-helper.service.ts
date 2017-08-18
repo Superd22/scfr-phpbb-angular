@@ -1,7 +1,7 @@
 import { UcpComponent } from './../components/ucp/ucp.component';
 import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
 import { PhpbbApiService } from './phpbb-api.service';
-import { UcpPhpbbFieldComponent } from './../components/ucp/ucp-phpbb-field/ucp-phpbb-field.component';
+import { UcpPhpbbFieldComponent, IPhpbbFieldOption } from './../components/ucp/ucp-phpbb-field/ucp-phpbb-field.component';
 import { Injectable, QueryList } from '@angular/core';
 import { Subject } from "rxjs/Rx";
 
@@ -63,7 +63,7 @@ export class PhpbbFormHelperService {
    * @param tpl_row the string to look for <option value=(.*)>(.*)</option>
    * @return an array of options
    */
-  public getOptionsAsObject(tpl_row): { selected: any, options: { id: any, name: any }[] } {
+  public getOptionsAsObject(tpl_row): { selected: any, options: IPhpbbFieldOption[] } {
 
     let opts = [];
     let selected = null;
@@ -140,7 +140,7 @@ export class PhpbbFormHelperService {
   public getFieldsFromFieldComponent(fields: any) {
     let post: any = {};
 
-    if(fields) fields.forEach((field) => {
+    if (fields) fields.forEach((field) => {
       post[field.form_name] = field.model;
     });
 

@@ -78,8 +78,44 @@ export class StateTranslate {
         return okay;
     }
 
-    private transform_search(trans: Transition) {
+    private transform_search(trans: Transition): Observable<any> {
+        let params = trans.params();
+        let newParams = Object.assign({},params);
 
+        const prettyMod = {
+            'egosearch': "auteur",
+            'unreadposts': 'messages-non-lu',
+            'newposts': 'nouveaux-messages',
+            'unanswered': 'sans-reponse',
+            'active_topics': 'topics-actifs',
+        };
+
+
+        // If we have a search_id but no pretty, translate to pretty
+        if (params['search_id'] && !params['prettyMod']) newParams['prettyMod'] = prettyMod[params['search_id']];
+        // If we have a pretty, make sure search id matches.
+        if (params['prettyMod']) {
+            Object.keys(prettyMod).forEach((baseMod) => {
+                if (prettyMod[baseMod] == params['prettyMod']) newParams['search_id'] = baseMod;
+            });
+        }
+
+        console.log("trans", params, newParams);
+
+        // If we have changed any params, change state
+        if (!(params['search_id'] === newParams['search_id'] && params['prettyMod'] === newParams['prettyMod']))
+            return Observable.of(trans.router.stateService.target("phpbb.seo.search", newParams));
+
+        // If we haven't fetched data do it
+        if (!params['phpbbResolved'])
+            return this.phpbbApi.getSearch(newParams['search_id'], newParams).map((data) => {
+                newParams['phpbbResolved'] = data;
+
+                return trans.router.stateService.target("phpbb.seo.search", newParams);
+            });
+        
+        // We have all we need
+        return Observable.of(true);
     }
 
     /**
@@ -521,6 +557,8 @@ export class StateTranslate {
                     break;
                 case "phpbb.seo.index":
                     next = this.tranform_index(transition);
+                case "phpbb.seo.search":
+                    next = this.transform_search(transition);
                 //case "phpbb.seo.ucp.pm":
                 //   return this.transform_ucp_pm(transition);
                 //break;
