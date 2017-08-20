@@ -128,8 +128,6 @@ export class StateTranslate {
         var trans_param = Object.assign({}, params);
         let trans_page = "phpbb.seo.index";
 
-        console.log("trviewtopic", trans);
-
         if (typeof topicId === "undefined") topicId = trans.params()["t"];
         /** @todo allow n-sized pages */
         let start = params["pageNumber"] ? (params["pageNumber"] - 1) * 15 : null;
@@ -313,8 +311,6 @@ export class StateTranslate {
     private getPosting(trans: Transition, param) {
 
         let params = Object.assign({}, param);
-
-        console.log("getposting", trans);
 
         if (this.isOnceResolved()) {
             this.setOnceResolved(false);
@@ -543,7 +539,7 @@ export class StateTranslate {
         this._busy.next(true);
 
         let next: Observable<any> = Observable.of(new Object()).map(() => true);
-        console.log("getcurrent", transition);
+        
         try {
             switch (stateName) {
                 case "phpbb.seo.viewforum.posting":

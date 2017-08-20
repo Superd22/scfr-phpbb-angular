@@ -25,7 +25,6 @@ export class SearchBodyComponent extends PhpbbComponent {
   ngOnInit() {
     super.ngOnInit();
     this.searchForumOptions = this.formHelper.getOptionsAsObject(this.tpl["S_FORUM_OPTIONS"]);
-    console.log(this.searchForumOptions, this.tpl["S_FORUM_OPTIONS"], this.tpl);
     this.searchCharacterOptions = this.formHelper.getOptionsAsObject(this.tpl["S_CHARACTER_OPTIONS"]);
   }
 

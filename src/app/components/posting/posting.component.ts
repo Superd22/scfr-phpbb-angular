@@ -93,8 +93,7 @@ export class PostingComponent extends PhpbbComponent {
     }).subscribe(
       (data) => {
         console.log(data);
-      }
-      )
+      });
   }
 
   /**
@@ -135,13 +134,11 @@ export class PostingComponent extends PhpbbComponent {
     if (this._postingOptions) {
       this._postingOptions.first.getFields().forEach((field) => {
         // If we're falsy we don't wanna send
-        if(field.model) {
+        if (field.model) {
           opts[field.form_name] = field.model;
         }
       });
     }
-
-    console.log("opts", opts);
 
     let form = Object.assign(this.formHelper.getHiddensFromTemplateAsObject(this.tpl), opts, {
       subject: this.post.subject,
