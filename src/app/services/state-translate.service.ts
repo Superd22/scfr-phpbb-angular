@@ -100,21 +100,21 @@ export class StateTranslate {
             });
         }
 
-        console.log("trans", params, newParams);
-
         // If we have changed any params, change state
         if (!(params['search_id'] === newParams['search_id'] && params['prettyMod'] === newParams['prettyMod']))
             return Observable.of(trans.router.stateService.target("phpbb.seo.search", newParams));
 
         // If we haven't fetched data do it
-        if (!params['phpbbResolved'])
+        if (!params['phpbbResolved'] || !this.isOnceResolved())
             return this.phpbbApi.getSearch(newParams['search_id'], newParams).map((data) => {
                 newParams['phpbbResolved'] = data;
 
+                this.setOnceResolved(true);
                 return trans.router.stateService.target("phpbb.seo.search", newParams);
             });
         
         // We have all we need
+        this.setOnceResolved(false);
         return Observable.of(true);
     }
 
@@ -231,10 +231,18 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
     }
 
+    /**
+     * If we've already resolved the state like we wanted
+     * @return boolean
+     */
     private isOnceResolved(): boolean {
         return this.onceResolved;
     }
 
+    /**
+     * Toggle the state of our resolved flag
+     * @param val the new state of onceResolved
+     */
     private setOnceResolved(val: boolean) {
         this.onceResolved = val;
     }
@@ -411,6 +419,10 @@ export class StateTranslate {
 
     }
 
+    /**
+     * Handle the transformation of ucp pages
+     * @param transition the transition object to get into an ucp state
+     */
     private transform_ucp(transition: Transition): Observable<any> {
         let params = transition.params();
         let newParam: any = Object.assign({}, params);
@@ -557,8 +569,10 @@ export class StateTranslate {
                     break;
                 case "phpbb.seo.index":
                     next = this.tranform_index(transition);
+                    break;
                 case "phpbb.seo.search":
                     next = this.transform_search(transition);
+                    break;
                 //case "phpbb.seo.ucp.pm":
                 //   return this.transform_ucp_pm(transition);
                 //break;
@@ -571,18 +585,24 @@ export class StateTranslate {
         return next;
     }
 
+    /**
+     * Main method to inject into any component the current template data
+     * @param component the component instance
+     * @param tpl the tpl to inject
+     */
     public unwrapTplData(component, tpl) {
         this._latestTemplateData.next(tpl)
         let keyArr = Object.keys(tpl);
-
-
-
 
         keyArr.forEach((key) => {
             component["tpl"][key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
     }
 
+    /**
+     * Helper method to go to a given url
+     * @param url the url to go to
+     */
     public goToOld(url) {
         this.router.urlService.url(url, true);
     }

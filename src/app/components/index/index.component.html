@@ -14,7 +14,7 @@
         </div>
 
         <div class="messages">
-            <h3>Les derniers messages <button md-button color="primary" uiSref="phpbb.seo.search" [uiParams]="{search_id:'unreadposts'}">Voir tous les nouveaux messages</button></h3>
+            <h3>Messages non lus <button md-button color="primary" uiSref="phpbb.seo.search" [uiParams]="{search_id:'unreadposts'}">Voir tous les nouveaux messages</button></h3>
 
             <div class="messages" fxLayout fxLayoutWrap>
                 <ng-container *ngFor="let message of unreadTopicList">

@@ -23,7 +23,15 @@ $dark-bg:  map-get($scfr-mat-blue-grey-background,800);
         letter-spacing: 3px;
     }
 }
-
+.recent-searches {
+    margin:24px;
+    .mat-toolbar {
+        box-sizing: content-box;
+        padding: 0 24px;
+        margin: -24px;
+        margin-bottom: 12px;
+    }
+}
 .search-body {
     
 

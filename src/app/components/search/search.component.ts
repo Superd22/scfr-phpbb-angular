@@ -13,6 +13,7 @@ export class SearchComponent extends PhpbbComponent {
   }
 
   ngOnInit() {
+    super.ngOnInit();
   }
 
 }

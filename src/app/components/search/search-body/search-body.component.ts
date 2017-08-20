@@ -1,3 +1,4 @@
+import { StateService } from '@uirouter/angular';
 import { UcpPhpbbFieldComponent } from './../../ucp/ucp-phpbb-field/ucp-phpbb-field.component';
 import { PhpbbFormHelperService } from './../../../services/phpbb-form-helper.service';
 import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
@@ -29,9 +30,12 @@ export class SearchBodyComponent extends PhpbbComponent {
   }
 
   public submit() {
-    this.formHelper.postToPhpbbWFields("search.php", this._fields, this.tpl, { submit: 'envoyer' }).subscribe((data) => {
+    let hiddens = this.formHelper.getHiddensFromTemplateAsObject(this.tpl);
+    let searchParams = this.formHelper.getFieldsFromFieldComponent(this._fields);
 
-    });
+    let params = Object.assign(hiddens, searchParams, {submit: 'envoyer'});
+
+    this.state.go("phpbb.seo.search", params);
   }
 
   public reset() {

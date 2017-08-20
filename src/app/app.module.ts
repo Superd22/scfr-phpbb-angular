@@ -113,6 +113,7 @@ import { SearchComponent } from './components/search/search.component';
 import { WpService } from "app/services/wp.service";
 import { ListStopAtBottomDirective } from './components/navigation/forum-link/directives/list-stop-at-bottom.directive';
 import { SearchBodyComponent } from './components/search/search-body/search-body.component';
+import { SearchResultsComponent } from './components/search/search-results/search-results.component';
 
 @NgModule({
     declarations: [
@@ -195,6 +196,7 @@ import { SearchBodyComponent } from './components/search/search-body/search-body
         SearchComponent,
         ListStopAtBottomDirective,
         SearchBodyComponent,
+        SearchResultsComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

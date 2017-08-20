@@ -33,7 +33,7 @@ export class PhpbbComponent extends PhpbbLanguageComponent implements OnInit {
   }
 
   public get state() {
-    return this.state;
+    return this.stateService;
   }
 
   ngOnInit() {

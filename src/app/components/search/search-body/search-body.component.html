@@ -41,3 +41,13 @@
   <button md-button color="primary" (click)="submit()">{{L_.SEARCH}}</button>
   <button md-button (click)="reset()">{{L_.RESET}}</button>
 </div>
+
+<md-card *ngIf="tpl.recentsearch" class="recent-searches">
+  <md-toolbar>{{L_.RECENT_SEARCHES}}</md-toolbar>
+  <md-list>
+    <span *ngFor="let recent of tpl.recentsearch" md-list-item>
+      <a fxFlex="80" [href]="recent.U_KEYWORDS">{{recent.KEYWORDS}}</a>
+      <span>{{recent.TIME}}</span>
+    </span>
+  </md-list>
+</md-card>
