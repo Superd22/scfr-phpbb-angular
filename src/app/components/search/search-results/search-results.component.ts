@@ -30,7 +30,7 @@ export class SearchResultsComponent extends PhpbbComponent {
       newParams['search_id'] = null;
       newParams['prettyMod'] = null;
     }
-    console.log(start && this.state.params['prettyMod'] == "auteur", this.state.params, newParams, Object.assign({}, this.state.params, this.computeSearchParams(), newParams));
+    
     this.state.go("phpbb.seo.search", Object.assign({}, this.state.params, this.computeSearchParams(), newParams));
   }
 

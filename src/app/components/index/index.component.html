@@ -1,6 +1,6 @@
-<div class="index" fxLayout>
+<div class="index" fxLayout fxLayoutWrap [ngClass.lt-md]="'small'">
 
-    <div class="left" fxFlex="50%">
+    <div class="left" fxFlex="50%" fxFlex.lt-md="100%">
 
         <div class="forums">
             <h3>Les forums</h3>
@@ -26,9 +26,9 @@
 
     </div>
 
-    <div class="right" fxFlex="50%">
-        <div class="guide mat-elevation-z3" *ngIf="guideNouveau">
-            <div class="mask">
+    <div class="right" fxFlex="50%" fxFlex.lt-md="100%">
+        <div class="guide mat-elevation-z3" *ngIf="guideNouveau" [ngClass.lt-md]="'small'">
+            <div class="mask" >
                 <h3>Guide des nouveaux</h3>
 
                 <nav class="parts">
@@ -40,7 +40,7 @@
         </div>
 
 
-        <div class="own-messages mat-elevation-z3" *ngIf="ownMessages">
+        <div class="own-messages mat-elevation-z3" *ngIf="ownMessages" [ngClass.lt-md]="'small'">
             <div class="mask">
                 <h3>Vos messages <button md-button color="primary"  uiSref="phpbb.seo.search" [uiParams]="{search_id:'egosearch'}">Voir tous vos messages</button></h3>
 

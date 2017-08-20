@@ -25,6 +25,10 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         }
     }
 
+    &.small {
+        padding: 12px 0px;
+    }
+
 
     .topic-row {
         @include common-topic-message();       
@@ -101,10 +105,17 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         background-repeat:no-repeat;
         background-size:cover;
 
+
         .mask {
             padding:28px;
             flex: 1 1 100%;
+
             background-color:transparentize($bg-color, 0.3);
+        }
+
+        &.small .mask {    
+            padding: 24px 12px;
+            font-size: 0.8rem;
         }
     }
 
@@ -135,6 +146,9 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
                     border-left:0px;
                 }
             }
+        }
+        &.small .parts {
+            margin: 24px 0px;
         }
     }
 

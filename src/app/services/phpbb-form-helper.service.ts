@@ -165,7 +165,6 @@ export class PhpbbFormHelperService {
     let hidden = null;
     if (tpl) hidden = this.getHiddensFromTemplateAsObject(tpl);
 
-    console.log(hidden);
     if (post instanceof FormData) {
       if (hidden) Object.keys(hidden).forEach((name) => post.append(name, hidden[name]));
       if (extraPost) Object.keys(extraPost).forEach((name) => post.append(name, extraPost[name]));

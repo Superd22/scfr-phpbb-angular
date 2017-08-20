@@ -30,7 +30,7 @@ export class PhpbbUsernameComponent implements OnInit {
     let regex = /<a href=".*memberlist\.php.*u=([0-9]*).*>(.*)?<\/a>/;
 
     let m = regex.exec(this.html);
-    console.log(m);
+  
     if(m) {
       if(!this.id) this.id = Number(m[1]);
       if(!this.name) this.name = m[2];

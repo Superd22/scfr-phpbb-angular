@@ -19,7 +19,7 @@ export class WpService {
    * Main getter for the wordpress
    */
   public get(url: string, args = {}) {
-    return this.http.get(url, { params: args }).map((res) => { console.log(res.json()); return res.json(); });
+    return this.http.get(url, { params: args }).map((res) => { return res.json(); });
   }
 
   /**
@@ -36,7 +36,7 @@ export class WpService {
 
   public getGuideDesNouveaux(force?: boolean): Observable<IGuideDesNouveauxResponse> {
     if (force || !this._guide.getValue()) {
-      return this.getPageCallback("star-citizen/guide-des-nouveaux/").map((data) => { console.log(data); this._guide.next(data); return data });
+      return this.getPageCallback("star-citizen/guide-des-nouveaux/").map((data) => { this._guide.next(data); return data });
     }
 
     return this._guide;

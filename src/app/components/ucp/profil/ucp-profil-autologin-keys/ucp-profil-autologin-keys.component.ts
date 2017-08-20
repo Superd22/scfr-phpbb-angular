@@ -20,13 +20,11 @@ export class UcpProfilAutologinKeysComponent extends UcpSubPageFormComponent imp
   }
 
   public toggleMark() {
-    console.log(this._allMarked, "going to", !this._allMarked);
     this.fields.forEach((item) => {
       item.model = !this._allMarked;
     });
 
     this._allMarked = !this._allMarked;
-    console.log("new", this._allMarked);
   }
 
 }

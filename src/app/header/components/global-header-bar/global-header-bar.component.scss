@@ -9,6 +9,7 @@ $bar-background: rgba(38,50,58,0.9);
     width:100%;
     transition: background-color 0.5s;
     background-color:transparent;
+    overflow: hidden;
     .logo {
         img {
             height: $line-height*1.50; 

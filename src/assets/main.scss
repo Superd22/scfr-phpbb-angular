@@ -35,3 +35,11 @@ hr {
 .mat-sidenav-content {
     width:100%;
 }
+
+/** search hilight in post */
+.posthilit {
+    background: map-get($scfr-mat-light-blue, 500);
+    color: map_get($scfr-mat-blue-grey-background,500);
+    padding: 4px 0px;
+    margin: -4px 0px;
+}
