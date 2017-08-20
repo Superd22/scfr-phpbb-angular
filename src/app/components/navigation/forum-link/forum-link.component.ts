@@ -32,7 +32,7 @@ export class ForumLinkComponent implements OnInit {
   @Output() public unreadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   /** collector for end ws observable */
   @Collected() private collected: CollectorEvent;
-  private toggled:boolean = null;
+  private toggled: boolean = null;
 
 
   constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate) { }
@@ -54,20 +54,25 @@ export class ForumLinkComponent implements OnInit {
 
   }
 
-  public get toggleDisplaySub():boolean { return this._toggleDisplay; }
-  public set toggleDisplaySub(b:boolean) {
+  public get toggleDisplaySub(): boolean { return this._toggleDisplay; }
+  public set toggleDisplaySub(b: boolean) {
     this._toggleDisplay = b;
     this.toggleChange.emit(b);
   }
 
-  public toggleDisplay():void {
+  public toggleDisplay(): void {
     this.toggleChange.emit(!this.toggleDisplaySub);
     this.toggleDisplaySub = !this.toggleDisplaySub;
   }
 
 
-  public childrenToggled():void {
-    this.toggled = !this.toggled;
+  /**
+   * Toggle the display of sub-forum (children forums)
+   */
+  public childrenToggled(): void {
+    // Prevent redraw on this call 
+    setTimeout(() =>
+      this.toggled = !this.toggled);
   }
 
   /**
