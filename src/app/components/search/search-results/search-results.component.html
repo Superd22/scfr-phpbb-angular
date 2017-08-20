@@ -1,5 +1,6 @@
 <div scfrForumFloatingMainHeader>
-  <h2>{{tpl.SEARCH_TITLE ? tpl.SEARCH_TITLE : "Recherche : "}} <a [href]="tpl.U_SEARCH_WORDS" *ngIf="tpl.SEARCH_WORDS">{{tpl.SEARCH_WORDS}}</a></h2>
+  <h2>{{tpl.SEARCH_TITLE ? tpl.SEARCH_TITLE : "Recherche "}}</h2>
+  <h3 *ngIf="tpl.SEARCH_MATCHES">{{tpl.SEARCH_MATCHES}}</h3>
   <h3 *ngIf="tpl.SEARCHED_QUERY">Requête recherchée: <strong>{{tpl.SEARCHED_QUERY}}</strong></h3>
   <h3 *ngIf="tpl.IGNORED_WORDS">{{L_.IGNORED_TERMS}} <strong>{{tpl.IGNORED_WORDS}}</strong></h3>
   <h3 *ngIf="tpl.PHRASE_SEARCH_DISABLED"><strong>{{L_.PHRASE_SEARCH_DISABLED}}</strong></h3>
@@ -20,3 +21,5 @@
     <app-viewmessage  *ngFor="let message of tpl.searchresults" [postrow]="message"></app-viewmessage>
   </div>
 </div>
+
+<scfr-forum-global-pagination [totalPage]="tpl.TOTAL_PAGES" [page]="tpl.CURRENT_PAGE" (pageChange)="changePage($event)"> </scfr-forum-global-pagination>

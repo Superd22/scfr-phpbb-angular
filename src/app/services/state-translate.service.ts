@@ -106,7 +106,7 @@ export class StateTranslate {
 
         // If we haven't fetched data do it
         if (!params['phpbbResolved'] || !this.isOnceResolved())
-            return this.phpbbApi.getSearch(newParams['search_id'], newParams).map((data) => {
+            return this.phpbbApi.getSearch(newParams['search_id'], Object.assign(newParams, {phpbbResolved: undefined})).map((data) => {
                 newParams['phpbbResolved'] = data;
 
                 this.setOnceResolved(true);
