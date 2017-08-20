@@ -27,6 +27,10 @@ $t-mask-delay: 0.5s;
     overflow:hidden;
     background: transparentize(map_get($scfr-mat-blue-grey-background,500),0.2);
 
+    &.small {
+        margin: -4px -20px;
+    }
+
     h3 {
         font-family: 'Heebo', sans-serif;
         font-size: 1rem;
@@ -37,6 +41,7 @@ $t-mask-delay: 0.5s;
         text-overflow: ellipsis;
         overflow: hidden;
         height: 1rem;
+        width: 100%;
     }
     em {
         $em-size: 0.9rem;
