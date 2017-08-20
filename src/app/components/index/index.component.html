@@ -6,7 +6,7 @@
             <h3>Les forums</h3>
 
             <div class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout mdRipple>
-                <span class="forum-name" fxFlex="50">{{forum.FORUM_NAME}}</span>
+                <span class="forum-name" fxFlex="50" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:forum.FORUM_ID}">{{forum.FORUM_NAME}}</span>
                 <!--
                 <div class="topics">{{}}</div>
                 <div class="replies">{{}}</div> -->
@@ -14,7 +14,7 @@
         </div>
 
         <div class="messages">
-            <h3>Les derniers messages <button md-button color="primary">Voir tous les nouveaux messages</button></h3>
+            <h3>Messages non lus <button md-button color="primary" uiSref="phpbb.seo.search" [uiParams]="{search_id:'unreadposts'}">Voir tous les nouveaux messages</button></h3>
 
             <div class="messages" fxLayout fxLayoutWrap>
                 <ng-container *ngFor="let message of unreadTopicList">
@@ -42,7 +42,7 @@
 
         <div class="own-messages mat-elevation-z3" *ngIf="ownMessages">
             <div class="mask">
-                <h3>Vos messages <button md-button color="primary">Voir tous vos messages</button></h3>
+                <h3>Vos messages <button md-button color="primary"  uiSref="phpbb.seo.search" [uiParams]="{search_id:'egosearch'}">Voir tous vos messages</button></h3>
 
                 <div class="messages" fxLayout fxLayoutWrap>
                     <ng-container *ngFor="let message of ownMessages">
@@ -64,7 +64,7 @@
 </div>
 
 <ng-template #topicDetails let-topic="topic">
-    <div class="topic-row mat-elevation-z1" mdRipple>
+    <div class="topic-row mat-elevation-z1" mdRipple uiSref="phpbb.seo.viewtopic" [uiParams]="{topicId:topic.TOPIC_ID, forumId:topic.FORUM_ID}" >
         <div class="lefty" fxFlex="100" fxLayout fxLayoutWrap>
             <div class="title" fxFlex="100">
                 <span class="forum-name">{{topic.FORUM_TITLE}}</span><span class="topic-title">{{topic.TOPIC_TITLE}}</span>

@@ -1,49 +1,66 @@
 import { PhpbbFormHelperService } from './../../../services/phpbb-form-helper.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Subscription } from "rxjs/Rx";
 
 @Component({
   selector: 'scfr-forum-ucp-phpbb-field',
   templateUrl: './ucp-phpbb-field.component.html',
-  styleUrls: ['./ucp-phpbb-field.component.scss']
+  styleUrls: ['./ucp-phpbb-field.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 /**
  * Helper component to represent a field sent by PHPBB and that we wanna display/handle via angular.
  */
 export class UcpPhpbbFieldComponent implements OnInit {
   _backup: any;
+  /** full HTML element to try and compute from */
   @Input("fullPHPBB")
   private _fullPhpbb;
 
+  /** if this field is required */
   @Input("required")
   public required: boolean = false;
 
+  /** model to bind to*/
   @Input("model")
   private _model;
   @Output()
   private modelChange: EventEmitter<any> = new EventEmitter<any>();
+
+  /** event emitter on change */
   @Output("change")
   private change: EventEmitter<any> = new EventEmitter<any>();
+
+  /** display name (title) of this field */
   @Input("displayName")
   public display_name;
-
+  /** html form name of this field */
   @Input("name")
   private _form_name;
   @Output("name")
   private _form_name_change: EventEmitter<string> = new EventEmitter<string>();
 
+  /** description of this field, either static or tooltip on some types */
   @Input("explain")
   private explain;
 
+  /** error to display under this field */
   @Input("error")
   private error;
 
+  /** type of field*/
   @Input()
   public type: "text" | "url" | "textarea" | "select" | "radio" | "editor" | "checkbox" | "toggle" | string = null;
 
+  /** options for types that require them */
   @Input()
-  public options;
+  public options: IPhpbbFieldOption[];
 
+  /** if we can select multiple options */
+  @Input()
+  public multiple: boolean = false;
+
+  /** if we want the toggle to generate number instead of boolean */
   @Input()
   public toggleAsInt = true;
 
@@ -66,22 +83,36 @@ export class UcpPhpbbFieldComponent implements OnInit {
     this._reset.unsubscribe();
   }
 
+  /**
+   * Generate a back-up of the default value
+   */
   private genBackUp() {
     if (this.isNotAReference(this._model)) this._backup = this._model;
     else this._backup = Object.assign({}, this._model);
   }
 
+  /**
+   * Resets the current value to the previous backup
+   */
   public resetBackUp() {
     if (this.isNotAReference(this._model)) this.model = this._backup;
     else this.model = Object.assign({}, this._backup);
   }
 
-  private isNotAReference(val) {
+  /**
+   * Check if val is sent by reference or value (ie if it's an object or a primitive)
+   * @param val thing to check
+   * @return boolean true for value, false for reference
+   */
+  private isNotAReference(val: any): boolean {
     return (Object(val) !== val);
   }
 
+  /**
+   * Model (= value) for this field
+   */
   public get model(): any {
-    if(this.toggleAsInt && this.type == "toggle") return Number(this._model);
+    if (this.toggleAsInt && this.type == "toggle") return Number(this._model);
     return this._model;
   }
 
@@ -91,6 +122,9 @@ export class UcpPhpbbFieldComponent implements OnInit {
     this.change.emit(model);
   }
 
+  /**
+   * Display name (=title) of the field
+   */
   public get form_name(): string {
     return this._form_name;
   }
@@ -100,6 +134,9 @@ export class UcpPhpbbFieldComponent implements OnInit {
     this._form_name_change.emit(st);
   }
 
+  /**
+   * Try and compute a full HTML element from scratch
+   */
   private handleFullPhpbb() {
     if (this._fullPhpbb) {
       this.extrapolateNameOfInput(this._fullPhpbb);
@@ -174,4 +211,14 @@ export class UcpPhpbbFieldComponent implements OnInit {
   }
 
 
+}
+
+/**
+ * Option for a UCPPhpbbField
+ */
+export interface IPhpbbFieldOption {
+  /** the HTML value for this option  */
+  id: any,
+  /** the display name for this option */
+  name: any
 }

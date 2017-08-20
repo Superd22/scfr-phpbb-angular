@@ -13,18 +13,26 @@ import { UnreadResponse } from "../../../models/Search/UnreadReponse";
 })
 export class ForumLinkComponent implements OnInit {
 
+  /** this forum object */
   @Input("forum")
   public forum: UnreadResponse.JumpboxForum;
+  /** the main nav component */
   @Input("navCo")
   public navCo: NavigationComponent;
+  /** the current depth */
   @Input()
   public depth: number;
-  public toggleDisplaySub: boolean;
+  /** toggle for our sub-forums if any */
+  private _toggleDisplay: boolean;
+  /** change to our toggles */
+  @Output() toggleChange = new EventEmitter<boolean>();
+  /** our computed children */
   public cacheChildren: UnreadResponse.JumpboxForum[] = null;
-
+  /** changes to this unread status */
   @Output() public unreadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  /** collector for end ws observable */
   @Collected() private collected: CollectorEvent;
+  private toggled:boolean = null;
 
 
   constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate) { }
@@ -42,15 +50,31 @@ export class ForumLinkComponent implements OnInit {
       }
     );
 
-  SCFRLocalStorage("sidenav:toggle:forum:" + this.forum.FORUM_ID)(this, "toggleDisplaySub");
+    SCFRLocalStorage("sidenav:toggle:forum:" + this.forum.FORUM_ID)(this, "toggleDisplaySub");
 
+  }
+
+  public get toggleDisplaySub():boolean { return this._toggleDisplay; }
+  public set toggleDisplaySub(b:boolean) {
+    this._toggleDisplay = b;
+    this.toggleChange.emit(b);
+  }
+
+  public toggleDisplay():void {
+    this.toggleChange.emit(!this.toggleDisplaySub);
+    this.toggleDisplaySub = !this.toggleDisplaySub;
+  }
+
+
+  public childrenToggled():void {
+    this.toggled = !this.toggled;
   }
 
   /**
    * If this current forum is shown to the user, based on its search
    * @return boolean
    */
-  public get visible():boolean {
+  public get visible(): boolean {
     // Visible if we're in the extended results of the user's search.
     return this.navCo.filteredForumList.extended.indexOf(Number(this.forum.FORUM_ID)) > -1;
   }

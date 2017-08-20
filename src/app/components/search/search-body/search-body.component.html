@@ -1,0 +1,53 @@
+<div scfrForumFloatingMainHeader>
+  <h2>{{L_.SEARCH}}</h2>
+  <h3>Rechercher sur les forums de starcitizen.fr</h3>
+</div>
+<div class="search-body">
+  <div class="inner">
+    <h3>{{L_.SEARCH_QUERY}}</h3>
+
+    <scfr-forum-ucp-phpbb-field class="main" type="search" name="keywords" [displayName]="L_.SEARCH_KEYWORDS" [explain]="L_.SEARCH_KEYWORDS_EXPLAIN"></scfr-forum-ucp-phpbb-field>
+
+    <scfr-forum-ucp-phpbb-field type="radio" name="terms" [options]="[{id:'all', name: L_.SEARCH_ALL_TERMS}, {id:'any', name: L_.SEARCH_ANY_TERMS}]"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field class="main" type="search" name="author" [displayName]="L_.SEARCH_AUTHOR" [explain]="L_.SEARCH_AUTHOR_EXPLAIN"></scfr-forum-ucp-phpbb-field>
+  </div>
+
+  <div class="inner options">
+    <h3>{{L_.SEARCH_OPTIONS}}</h3>
+
+    <scfr-forum-ucp-phpbb-field type="select" name="fid[]" [displayName]="L_.SEARCH_FORUMS" [explain]="L_.SEARCH_FORUMS_EXPLAIN"
+      [model]="searchForumOptions.model" [options]="searchForumOptions.options" multiple="true"></scfr-forum-ucp-phpbb-field>
+
+    <scfr-forum-ucp-phpbb-field type="radio" name="sc" [displayName]="L_.SEARCH_SUBFORUMS" [options]="[{id:'1', name: L_.YES}, {id:'0', name: L_.NO}]"></scfr-forum-ucp-phpbb-field>
+
+    <scfr-forum-ucp-phpbb-field type="radio" name="sf" [displayName]="L_.SEARCH_WITHIN" [options]="[{id:'all', name: L_.SEARCH_TITLE_MSG},
+            {id:'msgonly', name: L_.SEARCH_MSG_ONLY},
+            {id:'titleonly', name: L_.SEARCH_TITLE_ONLY},
+            {id:'firstpost', name: L_.SEARCH_FIRST_POST}]"></scfr-forum-ucp-phpbb-field>
+
+    <hr />
+
+    <scfr-forum-ucp-phpbb-field type="radio" name="sr" [displayName]="L_.DISPLAY_RESULTS" [options]="[{id:'posts', name: L_.POSTS}, {id:'topics', name: L_.TOPICS}]"></scfr-forum-ucp-phpbb-field>
+
+    {{L_.RESULT_SORT}}
+    <scfr-forum-ucp-phpbb-field [fullPHPBB]="tpl.S_SELECT_SORT_KEY"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field type="radio" name="sd" [displayName]="L_.DISPLAY_RESULTS" [options]="[{id:'a', name: L_.SORT_ASCENDING}, {id:'d', name: L_.SORT_DESCENDING}]"></scfr-forum-ucp-phpbb-field>
+
+    <scfr-forum-ucp-phpbb-field [fullPHPBB]="tpl.S_SELECT_SORT_DAYS"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field type="select" name="ch" [options]="searchCharacterOptions.options" [model]="searchCharacterOptions.model"
+      [displayName]="L_.RETURN_FIRST"></scfr-forum-ucp-phpbb-field> {{L_.POST_CHARACTERS}}
+  </div>
+
+  <button md-button color="primary" (click)="submit()">{{L_.SEARCH}}</button>
+  <button md-button (click)="reset()">{{L_.RESET}}</button>
+</div>
+
+<md-card *ngIf="tpl.recentsearch" class="recent-searches">
+  <md-toolbar>{{L_.RECENT_SEARCHES}}</md-toolbar>
+  <md-list>
+    <span *ngFor="let recent of tpl.recentsearch" md-list-item>
+      <a fxFlex="80" [href]="recent.U_KEYWORDS">{{recent.KEYWORDS}}</a>
+      <span>{{recent.TIME}}</span>
+    </span>
+  </md-list>
+</md-card>

@@ -1,10 +1,11 @@
-import { ViewforumComponent } from './../../components/viewforum/viewforum.component';
+import { SearchComponent } from './../../components/search/search.component';
 
-export const psoViewForum = {
+export const psoSearch = {
     name: 'phpbb.seo.search', 
-    url: '/recherche/:keyword',
-    component: ViewforumComponent,
+    url: '/recherche/:prettyMod?start&p&t&view&submit&keywords&add_keywords&author&author_id&sr&terms&sf&sc&st&sk&sd&ch&fid',
+    component: SearchComponent,
     params: {
-        keyword: null,
+        prettyMod: null,
+        search_id: null,
     }
 };
