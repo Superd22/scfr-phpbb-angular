@@ -119,6 +119,10 @@ import { ViewnewsComponent } from './components/viewmessage/viewnews/viewnews.co
 import { UcpGroupsSwitchComponent } from './components/ucp/groups/ucp-groups-switch/ucp-groups-switch.component';
 import { UcpGroupsMembershipComponent } from './components/ucp/groups/ucp-groups-membership/ucp-groups-membership.component';
 import { UcpGroupsListComponent } from './components/ucp/groups/ucp-groups-list/ucp-groups-list.component';
+import { UcpContactsSwitchComponent } from './components/ucp/contact/ucp-contacts-switch/ucp-contacts-switch.component';
+import { UcpContactsFriendsComponent } from './components/ucp/contact/ucp-contacts-friends/ucp-contacts-friends.component';
+import { UcpContactsFoesComponent } from './components/ucp/contact/ucp-contacts-foes/ucp-contacts-foes.component';
+import { UcpConfirmPopoutComponent } from './components/ucp/ucp-confirm-popout/ucp-confirm-popout.component';
 
 @NgModule({
     declarations: [
@@ -206,6 +210,10 @@ import { UcpGroupsListComponent } from './components/ucp/groups/ucp-groups-list/
         UcpGroupsSwitchComponent,
         UcpGroupsMembershipComponent,
         UcpGroupsListComponent,
+        UcpContactsSwitchComponent,
+        UcpContactsFriendsComponent,
+        UcpContactsFoesComponent,
+        UcpConfirmPopoutComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -228,10 +236,10 @@ import { UcpGroupsListComponent } from './components/ucp/groups/ucp-groups-list/
         ColorPickerModule,
     ],
     entryComponents: [
-        DialogDeleteComponent, PopOutLoginComponent
+        DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent
     ],
     providers: [
-        PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService,
+        PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
         NotificationsService, PhpbbWebsocketService, WpService, HeaderService
     ],
     bootstrap: [AppComponent],

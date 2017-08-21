@@ -1,9 +1,13 @@
+import { StateTranslate } from './state-translate.service';
+import { UcpConfirmPopoutComponent } from './../components/ucp/ucp-confirm-popout/ucp-confirm-popout.component';
 import { UcpComponent } from './../components/ucp/ucp.component';
 import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
 import { PhpbbApiService } from './phpbb-api.service';
 import { UcpPhpbbFieldComponent, IPhpbbFieldOption } from './../components/ucp/ucp-phpbb-field/ucp-phpbb-field.component';
 import { Injectable, QueryList } from '@angular/core';
 import { Subject } from "rxjs/Rx";
+import { MdDialog } from "@angular/material";
+
 
 @Injectable()
 /**
@@ -13,7 +17,7 @@ import { Subject } from "rxjs/Rx";
 export class PhpbbFormHelperService {
 
   private _reset: Subject<boolean> = new Subject<boolean>();
-  constructor(private api: PhpbbApiService) { }
+  constructor(private api: PhpbbApiService, public mdDialog: MdDialog, public stateT: StateTranslate) { }
 
   public get resetToBackUp() {
     return this._reset;
@@ -141,7 +145,7 @@ export class PhpbbFormHelperService {
     let post: any = {};
 
     if (fields) fields.forEach((field) => {
-      if(field.model !== undefined) post[field.form_name] = field.model;
+      if (field.model !== undefined) post[field.form_name] = field.model;
     });
 
     return post;
@@ -177,16 +181,22 @@ export class PhpbbFormHelperService {
     return post;
   }
 
-  public ucpOnPostCallback(data, ucp: UcpComponent) {
+  public ucpOnPostCallback(data, ucp?: UcpComponent) {
     let tpl = data['@template'];
-
+    this.mdDialog.closeAll();
+    
     if (tpl.ERROR) {
       this.api.errorSnackBar(tpl.ERROR);
-      ucp.tpl.ERROR = tpl.ERROR;
+      this.stateT.newTeplateData = tpl;
+    }
+    else if (tpl['S_CONFIRM_ACTION']) {
+      console.log("open");
+      this.mdDialog.open(UcpConfirmPopoutComponent, { data: tpl });
     }
     else {
       this.api.openSnackBar("Profil mis à jour !");
-      this.regenAllBackUp()
+      this.stateT.newTeplateData = tpl;
+      this.regenAllBackUp();
     }
 
   }
