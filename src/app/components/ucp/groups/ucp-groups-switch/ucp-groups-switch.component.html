@@ -1,0 +1,4 @@
+<div [ngSwitch]="mode">
+    <scfr-forum-ucp-groups-list [ucp]="ucp" *ngSwitchCase="'manage'"></scfr-forum-ucp-groups-list>
+    <scfr-forum-ucp-groups-membership [ucp]="ucp" *ngSwitchCase="'membership'"></scfr-forum-ucp-groups-membership>
+  </div>

@@ -1,0 +1,11 @@
+<h2>{{ucp.L_.USERGROUPS}}</h2>
+<p>{{ucp.L_.GROUPS_EXPLAIN}}</p>
+
+<h3>Vos Groupes</h3>
+<md-list dense>
+    <md-list-item  *ngFor="let member of ucp.tpl.member">
+    <a md-line [style.color]="'#'+member.GROUP_COLOUR">{{member.GROUP_NAME}}</a>
+    <span md-line >{{member.GROUP_DESC}}</span>
+    <i md-line >{{member.GROUP_STATUS}}</i>
+  </md-list-item>
+</md-list>

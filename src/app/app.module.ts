@@ -116,6 +116,9 @@ import { ListStopAtBottomDirective } from './components/navigation/forum-link/di
 import { SearchBodyComponent } from './components/search/search-body/search-body.component';
 import { SearchResultsComponent } from './components/search/search-results/search-results.component';
 import { ViewnewsComponent } from './components/viewmessage/viewnews/viewnews.component';
+import { UcpGroupsSwitchComponent } from './components/ucp/groups/ucp-groups-switch/ucp-groups-switch.component';
+import { UcpGroupsMembershipComponent } from './components/ucp/groups/ucp-groups-membership/ucp-groups-membership.component';
+import { UcpGroupsListComponent } from './components/ucp/groups/ucp-groups-list/ucp-groups-list.component';
 
 @NgModule({
     declarations: [
@@ -200,6 +203,9 @@ import { ViewnewsComponent } from './components/viewmessage/viewnews/viewnews.co
         SearchBodyComponent,
         SearchResultsComponent,
         ViewnewsComponent,
+        UcpGroupsSwitchComponent,
+        UcpGroupsMembershipComponent,
+        UcpGroupsListComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
