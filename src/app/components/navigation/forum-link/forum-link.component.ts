@@ -32,7 +32,7 @@ export class ForumLinkComponent implements OnInit {
   @Output() public unreadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   /** collector for end ws observable */
   @Collected() private collected: CollectorEvent;
-  private toggled: boolean = null;
+  public toggled: boolean = null;
 
 
   constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate) { }

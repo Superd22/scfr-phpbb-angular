@@ -1,2 +1,8 @@
-<div id="main-header-image" class="header-image" [ngClass]="{guild:guildMod}" [ngStyle]="{'background-image': 'url('+headerImage+')'}" scfrForumImageHeaderFit>
+<div id="main-header-image" class="header-image" [ngClass]="{guild:guildMod, custom: customMod}" [ngStyle]="{'background-image': 'url('+headerImage+')', height: forceHeight ? forceHeight+'px': undefined}"
+    scfrForumImageHeaderFit>
+
+    <div class="video" *ngIf="youtube || twitch">
+        <iframe frameborder="0" height="100%" width="100%" src="https://youtube.com/embed/pFSnSuV9jz8?autoplay=1&controls=0&showinfo=0&autohide=1&loop=1"></iframe>
+    </div>
+
 </div>

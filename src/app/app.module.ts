@@ -1,3 +1,4 @@
+import { HeaderService } from './services/header-service.service';
 import { CommonModule } from '@angular/common';
 import { ContenteditableDirective } from './components/posting/editor/directives/content-editable.directive';
 import { NavPmComponent } from './components/navigation/pm/pm.component';
@@ -114,6 +115,7 @@ import { WpService } from "app/services/wp.service";
 import { ListStopAtBottomDirective } from './components/navigation/forum-link/directives/list-stop-at-bottom.directive';
 import { SearchBodyComponent } from './components/search/search-body/search-body.component';
 import { SearchResultsComponent } from './components/search/search-results/search-results.component';
+import { ViewnewsComponent } from './components/viewmessage/viewnews/viewnews.component';
 
 @NgModule({
     declarations: [
@@ -197,13 +199,14 @@ import { SearchResultsComponent } from './components/search/search-results/searc
         ListStopAtBottomDirective,
         SearchBodyComponent,
         SearchResultsComponent,
+        ViewnewsComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
             states: STATES,
             config: PhpbbRoutingConfig
         }),
-        BrowserModule.withServerTransition({appId: 'scfr-forum'}),
+        BrowserModule.withServerTransition({ appId: 'scfr-forum' }),
         CommonModule,
         FormsModule,
         HttpModule,
@@ -222,8 +225,8 @@ import { SearchResultsComponent } from './components/search/search-results/searc
         DialogDeleteComponent, PopOutLoginComponent
     ],
     providers: [
-        PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, 
-        NotificationsService, PhpbbWebsocketService, WpService
+        PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService,
+        NotificationsService, PhpbbWebsocketService, WpService, HeaderService
     ],
     bootstrap: [AppComponent],
 })

@@ -80,7 +80,7 @@ export class StateTranslate {
 
     private transform_search(trans: Transition): Observable<any> {
         let params = trans.params();
-        let newParams = Object.assign({},params);
+        let newParams = Object.assign({}, params);
 
         const prettyMod = {
             'egosearch': "auteur",
@@ -106,13 +106,13 @@ export class StateTranslate {
 
         // If we haven't fetched data do it
         if (!params['phpbbResolved'] || !this.isOnceResolved())
-            return this.phpbbApi.getSearch(newParams['search_id'], Object.assign(newParams, {phpbbResolved: undefined})).map((data) => {
+            return this.phpbbApi.getSearch(newParams['search_id'], Object.assign(newParams, { phpbbResolved: undefined })).map((data) => {
                 newParams['phpbbResolved'] = data;
 
                 this.setOnceResolved(true);
                 return trans.router.stateService.target("phpbb.seo.search", newParams);
             });
-        
+
         // We have all we need
         this.setOnceResolved(false);
         return Observable.of(true);
@@ -539,7 +539,7 @@ export class StateTranslate {
         this._busy.next(true);
 
         let next: Observable<any> = Observable.of(new Object()).map(() => true);
-        
+
         try {
             switch (stateName) {
                 case "phpbb.seo.viewforum.posting":
@@ -587,7 +587,7 @@ export class StateTranslate {
      * @param tpl the tpl to inject
      */
     public unwrapTplData(component, tpl) {
-        this._latestTemplateData.next(tpl)
+        this.newTeplateData = tpl;
         let keyArr = Object.keys(tpl);
 
         keyArr.forEach((key) => {
@@ -601,6 +601,25 @@ export class StateTranslate {
      */
     public goToOld(url) {
         this.router.urlService.url(url, true);
+    }
+
+    /**
+     * Set the new current template data for the whole app
+     * @param tpl the new template
+     */
+    public set newTeplateData(tpl: IPhpbbTemplate) {
+        this._latestTemplateData.next(tpl);
+    }
+
+    /**
+     * Assign new blocks to the current tpl for the whole app
+     * @param params the parameters to append/replace in the tpl.
+     */
+    public assignNewTemplateData(params: { [newParam: string]: any }) {
+        let current: IPhpbbTemplate = null;
+        this._latestTemplateData.asObservable().first().subscribe((data) => current = data).unsubscribe();
+
+        this.newTeplateData = Object.assign(current, params);
     }
 
 }

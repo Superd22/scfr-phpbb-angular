@@ -5,14 +5,15 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
 import { PhpbbService } from '../../services/phpbb.service';
 import { LoginService } from '../../services/login.service';
-import { UnreadResponse } from "app/models/Search/UnreadReponse";
+import { PhpbbComponent } from '../phpbb/phpbb-component.component';
+import { UnreadResponse } from '../../models/Search/UnreadReponse';
 
 @Component({
     selector: 'app-index',
     templateUrl: './index.component.html',
     styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent extends PhpbbComponent {
     public unreadTopicList;
     public ownMessages;
     public isLoggedIn;
@@ -21,10 +22,13 @@ export class IndexComponent implements OnInit {
     public guideNouveau: IGuideDesNouveauxResponse;
     public onlineMembers = [];
 
-    constructor(public phpbb: PhpbbService, public LoginService: LoginService, protected stateT: StateTranslate, protected wp: WpService) { }
+    constructor(public phpbb: PhpbbService, public loginService: LoginService, protected stateT: StateTranslate, protected wp: WpService) { 
+        super();
+    }
 
     ngOnInit() {
-        this.LoginService.userStatus.subscribe(
+        super.ngOnInit();
+        this.loginService.userStatus.subscribe(
             (isLoggedIn) => {
                 this.isLoggedIn = isLoggedIn;
                 if (isLoggedIn) {
@@ -43,9 +47,6 @@ export class IndexComponent implements OnInit {
         });
     }
 
-    ngOnDestroy() {
-    }
-
     /**
      * Filters all the forums to render only the top-most we need to display (categories)
      * @param forums all the forums
@@ -62,7 +63,7 @@ export class IndexComponent implements OnInit {
         );
 
         this.phpbb.getUserMessage().subscribe((data) => {
-            this.ownMessages = data ? data.slice(0, 3) : null
+            this.ownMessages = data ? data.slice(0, 3) : null;
         });
     }
 

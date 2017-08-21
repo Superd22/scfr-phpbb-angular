@@ -11,13 +11,26 @@ export class HeaderBackgroundComponent implements OnInit {
 
   private _customForum: string = null;
   private _userSelected: number = 0;
+  public forceHeight: number = 0;
   public guildMod: boolean = false;
+  public customMod: boolean = false;
+
+  public youtube;
+  public twitch;
 
   constructor(private stateT: StateTranslate, private sanitizer: DomSanitizer) {
     this.stateT.latestTemplateData.subscribe((tpl) => {
-      this.guildMod = false;
+      this.guildMod = this.customMod = false;
 
-      if (tpl['GUILD_BANNER']) {
+      if (tpl['BAN_HEIGHT']) this.forceHeight = Number(tpl['BAN_HEIGHT']);
+      else this.forceHeight = 0;
+
+
+      if (tpl['CUSTOM_BANNER']) {
+        this._customForum = tpl['CUSTOM_BANNER'];
+        this.customMod = true;
+      }
+      else if (tpl['GUILD_BANNER']) {
         this._customForum = tpl['GUILD_BANNER'];
         this.guildMod = true;
       }

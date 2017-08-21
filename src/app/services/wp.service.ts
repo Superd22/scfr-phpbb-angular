@@ -1,8 +1,9 @@
+import { IWPNews } from './../interfaces/wp/wp-news.interface';
 import { IGuideDesNouveauxResponse } from './../components/index/interfaces/guide-des-nouveaux.interface';
-import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs/Rx";
+import { Observable } from "rxjs/Observable";
 
 /**
  * Main service for accessing WordPress based data for sc.fr
@@ -40,5 +41,9 @@ export class WpService {
     }
 
     return this._guide;
+  }
+
+  public getNewsById(id: number): Observable<IWPNews> {
+    return this.getPageCallback("", { p: id });
   }
 }
