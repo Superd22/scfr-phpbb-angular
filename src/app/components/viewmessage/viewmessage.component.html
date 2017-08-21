@@ -1,4 +1,7 @@
-<md-card style="margin: 10px 0px;" [id]="post.id" class="message">
+<md-card style="margin: 10px 0px;" [id]="'p'+post.id" [ngClass]="{unread: postrow.S_UNREAD_VIEW}" class="message">
+
+  <a *ngIf="postrow.S_FIRST_UNREAD" id="unread" class="anchor"></a>
+
   <div *ngIf="!isEditMod()">
 
     <div class="message-header" *ngIf="!simplePostMod" fxLayout>

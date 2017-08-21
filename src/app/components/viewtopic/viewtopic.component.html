@@ -15,8 +15,10 @@
 
     <scfr-forum-viewtopic-poll fxFlex="100"></scfr-forum-viewtopic-poll>
 
+    <scfr-forum-viewnews *ngIf="displayNews" [news]="news" fxFlex="100"></scfr-forum-viewnews>
+    
     <div *ngIf="tpl.postrow && !fetchingNewPosts" fxFlex="100">
-        <app-viewmessage [viewtopic]="this" *ngFor="let post of tpl.postrow" [postrow]="post" [editable]="true" [(edit)]="editedMessage"></app-viewmessage>
+        <app-viewmessage [viewtopic]="this" *ngFor="let post of postrow" [postrow]="post" [editable]="true" [(edit)]="editedMessage"></app-viewmessage>
     </div>
 
     <div *ngIf="newPosts > 0" class="newpostsws">

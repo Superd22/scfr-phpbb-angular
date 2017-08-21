@@ -3,6 +3,7 @@
 
   <div class="topic-title-container" fxFlex="50" uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: topic.FORUM_ID, topicId: topic.TOPIC_ID}">
     <a class="topic-title">{{topic.TOPIC_TITLE}}</a>
+    <a class="topic-new-reply" [href]="topic.U_NEWEST_POST" *ngIf="topic.S_UNREAD_TOPIC">...</a>
     <button md-button *ngIf="topic.S_TOPIC_UNAPPROVED || topic.S_POSTS_UNAPPROVED">
       <a href="{{topic.U_MCP_QUEUE}}" title="{{L_.TOPIC_UNAPPROVED}}">
         <md-icon>sentiment_neutral</md-icon>{{L_.TOPIC_UNAPPROVED}}

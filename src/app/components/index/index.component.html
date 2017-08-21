@@ -5,8 +5,8 @@
         <div class="forums">
             <h3>Les forums</h3>
 
-            <div class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout mdRipple>
-                <span class="forum-name" fxFlex="50" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:forum.FORUM_ID}">{{forum.FORUM_NAME}}</span>
+            <div class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout mdRipple uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:forum.FORUM_ID}">
+                <span class="forum-name" fxFlex="50">{{forum.FORUM_NAME}}</span>
                 <!--
                 <div class="topics">{{}}</div>
                 <div class="replies">{{}}</div> -->

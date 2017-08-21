@@ -113,8 +113,7 @@ export class PhpbbApiService {
 
                 if (forcetSetAsTpl) this.setTpl(ret['@template']);
                 return ret;
-            })
-            .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+            });
     }
 
     private setTpl(tpl: any) {
