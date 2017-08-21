@@ -4,7 +4,7 @@ $bar-background: rgba(38,50,58,0.9);
 .global-nav-bar {
     height: $line-height;
     position: absolute;
-    z-index:2;
+    z-index:10;
     display: inline-flex;
     width:100%;
     transition: background-color 0.5s;
@@ -23,6 +23,7 @@ $bar-background: rgba(38,50,58,0.9);
     }
     &.logo {
         margin-top:15px;
+        flex: 1 1 auto;
         .logo img {
             margin-left: 0;
             opacity:1;
@@ -33,5 +34,67 @@ $bar-background: rgba(38,50,58,0.9);
     &.fixed {
         background-color:$bar-background;
         margin-top:0px;
+    }
+
+    .main-links {
+        flex: 1 1 auto;
+    }
+
+    .events {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        align-self: center;
+        padding-right:24px;
+        position: relative;
+        z-index: 11;
+        button {    
+            cursor:pointer;
+            width: 82px;
+            background: transparent;
+            color: white;
+            height:$line-height;
+            border: 0px;
+            flex: 1 1 100%;
+            font-size: 14px;
+            line-height: 22px;
+            font-family: "Electrolize";
+            i {
+                margin-right: 7px;
+                vertical-align: bottom;
+            }
+
+            &.active i {
+                color: #95ebff;
+                animation: shake 5s cubic-bezier(.36,.07,.19,.97) infinite;
+                transform: translate3d(0, 0, 0);
+            }
+
+            &:hover {
+                background:#6abbcf;
+                color: $bar-background;
+                i {color: $bar-background;}
+            }
+        }
+    }
+}
+
+
+@keyframes shake {
+    
+    10% {
+      transform: translate3d(0px, -3px, 0);
+    }
+    
+    20%, 40%, 60%, 80% {
+      transform: translate3d(0px, -3px, 0) rotate(2deg);
+    }
+    
+    30%, 50%, 70% {
+      transform: translate3d(0px, -3px, 0) rotate(-2deg);
+    }
+    
+    100% {
+      transform: translate3d(0px, 0px, 0)
     }
 }
