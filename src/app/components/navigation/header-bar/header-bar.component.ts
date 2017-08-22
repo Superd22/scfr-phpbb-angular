@@ -17,10 +17,12 @@ export class HeaderBarComponent implements OnInit {
 
   public select: boolean = false;
   public navlinks: NavLink[] = [];
-
   public busy:boolean;
-
   public selectedForum: number;
+
+  public pmCount;
+  public notifCount;
+  public loggedIn;
 
   public get toggle() {
     return this._toggle;
@@ -34,6 +36,11 @@ export class HeaderBarComponent implements OnInit {
   constructor(private stateT: StateTranslate, private layout: LayoutService, private state: StateService) {
     this.stateT.latestTemplateData.subscribe((tpl) => {
       this.navlinks = tpl.navlinks
+
+
+      this.loggedIn = (Number(tpl['CURRENT_USER_ID']) > 1);
+      this.notifCount = Number(tpl["UNREAD_NOTIFICATIONS_COUNT"]);
+      this.pmCount = Number(tpl['S_USER_NEW_PRIVMSG']);
 
       if (!tpl.navlinks) {
         this.selectedForum = null;

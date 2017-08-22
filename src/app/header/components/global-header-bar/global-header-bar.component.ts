@@ -16,6 +16,17 @@ export class GlobalHeaderBarComponent implements OnInit {
   public WPHeader: IMainHeaderBarWP;
   @Input()
   public displayLogo: boolean = true;
+  @Input()
+  public displayEvents: boolean = true;
+
+  @Input("notificationCount")
+  private _notificationCount: number = null;
+  @Input("pmCount")
+  private _pmCount: number = null;
+
+  @Input("loggedIn")
+  private _loggedIn: boolean = null;
+
   public SCM = SCMenu;
   public COM = COMMenu;
 
@@ -30,6 +41,23 @@ export class GlobalHeaderBarComponent implements OnInit {
 
   ngOnInit() {
     window.addEventListener('scroll', this._onScroll, true);
+
+    if (this._notificationCount === null || this._pmCount === null || this._loggedIn === null) this.api.fetchForumData();
+  }
+
+  public get loggedIn(): boolean {
+    if (this._loggedIn !== null) return this._loggedIn;
+    return this.api.loggedIn;
+  }
+
+  public get notificationCount(): number {
+    if (this._notificationCount !== null) return this._notificationCount;
+    return this.api.notificationCount;
+  }
+
+  public get pmCount(): number {
+    if (this._pmCount !== null) return this._pmCount;
+    return this.api.pmCount;
   }
 
 
@@ -52,4 +80,7 @@ export class GlobalHeaderBarComponent implements OnInit {
 
     return margin + "px";
   }
+
+  public get hasPm() { return this.pmCount > 0; }
+  public get hasNotification() { return this.notificationCount > 0; }
 }

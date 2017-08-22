@@ -1,0 +1,12 @@
+<p>{{ucp.L_.FRIENDS_EXPLAIN}}</p>
+
+<p class="error">{{ucp.tpl.ERROR}}</p>
+
+<scfr-forum-ucp-phpbb-field *ngIf="ucp.tpl.S_USERNAME_OPTIONS" type="select" multiple="true" name="usernames[]" [displayName]="ucp.L_.YOUR_FRIENDS"
+  [explain]="ucp.L_.YOUR_FRIENDS_EXPLAIN" [options]="friendsOptions.options"></scfr-forum-ucp-phpbb-field>
+
+<p *ngIf="!ucp.tpl.S_USERNAME_OPTIONS">{{ucp.L_.NO_FRIENDS}}</p>
+
+<scfr-forum-ucp-phpbb-field type="textarea" name="add" [displayName]="ucp.L_.ADD_FRIENDS" [explain]="ucp.L_.ADD_FRIENDS_EXPLAIN"></scfr-forum-ucp-phpbb-field>
+
+<button md-button color="primary" (click)="submit()">Envoyer</button>

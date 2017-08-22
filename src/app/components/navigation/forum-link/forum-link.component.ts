@@ -1,3 +1,4 @@
+import { ThrottlerService } from 'app/services/throttler.service';
 import { SCFRLocalStorage } from './../../../decorators/LocalStorage.decorator';
 import { StateTranslate } from './../../../services/state-translate.service';
 import { PhpbbWebsocketService } from './../../../services/phpbb-websocket.service';
@@ -32,26 +33,39 @@ export class ForumLinkComponent implements OnInit {
   @Output() public unreadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   /** collector for end ws observable */
   @Collected() private collected: CollectorEvent;
+  /** our children forums */
+  @ViewChildren(ForumLinkComponent)
+  private _subForums: QueryList<ForumLinkComponent>;
+  /** if we're visible */
+  public _searchVisible = true;
+
   public toggled: boolean = null;
+  @Input()
+  public parent:ForumLinkComponent;
 
 
-  constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate) { }
+  constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate, private throttle: ThrottlerService) { }
 
   ngOnInit() {
     if (this.depth > 1) this.toggleDisplaySub = false;
     else this.toggleDisplaySub = true;
 
     this.subForumsToDisplay();
-    this.setUnread(this.computeUnreadStatus());
 
     this.ws.onNewPostsInForum(Number(this.forum.FORUM_ID), false).takeUntil(this.collected).subscribe(
       data => {
-        this.setUnread(true);
+        this.unread = true;
       }
     );
 
+    this.navCo.registerForum(Number(this.forum.FORUM_ID), this);
+
     SCFRLocalStorage("sidenav:toggle:forum:" + this.forum.FORUM_ID)(this, "toggleDisplaySub");
 
+  }
+
+  ngAfterViewInit() {
+    this.throttle.addToStack(this, this.computeUnreadStatus);
   }
 
   public get toggleDisplaySub(): boolean { return this._toggleDisplay; }
@@ -80,8 +94,14 @@ export class ForumLinkComponent implements OnInit {
    * @return boolean
    */
   public get visible(): boolean {
-    // Visible if we're in the extended results of the user's search.
-    return this.navCo.filteredForumList.extended.indexOf(Number(this.forum.FORUM_ID)) > -1;
+    return this._searchVisible;
+  }
+
+  public set searchVisible(visible:boolean) {
+    this._searchVisible = visible;
+
+    // Update our parent -later-
+    //if(this._searchVisible && this.parent) setTimeout(() => this.parent.searchVisible = true);
   }
 
   /**
@@ -90,31 +110,32 @@ export class ForumLinkComponent implements OnInit {
    * 
    * @return true for unread
    */
-  public computeUnreadStatus(): boolean {
-    let CUSR = (children: UnreadResponse.JumpboxForum[]) => {
-      let unread = false;
+  public computeUnreadStatus = () => {
+    // We're unread, no need to calculate anything
+    if (this.unread) return;
 
-      if (!children || children.length == 0) return unread;
+    let flag = false;
 
-      for (let i = 0; (i < children.length) && !unread; i++) {
-        if (children[i].UNREAD) {
-          unread = true;
-        }
-        else {
-          let childChildrens = this.navCo.forumMap.get(Number(children[i].FORUM_ID));
-          if (childChildrens) unread = CUSR(this.navCo.forumList.filter((forum) => childChildrens.indexOf(Number(forum.FORUM_ID)) > -1));
-        }
-      }
+    if (this._subForums)
+      // If one of our sub-forum is unread, so r we.
+      this._subForums.forEach((forum) => { if (forum.unread) flag = true });
 
-      return unread;
-    }
-
-
-    return this.forum.UNREAD || CUSR(this.cacheChildren);
+    if(flag) this.unread = true;
   }
 
-  public setUnread(unread: boolean) {
-    this.forum.UNREAD = unread;
+  /**
+   * Change the unread status of this forum
+   * @param unread the unread status
+   */
+  public set unread(unread: boolean) {
+    if (this.forum.UNREAD != unread) {
+      this.forum.UNREAD = unread;
+      this.unreadChange.next(unread);
+    }
+  }
+
+  public get unread(): boolean {
+    return this.forum.UNREAD;
   }
 
   /**
@@ -124,20 +145,7 @@ export class ForumLinkComponent implements OnInit {
   public subForumsToDisplay(force?: boolean): UnreadResponse.JumpboxForum[] {
     if (this.cacheChildren && !force) return this.cacheChildren;
 
-    // Forums to display
-    let disp = this.navCo.filteredForumList.extended;
-    // The children we own
-    let children = this.navCo.forumMap.get(Number(this.forum.FORUM_ID));
-
-    if (!disp || !children) return null;
-
-    let retSubs = [];
-    disp.forEach((disp) => {
-      if (children.indexOf(disp) > -1 && retSubs.indexOf(disp) == -1) retSubs.push(disp);
-    });
-
-
-    this.cacheChildren = this.navCo.forumList.filter((testForum) => retSubs.indexOf(Number(testForum.FORUM_ID)) > -1);
+    this.cacheChildren = this.navCo.getChildrenOfForum(this.forum);
 
     return this.cacheChildren;
   }
