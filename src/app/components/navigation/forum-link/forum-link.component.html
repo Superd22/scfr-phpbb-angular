@@ -1,5 +1,5 @@
-<div class="forum-link-row" [ngClass]="{main: depth == 0, 'no-list': depth < 1}" >
-  <div class="forum-link-wrapper" [ngClass]="{new: forum?.UNREAD, hidden: !visible, 'no-list': depth < 2}" fxLayout>
+<div class="forum-link-row" [ngClass]="{main: depth == 0, 'no-list': depth < 1, hidden: !visible}" >
+  <div class="forum-link-wrapper" [ngClass]="{new: forum?.UNREAD, 'no-list': depth < 2}" fxLayout>
     <button class="forum-link" [ngClass]="{'no-list': depth < 1}" md-button uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum?.FORUM_ID}">{{forum?.FORUM_NAME}}</button>
     <button md-icon-button *ngIf="cacheChildren?.length > 0 " (click)="toggleDisplay()"><md-icon>{{toggleDisplaySub ? 'arrow_drop_up' : 'arrow_drop_down' }}</md-icon></button>
   </div>
@@ -7,7 +7,7 @@
   <div [hidden]="!toggleDisplaySub">
     <ul class="sub-forums" [ngClass]="{'no-list': depth < 1}" [scfrForumListStopAtBottom]="toggled">
       <div class="leftborder"></div>
-      <scfr-forum-navigation-forum-link *ngFor="let fu of cacheChildren" [forum]="fu" [navCo]="navCo" [depth]="depth+1" (toggleChange)="childrenToggled()" ></scfr-forum-navigation-forum-link>
+      <scfr-forum-navigation-forum-link *ngFor="let fu of cacheChildren" [parent]="this" [forum]="fu" [navCo]="navCo" [depth]="depth+1" (toggleChange)="childrenToggled()" ></scfr-forum-navigation-forum-link>
     </ul>
   </div>
 </div>

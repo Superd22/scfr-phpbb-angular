@@ -123,6 +123,7 @@ import { UcpContactsSwitchComponent } from './components/ucp/contact/ucp-contact
 import { UcpContactsFriendsComponent } from './components/ucp/contact/ucp-contacts-friends/ucp-contacts-friends.component';
 import { UcpContactsFoesComponent } from './components/ucp/contact/ucp-contacts-foes/ucp-contacts-foes.component';
 import { UcpConfirmPopoutComponent } from './components/ucp/ucp-confirm-popout/ucp-confirm-popout.component';
+import { ThrottlerService } from "app/services/throttler.service";
 
 @NgModule({
     declarations: [
@@ -230,7 +231,6 @@ import { UcpConfirmPopoutComponent } from './components/ucp/ucp-confirm-popout/u
         FlexLayoutModule,
         LanguageModuleModule,
         ReCaptchaModule,
-        MomentModule,
         HeaderModule,
         NgxChartsModule,
         ColorPickerModule,
@@ -240,7 +240,7 @@ import { UcpConfirmPopoutComponent } from './components/ucp/ucp-confirm-popout/u
     ],
     providers: [
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
-        NotificationsService, PhpbbWebsocketService, WpService, HeaderService
+        NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService
     ],
     bootstrap: [AppComponent],
 })

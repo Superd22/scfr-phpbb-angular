@@ -83,15 +83,15 @@ $bar-background: rgba(38,50,58,0.9);
 @keyframes shake {
     
     10% {
-      transform: translate3d(0px, -3px, 0);
+      transform: translate3d(0px, -6px, 0);
     }
     
     20%, 40%, 60%, 80% {
-      transform: translate3d(0px, -3px, 0) rotate(2deg);
+      transform: translate3d(0px, -6px, 0) rotate(2deg);
     }
     
     30%, 50%, 70% {
-      transform: translate3d(0px, -3px, 0) rotate(-2deg);
+      transform: translate3d(0px, -6px, 0) rotate(-2deg);
     }
     
     100% {

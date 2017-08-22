@@ -13,6 +13,12 @@ $list-border-color: rgba(255, 255, 255, 0.3);
             border-bottom:1px solid $border-color;
             padding:8px 0px;
         }
+        
+        &.hidden {
+            // !important because fxFlex will set display:flex on elem.
+            display: none !important;
+            border-color:transparent;
+        }
     }
 
     .forum-link-wrapper {
@@ -26,10 +32,6 @@ $list-border-color: rgba(255, 255, 255, 0.3);
             background: rgba(81, 195, 250, 0.15);
             font-weight: bolder;
             color: white;
-        }
-        &.hidden {
-            // !important because fxFlex will set display:flex on elem.
-            display: none !important;
         }
         &:not(.no-list):before {
             content: '';

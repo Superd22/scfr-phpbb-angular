@@ -190,7 +190,6 @@ export class PhpbbFormHelperService {
       this.stateT.newTeplateData = tpl;
     }
     else if (tpl['S_CONFIRM_ACTION']) {
-      console.log("open");
       this.mdDialog.open(UcpConfirmPopoutComponent, { data: tpl });
     }
     else {

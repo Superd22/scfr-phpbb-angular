@@ -36,10 +36,8 @@ export class GlobalHeaderService {
   }
 
   public fetchForumData() {
-    console.log("prout");
     this.http.get("http://www.newforum.fr/?scfr_json_callback=true", { withCredentials: true }).subscribe((res) => {
       let tpl = res.json()['@template'];
-      console.log(tpl);
 
       this.loggedIn = (Number(tpl['CURRENT_USER_ID']) > 1);
       this.notificationCount = Number(tpl["UNREAD_NOTIFICATIONS_COUNT"]);
