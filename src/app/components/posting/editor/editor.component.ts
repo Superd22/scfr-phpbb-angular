@@ -10,7 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, 
   selector: 'scfr-forum-post-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
-  encapsulation:ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditorComponent implements OnInit {
 

@@ -1,3 +1,4 @@
+import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
 import { HeaderService } from './services/header-service.service';
 import { CommonModule } from '@angular/common';
 import { ContenteditableDirective } from './components/posting/editor/directives/content-editable.directive';
@@ -17,7 +18,7 @@ import { ViewmessageComponent } from './components/viewmessage/viewmessage.compo
 import { PhpbbRoot } from './components/phpbb/root/phpbb-root.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { UIRouterModule } from '@uirouter/angular';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -124,6 +125,8 @@ import { UcpContactsFriendsComponent } from './components/ucp/contact/ucp-contac
 import { UcpContactsFoesComponent } from './components/ucp/contact/ucp-contacts-foes/ucp-contacts-foes.component';
 import { UcpConfirmPopoutComponent } from './components/ucp/ucp-confirm-popout/ucp-confirm-popout.component';
 import { ThrottlerService } from "app/services/throttler.service";
+import { PhpbbGroupComponent } from './components/phpbb/phpbb-group/phpbb-group.component';
+import { UcpPmEditorComponent } from './components/ucp/pm/ucp-pm-editor/ucp-pm-editor.component';
 
 @NgModule({
     declarations: [
@@ -215,6 +218,8 @@ import { ThrottlerService } from "app/services/throttler.service";
         UcpContactsFriendsComponent,
         UcpContactsFoesComponent,
         UcpConfirmPopoutComponent,
+        PhpbbGroupComponent,
+        UcpPmEditorComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -225,6 +230,7 @@ import { ThrottlerService } from "app/services/throttler.service";
         CommonModule,
         FormsModule,
         HttpModule,
+        ReactiveFormsModule,
         BrowserAnimationsModule,
         MaterialModule,
         SCFRMaterialModule,
@@ -240,7 +246,7 @@ import { ThrottlerService } from "app/services/throttler.service";
     ],
     providers: [
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
-        NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService
+        NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService, ExtraModuleInjector
     ],
     bootstrap: [AppComponent],
 })

@@ -1,0 +1,38 @@
+<div class="to" fxLayout fxLayoutWrap>
+
+    <div class="add-users" fxFlex="50">
+        <md-toolbar>
+            <md-input-container floatPlaceholder="never" class="search">
+                <md-icon mdPrefix color="primary">search</md-icon>
+                <input type="search" placeholder="Chercher un utilisateur" mdInput [formControl]="addUserControl" [mdAutocomplete]="autoUser">
+            </md-input-container>
+        </md-toolbar>
+        <scfr-forum-ucp-phpbb-field name="username_list" type="textarea" [displayName]="L_.TO_ADD_MASS" [(model)]="usersAdd"></scfr-forum-ucp-phpbb-field>
+
+    </div>
+
+    <div class="add-groups" fxFlex="50">
+        <scfr-forum-ucp-phpbb-field fxFlex="100" name="group_list[]" multiple="true" type="select" [displayName]="L_.TO_ADD_GROUPS"
+            [options]="groupOptions"></scfr-forum-ucp-phpbb-field>
+    </div>
+
+    <div class="add-actions" fxFlex="100">
+        <button md-button color="primary">{{L_.ADD}}</button>
+        <button md-button color="primary">{{L_.ADD_BCC}}</button>
+    </div>
+
+    <md-chip-list class="recipients">
+        <md-chip *ngFor="let recipient of tpl.to_recipient">
+            <scfr-forum-phpbb-username *ngIf="recipient.IS_USER" [html]="recipient.NAME_FULL" [name]="recipient.NAME" [id]="recipient.UG_ID"></scfr-forum-phpbb-username>
+            <scfr-forum-phpbb-group *ngIf="recipient.IS_GROUP" [html]="recipient.NAME_FULL" [name]="recipient.NAME" [id]="recipient.UG_ID"></scfr-forum-phpbb-group>
+        </md-chip>
+    </md-chip-list>
+</div>
+
+<scfr-forum-post-editor [message]="tpl.MESSAGE" [subject]="tpl.SUBJECT" [tpl]="tpl"></scfr-forum-post-editor>
+
+<md-autocomplete #autoUser="mdAutocomplete" [displayWith]="displayUserFn">
+    <md-option *ngFor="let option of userSearch | async" [value]="option">
+        {{ option.result }}
+    </md-option>
+</md-autocomplete>

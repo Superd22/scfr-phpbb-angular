@@ -6,10 +6,12 @@ import { UcpComponent } from './../../components/ucp/ucp.component';
 
 export const psoUcp = {
     name: 'phpbb.seo.ucp',
-    url: '/ucp/{page:[^/]*}/{subPage:[^/]*}',
+    url: '/ucp/{page:[^/]*}/{subPage:[a-z]*}',
     params: {
-        mode:null,
-        i:null,
+        mode: null,
+        i: null,
+        pm_id: null,
+        pmSlug: null,
     },
     component: UcpComponent,
 };
@@ -19,22 +21,16 @@ export const psoUcpRegister = {
     url: '/register/',
     component: RegisterComponent,
     params: {
-        mode:null,
-        i:null,
+        mode: null,
+        i: null,
         subPage: "register",
-        page:null,
+        page: null,
     }
-};
-
-export const psoUcpPage = {
-    name: 'phpbb.seo.ucp.sub',
-    url: '/{subPage:[^/]*}',
-    component: UcpComponent,
 };
 
 export const psoPMConvo = {
     name: 'phpbb.seo.ucp.pmConvo',
-    url: ':pm_id',
+    url: 'convo/{pm_id:[0-9]*}-:pmSlug',
     resolve: [
         {
             token: 'convo_id',
@@ -42,6 +38,14 @@ export const psoPMConvo = {
             resolveFn: psoPMConvoResolve
         }
     ],
+    params: {
+        pmSlug: null,
+        action: null,
+        mode: null,
+        p: null,
+        u: null,
+        reply_to_all: null,
+    },
     component: ViewconvoComponent
 };
 

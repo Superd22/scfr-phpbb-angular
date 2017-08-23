@@ -4,9 +4,21 @@
             <scfr-forum-phpbb-username [color]="mp.author.color" [name]="mp.author.username" [id]="mp.author.user_id"></scfr-forum-phpbb-username>
         </md-card-title>
         <md-card-subtitle>
-            Envoyé le:  <br />
-            Envoyé à: <br/>
-            CCI: <br/>
+            Date d'envoi: {{mp.sent_at}}<br />
+            <span *ngIf="mp.recipients"> Destinataire{{mp.recipients.length > 1 ? 's' : ''}} :        
+                <ng-container *ngFor="let recipient of mp.recipients">
+                        <scfr-forum-phpbb-username *ngIf="recipient.type == 'user'" [color]="recipient.color" [name]="recipient.name" [id]="recipient.id"></scfr-forum-phpbb-username>
+                        <scfr-forum-phpbb-group *ngIf="recipient.type == 'group'"  [color]="recipient.color" [name]="recipient.name" [id]="recipient.id"></scfr-forum-phpbb-group>
+                </ng-container>
+            </span>
+            <br/>
+
+            <span *ngIf="mp.bccs"> CCI:                 
+                <ng-container *ngFor="let recipient of mp.bccs">
+                    <scfr-forum-phpbb-username *ngIf="recipient.type == 'user'" [color]="recipient.color" [name]="recipient.name" [id]="recipient.id"></scfr-forum-phpbb-username>
+                    <scfr-forum-phpbb-group *ngIf="recipient.type == 'group'"  [color]="recipient.color" [name]="recipient.name" [id]="recipient.id"></scfr-forum-phpbb-group>
+                </ng-container>
+        </span><br/>
         </md-card-subtitle>
         <img md-card-avatar [src]="mp.author.avatar">
     </md-card-header>
@@ -15,8 +27,9 @@
         <div fxFlex.lt-sm="100"></div>
     </md-card-content>
     <md-card-actions>
-        <button md-icon-button color="primary"><md-icon>reply_all</md-icon></button>
-        <button md-icon-button color="primary"><md-icon>reply</md-icon></button>
-        <button md-icon-button color="primary"><md-icon>format_quote</md-icon></button>
+        <button md-icon-button color="primary" (click)="goReplyToAll()"><md-icon>reply_all</md-icon></button>
+        <button md-icon-button color="primary" (click)="goReply()"><md-icon>reply</md-icon></button>
+        <button md-icon-button color="primary" (click)="goQuote()"><md-icon>format_quote</md-icon></button>
+        <button md-icon-button color="primary" (click)="goForward()"><md-icon>forward</md-icon></button>
     </md-card-actions>
 </md-card>

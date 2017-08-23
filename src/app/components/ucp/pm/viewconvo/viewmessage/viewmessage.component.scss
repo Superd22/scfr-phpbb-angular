@@ -11,3 +11,41 @@ $dark-bg:  map-get($scfr-mat-blue-grey-background,800);
     margin: 14px 0px;
     background:$dark-bg;
 }
+.mat-card {
+    background:$dark-bg;
+    .mat-card-header {    
+        background: transparentize(map-get($scfr-mat-light-blue,900),0.8);
+        padding: 24px;
+        margin: -24px;
+        padding-bottom: 0px;
+        margin-bottom: 12px;
+        position:relative;
+        overflow:hidden;
+        &:before {
+            content: "";
+            display: block;
+            width: 150px;
+            height: 30px;
+            background:$dark-bg;
+            position: absolute;
+            bottom: 0px;
+            right: -25px;
+            transform: skew(-60deg);
+        }
+        &:after {
+            content: "message privé";
+            text-transform: uppercase;
+            font-family: "Heebo";
+            font-size: 2rem;
+            letter-spacing: 3px;
+            opacity: 0.2;
+            transform: rotate(0);
+            font-weight: bolder;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            padding: 6px;
+            color: #171f25;
+        }
+    }
+}

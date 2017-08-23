@@ -67,12 +67,14 @@ export interface IPHPBBExtendedPM {
     to_address: string;
     user_id: number;
     recipients: IPHPBBPMAdress[];
+    bccs: IPHPBBPMAdress[];
+    sent_at: string;
 }
 
 @Injectable()
 export class PrivateMessageService {
 
-    private _convos: IPHPBBPMConvo[];
+    private _convos:BehaviorSubject<IPHPBBPMConvo[]> = new BehaviorSubject<IPHPBBPMConvo[]>(null);
     private _currentConvo: IPHPBBPMConvo;
 
     private _convoPerPage: number = 20;
@@ -92,8 +94,10 @@ export class PrivateMessageService {
     public get convos(): IPHPBBPMConvo[] {
         let i = 0;
 
-        return this._convos ? this._convos.filter(() => { i = i++; return i <= this._convoPerPage }) : null;
+        return this._convos.getValue() ? this._convos.getValue().filter(() => { i = i++; return i <= this._convoPerPage }) : null;
     }
+
+    public get convosChange():BehaviorSubject<IPHPBBPMConvo[]> {return this._convos;}
 
     public get currentConvo(): IPHPBBPMConvo { return this._currentConvo; }
 
@@ -121,7 +125,7 @@ export class PrivateMessageService {
             (data: any) => {
                 let r: IAPIConvoReponse = data;
 
-                this._convos = r.convos;
+                this._convos.next(r.convos);
                 this._count = r.count;
                 this._maxPage = r.pages;
             }
@@ -129,13 +133,17 @@ export class PrivateMessageService {
     }
 
     public removeConvos() {
-        this._convos = [];
+        this._convos.next([]);
     }
 
     public setCurrentConvo(convo: number) {
         this._currentConvo = null;
         if (this.convos)
             this._currentConvo = this.convos.find((cv) => cv.id == convo);
+
+        console.log("sat", this._currentConvo);
+
+        if(this._currentConvo === null) throw "convo is not defined";
     }
 
     /**
@@ -165,6 +173,12 @@ export class PrivateMessageService {
         }
 
         return finalAdresses;
+    }
+
+    public fetchConvo(convoId: number):Observable<IPHPBBPMConvo> {
+        return this.phpbbApi.getApi("PM/Convos/Single", { convoId: convoId}).map(
+            (data: any) => data
+        );
     }
 
 }
