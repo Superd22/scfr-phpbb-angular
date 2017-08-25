@@ -1,4 +1,9 @@
 <div fxLayout fxLayoutWrap>
+  <md-toolbar class="subject">
+    <md-input-container>
+      <input mdInput placeholder="Sujet" style="width: 100%" [(ngModel)]='subject'>
+    </md-input-container>
+  </md-toolbar>
   <md-toolbar class="top-bbcode" fxFlex="100">
     <scfr-forum-bbcode-color></scfr-forum-bbcode-color>
     <scfr-forum-bbcode-button *ngFor="let bbcode of baseBB" [bbcode]="bbcode"></scfr-forum-bbcode-button>

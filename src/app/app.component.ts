@@ -1,3 +1,4 @@
+import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
 import { SCFRLocalStorage } from './decorators/LocalStorage.decorator';
 import { LayoutService } from './material/services/layout-service.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
     @SCFRLocalStorage("navbar:toggle")
     public toggle: boolean;
 
-    constructor(private layout: LayoutService) {
+    constructor(private layout: LayoutService, private extra: ExtraModuleInjector) {
         this.layout.gt_sm.subscribe((gt_sm) => {
             if (gt_sm) this.mode = "side";
             else this.mode = "over";

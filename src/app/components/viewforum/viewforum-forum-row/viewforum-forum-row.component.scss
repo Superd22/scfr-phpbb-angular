@@ -12,7 +12,7 @@ $t-mask-delay: 0.5s;
 
 
         &:hover {
-            background:transparentize($hoverColor, 0.6);
+            background:transparentize($hoverColor, 0.2);
             transform: scale(1.05);
         }
     }
@@ -59,10 +59,10 @@ $t-mask-delay: 0.5s;
     }
 
 
-    @include colorize(map-get($scfr-mat-light-blue, 500));
+    @include colorize(map-get($scfr-mat-light-blue, A200));
 
     &.unread {
-        $color: map-get($scfr-mat-cyan, 500);
+        $color: map-get($scfr-mat-light-blue, A200);
         @include colorize($color);
 
         &:after {

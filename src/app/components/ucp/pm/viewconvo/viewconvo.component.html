@@ -5,6 +5,8 @@
 
     <md-card-title>{{MPService.currentConvo.title}}</md-card-title>
 
+    <button md-button color="primary" (click)="goReplyAll()"><md-icon>reply_all</md-icon> Répondre à tous </button>
+
     <md-card-subtitle>
       <ng-container *ngFor="let target of MPService.currentConvo.participants; let index = index">
         <scfr-forum-phpbb-username *ngIf="target.type == 'user' && index <= 5" [color]="target.color" [name]="target.name" [id]="target.id"></scfr-forum-phpbb-username>
@@ -14,10 +16,16 @@
 
   </md-card-header>
   <md-card-content>
+    <scfr-forum-ucp-pm-editor *ngIf="isCompose"></scfr-forum-ucp-pm-editor>
+    <div class="scroll">
       <scfr-forum-ucp-pm-viewmessage *ngFor="let mp of MPService.currentConvo.messages" [mp]='mp'></scfr-forum-ucp-pm-viewmessage>
+    </div>
   </md-card-content>
 
   <md-card-actions>
-    <button md-button color="primary"><md-icon>reply_all</md-icon> Répondre</button>
+    <button md-button color="primary" (click)="goReplyAll()"><md-icon>reply_all</md-icon> Répondre à tous </button>
   </md-card-actions>
 </md-card>
+
+
+

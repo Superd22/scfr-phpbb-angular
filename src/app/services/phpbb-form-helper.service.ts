@@ -86,7 +86,7 @@ export class PhpbbFormHelperService {
     return { selected: selected, options: opts };
   }
 
-  public getRadiosAsObject(tpl_row): { selected: any, options: { id: any, name: any }[] } {
+  public getRadiosAsObject(tpl_row): IPHPBBFieldComputedOptions {
     let opts = [];
     let selected = null;
     let regex = /<input([^<]*)type=[ ]*['"]radio['"]([^<>]*)value=[ ]*['"]([^"']*)['"]([^>]*)>([^>]*)<\/label>/g;
@@ -184,7 +184,7 @@ export class PhpbbFormHelperService {
   public ucpOnPostCallback(data, ucp?: UcpComponent) {
     let tpl = data['@template'];
     this.mdDialog.closeAll();
-    
+
     if (tpl.ERROR) {
       this.api.errorSnackBar(tpl.ERROR);
       this.stateT.newTeplateData = tpl;
@@ -200,4 +200,9 @@ export class PhpbbFormHelperService {
 
   }
 
+}
+
+export interface IPHPBBFieldComputedOptions {
+  selected: any,
+  options: IPhpbbFieldOption[]
 }

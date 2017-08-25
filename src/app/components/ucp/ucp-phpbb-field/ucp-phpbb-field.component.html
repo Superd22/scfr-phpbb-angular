@@ -8,7 +8,7 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="'select'">
-    <md-select [(ngModel)]="model" placeholder="{{display_name}}" [mdTooltip]="explain" [multiple]="multiple">
+    <md-select fxFlex="100" [(ngModel)]="model" placeholder="{{display_name}}" [mdTooltip]="explain" [multiple]="multiple">
       <md-option *ngFor="let opt of options" [value]="opt.id">{{opt.name}}</md-option>
     </md-select>
   </ng-container>

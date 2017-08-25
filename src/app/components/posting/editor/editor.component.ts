@@ -10,7 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, 
   selector: 'scfr-forum-post-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
-  encapsulation:ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditorComponent implements OnInit {
 
@@ -20,6 +20,9 @@ export class EditorComponent implements OnInit {
   public _message: string = "";
   @Output()
   private messageChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output()
+  private subjectChange: EventEmitter<string> = new EventEmitter<string>();
+
   @Input()
   public placeholder: string = "Message";
 
@@ -37,11 +40,15 @@ export class EditorComponent implements OnInit {
 
   constructor(private stateT: StateTranslate) { }
 
-
+  public get subject() { return this._subject; }
   public get message() {
     return this._message;
   }
 
+  public set subject(subject: string) {
+    this._subject = subject;
+    this.subjectChange.emit(subject);
+  }
   public set message(message: string) {
     this._message = message;
     this.messageChange.emit(message);

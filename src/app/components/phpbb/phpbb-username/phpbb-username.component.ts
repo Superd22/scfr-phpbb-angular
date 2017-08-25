@@ -24,6 +24,8 @@ export class PhpbbUsernameComponent implements OnInit {
     if(this.html) {
       this.parseHtml();
     }
+
+    if(this.color && this.color.indexOf("#") == -1) this.color = "#"+this.color; 
   }
 
   public parseHtml() {

@@ -2,9 +2,12 @@
   <md-list fxFlex="30%">
     <scfr-forum-ucp-pm-convo-row *ngFor="let convo of MPService.convos" [convo]="convo"></scfr-forum-ucp-pm-convo-row>
   </md-list>
-  <ui-view fxFlex="100%"></ui-view>
+  <ui-view fxFlex="100%" *ngIf="!isCompose"></ui-view>
+
+  <scfr-forum-ucp-pm-editor fxFlex="100" *ngIf="isCompose"></scfr-forum-ucp-pm-editor>
+
 </div>
 
 <scfr-forum-global-pagination [(page)]="MPService.page" [totalPage]="MPService.maxPage">
-  <button md-button uiSref="phpbb.seo.ucp" [uiParams]="{mode: 'compose', subPage:'', phpbbResolved:false}" [uiOptions]="{refresh:true}"> <md-icon>add</md-icon> Nouveau M.P</button>
+  <button md-button uiSref="phpbb.seo.ucp" [uiParams]="{mode: 'compose', subPage:'', phpbbResolved:false, pm_id:null}" [uiOptions]="{refresh:true}"> <md-icon>add</md-icon> Nouveau M.P</button>
 </scfr-forum-global-pagination>
