@@ -6,12 +6,12 @@
   <h3 *ngIf="tpl.PHRASE_SEARCH_DISABLED"><strong>{{L_.PHRASE_SEARCH_DISABLED}}</strong></h3>
 </div>
 
-<div class="refine-search" *ngIf="tpl.TOTAL_MATCHES > 1">
+<!-- <div class="refine-search" *ngIf="tpl.TOTAL_MATCHES > 1">
   <md-input-container>
     <input mdInput type="search" [placeholder]="L_.SEARCH_IN_RESULTS">
   </md-input-container>
   <button md-button>GO</button>
-</div>
+</div> -->
 
 <div class="search-results" *ngIf="tpl.searchresults">
   <div class="topics" *ngIf="tpl.S_SHOW_TOPICS">
