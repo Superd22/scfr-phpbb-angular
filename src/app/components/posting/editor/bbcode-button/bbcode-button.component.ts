@@ -15,8 +15,6 @@ export class BbcodeButtonComponent implements OnInit {
   @Input()
   /** display explain for this bbcode */
   public explain: string;
-  @Input("code")
-  private _code: string;
   @Input("bbcode")
   public bbcode: IBBcode;
 

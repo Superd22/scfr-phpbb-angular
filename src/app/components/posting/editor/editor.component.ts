@@ -93,4 +93,8 @@ export class EditorComponent implements OnInit {
   private explodeBBcodeName(name: string): string[] {
     return name.replace(new RegExp(/'/g), "").split(",");
   }
+
+  public get smilies() {
+    return this._tpl.smiley;
+  }
 }

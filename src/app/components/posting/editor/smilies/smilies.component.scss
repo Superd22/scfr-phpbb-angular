@@ -1,0 +1,17 @@
+@import './src/assets/material/v7/main';
+$darker-bg: map-get($scfr-mat-blue-grey-background,600);
+
+.a-smiley {
+    cursor:pointer;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+.smilies {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding:24px;
+    align-self: stretch;
+    height: 100%;
+    overflow: hidden;
+    background:$darker-bg;
+}

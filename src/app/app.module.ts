@@ -127,6 +127,8 @@ import { UcpConfirmPopoutComponent } from './components/ucp/ucp-confirm-popout/u
 import { ThrottlerService } from "app/services/throttler.service";
 import { PhpbbGroupComponent } from './components/phpbb/phpbb-group/phpbb-group.component';
 import { UcpPmEditorComponent } from './components/ucp/pm/ucp-pm-editor/ucp-pm-editor.component';
+import { PostingEditorSmiliesComponent } from './components/posting/editor/smilies/smilies.component';
+import { AsmileyComponent } from './components/posting/editor/smilies/asmiley/asmiley.component';
 
 @NgModule({
     declarations: [
@@ -220,6 +222,8 @@ import { UcpPmEditorComponent } from './components/ucp/pm/ucp-pm-editor/ucp-pm-e
         UcpConfirmPopoutComponent,
         PhpbbGroupComponent,
         UcpPmEditorComponent,
+        PostingEditorSmiliesComponent,
+        AsmileyComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

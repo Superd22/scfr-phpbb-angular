@@ -16,3 +16,7 @@ $darker-bg: map-get($scfr-mat-blue-grey-background,900);
 .top-bbcode {
     background:$darker-bg;    
 }
+.smilies-box {
+    align-self: stretch;
+    margin-bottom: 18px;
+}
