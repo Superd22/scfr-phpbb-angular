@@ -1,3 +1,4 @@
+import { StateService } from '@uirouter/angular';
 import { SCFRUIParam } from 'app/decorators/UIParam.decorator';
 import { PrivateMessageService } from './../../../../services/private-message.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -13,14 +14,23 @@ export class ViewconvoComponent implements OnInit {
 
   @SCFRUIParam("mode")
   public mode = null;
-  constructor(public MPService: PrivateMessageService) { }
+  constructor(public MPService: PrivateMessageService, public state: StateService) { }
 
   ngOnInit() {
     this.MPService.setCurrentConvo(this.convo_id);
   }
 
-  public get isCompose():boolean {
+  public get isCompose(): boolean {
     return this.mode === "compose";
+  }
+
+  public goReplyAll() {
+    this.state.go(this.state.current, Object.assign(this.state.params, {
+      action: "reply",
+      mode: "compose",
+      reply_to_all: 1,
+      p: this.convo_id
+    }));
   }
 
 }

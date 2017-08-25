@@ -24,7 +24,7 @@ export class UCPPMViewmessageComponent implements OnInit {
       action: "quote",
       mode: "compose",
       p: this.mp.msg_id,
-      reply_to_all: undefined,
+      reply_to_all: 1,
     }));
   }
 

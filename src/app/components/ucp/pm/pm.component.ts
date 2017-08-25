@@ -14,6 +14,10 @@ export class PmComponent implements OnInit {
   @SCFRUIParam("pm_id")
   public _convoId;
 
+
+  @SCFRUIParam("mode")
+  public _mode = null;
+
   constructor(public MPService: PrivateMessageService, public state: StateService) {
   }
 
@@ -36,7 +40,10 @@ export class PmComponent implements OnInit {
       // ? Shouldn't it be handled via service ?
 
     }
-    console.log("ah", this._convoId);
+  }
+
+  public get isCompose() {
+    return !this._convoId && this._mode == "compose";
   }
 
 }

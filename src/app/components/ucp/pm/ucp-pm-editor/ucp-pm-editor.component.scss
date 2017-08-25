@@ -1,7 +1,33 @@
+@import './src/assets/material/v7/main';
+.to {
+    background: map-get($scfr-mat-blue-grey-background,600);
+    padding: 14px;
+}
 .add-users {
     .search {
-        .mat-input-placeholder {
-            margin-top: -5px;
-        }
+        margin: 10px;
+        margin-top: -32px;
+    }
+}
+.add-actions {
+    margin-top: 24px;
+}
+
+.recipients {
+    background: map-get($scfr-mat-blue-grey-background,500);
+    display: block;
+    padding:12px;
+    > * {
+        padding:6px 0px;
+    }
+    .mat-icon-button {
+        height: 1em;
+        vertical-align: middle;
+        margin-top: -2em;
+    }
+
+    .recipients-bcc {
+        opacity:0.8;
+
     }
 }

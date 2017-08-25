@@ -1,35 +1,51 @@
 <div class="to" fxLayout fxLayoutWrap>
-
-    <div class="add-users" fxFlex="50">
-        <md-toolbar>
-            <md-input-container floatPlaceholder="never" class="search">
-                <md-icon mdPrefix color="primary">search</md-icon>
-                <input type="search" placeholder="Chercher un utilisateur" mdInput [formControl]="addUserControl" [mdAutocomplete]="autoUser">
-            </md-input-container>
-        </md-toolbar>
-        <scfr-forum-ucp-phpbb-field name="username_list" type="textarea" [displayName]="L_.TO_ADD_MASS" [(model)]="usersAdd"></scfr-forum-ucp-phpbb-field>
-
+    <div class="add-users" fxFlex="50" fxLayout fxLayoutWrap>
+        <scfr-forum-ucp-phpbb-field fxFlex="100" name="username_list" type="textarea" [displayName]="L_.TO_ADD_MASS" [(model)]="usersAdd"></scfr-forum-ucp-phpbb-field>
+        <md-input-container class="search" fxFlex="100" floatPlaceholder="never">
+            <md-icon mdPrefix color="primary">search</md-icon>
+            <input type="search" placeholder="Chercher un utilisateur" mdInput [formControl]="addUserControl" [mdAutocomplete]="autoUser">
+        </md-input-container>
     </div>
 
     <div class="add-groups" fxFlex="50">
-        <scfr-forum-ucp-phpbb-field fxFlex="100" name="group_list[]" multiple="true" type="select" [displayName]="L_.TO_ADD_GROUPS"
+        <scfr-forum-ucp-phpbb-field fxFlex="100" name="group_list[]" multiple="true" [(model)]="groupsAdd" type="select" [displayName]="L_.TO_ADD_GROUPS"
             [options]="groupOptions"></scfr-forum-ucp-phpbb-field>
     </div>
 
     <div class="add-actions" fxFlex="100">
-        <button md-button color="primary">{{L_.ADD}}</button>
-        <button md-button color="primary">{{L_.ADD_BCC}}</button>
+        <button md-button color="primary" (click)="addRecipients()">{{L_.ADD}}</button>
+        <button md-button color="primary" (click)="addRecipients(true)">{{L_.ADD_BCC}}</button>
     </div>
 
-    <md-chip-list class="recipients">
+
+</div>
+
+<div class="recipients" fxLayout fxLayoutWrap>
+    <md-chip-list class="recipients-to" fxFlex="100">
         <md-chip *ngFor="let recipient of tpl.to_recipient">
             <scfr-forum-phpbb-username *ngIf="recipient.IS_USER" [html]="recipient.NAME_FULL" [name]="recipient.NAME" [id]="recipient.UG_ID"></scfr-forum-phpbb-username>
             <scfr-forum-phpbb-group *ngIf="recipient.IS_GROUP" [html]="recipient.NAME_FULL" [name]="recipient.NAME" [id]="recipient.UG_ID"></scfr-forum-phpbb-group>
+
+            <button md-icon-button color="warn" (click)="removeRecipient(recipient)"><md-icon>clear</md-icon></button>
+        </md-chip>
+    </md-chip-list>
+
+    <md-chip-list class="recipients-bcc" fxFlex="100">
+        <md-chip *ngFor="let recipient of tpl.bcc_recipient">
+            <scfr-forum-phpbb-username *ngIf="recipient.IS_USER" [html]="recipient.NAME_FULL" [name]="recipient.NAME" [id]="recipient.UG_ID"></scfr-forum-phpbb-username>
+            <scfr-forum-phpbb-group *ngIf="recipient.IS_GROUP" [html]="recipient.NAME_FULL" [name]="recipient.NAME" [id]="recipient.UG_ID"></scfr-forum-phpbb-group>
+
+            <button md-icon-button color="warn" (click)="removeRecipient(recipient, true)"><md-icon>clear</md-icon></button>
         </md-chip>
     </md-chip-list>
 </div>
+<scfr-forum-post-editor [(message)]="tpl.MESSAGE" [(subject)]="tpl.SUBJECT" [tpl]="tpl"></scfr-forum-post-editor>
 
-<scfr-forum-post-editor [message]="tpl.MESSAGE" [subject]="tpl.SUBJECT" [tpl]="tpl"></scfr-forum-post-editor>
+<div class="main-actions">
+
+    <button md-button color="accent" (click)="submit()">Envoyer</button>
+
+</div>
 
 <md-autocomplete #autoUser="mdAutocomplete" [displayWith]="displayUserFn">
     <md-option *ngFor="let option of userSearch | async" [value]="option">

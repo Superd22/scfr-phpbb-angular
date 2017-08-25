@@ -74,7 +74,7 @@ export interface IPHPBBExtendedPM {
 @Injectable()
 export class PrivateMessageService {
 
-    private _convos:BehaviorSubject<IPHPBBPMConvo[]> = new BehaviorSubject<IPHPBBPMConvo[]>(null);
+    private _convos: BehaviorSubject<IPHPBBPMConvo[]> = new BehaviorSubject<IPHPBBPMConvo[]>(null);
     private _currentConvo: IPHPBBPMConvo;
 
     private _convoPerPage: number = 20;
@@ -97,7 +97,7 @@ export class PrivateMessageService {
         return this._convos.getValue() ? this._convos.getValue().filter(() => { i = i++; return i <= this._convoPerPage }) : null;
     }
 
-    public get convosChange():BehaviorSubject<IPHPBBPMConvo[]> {return this._convos;}
+    public get convosChange(): BehaviorSubject<IPHPBBPMConvo[]> { return this._convos; }
 
     public get currentConvo(): IPHPBBPMConvo { return this._currentConvo; }
 
@@ -120,7 +120,7 @@ export class PrivateMessageService {
         if (oldValue != n) this.fetchConvos();
     }
 
-    private fetchConvos() {
+    public fetchConvos() {
         this.phpbbApi.getApi("PM/Convos", { page: this._page, convoPerPage: this._convoPerPage }).subscribe(
             (data: any) => {
                 let r: IAPIConvoReponse = data;
@@ -143,7 +143,7 @@ export class PrivateMessageService {
 
         console.log("sat", this._currentConvo);
 
-        if(this._currentConvo === null) throw "convo is not defined";
+        if (this._currentConvo === null) throw "convo is not defined";
     }
 
     /**
@@ -175,8 +175,8 @@ export class PrivateMessageService {
         return finalAdresses;
     }
 
-    public fetchConvo(convoId: number):Observable<IPHPBBPMConvo> {
-        return this.phpbbApi.getApi("PM/Convos/Single", { convoId: convoId}).map(
+    public fetchConvo(convoId: number): Observable<IPHPBBPMConvo> {
+        return this.phpbbApi.getApi("PM/Convos/Single", { convoId: convoId }).map(
             (data: any) => data
         );
     }

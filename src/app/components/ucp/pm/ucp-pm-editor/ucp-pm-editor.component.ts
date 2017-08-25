@@ -1,10 +1,11 @@
+import { PrivateMessageService } from './../../../../services/private-message.service';
 import { Observable } from 'rxjs/Rx';
 import { IPHPBBFieldComputedOptions, PhpbbFormHelperService } from './../../../../services/phpbb-form-helper.service';
-import { IPhpbbFieldOption } from './../../ucp-phpbb-field/ucp-phpbb-field.component';
+import { IPhpbbFieldOption, UcpPhpbbFieldComponent } from './../../ucp-phpbb-field/ucp-phpbb-field.component';
 import { UnicodeToUtf8Pipe } from './../../../../pipes/unicode-to-utf8.pipe';
 import { PhpbbComponent } from './../../../phpbb/phpbb-component.component';
 import { PhpbbApiService } from './../../../../services/phpbb-api.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { SCFRUIParam } from "app/decorators/UIParam.decorator";
 import { FormControl } from "@angular/forms";
 import { MdAutocompleteTrigger } from "@angular/material";
@@ -29,10 +30,14 @@ export class UcpPmEditorComponent extends PhpbbComponent {
   public addUserControl = new FormControl();
   public userSearch: Observable<any[]>;
   public usersAdd: string;
+  public groupsAdd: string;
 
   public groupOptions: IPhpbbFieldOption[] = [];
 
-  constructor(private form: PhpbbFormHelperService) {
+  @ViewChildren(UcpPhpbbFieldComponent)
+  public _fields: QueryList<UcpPhpbbFieldComponent>;
+
+  constructor(private form: PhpbbFormHelperService, private pmApi: PrivateMessageService) {
     super();
   }
 
@@ -45,7 +50,7 @@ export class UcpPmEditorComponent extends PhpbbComponent {
           return this.phpbbApi.getPhpbbAjaxPage("memberlist.php?mode=livesearch", { username: search }).map((data) =>
             (<any>data).results
           );
-        else if (search && search.result) { this.usersAdd += "\n" + search.result; }
+        else if (search && search.result && search.result !== undefined) { this.usersAdd += "\n" + search.result; }
         return [];
       }
     );
@@ -74,5 +79,93 @@ export class UcpPmEditorComponent extends PhpbbComponent {
   public displayUserFn() {
 
   }
+
+  /**
+   * Add the current selected recipients
+   * 
+   * @param bcc true for bcc, false for to.
+   */
+  public addRecipients(bcc?: boolean) {
+    let extraPost = !bcc ? { add_to: "Ajouter" } : { add_bcc: "Ajouter" };
+
+    extraPost = Object.assign({}, extraPost, this.phpbbAllPost);
+
+    this.form.postToPhpbbWFields("ucp.php?i=pm&mode=compose", this._fields, this.tpl, {
+      p: this._postId,
+      reply_to_all: this._replyToAll,
+      u: this._userTarget,
+      action: this._action,
+    }, extraPost).subscribe((data) => {
+      this.tpl = UnicodeToUtf8Pipe.forEach(data)['@template'];
+      this.usersAdd = undefined;
+      this.groupsAdd = undefined;
+    });
+  }
+
+  /**
+   * Remove the selected recipient
+   * 
+   * @param recipient 
+   * @param bcc 
+   */
+  public removeRecipient(recipient, bcc?: boolean) {
+    let arr: any[] = bcc ? this.tpl.bcc_recipient : this.tpl.to_recipient;
+
+    if (arr) arr.splice(arr.findIndex((test) => test.UG_ID == recipient.UG_ID), 1);
+  }
+
+  /**
+   * Return the adress list as expected by phpbb.
+   */
+  public get phpbbAdressList() {
+    let recipients = {};
+
+    const addRecipient = (recipient, bcc?: boolean) => {
+      if (!recipient) return;
+      let adr = "address_list" + (recipient.IS_USER ? "[u]" : "[g]") + "[" + recipient.UG_ID + "]";
+
+      recipients[adr] = bcc ? "bcc" : "to";
+    }
+
+    if (this.tpl.to_recipient) this.tpl.to_recipient.map((recipient) => addRecipient(recipient));
+    if (this.tpl.bcc_recipient) this.tpl.bcc_recipient.map((recipient) => addRecipient(recipient, true));
+
+    return recipients;
+  }
+
+  public submit() {
+    let extraPost = Object.assign({ post: "Envoyer" }, this.phpbbAllPost);
+
+    this.form.postToPhpbbWFields("ucp.php?i=pm&mode=compose", this._fields, this.tpl, {
+      p: this._postId,
+      reply_to_all: this._replyToAll,
+      u: this._userTarget,
+      action: "post",
+    }, extraPost).subscribe((data) => {
+      let tpl = data['@template'];
+
+      if (tpl.ERROR) this.phpbbApi.errorSnackBar(tpl.ERROR);
+      //else if (tpl.PREVIEW_MESSAGE) return this.submit();
+      else {
+        // Send the good news.
+        this.phpbbApi.openSnackBar(tpl.MESSAGE_TEXT, true);
+        this.pmApi.fetchConvos();
+        // Reload not-compose.
+        this.state.go(this.state.current, Object.assign(this.state.params, { mode: null, subPage: null }));
+      }
+    });
+  }
+
+  /**
+   * Return the message and title in the way phpb likes it
+   */
+  public get phpbbMessageTitle() {
+    return { message: this.tpl.MESSAGE, subject: this.tpl.SUBJECT };
+  }
+
+  public get phpbbAllPost() {
+    return Object.assign(this.phpbbAdressList, this.phpbbMessageTitle);
+  }
+
 
 }

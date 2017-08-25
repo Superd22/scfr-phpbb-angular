@@ -1,3 +1,4 @@
+import { SeoUrlPipe } from './../../../../pipes/seo-url.pipe';
 import { IPHPBBPMConvo } from './../../../../services/private-message.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -13,5 +14,9 @@ export class UcpPmConvoRowComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public get pmSlug(): string {
+    return new SeoUrlPipe().transform(this.convo.title);
   }
 }
