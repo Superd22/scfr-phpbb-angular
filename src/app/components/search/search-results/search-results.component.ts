@@ -53,4 +53,8 @@ export class SearchResultsComponent extends PhpbbComponent {
 
     return params;
   }
+
+  public affineSearch() {
+    //this.state.go(this.state.current, Object.assign(this.state.params, {}))
+  }
 }

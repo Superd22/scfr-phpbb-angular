@@ -29,13 +29,12 @@
 
     <scfr-forum-ucp-phpbb-field type="radio" name="sr" [displayName]="L_.DISPLAY_RESULTS" [options]="[{id:'posts', name: L_.POSTS}, {id:'topics', name: L_.TOPICS}]"></scfr-forum-ucp-phpbb-field>
 
-    {{L_.RESULT_SORT}}
-    <scfr-forum-ucp-phpbb-field [fullPHPBB]="tpl.S_SELECT_SORT_KEY"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field [displayName]="L_.RESULT_SORT" [fullPHPBB]="tpl.S_SELECT_SORT_KEY"></scfr-forum-ucp-phpbb-field>
     <scfr-forum-ucp-phpbb-field type="radio" name="sd" [displayName]="L_.DISPLAY_RESULTS" [options]="[{id:'a', name: L_.SORT_ASCENDING}, {id:'d', name: L_.SORT_DESCENDING}]"></scfr-forum-ucp-phpbb-field>
 
     <scfr-forum-ucp-phpbb-field [fullPHPBB]="tpl.S_SELECT_SORT_DAYS"></scfr-forum-ucp-phpbb-field>
     <scfr-forum-ucp-phpbb-field type="select" name="ch" [options]="searchCharacterOptions.options" [model]="searchCharacterOptions.model"
-      [displayName]="L_.RETURN_FIRST"></scfr-forum-ucp-phpbb-field> {{L_.POST_CHARACTERS}}
+      [displayName]="L_.RETURN_FIRST + ' n ' + L_.POST_CHARACTER"></scfr-forum-ucp-phpbb-field>
   </div>
 
   <button md-button color="primary" (click)="submit()">{{L_.SEARCH}}</button>

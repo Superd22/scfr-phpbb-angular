@@ -1,6 +1,6 @@
-<md-card style="margin: 10px 0px;" [id]="'p'+post.id" [ngClass]="{unread: postrow.S_UNREAD_VIEW}" class="message">
+<md-card style="margin: 10px 0px;" [id]="'p'+post.id" [ngClass]="{unread: postrow?.S_UNREAD_VIEW}" class="message">
 
-  <a *ngIf="postrow.S_FIRST_UNREAD" id="unread" class="anchor"></a>
+  <a *ngIf="postrow?.S_FIRST_UNREAD" id="unread" class="anchor"></a>
 
   <div *ngIf="!isEditMod()">
 
@@ -11,25 +11,25 @@
 
       <div class="message-header-middle" fxFlex fxLayout.lt-md="column" fxLayout.gt-md="row">
         <div class="middle-left">
-          <scfr-forum-phpbb-username [mdTooltip]="postrow.RANK_TITLE" [color]="postrow.POST_AUTHOR_COLOUR" [name]="postrow.POST_AUTHOR"
-            [id]="postrow.POSTER_ID"></scfr-forum-phpbb-username>
+          <scfr-forum-phpbb-username [mdTooltip]="postrow?.RANK_TITLE" [color]="postrow?.POST_AUTHOR_COLOUR" [name]="postrow?.POST_AUTHOR"
+            [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
         </div>
         <div fxFlex></div>
         <div class="middle-right">
 
-          <a *ngIf="postrow.J_IS_JULIET && tpl.S_USER_IS_JULIET" href="{{postrow.J_U_SQ}}">
+          <a *ngIf="postrow?.J_IS_JULIET && tpl.S_USER_IS_JULIET" href="{{postrow?.J_U_SQ}}">
             <div class="squad_title">
-              <div class="main"><img src='{{postrow.JU_RANK_IMG}}' class='forum_rank'> {{postrow.JU_RANK}}</div>
-              <div class="secondary">{{postrow.J_SQ_NAME}}</div>
+              <div class="main"><img src='{{postrow?.JU_RANK_IMG}}' class='forum_rank'> {{postrow?.JU_RANK}}</div>
+              <div class="secondary">{{postrow?.J_SQ_NAME}}</div>
             </div>
           </a>
 
-          <div class="squad_title" *ngIf="(postrow.G_SHOW_H || postrow.G_SHOW_G) && !(tpl.S_USER_IS_JULIET && postrow.J_IS_JULIET)">
-            <a *ngIf="postrow.G_SHOW_H " href="https://robertsspaceindustries.com/citizens/{{postrow.G_U_HANDLE}}" target="_blank">
-              <div class="main">{{postrow.G_U_HANDLE}}</div>
+          <div class="squad_title" *ngIf="(postrow?.G_SHOW_H || postrow?.G_SHOW_G) && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET)">
+            <a *ngIf="postrow?.G_SHOW_H " href="https://robertsspaceindustries.com/citizens/{{postrow?.G_U_HANDLE}}" target="_blank">
+              <div class="main">{{postrow?.G_U_HANDLE}}</div>
             </a>
-            <a *ngIf="postrow.G_SHOW_G && postrow.G_SQ_NAME " href="{{postrow.G_U_SQ}}">
-              <div class="secondary">{{postrow.G_SQ_NAME}}</div>
+            <a *ngIf="postrow?.G_SHOW_G && postrow?.G_SQ_NAME " href="{{postrow?.G_U_SQ}}">
+              <div class="secondary">{{postrow?.G_SQ_NAME}}</div>
             </a>
           </div>
 
@@ -37,19 +37,19 @@
       </div>
 
       <div class="message-header-logo">
-        <ng-container *ngIf="postrow.J_IS_JULIET && tpl.S_USER_IS_JULIET">
-          <a href="{{postrow.J_U_SQ}}">
-            <img class="logo" [src]="postrow.J_SQ_LOGO">
+        <ng-container *ngIf="postrow?.J_IS_JULIET && tpl.S_USER_IS_JULIET">
+          <a href="{{postrow?.J_U_SQ}}">
+            <img class="logo" [src]="postrow?.J_SQ_LOGO">
           </a>
         </ng-container>
 
-        <ng-container *ngIf="postrow.G_SHOW_G && postrow.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow.J_IS_JULIET)">
-          <a href="{{postrow.G_U_SQ}}">
-            <img class="logo" [src]="postrow.G_SQ_LOGO">
+        <ng-container *ngIf="postrow?.G_SHOW_G && postrow?.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET)">
+          <a href="{{postrow?.G_U_SQ}}">
+            <img class="logo" [src]="postrow?.G_SQ_LOGO">
           </a>
         </ng-container>
 
-        <div class="fix" *ngIf="!(postrow.G_SHOW_G && postrow.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow.J_IS_JULIET))"></div>
+        <div class="fix" *ngIf="!(postrow?.G_SHOW_G && postrow?.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET))"></div>
       </div>
     </div>
     <md-card-content *ngIf="post.message">
