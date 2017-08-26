@@ -3,7 +3,8 @@
     {{link.name}}
   </a>
 </nav>
-<div fxLayout fxLayoutWrap  class="ucp-page">
+
+<div fxLayout fxLayoutWrap class="ucp-page" *ngIf="!isFullPage">
   <scfr-forum-ucp-side-nav [ucp]="this" fxFlex.gt-sm="20"></scfr-forum-ucp-side-nav>
   <md-card fxFlex>
     <md-card-header>
@@ -17,9 +18,15 @@
         <scfr-forum-ucp-pm-switch *ngSwitchCase="'mp'" [ucp]="this"></scfr-forum-ucp-pm-switch>
         <scfr-forum-ucp-groups-switch *ngSwitchCase="'groups'" [ucp]="this"></scfr-forum-ucp-groups-switch>
         <scfr-forum-ucp-contacts-switch *ngSwitchCase="'contacts'" [ucp]="this"></scfr-forum-ucp-contacts-switch>
-        
+
         <div *ngSwitchDefault>Default</div>
       </div>
     </md-card-content>
   </md-card>
+</div>
+
+<div fxLayout fxLayoutWrap *ngIf="isFullPage" class="ucp-full-page">
+  <div [ngSwitch]="currentPage">
+    <scfr-forum-ucp-notifications *ngSwitchCase="'notifications'"></scfr-forum-ucp-notifications>
+  </div>
 </div>

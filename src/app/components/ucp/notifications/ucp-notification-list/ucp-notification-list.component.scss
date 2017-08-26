@@ -1,0 +1,18 @@
+@import './src/assets/material/v7/main';
+
+$border: map-get($scfr-mat-light-blue, 600);
+$main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,500),0.25);
+$color:  map-get($scfr-mat-light-blue, 200);
+
+.notifications {
+    .a-notif {
+        position:relative;
+        border-left:5px solid transparent;
+        margin:12px;
+        &.unread {
+            background: transparentize(lighten(map-get($scfr-mat-blue-grey-background,700), 10%),0.1);
+            box-shadow: 100px 0px 100px -100px darken($border,10%) inset;
+            border-left-color: lighten(map_get($scfr-mat-light-blue, 700), 20%);
+        }    
+    }
+}

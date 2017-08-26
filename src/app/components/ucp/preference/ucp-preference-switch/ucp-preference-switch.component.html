@@ -1,5 +1,6 @@
 <div [ngSwitch]="mode">
   <scfr-forum-ucp-preference-personelle [ucp]="ucp" *ngSwitchCase="'personal'"></scfr-forum-ucp-preference-personelle>
   <scfr-forum-ucp-preference-posting [ucp]="ucp" *ngSwitchCase="'post'"></scfr-forum-ucp-preference-posting>
+  <scfr-forum-ucp-preference-notifications [ucp]="ucp" *ngSwitchCase="'notification_options'"></scfr-forum-ucp-preference-notifications>
   <scfr-forum-ucp-preference-view [ucp]="ucp" *ngSwitchCase="'view'"></scfr-forum-ucp-preference-view>
 </div>

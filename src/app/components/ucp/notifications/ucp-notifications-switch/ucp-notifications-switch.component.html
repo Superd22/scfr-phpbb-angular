@@ -1,0 +1,4 @@
+<div [ngSwitch]="mode">
+  <scfr-forum-ucp-notification-options *ngSwitchCase="'notification_options'" [ucp]="ucp"></scfr-forum-ucp-notification-options>
+  <scfr-forum-ucp-notification-list *ngSwitchCase="'notification_list'" [ucp]="ucp"></scfr-forum-ucp-notification-list>
+</div>

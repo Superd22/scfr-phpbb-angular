@@ -1,3 +1,4 @@
+import { UcpMainNotificationsComponent } from './components/ucp/notifications/notifications.component';
 import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
 import { HeaderService } from './services/header-service.service';
 import { CommonModule } from '@angular/common';
@@ -129,6 +130,11 @@ import { PhpbbGroupComponent } from './components/phpbb/phpbb-group/phpbb-group.
 import { UcpPmEditorComponent } from './components/ucp/pm/ucp-pm-editor/ucp-pm-editor.component';
 import { PostingEditorSmiliesComponent } from './components/posting/editor/smilies/smilies.component';
 import { AsmileyComponent } from './components/posting/editor/smilies/asmiley/asmiley.component';
+import { MessageDecoBallsDirective } from './components/viewmessage/directives/message-deco-balls.directive';
+import { UcpPreferenceNotificationsComponent } from './components/ucp/preference/ucp-preference-notifications/ucp-preference-notifications.component';
+import { UcpNotificationsSwitchComponent } from './components/ucp/notifications/ucp-notifications-switch/ucp-notifications-switch.component';
+import { UcpNotificationListComponent } from './components/ucp/notifications/ucp-notification-list/ucp-notification-list.component';
+import { UcpNotificationOptionsComponent } from './components/ucp/notifications/ucp-notification-options/ucp-notification-options.component';
 
 @NgModule({
     declarations: [
@@ -224,6 +230,12 @@ import { AsmileyComponent } from './components/posting/editor/smilies/asmiley/as
         UcpPmEditorComponent,
         PostingEditorSmiliesComponent,
         AsmileyComponent,
+        MessageDecoBallsDirective,
+        UcpPreferenceNotificationsComponent,
+        UcpNotificationsSwitchComponent,
+        UcpMainNotificationsComponent,
+        UcpNotificationListComponent,
+        UcpNotificationOptionsComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

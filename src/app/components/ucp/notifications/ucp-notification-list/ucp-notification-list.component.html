@@ -1,0 +1,20 @@
+<div class="header">
+  {{ucp.L_.NOTIFICATIONS}}
+</div>
+
+<md-list class="notifications">
+  <md-list-item mdRipple *ngFor="let notif of ucp.tpl.notification_list" [ngClass]="{unread: notif.UNREAD}" class="a-notif">
+    <img md-list-avatar [src]="notif.AVATAR ? notif.AVATAR : '//starcitizen.fr/Forum/' + ucp.tpl.T_THEME_PATH + '/images/no_avatar.gif'">
+    <h3 md-line [innerHTML]="notif.FORMATTED_TITLE"></h3>
+    <p md-line>
+      <span *ngIf="notif.FORUM"> {{notif.FORUM}} </span>
+      <span *ngIf="notif.REFERENCE"> {{notif.REFERENCE}} </span>
+      <span *ngIf="notif.REASON"> {{notif.REASON}} </span>
+    </p>
+    <time md-line>{{notif.TIME}}</time>
+  </md-list-item>
+</md-list>
+
+<scfr-forum-global-pagination [page]="ucp.tpl.CURRENT_PAGE" (pageChange)="fetchPage($event)" [totalPage]="ucp.tpl.TOTAL_PAGES">
+  <button md-button (click)="markAllRead()">{{ucp.L_.NOTIFICATIONS_MARK_ALL_READ}}</button>
+</scfr-forum-global-pagination>

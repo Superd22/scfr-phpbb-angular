@@ -10,6 +10,11 @@
       </div>
 
       <div class="message-header-middle" fxFlex fxLayout.lt-md="column" fxLayout.gt-md="row">
+        <div class="decorations">
+          <div class="deco-bar"></div>
+          <div class="deco-balls" scfrForumMessageDecoBalls>
+          </div>
+        </div>
         <div class="middle-left">
           <scfr-forum-phpbb-username [mdTooltip]="postrow?.RANK_TITLE" [color]="postrow?.POST_AUTHOR_COLOUR" [name]="postrow?.POST_AUTHOR"
             [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
