@@ -46,5 +46,10 @@ export class UcpComponent extends PhpbbComponent implements OnInit {
   }
 
 
+  public get currentPrettyPage():string {
+    return this.navLinks.find((nav) => this.tabIsActive(nav.id)).name;
+  }
+
+
 
 }

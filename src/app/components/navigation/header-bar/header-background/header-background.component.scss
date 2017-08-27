@@ -11,6 +11,7 @@
                 0px 20px 90px -20px rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid hsla(0, 0%, 0%, 0.20);
     overflow: hidden;
+    transition:height 0.5s;
     &.guild {
         height:344px;
     }
