@@ -23,3 +23,33 @@
         padding:20px;
     }
 }
+
+.ucp-full-page {
+    > * {
+        flex:1 1 100%;
+        & > * {flex:1 1 100%;}
+    }
+}
+.ucp-header {
+    margin-left: 30px;
+    h2 {
+        font-family: 'Heebo', sans-serif;
+        text-transform:uppercase;
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+        margin:0px;
+    }
+    
+    h3 {
+        font-family: Electrolize;
+        font-style: normal;
+        margin: 0px;
+    }
+    padding-left:10px;
+    border-left:4px solid darkgoldenrod;
+}
+
+.tab-link {
+    font-family: "Heebo";
+    text-transform: uppercase;
+}

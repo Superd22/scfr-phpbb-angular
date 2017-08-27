@@ -42,6 +42,7 @@ $t-mask-delay: 0.5s;
         overflow: hidden;
         height: 1rem;
         width: 100%;
+        text-transform: uppercase;
     }
     em {
         $em-size: 0.9rem;
@@ -92,6 +93,7 @@ $t-mask-delay: 0.5s;
         margin: 0px;
         align-self: flex-end;
         margin-bottom: 14px;
+        transition:color 0.5s;
 
         dt {
             display:inline-block;
@@ -106,5 +108,6 @@ $t-mask-delay: 0.5s;
             }
         }
     }
+    &:hover .stats { color: #333333; }
 }
 

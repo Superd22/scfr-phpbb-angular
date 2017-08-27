@@ -1,0 +1,14 @@
+<div class="notifs">
+  <h2>Notifications</h2>
+
+  <div class="wrapper">
+    <scfr-header-notification-a-notif *ngFor="let notif of notifs" [notif]="notif"></scfr-header-notification-a-notif>
+  </div>
+
+</div>
+<div class="bottom" fxLayout>
+  <div class="corner" fxFlex></div>
+  <div class="main" fxFlex="100">
+    <button> Tout marquer comme lu </button>
+  </div>
+</div>

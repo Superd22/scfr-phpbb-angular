@@ -1,3 +1,4 @@
+import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
 import { StateService } from '@uirouter/angular';
 import { LayoutService } from './../../../material/services/layout-service.service';
 import { StateTranslate } from './../../../services/state-translate.service';
@@ -17,12 +18,14 @@ export class HeaderBarComponent implements OnInit {
 
   public select: boolean = false;
   public navlinks: NavLink[] = [];
-  public busy:boolean;
+  public busy: boolean;
   public selectedForum: number;
 
   public pmCount;
   public notifCount;
   public loggedIn;
+
+  public tpl: IPhpbbTemplate;
 
   public get toggle() {
     return this._toggle;
@@ -36,7 +39,7 @@ export class HeaderBarComponent implements OnInit {
   constructor(private stateT: StateTranslate, private layout: LayoutService, private state: StateService) {
     this.stateT.latestTemplateData.subscribe((tpl) => {
       this.navlinks = tpl.navlinks
-
+      this.tpl = tpl;
 
       this.loggedIn = (Number(tpl['CURRENT_USER_ID']) > 1);
       this.notifCount = Number(tpl["UNREAD_NOTIFICATIONS_COUNT"]);
@@ -51,7 +54,7 @@ export class HeaderBarComponent implements OnInit {
       }
     });
 
-    this.stateT.loading.subscribe( loading => this.busy = loading);
+    this.stateT.loading.subscribe(loading => this.busy = loading);
 
     this.layout.lt_sm.subscribe((lt_sm) => {
       this.select = lt_sm;

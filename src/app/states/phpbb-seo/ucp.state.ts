@@ -12,6 +12,7 @@ export const psoUcp = {
         i: null,
         pm_id: null,
         pmSlug: null,
+        start: null,
     },
     component: UcpComponent,
 };

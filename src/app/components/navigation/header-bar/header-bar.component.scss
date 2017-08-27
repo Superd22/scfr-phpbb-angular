@@ -19,3 +19,10 @@
     position: relative;
     vertical-align: middle;
 }
+
+.progress-bar {
+    opacity:1;
+    transition:0.25s;
+    margin-top: -5px;
+    &.hidden {opacity:0;}
+}

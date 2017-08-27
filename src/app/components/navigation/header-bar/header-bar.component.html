@@ -1,4 +1,4 @@
-<scfr-forum-global-header-bar [displayLogo]="!toggle" class="global-header" [loggedIn]="loggedIn" [notificationCount]="notifCount" [pmCount]="pmCount"></scfr-forum-global-header-bar>
+<scfr-forum-global-header-bar [displayLogo]="!toggle" class="global-header" [tpl]="tpl"></scfr-forum-global-header-bar>
 <scfr-forum-header-background></scfr-forum-header-background>
 <div class="main-forum-nav">
   <button md-icon-button class="toggle-menu" (click)="toggle = !toggle" [ngClass]="{toggled: toggle}"><md-icon>{{toggle ? 'menu' : 'menu'}}</md-icon></button>
@@ -18,4 +18,4 @@
     </md-option>
   </md-select>
 </div>
-<md-progress-bar *ngIf="busy" color="accent" mode="indeterminate"></md-progress-bar>
+<md-progress-bar class="progress-bar" [ngClass]="{hidden:!busy}" color="accent" mode="indeterminate"></md-progress-bar>

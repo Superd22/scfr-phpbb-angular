@@ -286,8 +286,32 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
     }
 
-    private transform_ucp_pm(trans) {
-        //getPage
+    /**
+     * This is called programatically if we need to translate from an old single pm to a full
+     * convo
+     * 
+     * @param trans the current transition
+     */
+    private transform_ucp_pm(trans: Transition) {
+        // No matter what we're gonna redirect to the pm page.
+        let newParams = Object.assign({}, trans.params(), { i: "ucp_pm", mode: "", page: "mp", subPage: null, });
+        
+        // We need to fetch what convo we want
+        if (!newParams['pm_id']) {
+            if (!newParams['p']) throw "NO PM SPECIFIED";
+
+            return this.phpbbApi.getApi("PM/Convos", { mode: "convo_of_mp", pmId: newParams['p'] }).map(
+                (data: any) => {
+                    let convo: { convo_id: number, convo_title: string } = data;
+
+                    newParams['pm_id'] = convo.convo_id;
+                    newParams['pmSlug'] = new SeoUrlPipe().transform(convo.convo_title);
+
+                    return trans.router.stateService.target("phpbb.seo.ucp", newParams);
+                }
+            )
+        }
+
         return Observable.of(new Object()).map(() => true);
     }
 
@@ -465,6 +489,7 @@ export class StateTranslate {
             amis: "friends",
             indesirables: "foes",
             register: "register",
+            liste: "notification_list",
         };
 
         function get_pretty_state(i) {
@@ -492,6 +517,8 @@ export class StateTranslate {
         if (transition.$to().name.indexOf("legacy") > -1) {
             // We're in LEGACY
 
+            if (params.i == "pm" && params.mode == "view" && params.p) return this.transform_ucp_pm(transition);
+
             // We pretty-ize both our params.
             newParam.page = get_pretty_state(params.i);
             newParam.subPage = get_pretty_sub_state(params.mode);
@@ -517,7 +544,7 @@ export class StateTranslate {
             if (params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
 
             // Fetch the actual data
-            return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode }).map(
+            return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
                 (data) => {
                     newParam.phpbbResolved = data;
                     return transition.router.stateService.target(stateTarget, newParam);
