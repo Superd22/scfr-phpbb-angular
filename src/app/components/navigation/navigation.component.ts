@@ -3,7 +3,7 @@ import { FilteredForumsPipeResult } from './pipes/filtered-forums.pipe';
 import { FilteredResults } from './../../pipes/get-filtered-result.pipe';
 import { StateTranslate } from './../../services/state-translate.service';
 import { UnicodeToUtf8Pipe } from './../../pipes/unicode-to-utf8.pipe';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IndexResponse } from '../../models/IndexResponse';
 
 import { PhpbbApiService } from '../../services/phpbb-api.service';
@@ -26,6 +26,14 @@ export class NavigationComponent implements OnInit {
     public filteredForumList: FilteredForumsPipeResult = { original: [], extended: [] };
     /** current string search for forums */
     public searchForum: string = "";
+
+    @Input("toggle")
+    public _toggle: boolean;
+    @Output()
+    public toggleChange = new EventEmitter<boolean>();
+
+    public get toggle(): boolean { return this._toggle; }
+    public set toggle(toggle: boolean) { this._toggle = toggle; this.toggleChange.emit(toggle); }
 
     private _registeredForums: { [forumId: number]: ForumLinkComponent } = {};
 

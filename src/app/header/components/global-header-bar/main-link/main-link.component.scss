@@ -2,16 +2,16 @@ $bar-background: rgba(38,50,58,0.9);
 
 button {
     flex:1 1 100%;
-    min-width:160px;
+    min-width:220px;
     height: 100%;
     padding:20px 35px;
-    font-family:"Electrolize";
+    font-family: "Open Sans";
     text-transform: uppercase;
     background:none;
     border:0px;
     outline:none;
     cursor:pointer;
-    font-size:17px;
+    font-size:18px;
     color:white;
     z-index:11;
     position:relative;
@@ -30,7 +30,6 @@ button {
             color:white;
         }
     }
-
 }
 
 :host /deep/ .extended-menu {

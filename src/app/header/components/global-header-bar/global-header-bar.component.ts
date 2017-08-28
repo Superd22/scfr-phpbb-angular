@@ -3,7 +3,7 @@ import { SCMenu } from './../../enums/star-citizen.const';
 import { COMMenu } from './../../enums/communaute.const';
 import { IMainHeaderBarWP } from './../../interfaces/main-header-bar-wp.interface';
 import { mainLinks } from './../../enums/main-links.const';
-import { Component, OnInit, Input, HostListener, NgZone } from '@angular/core';
+import { Component, OnInit, Input, HostListener, NgZone, EventEmitter, Output } from '@angular/core';
 import { GlobalHeaderService } from "app/header/services/global-header.service";
 
 @Component({
@@ -17,6 +17,11 @@ export class GlobalHeaderBarComponent implements OnInit {
   public WPHeader: IMainHeaderBarWP;
   @Input()
   public displayLogo: boolean = true;
+  @Output("toggled")
+  private _toggleChange = new EventEmitter<boolean>();
+  public set toggleMenu(toggle: boolean) { this._toggleChange.emit(toggle); }
+
+
   @Input()
   public displayEvents: boolean = true;
 
@@ -72,7 +77,7 @@ export class GlobalHeaderBarComponent implements OnInit {
   public get hasNotification() { return this.notificationCount > 0; }
 
   public markAllNotificationRead() {
-    
+
   }
 
 

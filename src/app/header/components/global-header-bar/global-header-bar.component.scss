@@ -1,5 +1,5 @@
 $line-height: 64px;
-$bar-background: rgba(38,50,58,0.9);
+$bar-background: transparentize(#212B32, 0.1);
 
 .global-nav-bar {
     height: $line-height;
@@ -11,6 +11,20 @@ $bar-background: rgba(38,50,58,0.9);
     background-color:transparent;
     //overflow: hidden;
     .logo {
+        display:flex;
+        button {
+            background: transparent;
+            color: white;
+            border: 0px;
+            outline: none;
+            margin-left: 12px;
+            cursor: pointer;
+            opacity:0;
+            transition:0.2s;
+            &:hover {
+
+            }
+        }
         img {
             height: $line-height*1.50; 
             margin-top: -($line-height*0.25);
@@ -19,15 +33,21 @@ $bar-background: rgba(38,50,58,0.9);
             z-index: 11;
             transition:0.2s;
             margin-left: -220px;
+            width: 150px;
+            height: 69.5px;
+            padding-top: 14px;
         }
     }
     &.logo {
         margin-top:15px;
         flex: 1 1 auto;
-        .logo img {
-            margin-left: 0;
-            opacity:1;
+        .logo {
+            button {opacity:1;}
+            img {
+                margin-left: 0;
+                opacity:1;
 
+            }
         }
     }
 
@@ -64,13 +84,13 @@ $bar-background: rgba(38,50,58,0.9);
             cursor:pointer;
             width: 82px;
             background: transparent;
-            color: white;
+            color: #CBCBCB;
             height:$line-height;
             border: 0px;
             flex: 1 1 100%;
-            font-size: 14px;
+            font-size: 20px;
             line-height: 22px;
-            font-family: "Electrolize";
+            font-family: "Open Sans";
             i {
                 margin-right: 7px;
                 vertical-align: bottom;
