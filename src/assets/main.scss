@@ -36,10 +36,27 @@ hr {
     width:100%;
 }
 
-/** search hilight in post */
-.posthilit {
-    background: map-get($scfr-mat-light-blue, 500);
-    color: map_get($scfr-mat-blue-grey-background,500);
-    padding: 4px 0px;
-    margin: -4px 0px;
+.post-inner {
+
+    /** search hilight in post */
+    .posthilit {
+        background: map-get($scfr-mat-light-blue, 500);
+        color: map_get($scfr-mat-blue-grey-background,500);
+        padding: 4px 0px;
+        margin: -4px 0px;
+    }
+    blockquote {
+        background: transparentize(map-get($scfr-mat-blue-grey-background, 900), 0.5);
+        padding:24px;
+
+        cite {
+            display: block;
+            margin: -24px;
+            margin-bottom: 0px;
+            padding: 12px 24px;    
+            font-family: "Electrolize";
+            text-transform: uppercase;
+            color: #9e9e9e;
+        }
+    }
 }

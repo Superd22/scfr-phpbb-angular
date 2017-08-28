@@ -1,9 +1,60 @@
 @import './src/assets/material/v7/main';
 
 $border: transparentize(map-get($scfr-mat-light-blue, 200),0.85);
-$dark-bg:  map-get($scfr-mat-blue-grey-background,800);
+$dark-bg:  map-get($scfr-mat-blue-grey-background, 700);
 $color:  map-get($scfr-mat-light-blue, 200);
 $border-radius: 6px;
+
+.message {
+    margin: 24px 0px;
+    background:transparentize($dark-bg, 0.2);
+}
+
+.side-info {
+    margin: 0px 0px -24px -24px;
+    align-items: flex-start;
+    align-content: flex-start;
+    .avatar {
+        $avatar-size: 75px;
+        flex:1 1 100%;
+        max-width: $avatar-size;
+        max-height: $avatar-size;
+        margin:0px auto;
+    }
+
+    .poster-name {
+        text-align:center;
+        padding: 0px 6px;
+        margin-top: 6px;
+    }
+
+    .guild-logo {
+        width: 55px;
+        height: 55px;
+        margin: 0px auto;
+        opacity: 0.7;
+    }
+}
+
+.post-inner {
+    padding: 0px 12px;
+    blockquote {
+        background: transparentize(map-get($scfr-mat-blue-grey-background, 900), 0.8);
+    }
+}
+
+.message-actions {
+    margin-bottom: -24px;
+    margin-top: 24px;
+    align-items: flex-end;
+    .message-details {
+        font-family: "Open sans";
+        color: #9a9a9a;
+        font-size: 9px;
+        letter-spacing: 1px;
+        line-height: 8px;
+    }
+}
 
 .message-header {
     height:100px;
@@ -113,8 +164,4 @@ $border-radius: 6px;
         }
     }
 
-}
-.message-actions {
-    margin-bottom: -24px;
-    margin-top: 24px;
 }

@@ -1,20 +1,15 @@
-<md-card style="margin: 10px 0px;" [id]="'p'+post.id" [ngClass]="{unread: postrow?.S_UNREAD_VIEW}" class="message">
+<md-card [id]="'p'+post.id" [ngClass]="{unread: postrow?.S_UNREAD_VIEW}" class="message">
 
   <a *ngIf="postrow?.S_FIRST_UNREAD" id="unread" class="anchor"></a>
 
   <div *ngIf="!isEditMod()">
 
-    <div class="message-header" *ngIf="!simplePostMod" fxLayout>
+    <!-- <div class="message-header" *ngIf="!simplePostMod" fxLayout>
       <div class="message-header-avatar">
         <img [src]="avatarUrl">
       </div>
 
       <div class="message-header-middle" fxFlex fxLayout.lt-md="column" fxLayout.gt-md="row">
-        <div class="decorations">
-          <div class="deco-bar"></div>
-          <div class="deco-balls" scfrForumMessageDecoBalls>
-          </div>
-        </div>
         <div class="middle-left">
           <scfr-forum-phpbb-username [mdTooltip]="postrow?.RANK_TITLE" [color]="postrow?.POST_AUTHOR_COLOUR" [name]="postrow?.POST_AUTHOR"
             [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
@@ -56,13 +51,39 @@
 
         <div class="fix" *ngIf="!(postrow?.G_SHOW_G && postrow?.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET))"></div>
       </div>
-    </div>
-    <md-card-content *ngIf="post.message">
-      <div [innerHTML]="(post.message | unsafeHtml)" class="post-inner">
+    </div> -->
+    <md-card-content *ngIf="post.message" fxLayout fxLayoutWrap>
+      <div class="side-info" fxFlex="100px" fxLayout fxLayoutWrap>
+        <img [src]="avatarUrl" class="avatar">
+        <h4 class="poster-name" fxFlex="100">
+          <scfr-forum-phpbb-username [mdTooltip]="postrow?.RANK_TITLE" [color]="postrow?.POST_AUTHOR_COLOUR" [name]="postrow?.POST_AUTHOR"
+            [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
+        </h4>
+
+        <div class="guild-logo">
+          <ng-container *ngIf="postrow?.J_IS_JULIET && tpl.S_USER_IS_JULIET">
+            <a href="{{postrow?.J_U_SQ}}">
+                <img class="logo" [src]="postrow?.J_SQ_LOGO">
+              </a>
+          </ng-container>
+
+          <ng-container *ngIf="postrow?.G_SHOW_G && postrow?.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET)">
+            <a href="{{postrow?.G_U_SQ}}">
+                <img class="logo" [src]="postrow?.G_SQ_LOGO">
+              </a>
+          </ng-container>
+
+        </div>
+
       </div>
+      <div fxFlex [innerHTML]="(post.message | unsafeHtml)" class="post-inner"></div>
     </md-card-content>
-    <md-card-actions class="message-actions">
-      <scfr-forum-message-action-bar [viewtopic]="viewtopic" *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>
+    <md-card-actions class="message-actions" fxLayout>
+      <div class="message-details" fxFlex="100">
+        <span class="message-id">#{{postrow?.POST_ID}}</span> -
+        <time class="message-time">{{postrow?.POST_DATE}}</time>
+      </div>
+      <scfr-forum-message-action-bar fxFlex [viewtopic]="viewtopic" *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>
     </md-card-actions>
   </div>
   <div *ngIf="isEditMod()" ui-view="editMessage"></div>
