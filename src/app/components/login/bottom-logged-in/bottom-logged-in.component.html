@@ -2,11 +2,16 @@
   <md-card-header>
     <img uiSref="phpbb.seo.viewprofile" class="avatar" [uiParams]="{userId: currentTpl?.S_USER_ID}" md-card-avatar [src]="LoginService.avatar">
     <div class="text">
-      <md-card-title>{{LoginService.username}}</md-card-title>
-      <md-card-subtitle [innerHTML]="LoginService.legend"></md-card-subtitle>
+      <md-card-title>
+        <scfr-forum-phpbb-username [html]="currentTpl?.CURRENT_USERNAME_FULL"></scfr-forum-phpbb-username>
+      </md-card-title>
+      <md-card-subtitle>
+        <scfr-forum-phpbb-group [html]='LoginService.legend'></scfr-forum-phpbb-group>
+      </md-card-subtitle>
     </div>
     <div class="tools" fxFlex fxLayout="column">
-      <button md-icon-button uiSref="phpbb.legacy" [uiParams]="{page:'ucp.php', phpbbResolved:null}" mdTooltip="Panneau de contrôle utilisateur" mdTooltipPosition="above"><md-icon>settings</md-icon></button>
+      <button md-icon-button uiSref="phpbb.legacy" [uiParams]="{page:'ucp.php', phpbbResolved:null}" mdTooltip="Panneau de contrôle utilisateur"
+        mdTooltipPosition="above"><md-icon>settings</md-icon></button>
       <div fxFlex="100"></div>
       <button md-icon-button (click)="LoginService.logoutUser()" mdTooltip="Se déconnecter" mdTooltipPosition="above"><md-icon>power_settings_new</md-icon></button>
     </div>

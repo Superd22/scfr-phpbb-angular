@@ -9,9 +9,14 @@ $list-border-color: rgba(255, 255, 255, 0.3);
 
     .forum-link-row {
         &.main {
-            $border-color: rgba(0,0,0,0.2);
-            border-bottom:1px solid $border-color;
+            $border-color: #212B32;
+            border-bottom:2px solid $border-color;
+            .mat-button {font-size:17px;}
             padding:8px 0px;
+        }
+
+        &.secondary {
+            .mat-button {font-size:14px;}
         }
         
         &.hidden {
@@ -29,7 +34,7 @@ $list-border-color: rgba(255, 255, 255, 0.3);
             padding-left: 15px;
         }
         &.new {
-            background: rgba(81, 195, 250, 0.15);
+            //background: rgba(81, 195, 250, 0.15);
             font-weight: bolder;
             color: white;
         }
@@ -50,7 +55,7 @@ $list-border-color: rgba(255, 255, 255, 0.3);
         width:100%;
         text-align:left;
         &.mat-button {
-            font-family: 'Electrolize', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-weight:normal;
             &:not(.no-list):before {
                 content: '\2022';

@@ -1,13 +1,22 @@
 md-card {
     border-top:1px solid rgba(0,0,0,0.2);
-    padding-bottom:12px;
+    padding: 12px 24px;
+    .mat-card-subtitle  {
+        font-size:10px;
+        color: #7E7E7E;
+    }
+    .mat-card-title {
+        font-size:20px;
+    }
 }
 .text {
     align-self: center;
     flex: 1 1 100%;
 }
 .avatar {
-    margin-left: -10px;
+    height: 70px;
+    width: 70px;
+    margin-left: -12px;
 }
 .mat-icon-button {
     height:30px;

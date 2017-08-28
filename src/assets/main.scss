@@ -25,7 +25,7 @@ hr {
 }
 
 .mat-sidenav {
-    background-color: transparentize(map_get($scfr-mat-blue-grey-background,500),0.2);
+    background-color: transparentize(map_get($scfr-mat-blue-grey-background,500),0.25);
     .navigator-bottom {
         .mat-card {
             background-color: map_get($scfr-mat-blue-grey-background,700);

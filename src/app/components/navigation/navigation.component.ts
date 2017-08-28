@@ -1,3 +1,4 @@
+import { StateService } from '@uirouter/angular';
 import { ForumLinkComponent } from './forum-link/forum-link.component';
 import { FilteredForumsPipeResult } from './pipes/filtered-forums.pipe';
 import { FilteredResults } from './../../pipes/get-filtered-result.pipe';
@@ -37,7 +38,7 @@ export class NavigationComponent implements OnInit {
 
     private _registeredForums: { [forumId: number]: ForumLinkComponent } = {};
 
-    constructor(private stateT: StateTranslate, public LoginService: LoginService) { }
+    constructor(private stateT: StateTranslate, public LoginService: LoginService, private state: StateService) { }
 
     public get forumList() {
         return this._forumList;
@@ -174,6 +175,17 @@ export class NavigationComponent implements OnInit {
      */
     public registerForum(id: number, forum: ForumLinkComponent) {
         this._registeredForums[Number(id)] = forum;
+    }
+
+    /**
+     * Helper method to go to the search state 
+     */
+    public goToSearch() {
+        // Go search
+        this.state.go("phpbb.seo.search", { keywords: this.searchForum });
+
+        // Reset the search to display forums again
+        this.searchForum = "";
     }
 
 }

@@ -38,6 +38,10 @@ md-toolbar {
         padding-bottom:0px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         align-items: center;
-        .mat-icon {margin-right:14px;}
+        font-family: "Open Sans";
+        font-size:18px;
+        .search-more {
+            padding:12px;
+        }
     }
 }
