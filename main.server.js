@@ -1,5 +1,4 @@
 
-
 // Load zone.js for the server.
 require('zone.js/dist/zone-node');
 
@@ -12,7 +11,7 @@ window = { location: {hostname:undefined}, hostname: undefined };
 document = { hostname: undefined };
 const location = { hostname: undefined };
 
-var AppServerModuleNgFactory = require('./dist-server/main.88aff04a706f4a9e6ddc.bundle').AppServerModuleNgFactory;
+var AppServerModuleNgFactory = require('./dist-server/main.bundle').AppServerModuleNgFactory;
 
 // Load the index.html file.
 var index = require('fs').readFileSync('./src/index.html', 'utf8');

@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import 'zone.js/dist/zone-node';
 import { platformServer, renderModuleFactory } from '@angular/platform-server'
 import { enableProdMode } from '@angular/core'
-import { AppServerModuleNgFactory } from './dist-server/main.7813fd03f3e4f5d65e18.bundle.js';
+import { AppServerModuleNgFactory } from './dist-server/main.bundle';
 import * as express from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';

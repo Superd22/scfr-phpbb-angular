@@ -26,4 +26,8 @@ export class UcpNotificationListComponent extends UcpSubPageFormComponent implem
 
     this.state.go(this.state.current, Object.assign(this.state.params, { start: start, phpbbResolved: false }));
   }
+
+  public markAllRead() {
+    
+  }
 }
