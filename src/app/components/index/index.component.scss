@@ -3,10 +3,11 @@
 $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
 
 @mixin common-topic-message() {
-    background: $bg-color;
+    background-color: transparentize(map_get($scfr-mat-blue-grey-background,600),0.2);
     padding: 18px;
     margin: 8px;
     cursor:pointer;
+    font-family: "Open Sans";
 }
 
 .index {
@@ -36,6 +37,9 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         padding: 12px;
         margin: 4px;
         position:relative;
+        .details {
+            font-size: 11px;
+        }
         .title {
             .forum-name {
                 font-family: 'Heebo', sans-serif;
@@ -83,6 +87,7 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         .forum-row {
             position: relative;
             @include common-topic-message();
+            background: $bg-color;
             .forum-name {
                 font-family: 'Heebo', sans-serif;
                 font-size: 1.1rem;
@@ -155,12 +160,6 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
     .own-messages {
         @include righty-background-row();
         background-image: url(//starcitizen.fr/wp-content/uploads/2017/04/26-1024x576.png);
-
-        .messages {
-            .topic-row {
-                background-color:darken($bg-color, 5%);
-            }
-        }
     }
 
     .online {

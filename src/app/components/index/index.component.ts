@@ -1,3 +1,4 @@
+import { IPHPBBIndexForum } from './../../interfaces/phpbb/phpbb-index-forum';
 import { IGuideDesNouveauxResponse } from './interfaces/guide-des-nouveaux.interface';
 import { WpService } from 'app/services/wp.service';
 import { StateTranslate } from './../../services/state-translate.service';
@@ -19,10 +20,12 @@ export class IndexComponent extends PhpbbComponent {
     public isLoggedIn;
     /** all the availables forums */
     public forumList: UnreadResponse.JumpboxForum[];
+    /** information on every forums */
+    public forumMap = new Map<number, IPHPBBIndexForum>();
     public guideNouveau: IGuideDesNouveauxResponse;
     public onlineMembers = [];
 
-    constructor(public phpbb: PhpbbService, public loginService: LoginService, protected stateT: StateTranslate, protected wp: WpService) { 
+    constructor(public phpbb: PhpbbService, public loginService: LoginService, protected stateT: StateTranslate, protected wp: WpService) {
         super();
     }
 
@@ -39,7 +42,8 @@ export class IndexComponent extends PhpbbComponent {
 
         this.stateT.latestTemplateData.subscribe((data) => {
             this.forumList = this.filterForumsToDisplay(data.jumpbox_forums);
-            if(data.LOGGED_IN_USER_LIST) this.onlineMembers = data.LOGGED_IN_USER_LIST;
+            this.forumMap = this.mapForums(data.forumrow)
+            if (data.LOGGED_IN_USER_LIST) this.onlineMembers = data.LOGGED_IN_USER_LIST;
         });
 
         this.wp.getGuideDesNouveaux().subscribe((guide) => {
@@ -54,6 +58,17 @@ export class IndexComponent extends PhpbbComponent {
      */
     private filterForumsToDisplay(forums: UnreadResponse.JumpboxForum[]): UnreadResponse.JumpboxForum[] {
         return forums.filter((forum) => forum.FORUM_ID > 0 && !forum.level);
+    }
+
+    private mapForums(forums: IPHPBBIndexForum[]) {
+        let map = new Map();
+
+        if(forums)
+        forums.map((forum) => {
+            map.set(Number(forum.FORUM_ID), forum);
+        });
+
+        return map;
     }
 
     public getUserSpecificData() {
