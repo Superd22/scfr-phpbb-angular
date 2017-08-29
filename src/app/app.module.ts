@@ -1,3 +1,6 @@
+import { UcpMainNotificationsComponent } from './components/ucp/notifications/notifications.component';
+import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
+import { HeaderService } from './services/header-service.service';
 import { CommonModule } from '@angular/common';
 import { ContenteditableDirective } from './components/posting/editor/directives/content-editable.directive';
 import { NavPmComponent } from './components/navigation/pm/pm.component';
@@ -16,7 +19,7 @@ import { ViewmessageComponent } from './components/viewmessage/viewmessage.compo
 import { PhpbbRoot } from './components/phpbb/root/phpbb-root.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { UIRouterModule } from '@uirouter/angular';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -105,6 +108,33 @@ import { UcpPreferenceViewComponent } from './components/ucp/preference/ucp-pref
 import { PhpbbUsernameComponent } from './components/phpbb/phpbb-username/phpbb-username.component';
 import { UcpPmConvoRowComponent } from './components/ucp/pm/ucp-pm-convo-row/ucp-pm-convo-row.component';
 import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo-group-avatar/ucp-pm-convo-group-avatar.component';
+import { PostingOptionsSwitcherComponent } from './components/posting/posting-options-switcher/posting-options-switcher.component';
+import { PostingOptionsComponent } from './components/posting/posting-options-switcher/posting-options/posting-options.component';
+import { PostingAttachmentsComponent } from './components/posting/posting-options-switcher/posting-attachments/posting-attachments.component';
+import { PostingPollsComponent } from './components/posting/posting-options-switcher/posting-polls/posting-polls.component';
+import { SearchComponent } from './components/search/search.component';
+import { WpService } from "app/services/wp.service";
+import { ListStopAtBottomDirective } from './components/navigation/forum-link/directives/list-stop-at-bottom.directive';
+import { SearchBodyComponent } from './components/search/search-body/search-body.component';
+import { SearchResultsComponent } from './components/search/search-results/search-results.component';
+import { ViewnewsComponent } from './components/viewmessage/viewnews/viewnews.component';
+import { UcpGroupsSwitchComponent } from './components/ucp/groups/ucp-groups-switch/ucp-groups-switch.component';
+import { UcpGroupsMembershipComponent } from './components/ucp/groups/ucp-groups-membership/ucp-groups-membership.component';
+import { UcpGroupsListComponent } from './components/ucp/groups/ucp-groups-list/ucp-groups-list.component';
+import { UcpContactsSwitchComponent } from './components/ucp/contact/ucp-contacts-switch/ucp-contacts-switch.component';
+import { UcpContactsFriendsComponent } from './components/ucp/contact/ucp-contacts-friends/ucp-contacts-friends.component';
+import { UcpContactsFoesComponent } from './components/ucp/contact/ucp-contacts-foes/ucp-contacts-foes.component';
+import { UcpConfirmPopoutComponent } from './components/ucp/ucp-confirm-popout/ucp-confirm-popout.component';
+import { ThrottlerService } from "app/services/throttler.service";
+import { PhpbbGroupComponent } from './components/phpbb/phpbb-group/phpbb-group.component';
+import { UcpPmEditorComponent } from './components/ucp/pm/ucp-pm-editor/ucp-pm-editor.component';
+import { PostingEditorSmiliesComponent } from './components/posting/editor/smilies/smilies.component';
+import { AsmileyComponent } from './components/posting/editor/smilies/asmiley/asmiley.component';
+import { MessageDecoBallsDirective } from './components/viewmessage/directives/message-deco-balls.directive';
+import { UcpPreferenceNotificationsComponent } from './components/ucp/preference/ucp-preference-notifications/ucp-preference-notifications.component';
+import { UcpNotificationsSwitchComponent } from './components/ucp/notifications/ucp-notifications-switch/ucp-notifications-switch.component';
+import { UcpNotificationListComponent } from './components/ucp/notifications/ucp-notification-list/ucp-notification-list.component';
+import { UcpNotificationOptionsComponent } from './components/ucp/notifications/ucp-notification-options/ucp-notification-options.component';
 
 @NgModule({
     declarations: [
@@ -180,33 +210,59 @@ import { UcpPmConvoGroupAvatarComponent } from './components/ucp/pm/ucp-pm-convo
         UcpPmConvoRowComponent,
         UcpPmConvoGroupAvatarComponent,
         UCPPMViewmessageComponent,
+        PostingOptionsSwitcherComponent,
+        PostingOptionsComponent,
+        PostingAttachmentsComponent,
+        PostingPollsComponent,
+        SearchComponent,
+        ListStopAtBottomDirective,
+        SearchBodyComponent,
+        SearchResultsComponent,
+        ViewnewsComponent,
+        UcpGroupsSwitchComponent,
+        UcpGroupsMembershipComponent,
+        UcpGroupsListComponent,
+        UcpContactsSwitchComponent,
+        UcpContactsFriendsComponent,
+        UcpContactsFoesComponent,
+        UcpConfirmPopoutComponent,
+        PhpbbGroupComponent,
+        UcpPmEditorComponent,
+        PostingEditorSmiliesComponent,
+        AsmileyComponent,
+        MessageDecoBallsDirective,
+        UcpPreferenceNotificationsComponent,
+        UcpNotificationsSwitchComponent,
+        UcpMainNotificationsComponent,
+        UcpNotificationListComponent,
+        UcpNotificationOptionsComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
             states: STATES,
             config: PhpbbRoutingConfig
         }),
-        BrowserModule.withServerTransition({appId: 'scfr-forum'}),
+        BrowserModule.withServerTransition({ appId: 'scfr-forum' }),
         CommonModule,
         FormsModule,
         HttpModule,
+        ReactiveFormsModule,
         BrowserAnimationsModule,
         MaterialModule,
         SCFRMaterialModule,
         FlexLayoutModule,
         LanguageModuleModule,
         ReCaptchaModule,
-        MomentModule,
         HeaderModule,
         NgxChartsModule,
         ColorPickerModule,
     ],
     entryComponents: [
-        DialogDeleteComponent, PopOutLoginComponent
+        DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent
     ],
     providers: [
-        PhpbbApiService, PhpbbService, LoginService, StateTranslate, PrivateMessageService, PhpbbFormHelperService, 
-        NotificationsService, PhpbbWebsocketService
+        PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
+        NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService, ExtraModuleInjector
     ],
     bootstrap: [AppComponent],
 })

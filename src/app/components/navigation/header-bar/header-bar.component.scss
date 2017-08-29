@@ -1,6 +1,6 @@
 .global-header {
-    position:fixed;
     z-index:30;
+    width:100%;
 }
 .main-forum-nav {
     padding:0px 20px;
@@ -18,4 +18,11 @@
 .arrow {
     position: relative;
     vertical-align: middle;
+}
+
+.progress-bar {
+    opacity:1;
+    transition:0.25s;
+    margin-top: -5px;
+    &.hidden {opacity:0;}
 }

@@ -113,8 +113,7 @@ export class PhpbbApiService {
 
                 if (forcetSetAsTpl) this.setTpl(ret['@template']);
                 return ret;
-            })
-            .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+            });
     }
 
     private setTpl(tpl: any) {
@@ -174,8 +173,8 @@ export class PhpbbApiService {
     /*
     SearchID: unreadposts,
      */
-    public getSearch(searchId: string): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        let params = { search_id: searchId };
+    public getSearch(searchId: string, moreArgs = {}): Observable<PhpbbTemplateResponse.DefaultResponse> {
+        let params = Object.assign(moreArgs, { search_id: searchId });
         return this.getPage('search.php', params, false, false, true);
     }
 

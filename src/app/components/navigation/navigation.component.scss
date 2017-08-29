@@ -6,12 +6,23 @@
 }
 
 md-toolbar {
-    background-color: map_get($scfr-mat-blue-grey-background,900);
+    background-color: map_get($scfr-mat-blue-grey-background,500);
     font-size:1em;
+    &.logo {
+        img {
+            width: 150px;
+            height: 69.5px;
+            margin: 0px auto;
+        }
+        button {
+            margin-right: -20px;
+        }
+    }
 }
 
 .main-navigator-wrapper {
     height:100vh;
+
     .main-navigator {
         .main-navigator-list {
             padding-left:0px;
@@ -27,6 +38,10 @@ md-toolbar {
         padding-bottom:0px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         align-items: center;
-        .mat-icon {margin-right:14px;}
+        font-family: "Open Sans";
+        font-size:18px;
+        .search-more {
+            padding:12px;
+        }
     }
 }

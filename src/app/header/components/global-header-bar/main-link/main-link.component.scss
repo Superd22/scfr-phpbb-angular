@@ -2,19 +2,19 @@ $bar-background: rgba(38,50,58,0.9);
 
 button {
     flex:1 1 100%;
-    min-width:160px;
+    min-width:220px;
     height: 100%;
     padding:20px 35px;
-    font-family:"Electrolize";
+    font-family: "Open Sans";
     text-transform: uppercase;
     background:none;
     border:0px;
     outline:none;
     cursor:pointer;
-    font-size:17px;
+    font-size:18px;
     color:white;
     z-index:11;
-    position:sticky;
+    position:relative;
 
     &:hover {
         background:#6abbcf;
@@ -30,7 +30,6 @@ button {
             color:white;
         }
     }
-
 }
 
 :host /deep/ .extended-menu {
@@ -47,6 +46,8 @@ button {
 
     &:not(.small) {
         left:0px  !important;
+        top:-15px;
+        position: absolute;
         width:100%;
     }
     &.small {
@@ -66,9 +67,16 @@ button {
                 cursor:pointer;
                 font-size:2em;
                 text-transform: uppercase;
+                margin:15px;
                 &:hover {
                     background:white;
-                    color:black;
+                }
+                a {
+                    text-decoration: none;
+                    padding: 10px 30px;
+                    &:hover {
+                        color:$bar-background;
+                    }
                 }
             }
         }

@@ -1,0 +1,14 @@
+.mat-card-title {
+    font-family: "Electrolize";
+    font-size: 1rem;
+    line-height: 14px;
+    letter-spacing: 3px;
+}
+
+.scroll {
+    max-height:90vh;
+    overflow: scroll;   
+    overflow-x: hidden;
+    margin-right: -12px;
+    padding-right: 12px;
+}

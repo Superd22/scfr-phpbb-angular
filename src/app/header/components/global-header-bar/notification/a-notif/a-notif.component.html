@@ -1,0 +1,12 @@
+<div [ngClass]="{unread: notif.UNREAD}" class="a-notif">
+  <img [src]="notif.AVATAR ? notif.AVATAR : '//starcitizen.fr/Forum' + '/images/no_avatar.gif'">
+  <div class="text">
+    <h3 md-line [innerHTML]="notif.FORMATTED_TITLE"></h3>
+    <p md-line>
+      <span *ngIf="notif.FORUM"> {{notif.FORUM}} </span>
+      <span *ngIf="notif.REFERENCE"> {{notif.REFERENCE}} </span>
+      <span *ngIf="notif.REASON"> {{notif.REASON}} </span>
+    </p>
+    <time md-line>{{notif.TIME}}</time>
+  </div>
+</div>

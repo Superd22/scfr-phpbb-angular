@@ -1,0 +1,79 @@
+$bar-background: rgba(38,50,58,0.9);
+$border-color: transparent;
+
+.notifs {
+    background:$bar-background;
+    padding:12px;
+    padding-bottom:0px;
+    border-left:1px solid $border-color;
+    color:white;
+    cursor: default;
+
+    h2 {
+        text-transform: uppercase;
+        font-family: "Electrolize";
+        letter-spacing:2px;
+        margin-top: 0px;
+    }
+
+    .wrapper {
+        $notif-height:88px;
+
+        max-height: 5 * $notif-height;
+        overflow-y: scroll;
+    }
+
+}
+
+
+.bottom {
+    
+    $bg: $bar-background;
+
+    width: 100%;
+    height: 48px;
+    display: flex;
+    position: relative;
+
+    button {
+        outline:none;
+        border:none;
+        background: transparent;
+        text-transform: uppercase;
+        padding: 12px;
+        margin: 6px;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            background:#6abbcf;
+        }
+    }
+
+    .corner {
+        width: 64px;
+        height: 50%;
+        background: $bg;
+        border-left: 1px solid $border-color;
+        &:after {
+            content: "";
+            height: 50%;
+            width: 64px;
+            display: block;
+            margin-top: 24px;
+            background: $bg;
+            transform: skew(45deg);
+            position: absolute;
+            left: 12px;
+            border-left: 1px solid $border-color;
+            border-bottom: 1px solid $border-color;
+        }
+    }
+    .main {
+        width: 100%;
+        height: 100%;
+        background: $bg;
+        border-bottom: 1px solid $border-color;
+        text-align: right;
+    }
+}

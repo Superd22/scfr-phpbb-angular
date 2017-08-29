@@ -1,68 +1,89 @@
-<md-card style="margin: 10px 0px;" [id]="post.id" class="message">
+<md-card [id]="'p'+post.id" [ngClass]="{unread: postrow?.S_UNREAD_VIEW}" class="message">
+
+  <a *ngIf="postrow?.S_FIRST_UNREAD" id="unread" class="anchor"></a>
+
   <div *ngIf="!isEditMod()">
 
-    <div class="message-header" *ngIf="!simplePostMod">
-      <div class="message-header-user-left" fxLayout [ngClass]="{border: postrow.POST_AUTHOR_COLOUR}">
-        <div class="message-header-avatar" [ngStyle]="{'background-image': 'url('+avatarUrl+')', 'border-color':postrow.POST_AUTHOR_COLOUR}"></div>
-        <span class="message-header-username" [mdTooltip]="postrow.RANK_TITLE" [ngStyle]="{'background-color': postrow.POST_AUTHOR_COLOUR}"
-          uiSref="phpbb.seo.viewprofile" [uiParams]="{userId:postrow.POSTER_ID, user_slug: postrow.POST_AUTHOR | seoUrl}">{{postrow.POST_AUTHOR}}</span>
+    <!-- <div class="message-header" *ngIf="!simplePostMod" fxLayout>
+      <div class="message-header-avatar">
+        <img [src]="avatarUrl">
       </div>
-      <div class="message-header-middle" fxFlex>
-        <div class="message-header-bar">
-        </div>
-        <div class="message-header-sub-bar">
-          <button md-icon-button><md-icon>report_problem</md-icon></button>
-          <button md-icon-button><md-icon>link</md-icon></button>
-          <em>{{postrow.POST_DATE}}</em>
-        </div>
-      </div>
-      <div class="message-header-info-right" fxLayout *ngIf="displayInfoRight()">
 
-        <div class="right-details">
+      <div class="message-header-middle" fxFlex fxLayout.lt-md="column" fxLayout.gt-md="row">
+        <div class="middle-left">
+          <scfr-forum-phpbb-username [mdTooltip]="postrow?.RANK_TITLE" [color]="postrow?.POST_AUTHOR_COLOUR" [name]="postrow?.POST_AUTHOR"
+            [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
+        </div>
+        <div fxFlex></div>
+        <div class="middle-right">
 
-          <!-- connected user is juliet and poster user is juliet too, display full ju -->
-          <a *ngIf="postrow.J_IS_JULIET && tpl.S_USER_IS_JULIET" href="{{postrow.J_U_SQ}}">
+          <a *ngIf="postrow?.J_IS_JULIET && tpl.S_USER_IS_JULIET" href="{{postrow?.J_U_SQ}}">
             <div class="squad_title">
-              <div class="main"><img src='{{postrow.JU_RANK_IMG}}' class='forum_rank'> {{postrow.JU_RANK}}</div>
-              <div class="secondary">{{postrow.J_SQ_NAME}}</div>
+              <div class="main"><img src='{{postrow?.JU_RANK_IMG}}' class='forum_rank'> {{postrow?.JU_RANK}}</div>
+              <div class="secondary">{{postrow?.J_SQ_NAME}}</div>
             </div>
           </a>
 
-          <div class="squad_title" *ngIf="(postrow.G_SHOW_H || postrow.G_SHOW_G) && !(tpl.S_USER_IS_JULIET && postrow.J_IS_JULIET)">
-            <a *ngIf="postrow.G_SHOW_H " href="https://robertsspaceindustries.com/citizens/{{postrow.G_U_HANDLE}}" target="_blank">
-              <div class="main">{{postrow.G_U_HANDLE}}</div>
+          <div class="squad_title" *ngIf="(postrow?.G_SHOW_H || postrow?.G_SHOW_G) && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET)">
+            <a *ngIf="postrow?.G_SHOW_H " href="https://robertsspaceindustries.com/citizens/{{postrow?.G_U_HANDLE}}" target="_blank">
+              <div class="main">{{postrow?.G_U_HANDLE}}</div>
             </a>
-            <a *ngIf="postrow.G_SHOW_G && postrow.G_SQ_NAME " href="{{postrow.G_U_SQ}}">
-              <div class="secondary">{{postrow.G_SQ_NAME}}</div>
+            <a *ngIf="postrow?.G_SHOW_G && postrow?.G_SQ_NAME " href="{{postrow?.G_U_SQ}}">
+              <div class="secondary">{{postrow?.G_SQ_NAME}}</div>
             </a>
           </div>
+
         </div>
+      </div>
 
-        <div class="right-logo">
+      <div class="message-header-logo">
+        <ng-container *ngIf="postrow?.J_IS_JULIET && tpl.S_USER_IS_JULIET">
+          <a href="{{postrow?.J_U_SQ}}">
+            <img class="logo" [src]="postrow?.J_SQ_LOGO">
+          </a>
+        </ng-container>
 
-          <ng-container *ngIf="postrow.J_IS_JULIET && tpl.S_USER_IS_JULIET">
-            <a href="{{postrow.J_U_SQ}}">
-              <div class="logo" [ngStyle]="{'background-image': 'url('+postrow.J_SQ_LOGO+')'}"></div>
-            </a>
+        <ng-container *ngIf="postrow?.G_SHOW_G && postrow?.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET)">
+          <a href="{{postrow?.G_U_SQ}}">
+            <img class="logo" [src]="postrow?.G_SQ_LOGO">
+          </a>
+        </ng-container>
+
+        <div class="fix" *ngIf="!(postrow?.G_SHOW_G && postrow?.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET))"></div>
+      </div>
+    </div> -->
+    <md-card-content *ngIf="post.message" fxLayout fxLayoutWrap>
+      <div class="side-info" fxFlex="100px" fxLayout fxLayoutWrap>
+        <img [src]="avatarUrl" class="avatar">
+        <h4 class="poster-name" fxFlex="100">
+          <scfr-forum-phpbb-username [mdTooltip]="postrow?.RANK_TITLE" [color]="postrow?.POST_AUTHOR_COLOUR" [name]="postrow?.POST_AUTHOR"
+            [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
+        </h4>
+
+        <div class="guild-logo">
+          <ng-container *ngIf="postrow?.J_IS_JULIET && tpl.S_USER_IS_JULIET">
+            <a href="{{postrow?.J_U_SQ}}">
+                <img class="logo" [src]="postrow?.J_SQ_LOGO">
+              </a>
           </ng-container>
 
-          <ng-container *ngIf="postrow.G_SHOW_G && postrow.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow.J_IS_JULIET)">
-            <a href="{{postrow.G_U_SQ}}">
-              <div class="logo" [ngStyle]="{'background-image': 'url('+postrow.G_SQ_LOGO+')' }"></div>
-            </a>
+          <ng-container *ngIf="postrow?.G_SHOW_G && postrow?.G_HAS_GUILD && !(tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET)">
+            <a href="{{postrow?.G_U_SQ}}">
+                <img class="logo" [src]="postrow?.G_SQ_LOGO">
+              </a>
           </ng-container>
+
         </div>
 
       </div>
-
-
-    </div>
-    <md-card-content *ngIf="post.message">
-      <div [innerHTML]="(post.message | unsafeHtml)" class="post-inner" >
-      </div>
+      <div fxFlex [innerHTML]="(post.message | unsafeHtml)" class="post-inner"></div>
     </md-card-content>
-    <md-card-actions>
-      <scfr-forum-message-action-bar *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>
+    <md-card-actions class="message-actions" fxLayout>
+      <div class="message-details" fxFlex="100">
+        <span class="message-id">#{{postrow?.POST_ID}}</span> -
+        <time class="message-time">{{postrow?.POST_DATE}}</time>
+      </div>
+      <scfr-forum-message-action-bar fxFlex [viewtopic]="viewtopic" *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>
     </md-card-actions>
   </div>
   <div *ngIf="isEditMod()" ui-view="editMessage"></div>

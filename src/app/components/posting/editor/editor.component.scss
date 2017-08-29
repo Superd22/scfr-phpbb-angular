@@ -10,6 +10,13 @@ $darker-bg: map-get($scfr-mat-blue-grey-background,900);
         }
     }
 }
+.subject {
+    background: map-get($scfr-mat-blue-grey-background,500);
+}
 .top-bbcode {
-        background:$darker-bg;    
+    background:$darker-bg;    
+}
+.smilies-box {
+    align-self: stretch;
+    margin-bottom: 18px;
 }

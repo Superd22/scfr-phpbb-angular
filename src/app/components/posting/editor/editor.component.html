@@ -1,13 +1,24 @@
 <div fxLayout fxLayoutWrap>
-  <md-toolbar class="top-bbcode" fxFlex="100">
-    <scfr-forum-bbcode-color></scfr-forum-bbcode-color>
-    <scfr-forum-bbcode-button *ngFor="let bbcode of baseBB" [bbcode]="bbcode"></scfr-forum-bbcode-button>
-    <md-toolbar-row>
-      <scfr-forum-bbcode-button *ngFor="let bbcode of customBB" [bbcode]="bbcode"></scfr-forum-bbcode-button>
-    </md-toolbar-row>
+  <md-toolbar class="subject">
+    <md-input-container>
+      <input mdInput placeholder="Sujet" style="width: 100%" [(ngModel)]='subject'>
+    </md-input-container>
   </md-toolbar>
+  <div fxLayout fxLayoutWrap fxFlex.lt-md="100" fxFlex>
+    <md-toolbar class="top-bbcode" fxFlex="100">
+      <scfr-forum-bbcode-color></scfr-forum-bbcode-color>
+      <scfr-forum-bbcode-button *ngFor="let bbcode of baseBB" [bbcode]="bbcode"></scfr-forum-bbcode-button>
+      <md-toolbar-row>
+        <scfr-forum-bbcode-button *ngFor="let bbcode of customBB" [bbcode]="bbcode"></scfr-forum-bbcode-button>
+      </md-toolbar-row>
+    </md-toolbar>
 
-  <md-input-container fxFlex="100" class="text-editor">
-    <textarea mdInput #editor style="width: 100%; height: 300px;" [(ngModel)]="message"></textarea>
-  </md-input-container>
+    <md-input-container class="text-editor">
+      <textarea mdInput #editor style="width: 100%; height: 300px;" [(ngModel)]="message"></textarea>
+    </md-input-container>
+  </div>
+
+  <div class="smilies-box" fxFlex.gt-md="250px" fxFlex.lt-md="100">
+    <scfr-forum-posting-editor-smilies [smilies]="smilies"></scfr-forum-posting-editor-smilies>
+  </div>
 </div>

@@ -1,3 +1,4 @@
+import { ViewtopicComponent } from './../../viewtopic/viewtopic.component';
 import { StateService } from '@uirouter/angular';
 import { StateTranslate } from './../../../services/state-translate.service';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
@@ -17,6 +18,7 @@ export class MessageActionBarComponent implements OnInit {
   public postrow: PhpbbPostMessage
   @Output("edit")
   private _edit: EventEmitter<number> = new EventEmitter<number>();
+  @Input("viewtopic") public viewtopic: ViewtopicComponent = null;
 
   private _deleteHiddenFields: { action: string, hidden: any } = null;
 

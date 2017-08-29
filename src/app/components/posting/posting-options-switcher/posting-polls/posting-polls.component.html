@@ -1,0 +1,28 @@
+<div>
+  <p>{{posting.L_.ADD_POLL_EXPLAIN}}</p>
+
+  <scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_POLL_DELETE" name="poll_delete" type="checkbox" [(model)]="posting.tpl.S_POLL_DELETE_CHECKED"
+    [displayName]="posting.L_.POLL_DELETE"></scfr-forum-ucp-phpbb-field>
+
+  <div *ngIf="posting.tpl.S_SHOW_POLL_BOX">
+    <scfr-forum-ucp-phpbb-field name="poll_title" type="text" [(model)]="posting.tpl.POLL_TITLE" [displayName]="posting.L_.POLL_QUESTION"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field name="poll_option_text" type="textarea" [(model)]="posting.tpl.POLL_OPTIONS" [displayName]="posting.L_.POLL_OPTIONS"
+      [explain]="posting.L_.POLL_OPTIONS_EXPLAIN"></scfr-forum-ucp-phpbb-field>
+
+    <hr />
+
+    <scfr-forum-ucp-phpbb-field name="poll_max_options" type="number" [explain]="posting.L_.POLL_MAX_OPTIONS_EXPLAIN" [(model)]="posting.tpl.POLL_MAX_OPTIONS"
+      displayName="Options par utilisateur"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field name="poll_length" type="number" [explain]="posting.L_.POLL_FOR_EXPLAIN" [(model)]="posting.tpl.POLL_LENGTH"
+      [displayName]="posting.L_.POLL_FOR"></scfr-forum-ucp-phpbb-field>
+
+    <div *ngIf="posting.tpl.S_POLL_VOTE_CHANGE">
+      <hr />
+
+      <scfr-forum-ucp-phpbb-field name="poll_length" type="checkbox" [explain]="posting.L_.POLL_VOTE_CHANGE_EXPLAIN" [(model)]="posting.tpl.VOTE_CHANGE_CHECKED"
+        [displayName]="posting.L_.POLL_VOTE_CHANGE"></scfr-forum-ucp-phpbb-field>
+
+    </div>
+
+  </div>
+</div>

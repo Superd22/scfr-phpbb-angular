@@ -1,3 +1,5 @@
+import { FRSearchLanguage } from './../languages/search.enum';
+import { FRPostingLanguage } from './../languages/posting.enum';
 import { FRMemberListLanguage } from './../languages/memberlist.enum';
 import { FRCommonLanguage } from './../languages/common.enum';
 import { UCPLanguage } from './../languages/ucp.enum';
@@ -12,7 +14,7 @@ export class LanguageProviderService {
    * @todo handle multi lang
    */
   constructor() {
-    this._lang = Object.assign({}, FRCommonLanguage, UCPLanguage, FRMemberListLanguage);
+    this._lang = Object.assign({}, FRCommonLanguage, UCPLanguage, FRMemberListLanguage, FRPostingLanguage, FRSearchLanguage);
   }
 
 

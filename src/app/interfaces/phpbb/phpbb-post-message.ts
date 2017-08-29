@@ -16,6 +16,7 @@ export interface PhpbbPostMessage {
     J_IS_JULIET;
     G_SHOW_G;
     G_SHOW_H;
+    S_UNREAD_VIEW;
     /**
      * The avatar of the user in a <img> tag
      * @property {string} POSTER_AVATAR

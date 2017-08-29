@@ -1,23 +1,36 @@
+<div class="ucp-header" scfrForumFloatingMainHeader>
+  <div class="ucp-header-wrapper">
+    <h2>UCP - {{currentPrettyPage}}</h2>
+    <h3>{{L_.TITLE}}</h3>
+  </div>
+</div>
+
 <nav md-tab-nav-bar>
-  <a md-tab-link *ngFor="let link of navLinks" [active]="tabIsActive(link.id)" uiSref="phpbb.seo.ucp" [uiParams]="{page: link.id, i:null,mode:null,subPage:null, phpbbResolved:false}">
+  <a md-tab-link class="tab-link" *ngFor="let link of navLinks" [active]="tabIsActive(link.id)" uiSref="phpbb.seo.ucp" [uiParams]="{page: link.id, i:null,mode:null,subPage:null, phpbbResolved:false}">
     {{link.name}}
   </a>
 </nav>
-<div fxLayout fxLayoutWrap  class="ucp-page">
+
+<div fxLayout fxLayoutWrap class="ucp-page" *ngIf="!isFullPage">
   <scfr-forum-ucp-side-nav [ucp]="this" fxFlex.gt-sm="20"></scfr-forum-ucp-side-nav>
-  <md-card fxFlex>
-    <md-card-header>
-      <h2>{{tpl.L_TITLE}}</h2>
-    </md-card-header>
+  <md-card fxFlex.gt-sm="80">
     <md-card-content>
-      {{currentPage}}
       <div [ngSwitch]="currentPage">
         <scfr-forum-ucp-main-switch *ngSwitchCase="'general'" [ucp]="this"></scfr-forum-ucp-main-switch>
         <scfr-forum-ucp-profil-switch *ngSwitchCase="'profil'" [ucp]="this"></scfr-forum-ucp-profil-switch>
         <scfr-forum-ucp-preference-switch *ngSwitchCase="'preferences'" [ucp]="this"></scfr-forum-ucp-preference-switch>
         <scfr-forum-ucp-pm-switch *ngSwitchCase="'mp'" [ucp]="this"></scfr-forum-ucp-pm-switch>
+        <scfr-forum-ucp-groups-switch *ngSwitchCase="'groups'" [ucp]="this"></scfr-forum-ucp-groups-switch>
+        <scfr-forum-ucp-contacts-switch *ngSwitchCase="'contacts'" [ucp]="this"></scfr-forum-ucp-contacts-switch>
+
         <div *ngSwitchDefault>Default</div>
       </div>
     </md-card-content>
   </md-card>
+</div>
+
+<div fxLayout fxLayoutWrap *ngIf="isFullPage" class="ucp-full-page">
+  <div [ngSwitch]="currentPage">
+    <scfr-forum-ucp-notifications *ngSwitchCase="'notifications'"></scfr-forum-ucp-notifications>
+  </div>
 </div>

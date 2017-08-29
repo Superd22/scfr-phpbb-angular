@@ -1,13 +1,145 @@
 $line-height: 64px;
+$bar-background: transparentize(#212B32, 0.1);
 
 .global-nav-bar {
     height: $line-height;
+    position: absolute;
+    z-index:10;
     display: inline-flex;
-    margin-top:15px;
+    width:100%;
+    transition: background-color 0.5s;
+    background-color:transparent;
+    //overflow: hidden;
     .logo {
+        display:flex;
+        button {
+            background: transparent;
+            color: white;
+            border: 0px;
+            outline: none;
+            margin-left: 12px;
+            cursor: pointer;
+            opacity:0;
+            transition:0.2s;
+            &:hover {
+
+            }
+        }
         img {
             height: $line-height*1.50; 
             margin-top: -($line-height*0.25);
+            opacity: 0;
+            position: relative;
+            z-index: 11;
+            transition:0.2s;
+            margin-left: -220px;
+            width: 150px;
+            height: 69.5px;
+            padding-top: 14px;
         }
+    }
+    &.logo {
+        margin-top:15px;
+        flex: 1 1 auto;
+        .logo {
+            button {opacity:1;}
+            img {
+                margin-left: 0;
+                opacity:1;
+
+            }
+        }
+    }
+
+    &.fixed {
+        background-color:$bar-background;
+        margin-top:0px;
+    }
+
+    .main-links {
+        flex: 1 1 auto;
+    }
+
+    .events {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        align-self: center;
+        padding-right:24px;
+        position: relative;
+        z-index: 11;
+
+        .event-menu {
+            position: absolute;
+            margin-top: 64px;
+            top: 0px;
+            right: 0px;
+            width:350px;
+            max-width:100vw;
+            display:none;
+        }
+
+
+        button {    
+            cursor:pointer;
+            width: 82px;
+            background: transparent;
+            color: #CBCBCB;
+            height:$line-height;
+            border: 0px;
+            flex: 1 1 100%;
+            font-size: 20px;
+            line-height: 22px;
+            font-family: "Open Sans";
+            i {
+                margin-right: 7px;
+                vertical-align: bottom;
+            }
+
+            &.active i {
+                color: #95ebff;
+                animation: shake 5s cubic-bezier(.36,.07,.19,.97) infinite;
+                transform: translate3d(0, 0, 0);
+            }
+
+            &:hover {
+                background:#6abbcf;
+                color: $bar-background;
+                i {color: $bar-background;}
+            }
+            
+            &:hover > .event-menu {
+                display:block;
+            }
+
+            &:focus {
+                text-decoration: none;
+                background-color: rgba(255,255,255,0.15);
+                outline:none;
+            }
+        }
+
+
+
+    }
+}
+
+
+@keyframes shake {
+    
+    10% {
+      transform: translate3d(0px, -6px, 0);
+    }
+    
+    20%, 40%, 60%, 80% {
+      transform: translate3d(0px, -6px, 0) rotate(2deg);
+    }
+    
+    30%, 50%, 70% {
+      transform: translate3d(0px, -6px, 0) rotate(-2deg);
+    }
+    
+    100% {
+      transform: translate3d(0px, 0px, 0)
     }
 }

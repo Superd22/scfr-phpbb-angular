@@ -1,8 +1,7 @@
-<scfr-forum-global-header-bar class="global-header"></scfr-forum-global-header-bar>
+<scfr-forum-global-header-bar [displayLogo]="!toggle" (toggled)="toggle = true" class="global-header" [tpl]="tpl"></scfr-forum-global-header-bar>
 <scfr-forum-header-background></scfr-forum-header-background>
 <div class="main-forum-nav">
-  <button md-icon-button class="toggle-menu" (click)="toggle = !toggle" [ngClass]="{toggled: toggle}"><md-icon>{{toggle ? 'menu' : 'menu'}}</md-icon></button>
-  <button md-icon-button><md-icon>search</md-icon></button>
+  <button md-icon-button uiSref="phpbb.seo.search"><md-icon>search</md-icon></button>
   <button md-icon-button uiSref="phpbb.legacy" [uiParams]="{page:'ucp.php', phpbbResolved:null}"><md-icon>settings</md-icon></button>
   <ng-container *ngIf="!select">
     <button md-icon-button uiSref="phpbb.seo.index"><md-icon color="primary" class="arrow">home</md-icon></button>
@@ -18,4 +17,4 @@
     </md-option>
   </md-select>
 </div>
-<md-progress-bar *ngIf="busy" color="accent" mode="indeterminate"></md-progress-bar>
+<md-progress-bar class="progress-bar" [ngClass]="{hidden:!busy}" color="accent" mode="indeterminate"></md-progress-bar>

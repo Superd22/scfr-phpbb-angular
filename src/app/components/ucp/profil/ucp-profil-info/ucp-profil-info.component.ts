@@ -32,11 +32,6 @@ export class UcpProfilInfoComponent extends UcpSubPageFormComponent implements O
   }
 
   protected updateHeaderImage(newValue) {
-    this.stateT.latestTemplateData.asObservable().first().subscribe(
-      (tpl) => {
-        tpl['PROFILE_CUSTOM_BG_VALUE'] = newValue;
-        this.stateT.latestTemplateData.next(tpl);
-      }
-    ).unsubscribe();
+    this.stateT.assignNewTemplateData({ 'PROFILE_CUSTOM_BG_VALUE': newValue });
   }
 }

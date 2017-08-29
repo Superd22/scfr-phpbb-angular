@@ -53,6 +53,8 @@ export class StateTranslate {
                     }
                 case "ucp":
                     return this.transform_ucp(trans);
+                case "search":
+                    return this.transform_search(trans);
             }
         }
     }
@@ -74,6 +76,46 @@ export class StateTranslate {
         }
 
         return okay;
+    }
+
+    private transform_search(trans: Transition): Observable<any> {
+        let params = trans.params();
+        let newParams = Object.assign({}, params);
+
+        const prettyMod = {
+            'egosearch': "auteur",
+            'unreadposts': 'messages-non-lu',
+            'newposts': 'nouveaux-messages',
+            'unanswered': 'sans-reponse',
+            'active_topics': 'topics-actifs',
+        };
+
+
+        // If we have a search_id but no pretty, translate to pretty
+        if (params['search_id'] && !params['prettyMod']) newParams['prettyMod'] = prettyMod[params['search_id']];
+        // If we have a pretty, make sure search id matches.
+        if (params['prettyMod']) {
+            Object.keys(prettyMod).forEach((baseMod) => {
+                if (prettyMod[baseMod] == params['prettyMod']) newParams['search_id'] = baseMod;
+            });
+        }
+
+        // If we have changed any params, change state
+        if (!(params['search_id'] === newParams['search_id'] && params['prettyMod'] === newParams['prettyMod']))
+            return Observable.of(trans.router.stateService.target("phpbb.seo.search", newParams));
+
+        // If we haven't fetched data do it
+        if (!params['phpbbResolved'] || !this.isOnceResolved())
+            return this.phpbbApi.getSearch(newParams['search_id'], Object.assign(newParams, { phpbbResolved: undefined })).map((data) => {
+                newParams['phpbbResolved'] = data;
+
+                this.setOnceResolved(true);
+                return trans.router.stateService.target("phpbb.seo.search", newParams);
+            });
+
+        // We have all we need
+        this.setOnceResolved(false);
+        return Observable.of(true);
     }
 
     /**
@@ -187,10 +229,18 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
     }
 
+    /**
+     * If we've already resolved the state like we wanted
+     * @return boolean
+     */
     private isOnceResolved(): boolean {
         return this.onceResolved;
     }
 
+    /**
+     * Toggle the state of our resolved flag
+     * @param val the new state of onceResolved
+     */
     private setOnceResolved(val: boolean) {
         this.onceResolved = val;
     }
@@ -236,8 +286,32 @@ export class StateTranslate {
         return Observable.of(new Object()).map(() => true);
     }
 
-    private transform_ucp_pm(trans) {
-        //getPage
+    /**
+     * This is called programatically if we need to translate from an old single pm to a full
+     * convo
+     * 
+     * @param trans the current transition
+     */
+    private transform_ucp_pm(trans: Transition) {
+        // No matter what we're gonna redirect to the pm page.
+        let newParams = Object.assign({}, trans.params(), { i: "ucp_pm", mode: "", page: "mp", subPage: null, });
+        
+        // We need to fetch what convo we want
+        if (!newParams['pm_id']) {
+            if (!newParams['p']) throw "NO PM SPECIFIED";
+
+            return this.phpbbApi.getApi("PM/Convos", { mode: "convo_of_mp", pmId: newParams['p'] }).map(
+                (data: any) => {
+                    let convo: { convo_id: number, convo_title: string } = data;
+
+                    newParams['pm_id'] = convo.convo_id;
+                    newParams['pmSlug'] = new SeoUrlPipe().transform(convo.convo_title);
+
+                    return trans.router.stateService.target("phpbb.seo.ucp", newParams);
+                }
+            )
+        }
+
         return Observable.of(new Object()).map(() => true);
     }
 
@@ -355,6 +429,20 @@ export class StateTranslate {
         }
     }
 
+    public tranform_index(transition: Transition): Observable<any> {
+        let params = Object.assign({}, transition.params());
+
+        if (params.phpbbResolved && params.phpbbResolved['@template']['SCRIPT_NAME'] == 'index') return Observable.of(true);
+        return this.phpbbApi.getPage("index.php").map((data) => {
+            return transition.router.stateService.target("phpbb.seo.index", Object.assign(params, { phpbbResolved: data }));
+        });
+
+    }
+
+    /**
+     * Handle the transformation of ucp pages
+     * @param transition the transition object to get into an ucp state
+     */
     private transform_ucp(transition: Transition): Observable<any> {
         let params = transition.params();
         let newParam: any = Object.assign({}, params);
@@ -401,6 +489,7 @@ export class StateTranslate {
             amis: "friends",
             indesirables: "foes",
             register: "register",
+            liste: "notification_list",
         };
 
         function get_pretty_state(i) {
@@ -428,6 +517,8 @@ export class StateTranslate {
         if (transition.$to().name.indexOf("legacy") > -1) {
             // We're in LEGACY
 
+            if (params.i == "pm" && params.mode == "view" && params.p) return this.transform_ucp_pm(transition);
+
             // We pretty-ize both our params.
             newParam.page = get_pretty_state(params.i);
             newParam.subPage = get_pretty_sub_state(params.mode);
@@ -453,7 +544,7 @@ export class StateTranslate {
             if (params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
 
             // Fetch the actual data
-            return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode }).map(
+            return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
                 (data) => {
                     newParam.phpbbResolved = data;
                     return transition.router.stateService.target(stateTarget, newParam);
@@ -475,6 +566,7 @@ export class StateTranslate {
         this._busy.next(true);
 
         let next: Observable<any> = Observable.of(new Object()).map(() => true);
+
         try {
             switch (stateName) {
                 case "phpbb.seo.viewforum.posting":
@@ -498,32 +590,63 @@ export class StateTranslate {
                 case "phpbb.seo.register":
                     next = this.transform_ucp(transition);
                     break;
+                case "phpbb.seo.index":
+                    next = this.tranform_index(transition);
+                    break;
+                case "phpbb.seo.search":
+                    next = this.transform_search(transition);
+                    break;
                 //case "phpbb.seo.ucp.pm":
                 //   return this.transform_ucp_pm(transition);
                 //break;
             }
         }
-        catch(e) {
-            console.log("cached",e);
+        catch (e) {
+            console.log("cached", e);
         }
 
         return next;
     }
 
+    /**
+     * Main method to inject into any component the current template data
+     * @param component the component instance
+     * @param tpl the tpl to inject
+     */
     public unwrapTplData(component, tpl) {
-        this._latestTemplateData.next(tpl)
+        this.newTeplateData = tpl;
         let keyArr = Object.keys(tpl);
-
-
-
 
         keyArr.forEach((key) => {
             component["tpl"][key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
     }
 
+    /**
+     * Helper method to go to a given url
+     * @param url the url to go to
+     */
     public goToOld(url) {
         this.router.urlService.url(url, true);
+    }
+
+    /**
+     * Set the new current template data for the whole app
+     * @param tpl the new template
+     */
+    public set newTeplateData(tpl: IPhpbbTemplate) {
+        this._latestTemplateData.next(tpl);
+    }
+
+    /**
+     * Assign new blocks to the current tpl for the whole app
+     * @param params the parameters to append/replace in the tpl.
+     */
+    public assignNewTemplateData(params: { [newParam: string]: any }) {
+        let current: IPhpbbTemplate = null;
+        this._latestTemplateData.asObservable().first().subscribe((data) => current = data).unsubscribe();
+
+        this.newTeplateData = Object.assign(current, params);
     }
 
 }

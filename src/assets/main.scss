@@ -25,10 +25,38 @@ hr {
 }
 
 .mat-sidenav {
-    background-color: transparentize(map_get($scfr-mat-blue-grey-background,500),0.2);
+    background-color: transparentize(map_get($scfr-mat-blue-grey-background,500),0.25);
     .navigator-bottom {
         .mat-card {
             background-color: map_get($scfr-mat-blue-grey-background,700);
+        }
+    }
+}
+.mat-sidenav-content {
+    width:100%;
+}
+
+.post-inner {
+
+    /** search hilight in post */
+    .posthilit {
+        background: map-get($scfr-mat-light-blue, 500);
+        color: map_get($scfr-mat-blue-grey-background,500);
+        padding: 4px 0px;
+        margin: -4px 0px;
+    }
+    blockquote {
+        background: transparentize(map-get($scfr-mat-blue-grey-background, 900), 0.5);
+        padding:24px;
+
+        cite {
+            display: block;
+            margin: -24px;
+            margin-bottom: 0px;
+            padding: 12px 24px;    
+            font-family: "Electrolize";
+            text-transform: uppercase;
+            color: #9e9e9e;
         }
     }
 }

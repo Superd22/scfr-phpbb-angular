@@ -1,9 +1,13 @@
+import { StateTranslate } from './state-translate.service';
+import { UcpConfirmPopoutComponent } from './../components/ucp/ucp-confirm-popout/ucp-confirm-popout.component';
 import { UcpComponent } from './../components/ucp/ucp.component';
 import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
 import { PhpbbApiService } from './phpbb-api.service';
-import { UcpPhpbbFieldComponent } from './../components/ucp/ucp-phpbb-field/ucp-phpbb-field.component';
+import { UcpPhpbbFieldComponent, IPhpbbFieldOption } from './../components/ucp/ucp-phpbb-field/ucp-phpbb-field.component';
 import { Injectable, QueryList } from '@angular/core';
 import { Subject } from "rxjs/Rx";
+import { MdDialog } from "@angular/material";
+
 
 @Injectable()
 /**
@@ -13,7 +17,7 @@ import { Subject } from "rxjs/Rx";
 export class PhpbbFormHelperService {
 
   private _reset: Subject<boolean> = new Subject<boolean>();
-  constructor(private api: PhpbbApiService) { }
+  constructor(private api: PhpbbApiService, public mdDialog: MdDialog, public stateT: StateTranslate) { }
 
   public get resetToBackUp() {
     return this._reset;
@@ -63,7 +67,7 @@ export class PhpbbFormHelperService {
    * @param tpl_row the string to look for <option value=(.*)>(.*)</option>
    * @return an array of options
    */
-  public getOptionsAsObject(tpl_row): { selected: any, options: { id: any, name: any }[] } {
+  public getOptionsAsObject(tpl_row): { selected: any, options: IPhpbbFieldOption[] } {
 
     let opts = [];
     let selected = null;
@@ -82,7 +86,7 @@ export class PhpbbFormHelperService {
     return { selected: selected, options: opts };
   }
 
-  public getRadiosAsObject(tpl_row): { selected: any, options: { id: any, name: any }[] } {
+  public getRadiosAsObject(tpl_row): IPHPBBFieldComputedOptions {
     let opts = [];
     let selected = null;
     let regex = /<input([^<]*)type=[ ]*['"]radio['"]([^<>]*)value=[ ]*['"]([^"']*)['"]([^>]*)>([^>]*)<\/label>/g;
@@ -127,13 +131,24 @@ export class PhpbbFormHelperService {
    * @param extraPost additional paramters to send via post
    */
   public postToPhpbbWFields(page: string, fields: QueryList<UcpPhpbbFieldComponent>, tpl?: IPhpbbTemplate, extraGet?, extraPost?) {
-    let post: any = {};
-
-    fields.forEach((field) => {
-      post[field.form_name] = field.model;
-    });
+    let post = this.getFieldsFromFieldComponent(fields);
 
     return this.postToPhpbbWFieldObject(page, post, tpl, extraGet, extraPost);
+  }
+
+  /**
+   * Returns an object to be sent to REST page from a QueryList of PHpbbFieldComponents
+   * @param fields a QueryList of UcpPhpbbFieldComponent
+   * @return object an object contaning all the data from those fields, ready to be sent.
+   */
+  public getFieldsFromFieldComponent(fields: any) {
+    let post: any = {};
+
+    if (fields) fields.forEach((field) => {
+      if (field.model !== undefined) post[field.form_name] = field.model;
+    });
+
+    return post;
   }
 
   /**
@@ -154,7 +169,6 @@ export class PhpbbFormHelperService {
     let hidden = null;
     if (tpl) hidden = this.getHiddensFromTemplateAsObject(tpl);
 
-    console.log(hidden);
     if (post instanceof FormData) {
       if (hidden) Object.keys(hidden).forEach((name) => post.append(name, hidden[name]));
       if (extraPost) Object.keys(extraPost).forEach((name) => post.append(name, extraPost[name]));
@@ -167,18 +181,28 @@ export class PhpbbFormHelperService {
     return post;
   }
 
-  public ucpOnPostCallback(data, ucp: UcpComponent) {
+  public ucpOnPostCallback(data, ucp?: UcpComponent) {
     let tpl = data['@template'];
+    this.mdDialog.closeAll();
 
     if (tpl.ERROR) {
       this.api.errorSnackBar(tpl.ERROR);
-      ucp.tpl.ERROR = tpl.ERROR;
+      this.stateT.newTeplateData = tpl;
+    }
+    else if (tpl['S_CONFIRM_ACTION']) {
+      this.mdDialog.open(UcpConfirmPopoutComponent, { data: tpl });
     }
     else {
       this.api.openSnackBar("Profil mis à jour !");
-      this.regenAllBackUp()
+      this.stateT.newTeplateData = tpl;
+      this.regenAllBackUp();
     }
 
   }
 
+}
+
+export interface IPHPBBFieldComputedOptions {
+  selected: any,
+  options: IPhpbbFieldOption[]
 }

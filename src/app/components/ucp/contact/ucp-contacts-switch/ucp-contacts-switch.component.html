@@ -1,0 +1,4 @@
+<div [ngSwitch]="mode">
+  <scfr-forum-ucp-contacts-friends [ucp]="ucp" *ngSwitchCase="'friends'"></scfr-forum-ucp-contacts-friends>
+  <scfr-forum-ucp-contacts-foes [ucp]="ucp" *ngSwitchCase="'foes'"></scfr-forum-ucp-contacts-foes>
+</div>

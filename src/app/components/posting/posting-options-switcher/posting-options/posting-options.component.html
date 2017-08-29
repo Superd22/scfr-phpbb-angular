@@ -1,0 +1,37 @@
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_BBCODE_ALLOWED" name="disable_bbcode" type="checkbox" [(model)]="posting.tpl.S_BBCODE_CHECKED"
+    [displayName]="posting.L_.DISABLE_BBCODE"></scfr-forum-ucp-phpbb-field>
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_SMILIES_ALLOWED" name="disable_smilies" type="checkbox" [(model)]="posting.tpl.S_SMILIES_CHECKED"
+    [displayName]="posting.L_.DISABLE_SMILIES"></scfr-forum-ucp-phpbb-field>
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_LINKS_ALLOWED" name="disable_magic_url" type="checkbox" [(model)]="posting.tpl.S_MAGIC_URL_CHECKED"
+    [displayName]="posting.L_.DISABLE_MAGIC_URL"></scfr-forum-ucp-phpbb-field>
+<!--<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_SIG_ALLOWED" name="attach_sig" type="checkbox" [(model)]="posting.tpl.S_SIGNATURE_CHECKED" [displayName]="posting.L_.ATTACH_SIG"></scfr-forum-ucp-phpbb-field>-->
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_NOTIFY_ALLOWED" name="notify" type="checkbox" [(model)]="posting.tpl.S_NOTIFY_CHECKED"
+    [displayName]="posting.L_.NOTIFY_REPLY"></scfr-forum-ucp-phpbb-field>
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_LOCK_TOPIC_ALLOWED" name="lock_topic" type="checkbox" [(model)]="posting.tpl.S_LOCK_TOPIC_CHECKED"
+    [displayName]="posting.L_.LOCK_TOPIC"></scfr-forum-ucp-phpbb-field>
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_LOCK_POST_ALLOWED" name="lock_post" type="checkbox" [(model)]="posting.tpl.S_LOCK_POST_CHECKED"
+    [displayName]="posting.L_.LOCK_POST"></scfr-forum-ucp-phpbb-field>
+
+<hr *ngIf="posting.tpl.S_TYPE_TOGGLE || posting.tpl.S_TOPIC_TYPE_ANNOUNCE || posting.tpl.S_TOPIC_TYPE_STICKY" />
+
+<br />
+
+<!-- SELECT TOPIC TYPE -->
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_TYPE_TOGGLE" name="topic_type" type="select" [options]="topicTypes" [(model)]="selectedTopicType"
+    [displayName]="posting.tpl.S_EDIT_POST ? posting.L_.CHANGE_TOPIC_TO : posting.L_.POST_TOPIC_AS"></scfr-forum-ucp-phpbb-field>
+
+<!-- ANNOUNCE TIME -->
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_TOPIC_TYPE_ANNOUNCE || posting.tpl.S_TOPIC_TYPE_STICKY" name="topic_time_limit"
+    type="number" [(model)]="posting.tpl.TOPIC_TIME_LIMIT" [displayName]="posting.L_.STICK_TOPIC_FOR" [explain]="posting.L_.STICK_TOPIC_FOR_EXPLAIN"></scfr-forum-ucp-phpbb-field>
+
+<!-- SOFT DELETE -->
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_SOFTDELETE_ALLOWED || posting.tpl.S_DELETE_ALLOWED" name="delete" type="checkbox"
+    [(model)]="posting.tpl.S_SOFTDELETE_CHECKED" [displayName]="posting.L_.DELETE_POST" [explain]="posting.L_.DELETE_POST_WARN"></scfr-forum-ucp-phpbb-field>
+
+<!-- HARD DELETE -->
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_DELETE_ALLOWED && posting.tpl.S_SOFTDELETE_ALLOWED" name="delete_permanent"
+    type="checkbox" [(model)]="posting.tpl.S_HARDDELETE_CHECKED" [displayName]="posting.L_.DELETE_POST_PERMANENTLY" [explain]="posting.L_.DELETE_POST_WARN"></scfr-forum-ucp-phpbb-field>
+
+<!-- EDIT REASON -->
+<scfr-forum-ucp-phpbb-field *ngIf="posting.tpl.S_EDIT_REASON" name="edit_reason" type="text" [(model)]="posting.tpl.EDIT_REASON"
+[displayName]="posting.L_.EDIT_REASON"></scfr-forum-ucp-phpbb-field>

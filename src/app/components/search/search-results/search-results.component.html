@@ -1,0 +1,25 @@
+<div scfrForumFloatingMainHeader>
+  <h2>{{tpl.SEARCH_TITLE ? tpl.SEARCH_TITLE : "Recherche "}}</h2>
+  <h3 *ngIf="tpl.SEARCH_MATCHES">{{tpl.SEARCH_MATCHES}}</h3>
+  <h3 *ngIf="tpl.SEARCHED_QUERY">Requête recherchée: <strong>{{tpl.SEARCHED_QUERY}}</strong></h3>
+  <h3 *ngIf="tpl.IGNORED_WORDS">{{L_.IGNORED_TERMS}} <strong>{{tpl.IGNORED_WORDS}}</strong></h3>
+  <h3 *ngIf="tpl.PHRASE_SEARCH_DISABLED"><strong>{{L_.PHRASE_SEARCH_DISABLED}}</strong></h3>
+</div>
+
+<!-- <div class="refine-search" *ngIf="tpl.TOTAL_MATCHES > 1">
+  <md-input-container>
+    <input mdInput type="search" [placeholder]="L_.SEARCH_IN_RESULTS">
+  </md-input-container>
+  <button md-button>GO</button>
+</div> -->
+
+<div class="search-results" *ngIf="tpl.searchresults">
+  <div class="topics" *ngIf="tpl.S_SHOW_TOPICS">
+    <scfr-forum-viewforum-topic-row *ngFor="let topic of tpl.searchresults" [topic]="topic"></scfr-forum-viewforum-topic-row>
+  </div>
+  <div class="messages" *ngIf="!tpl.S_SHOW_TOPICS">
+    <app-viewmessage  *ngFor="let message of tpl.searchresults" [postrow]="message"></app-viewmessage>
+  </div>
+</div>
+
+<scfr-forum-global-pagination [totalPage]="tpl.TOTAL_PAGES" [page]="tpl.CURRENT_PAGE" (pageChange)="changePage($event)"> </scfr-forum-global-pagination>
