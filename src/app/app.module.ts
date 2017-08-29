@@ -91,7 +91,7 @@ import { AgreementComponent } from './components/ucp/register/agreement/agreemen
 import { ReCaptchaModule } from 'angular2-recaptcha';
 import { MomentModule } from 'angular2-moment';
 import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button/bbcode-button.component';
-
+import { PostingEditorASmiley } from './components/posting/editor/smilies/smilies.component';
 import { SanitizeHtml } from './pipes/sanitize-html.pipe';
 import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/bbcode-color.component';
 import { HeaderBackgroundComponent } from './components/navigation/header-bar/header-background/header-background.component';
@@ -229,6 +229,7 @@ import { UcpNotificationOptionsComponent } from './components/ucp/notifications/
         PhpbbGroupComponent,
         UcpPmEditorComponent,
         PostingEditorSmiliesComponent,
+        PostingEditorASmiley,
         AsmileyComponent,
         MessageDecoBallsDirective,
         UcpPreferenceNotificationsComponent,

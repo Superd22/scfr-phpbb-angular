@@ -22,18 +22,33 @@ export class PostingEditorSmiliesComponent implements OnInit {
   protected createButtons() {
     if (this.smilies) {
       this.buttons = [];
-      this.smilies.map((smiley) => { this.buttons.push(new PostingEditorASmiley(this._editor, smiley)); });
+      this.smilies.map((smiley) => {
+        let aSmiley = new PostingEditorASmiley(this._editor);
+        aSmiley.setSmiley(smiley);
+        this.buttons.push(aSmiley);
+      });
     }
   }
 
 }
 
-
+@Component({
+  selector: 'scfr-forum-bbcode-smiley-button',
+  template: "",
+})
 export class PostingEditorASmiley extends BbcodeButtonComponent {
-  constructor(editor: EditorComponent, public smiley: IPostingEditorSmiley) {
+
+  public smiley: IPostingEditorSmiley;
+
+  constructor(editor: EditorComponent) {
     super(editor);
+  }
+
+  public setSmiley(smiley: IPostingEditorSmiley) {
+    this.smiley = smiley;
     this.bbcode = { name: smiley.SMILEY_DESC, code: [smiley.A_SMILEY_CODE] };
   }
+
 }
 
 export interface IPostingEditorSmiley {
