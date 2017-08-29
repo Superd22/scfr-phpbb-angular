@@ -7,9 +7,20 @@ var renderModuleFactory = require('@angular/platform-server').renderModuleFactor
 
 // Import the AOT compiled factory for your AppServerModule.
 // This import will change with the hash of your built server bundle.
-window = { location: {hostname:undefined}, hostname: undefined };
-document = { hostname: undefined };
-const location = { hostname: undefined };
+global.window = {
+    location: {hostname: "www.newforum.fr"},
+    history: undefined,
+};
+global.document = undefined;
+global.location = {
+    protocol: 'http', // `http` or `https`
+    host: `http://www.newforum.fr:4200`,
+};
+global.navigator = {
+    get userAgent() { return Zone.current.get('req') ? Zone.current.get('req')['headers']['user-agent'] : ""; }
+};
+
+console.log(navigator);
 
 var AppServerModuleNgFactory = require('./dist-server/main.bundle').AppServerModuleNgFactory;
 

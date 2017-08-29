@@ -98,7 +98,7 @@ import { HeaderBackgroundComponent } from './components/navigation/header-bar/he
 import { FloatingMainHeaderDirective } from './directives/floating-main-header.directive';
 import { ImageHeaderFitDirective } from './directives/image-header-fit.directive';
 import { PollComponent } from './components/viewtopic/poll/poll.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+//import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PopOutLoginComponent } from './components/login/pop-out-login/pop-out-login.component';
 import { UcpPmSwitchComponent } from './components/ucp/pm/ucp-pm-switch/ucp-pm-switch.component';
 import { UcpPreferenceSwitchComponent } from './components/ucp/preference/ucp-preference-switch/ucp-preference-switch.component';
@@ -255,7 +255,7 @@ import { UcpNotificationOptionsComponent } from './components/ucp/notifications/
         LanguageModuleModule,
         ReCaptchaModule,
         HeaderModule,
-        NgxChartsModule,
+        //NgxChartsModule,
         ColorPickerModule,
     ],
     entryComponents: [
