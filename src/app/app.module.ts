@@ -10,6 +10,7 @@ import { PhpbbFormHelperService } from './services/phpbb-form-helper.service';
 import { ViewconvoComponent } from './components/ucp/pm/viewconvo/viewconvo.component';
 import { UCPPMViewmessageComponent } from './components/ucp/pm/viewconvo/viewmessage/viewmessage.component';
 
+import { APP_BASE_HREF } from '@angular/common';
 import { PrivateMessageService } from './services/private-message.service';
 import { SCFRMaterialModule } from './material/material.module';
 import { HeaderModule } from './header/header.module';
@@ -135,6 +136,7 @@ import { UcpPreferenceNotificationsComponent } from './components/ucp/preference
 import { UcpNotificationsSwitchComponent } from './components/ucp/notifications/ucp-notifications-switch/ucp-notifications-switch.component';
 import { UcpNotificationListComponent } from './components/ucp/notifications/ucp-notification-list/ucp-notification-list.component';
 import { UcpNotificationOptionsComponent } from './components/ucp/notifications/ucp-notification-options/ucp-notification-options.component';
+import { environment } from "environments/environment";
 
 @NgModule({
     declarations: [
@@ -262,6 +264,7 @@ import { UcpNotificationOptionsComponent } from './components/ucp/notifications/
         DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent
     ],
     providers: [
+        { provide: APP_BASE_HREF, useValue: environment.baseHref },
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
         NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService, ExtraModuleInjector
     ],

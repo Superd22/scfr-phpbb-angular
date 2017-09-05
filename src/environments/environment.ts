@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
+  baseForumUrl: 'http://' + window.location.hostname + "/",
   reCaptchaKey: "6LccPSYUAAAAAL-NZ0q_M-3X6vfHPfB59WeWI4d8",
+  baseHref: "/",
 };

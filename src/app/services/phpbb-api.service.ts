@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { ViewforumComponent } from './../components/viewforum/viewforum.component';
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { PhpbbAjaxMessageResponse } from './../interfaces/phpbb/phpbb-ajax-message-response';
@@ -15,7 +16,7 @@ import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angul
 import { Observable } from "rxjs/Observable";
 
 // Will be broken by SSR
-const baseUrl = 'http://' + window.location.hostname + "/";
+const baseUrl = environment.baseForumUrl;
 const callback = 'scfr_json_callback=true';
 
 @Injectable()
