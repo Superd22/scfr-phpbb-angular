@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment.prod';
 import { IPHPBBNotif } from './../components/global-header-bar/notification/a-notif/a-notif.component';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { IMainHeaderBarWP } from './../interfaces/main-header-bar-wp.interface';
@@ -31,7 +32,7 @@ export class GlobalHeaderService {
     if (force) fetch = true;
 
     if (fetch) {
-      this.http.get("https://starcitizen.fr/wp-json/HeaderBar/Full/").subscribe((res) => {
+      this.http.get( environment.baseForumUrl + "../wp-json/HeaderBar/Full/").subscribe((res) => {
         this._headerDataCache.next(res.json());
       });
     }
@@ -55,7 +56,7 @@ export class GlobalHeaderService {
    * Fetches data from the forum
    */
   public fetchForumData() {
-    this.http.get("http://www.newforum.fr/?scfr_json_callback=true", { withCredentials: true }).subscribe((res) => {
+    this.http.get( environment.baseForumUrl + "?scfr_json_callback=true", { withCredentials: true }).subscribe((res) => {
       let tpl = res.json()['@template'];
       this.setForumData(tpl);
     });

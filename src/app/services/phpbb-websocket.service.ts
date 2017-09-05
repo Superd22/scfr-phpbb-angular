@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { PhpbbWebSocket } from './../interfaces/phpbb/phpbb-ws';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
@@ -14,7 +15,7 @@ export class PhpbbWebsocketService {
   constructor(private stateT:StateTranslate) {
     /** @todo url */
     console.log("[WS] Connecting to ws");
-    this._ws = new WebSocket("ws://" + location.hostname + ":8080");
+    this._ws = new WebSocket("//" + environment.baseForumUrl + "../:8080");
     this._wsOnMessage = Observable.fromEvent(this._ws, "message").map((ev: MessageEvent) => {
       return JSON.parse(ev.data);
     });
