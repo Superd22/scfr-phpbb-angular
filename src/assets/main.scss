@@ -37,7 +37,10 @@ hr {
 }
 
 .post-inner {
-
+    font-size: 13px;
+    line-height: 18px;
+    font-family: 'open sans';
+    
     /** search hilight in post */
     .posthilit {
         background: map-get($scfr-mat-light-blue, 500);

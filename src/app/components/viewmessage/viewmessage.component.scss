@@ -8,12 +8,70 @@ $border-radius: 6px;
 .message {
     margin: 24px 0px;
     background:transparentize($dark-bg, 0.2);
+    position:relative;
+    min-height:180px;
+}
+
+.side-info-hover-pannel {
+    height: 175px;
+    top: 0px;
+    padding: 12px;
+    position: absolute;
+    width: 360px;
+    left: 0px;
+    margin: 12px;
+    padding-left: 102px;
+    background: map-get($scfr-mat-blue-grey-background, 400);
+
+    .username {
+        font-size: 22px;
+    }
+
+    .handle {
+        display: block;
+        text-decoration: none;
+        color: #d6d6d6;
+        font-family: "Electrolize";
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-size: 11px;
+        margin-top: 11px;
+        &:hover {
+            color: #ffd80c;
+        }
+    }
+
+    .more {
+        color:white;
+        .group {
+            font-family: "Open Sans";
+            font-size: 14px;
+            line-height: 14px;
+            padding: 5px;
+            height: 24px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: bolder;
+            letter-spacing: 2px;
+        }
+
+        button {
+            height: 24px;
+            border: 0px;
+            background: none;
+            outline: none;
+        }
+    }
 }
 
 .side-info {
     margin: 0px 0px -24px -24px;
     align-items: flex-start;
     align-content: flex-start;
+    position: relative;
+    transition: 0.25s;
+    z-index: 2;
     .avatar {
         $avatar-size: 75px;
         flex:1 1 100%;
@@ -25,7 +83,11 @@ $border-radius: 6px;
     .poster-name {
         text-align:center;
         padding: 0px 6px;
+        overflow: hidden;
         margin-top: 6px;
+        transition:0.5s;
+        font-size: 14px;
+        height: 14px;
     }
 
     .guild-logo {
@@ -33,6 +95,20 @@ $border-radius: 6px;
         height: 55px;
         margin: 0px auto;
         opacity: 0.7;
+    }
+
+}
+
+.side-info-wrapper {
+    &:hover {
+        .side-info  {
+            padding-left: 14px;
+            .poster-name {
+                height: 0px;
+                margin: 5px;
+                overflow: hidden;
+            }
+        }
     }
 }
 
@@ -44,8 +120,9 @@ $border-radius: 6px;
 }
 
 .message-actions {
-    margin-bottom: -24px;
-    margin-top: 24px;
+    margin-bottom: -12px;
+    margin-top: 42px;
+    padding: 0px 24px;
     align-items: flex-end;
     .message-details {
         font-family: "Open sans";
