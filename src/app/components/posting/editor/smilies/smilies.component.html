@@ -1,7 +1,8 @@
 <div class="smilies" fxLayout>
 
-  <div class="a-smiley" *ngFor="let b of buttons" (click)="b.applyBBcode($event)" [style.height]="b.smiley.SMILEY_HEIGHT+'px'" [style.width]="b.smiley.SMILEY_WIDTH+'px'">
-    <img [src]="'//starcitizen.fr/Forum/'+b.smiley.SMILEY_IMG">
+  <div class="a-smiley" *ngFor="let b of buttons" (click)="b.applyBBcode($event)" [style.height]="b.smiley?.SMILEY_HEIGHT+'px'"
+    [style.width]="b.smiley?.SMILEY_WIDTH+'px'">
+    <img [src]="'//starcitizen.fr/Forum/'+b.smiley?.SMILEY_IMG">
   </div>
 
 </div>

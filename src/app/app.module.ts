@@ -128,7 +128,7 @@ import { UcpConfirmPopoutComponent } from './components/ucp/ucp-confirm-popout/u
 import { ThrottlerService } from "app/services/throttler.service";
 import { PhpbbGroupComponent } from './components/phpbb/phpbb-group/phpbb-group.component';
 import { UcpPmEditorComponent } from './components/ucp/pm/ucp-pm-editor/ucp-pm-editor.component';
-import { PostingEditorSmiliesComponent } from './components/posting/editor/smilies/smilies.component';
+import { PostingEditorSmiliesComponent, PostingEditorASmiley } from './components/posting/editor/smilies/smilies.component';
 import { AsmileyComponent } from './components/posting/editor/smilies/asmiley/asmiley.component';
 import { MessageDecoBallsDirective } from './components/viewmessage/directives/message-deco-balls.directive';
 import { UcpPreferenceNotificationsComponent } from './components/ucp/preference/ucp-preference-notifications/ucp-preference-notifications.component';
@@ -229,6 +229,7 @@ import { UcpNotificationOptionsComponent } from './components/ucp/notifications/
         PhpbbGroupComponent,
         UcpPmEditorComponent,
         PostingEditorSmiliesComponent,
+        PostingEditorASmiley,
         AsmileyComponent,
         MessageDecoBallsDirective,
         UcpPreferenceNotificationsComponent,
