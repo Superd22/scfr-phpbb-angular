@@ -15,13 +15,19 @@ export class PhpbbWebsocketService {
   constructor(private stateT:StateTranslate) {
     /** @todo url */
     console.log("[WS] Connecting to ws");
-    this._ws = new WebSocket("//" + environment.baseForumUrl + "../:8080");
+
+    try {
+    this._ws = new WebSocket(environment.websocket);
     this._wsOnMessage = Observable.fromEvent(this._ws, "message").map((ev: MessageEvent) => {
       return JSON.parse(ev.data);
     });
 
     this.doBindings();
 
+    }
+    catch(e) {
+      console.log("could not connect to ws", e);
+    }
   }
 
   private doBindings() {
@@ -36,7 +42,8 @@ export class PhpbbWebsocketService {
 
 
   public get onMessage(): Observable<PhpbbWebSocket.WSMessage> {
-    return this._wsOnMessage;
+    if(this._wsOnMessage) return this._wsOnMessage;
+    return Observable.of(null);
   }
 
   public get onPosting(): Observable<PhpbbWebSocket.WSPostingEvent> {
