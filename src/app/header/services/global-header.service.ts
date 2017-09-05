@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment.prod';
+import { environment } from './../../../environments/environment';
 import { IPHPBBNotif } from './../components/global-header-bar/notification/a-notif/a-notif.component';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { IMainHeaderBarWP } from './../interfaces/main-header-bar-wp.interface';

@@ -1,7 +1,7 @@
 import { PhpbbApiService } from './../../../services/phpbb-api.service';
 import { StateTranslate } from './../../../services/state-translate.service';
 import { UcpPhpbbFieldComponent } from './../ucp-phpbb-field/ucp-phpbb-field.component';
-import { environment } from './../../../../environments/environment.prod';
+import { environment } from './../../../../environments/environment';
 import { PhpbbComponent } from './../../phpbb/phpbb-component.component';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { PhpbbFormHelperService } from "../../../services/phpbb-form-helper.service";

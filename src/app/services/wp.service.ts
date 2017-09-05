@@ -1,3 +1,4 @@
+import { environment } from 'environments/environment';
 import { IWPNews } from './../interfaces/wp/wp-news.interface';
 import { IGuideDesNouveauxResponse } from './../components/index/interfaces/guide-des-nouveaux.interface';
 import { Http } from '@angular/http';
@@ -11,7 +12,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class WpService {
 
-  private _scfr = "https://starcitizen.fr/";
+  private _scfr = environment.baseForumUrl + "../";
   private _guide: BehaviorSubject<IGuideDesNouveauxResponse> = new BehaviorSubject(null);
 
   constructor(private http: Http) { }
