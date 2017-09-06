@@ -69,9 +69,9 @@
             </a>
             <div class="more" fxLayout fxLayoutWrap fxFlex>
               <div class="buttons" fxLayout>
-                <md-icon>textsms</md-icon>
-                <md-icon>accessibility</md-icon>
-                <button fxFlex>JULIET</button>
+                <md-icon uiSref="phpbb.seo.ucp.pmConvo" [uiParams]="{mode: 'compose', page:'mp', subPage:'', phpbbResolved:false, u: postrow?.POSTER_ID}">textsms</md-icon>
+                <md-icon uiSref="phpbb.seo.viewprofile" [uiParams]="{userId: postrow?.POSTER_ID}">accessibility</md-icon>
+                <button *ngIf="tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET" fxFlex><a [href]="'https://starcitizen.fr/Flotte/?page=user&id='+postrow?.POSTER_ID">JULIET</a></button>
               </div>
             </div>
           </div>

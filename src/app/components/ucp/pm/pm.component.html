@@ -1,5 +1,5 @@
 <div fxLayout>
-  <md-list fxFlex="30%">
+  <md-list fxFlex="300px">
     <scfr-forum-ucp-pm-convo-row *ngFor="let convo of MPService.convos" [convo]="convo"></scfr-forum-ucp-pm-convo-row>
   </md-list>
   <ui-view fxFlex="100%" *ngIf="!isCompose"></ui-view>
@@ -9,5 +9,6 @@
 </div>
 
 <scfr-forum-global-pagination [(page)]="MPService.page" [totalPage]="MPService.maxPage">
-  <button md-button uiSref="phpbb.seo.ucp" [uiParams]="{mode: 'compose', subPage:'', phpbbResolved:false, pm_id:null}" [uiOptions]="{refresh:true}"> <md-icon>add</md-icon> Nouveau M.P</button>
+  <button md-button uiSref="phpbb.seo.ucp" [uiParams]="{mode: 'compose', page:'mp', subPage:'', phpbbResolved:false, pm_id:null}"
+    [uiOptions]="{refresh:true}"> <md-icon>add</md-icon> Nouveau M.P</button>
 </scfr-forum-global-pagination>

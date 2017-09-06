@@ -295,7 +295,7 @@ export class StateTranslate {
     private transform_ucp_pm(trans: Transition) {
         // No matter what we're gonna redirect to the pm page.
         let newParams = Object.assign({}, trans.params(), { i: "ucp_pm", mode: "", page: "mp", subPage: null, });
-        
+
         // We need to fetch what convo we want
         if (!newParams['pm_id']) {
             if (!newParams['p']) throw "NO PM SPECIFIED";
@@ -543,13 +543,15 @@ export class StateTranslate {
             if (params.page && !params.i) newParam.i = pretty_states[params.page][0];
             if (params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
 
-            // Fetch the actual data
-            return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
-                (data) => {
-                    newParam.phpbbResolved = data;
-                    return transition.router.stateService.target(stateTarget, newParam);
-                }
-            )
+            if (newParam.page == "mp") stateTarget = "phpbb.seo.ucp.pmConvo";
+
+                // Fetch the actual data
+                return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
+                    (data) => {
+                        newParam.phpbbResolved = data;
+                        return transition.router.stateService.target(stateTarget, newParam);
+                    }
+                )
         }
 
         // We had everything we wanted.

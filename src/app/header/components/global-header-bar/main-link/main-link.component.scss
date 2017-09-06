@@ -1,11 +1,12 @@
 $bar-background: rgba(38,50,58,0.9);
+$min-width: 180px;
 
 button {
     flex:1 1 100%;
-    min-width:220px;
+    min-width: $min-width;
     height: 100%;
     padding:20px 35px;
-    font-family: "Open Sans";
+    font-family: "Electrolize";
     text-transform: uppercase;
     background:none;
     border:0px;
@@ -38,7 +39,7 @@ button {
     font-family: "Electrolize";
     z-index:10;
     top:0px;
-    min-width:160px;
+    min-width: $min-width;
     padding-top:64px + 15px;
     display:flex;
     flex-wrap: wrap;

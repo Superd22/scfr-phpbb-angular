@@ -27,7 +27,7 @@ export class UcpComponent extends PhpbbComponent implements OnInit {
     { name: "Notifications", id: "notifications" },
   ];
 
-  public fullPage = ["notifications"];
+  public fullPage = ["notifications", "mp"];
 
   constructor(protected api: PhpbbApiService, protected transition: Transition, protected translate: StateTranslate) {
     super();

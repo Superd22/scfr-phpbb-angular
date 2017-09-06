@@ -30,7 +30,7 @@ export class ViewmessageComponent implements OnInit {
     return this._edit;
   }
 
-  public tpl;
+  public get tpl() {return this.viewtopic.tpl};
 
   set edit(val) {
     this._edit = val;
@@ -38,7 +38,6 @@ export class ViewmessageComponent implements OnInit {
   }
 
   constructor(public sanitizer: DomSanitizer, private stateT: StateTranslate) {
-    this.stateT.latestTemplateData.subscribe((data) => this.tpl = data);
   }
 
   ngOnInit() {

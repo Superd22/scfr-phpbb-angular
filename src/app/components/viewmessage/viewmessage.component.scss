@@ -4,7 +4,7 @@ $border: transparentize(map-get($scfr-mat-light-blue, 200),0.85);
 $dark-bg:  map-get($scfr-mat-blue-grey-background, 700);
 $color:  map-get($scfr-mat-light-blue, 200);
 $border-radius: 6px;
-
+$hover-side-pannel-transition: 0.5s;
 .message {
     margin: 24px 0px;
     background:transparentize($dark-bg, 0.2);
@@ -17,15 +17,19 @@ $border-radius: 6px;
 
     height: 175px;
     top: 0px;
-    padding: 12px;
     position: absolute;
-    width: 500px;
     left: 0px;
     margin: 12px;
-    padding-left: 102px;
     background: $side-info-bg;
     align-items: flex-start;
     align-content: flex-start;
+    transition: opacity $hover-side-pannel-transition;
+    display: none;
+    opacity: 0;
+    
+    padding: 0px;
+    width: 0px;
+    overflow: hidden;
 
     .side-info-mid {
         min-width: 150px;
@@ -98,6 +102,8 @@ $border-radius: 6px;
         border-radius: 5px;
         opacity: 0.8;
         color: darken($side-info-bg, 10%);
+        background:#51C3FA;
+        overflow:hidden;
         font-family: "Heebo";
         font-size: 11px;
         font-weight: bolder;
@@ -128,7 +134,7 @@ $border-radius: 6px;
         padding: 0px 6px;
         overflow: hidden;
         margin-top: 6px;
-        transition:0.5s;
+        transition: $hover-side-pannel-transition;
         font-size: 14px;
         height: 14px;
     }
@@ -138,6 +144,9 @@ $border-radius: 6px;
         height: 55px;
         margin: 0px auto;
         opacity: 0.7;
+        &:hover {
+            opacity:1;
+        }
     }
 
 }
@@ -151,6 +160,14 @@ $border-radius: 6px;
                 margin: 5px;
                 overflow: hidden;
             }
+        }
+        .side-info-hover-pannel {            
+            display: block;
+            opacity: 1;
+            
+            padding: 12px;
+            padding-left: 102px;
+            width: 500px;
         }
     }
 }

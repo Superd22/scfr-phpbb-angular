@@ -43,4 +43,5 @@ export class MainLinkComponent implements OnInit {
     let rect = this.elRef.nativeElement.getBoundingClientRect();
     this.leftOffset = rect.left + "px";
   }
+  
 }

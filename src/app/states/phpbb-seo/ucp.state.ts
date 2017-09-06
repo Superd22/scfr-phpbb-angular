@@ -46,6 +46,7 @@ export const psoPMConvo = {
         p: null,
         u: null,
         reply_to_all: null,
+        pm_id: null,
     },
     component: ViewconvoComponent
 };

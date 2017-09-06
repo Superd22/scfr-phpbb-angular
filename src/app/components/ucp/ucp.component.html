@@ -19,7 +19,6 @@
         <scfr-forum-ucp-main-switch *ngSwitchCase="'general'" [ucp]="this"></scfr-forum-ucp-main-switch>
         <scfr-forum-ucp-profil-switch *ngSwitchCase="'profil'" [ucp]="this"></scfr-forum-ucp-profil-switch>
         <scfr-forum-ucp-preference-switch *ngSwitchCase="'preferences'" [ucp]="this"></scfr-forum-ucp-preference-switch>
-        <scfr-forum-ucp-pm-switch *ngSwitchCase="'mp'" [ucp]="this"></scfr-forum-ucp-pm-switch>
         <scfr-forum-ucp-groups-switch *ngSwitchCase="'groups'" [ucp]="this"></scfr-forum-ucp-groups-switch>
         <scfr-forum-ucp-contacts-switch *ngSwitchCase="'contacts'" [ucp]="this"></scfr-forum-ucp-contacts-switch>
 
@@ -32,5 +31,6 @@
 <div fxLayout fxLayoutWrap *ngIf="isFullPage" class="ucp-full-page">
   <div [ngSwitch]="currentPage">
     <scfr-forum-ucp-notifications *ngSwitchCase="'notifications'"></scfr-forum-ucp-notifications>
+    <scfr-forum-ucp-pm-switch *ngSwitchCase="'mp'" [ucp]="this"></scfr-forum-ucp-pm-switch>
   </div>
 </div>
