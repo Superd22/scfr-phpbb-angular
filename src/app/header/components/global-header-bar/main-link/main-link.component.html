@@ -1,5 +1,8 @@
-<button><a href="{{link?.target}}">{{link.name}}</a></button>
+<ng-container *ngIf="shouldDisplay">
+    <button><a href="{{link?.target}}">{{link.name}}</a></button>
 
-<div *ngIf="hasMenu" class="extended-menu" [ngClass]="{small: isSmallMenu}" [style.display]="!openMenu ? 'none' : 'flex'" [style.left]="leftOffset">
-   <ng-content></ng-content>
-</div>
+    <div *ngIf="hasMenu" class="extended-menu" [ngClass]="{small: isSmallMenu}" [style.display]="!openMenu ? 'none' : 'flex'"
+        [style.left]="leftOffset">
+        <ng-content></ng-content>
+    </div>
+</ng-container>

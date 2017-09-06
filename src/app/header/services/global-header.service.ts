@@ -74,5 +74,6 @@ export class GlobalHeaderService {
     this.pmCount = Number(tpl['S_USER_NEW_PRIVMSG']);
     this.notifications = tpl['notifications'];
     this.markNotificationRead = tpl['U_MARK_ALL_NOTIFICATIONS'];
+    this.isJuliet = Boolean(tpl['S_USER_IS_JULIET']);
   }
 }

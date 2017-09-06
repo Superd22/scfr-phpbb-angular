@@ -43,6 +43,10 @@ export class GlobalHeaderBarComponent implements OnInit {
     this.api.setForumTpl(this.tpl);
   }
 
+  ngOnChanges() {
+    this.api.setForumTpl(this.tpl);
+  }
+
   ngOnInit() {
     window.addEventListener('scroll', this._onScroll, true);
   }

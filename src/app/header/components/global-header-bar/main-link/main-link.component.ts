@@ -1,3 +1,4 @@
+import { GlobalHeaderService } from './../../../services/global-header.service';
 import { IMainNavLink } from './../../../interfaces/main-nav-link.interface';
 import { Component, OnInit, Input, HostListener, ElementRef } from '@angular/core';
 
@@ -14,7 +15,7 @@ export class MainLinkComponent implements OnInit {
   public leftOffset: string = "0px";
 
 
-  constructor(private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef, public api: GlobalHeaderService) { }
 
   ngOnInit() {
 
@@ -31,17 +32,34 @@ export class MainLinkComponent implements OnInit {
     this.openMenu = false;
   }
 
+  /**
+   * Check if this button has a small menu
+   */
   public get isSmallMenu(): boolean {
     return this.link.menuType == "small";
   }
 
+  /**
+   * Check if this button has a menu
+   */
   public get hasMenu(): boolean {
     return this.link.menuType != "none";
   }
 
+  /**
+   * Get the offset to the left for the current menu to display the sub-menu at the correct
+   * position.
+   */
   public getLeftOffset(): void {
     let rect = this.elRef.nativeElement.getBoundingClientRect();
     this.leftOffset = rect.left + "px";
   }
-  
+
+  /**
+   * If we should display this link or not
+   */
+  public get shouldDisplay(): boolean {
+    return this.link.julietOnly ? this.api.isJuliet : true;
+  }
+
 }

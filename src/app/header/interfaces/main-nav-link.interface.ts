@@ -9,4 +9,5 @@ export interface IMainNavLink {
     target: string;
     /** menu type for this entry */
     menuType: MainNavLinkMenuType;
+    julietOnly?: boolean;
 }

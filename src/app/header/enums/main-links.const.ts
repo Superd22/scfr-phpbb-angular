@@ -5,5 +5,5 @@ export const mainLinks: IMainNavLink[] = [
     { name: "Star Citizen", id: 2, target: "star-citizen/", menuType: "full" },
     { name: "Communauté", id: 3, target: "communityhub/", menuType: "full" },
     { name: "Outils", id: 4, target: "star-citizen", menuType: "small" },
-    { name: "JULIET", id: 5, target: "https://www.starcitizen.fr/Flotte/", menuType: "none" },
+    { name: "JULIET", id: 5, target: "https://www.starcitizen.fr/Flotte/", menuType: "none", julietOnly: true },
 ];
