@@ -19,8 +19,8 @@ $border-color: transparent;
     .wrapper {
         $notif-height:88px;
 
-        max-height: 5 * $notif-height;
-        overflow-y: scroll;
+        max-height: 5 * $notif-height + 10px;
+        overflow-y: auto;
     }
 
 }
