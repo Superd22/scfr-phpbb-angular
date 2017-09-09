@@ -466,14 +466,16 @@ export class StateTranslate {
      */
     private transform_mcp(transition: Transition): Observable<any> {
         const params = transition.params();
-        
-        const oldParams = transition.redirectedFrom().params() || transition.$from().params;
+        const oldState = transition.redirectedFrom() || transition.$from();
+        const oldParams = transition.redirectedFrom() ? transition.redirectedFrom().params() : transition.$from().params;
 
 
         let call = this.phpbbApi.postPage("mcp.php", {}, this.sanitizeParamsForPhpbb(params)).map((data) => {
             const newParams = this.mergeParamsWithPhpbbData(params, data);
             return transition.router.stateService.target("phpbb.seo.mcp", newParams);
         });
+
+        console.log(!params.phpbbResolved, params.i !== oldParams.i || params.mode !== oldParams.mode || params.start !== oldParams.start);
 
         if (!params.phpbbResolved) return call;
         if (params.i !== oldParams.i || params.mode !== oldParams.mode || params.start !== oldParams.start) return call;

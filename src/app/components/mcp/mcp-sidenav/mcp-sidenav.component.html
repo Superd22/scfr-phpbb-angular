@@ -1,6 +1,6 @@
 <div fxLayout fxLayoutWrap>
   <ng-container *ngFor="let link of tpl.t_block2">
-    <button class="side-nav-button" md-button fxFlex="100" uiSref="phpbb.seo.mcp" [uiParams]="{mode: link.MODE, phpbbResolved:false}"
+    <button class="side-nav-button" md-button fxFlex="100" uiSref="phpbb.seo.mcp" [uiParams]="{mode: link.MODE, i: link.NAME, phpbbResolved:false}"
       [uiOptions]="{refresh:true}" [ngClass]="{'active': link.S_SELECTED}">
         {{link.L_TITLE}}
       </button>

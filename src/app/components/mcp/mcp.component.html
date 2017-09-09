@@ -12,11 +12,38 @@
 </nav>
 
 <div fxLayout fxLayoutWrap class="mcp-page">
-  <md-card fxFlex.gt-sm="80">
+  <scfr-forum-mcp-sidenav fxFlex.lt-sm="100" fxFlex.gt-sm="20"></scfr-forum-mcp-sidenav>
+  <md-card fxFlex.gt-sm="80" fxFlex.lt-sm="100">
     <md-card-content>
-      <div [ngSwitch]="currentPage">
-        <div *ngSwitchDefault>Default</div>
-      </div>
+      <!-- MAIN -->
+      <scfr-forum-mcp-main *ngIf="isIn(140)"></scfr-forum-mcp-main>
+
+      <!-- Queue -->
+      <scfr-forum-mcp-queue-unapproved *ngIf="isIn(141,'unapproved_topics')"></scfr-forum-mcp-queue-unapproved>
+      <scfr-forum-mcp-queue-unapproved-posts *ngIf="isIn(141,'unapproved_posts')"></scfr-forum-mcp-queue-unapproved-posts>
+      <scfr-forum-mcp-queue-deleted-topics *ngIf="isIn(141,'deleted_topics')"></scfr-forum-mcp-queue-deleted-topics>
+      <scfr-forum-mcp-queue-deleted-posts *ngIf="isIn(141,'deleted_posts')"></scfr-forum-mcp-queue-deleted-posts>
+
+      <!-- Report -->
+      <scfr-forum-mcp-report-pm-reports *ngIf="isIn('mcp_pm_reports','pm_reports')"></scfr-forum-mcp-report-pm-reports>
+      <scfr-forum-mcp-report-pm-reports-closed *ngIf="isIn('mcp_pm_reports','pm_reports_closed')"></scfr-forum-mcp-report-pm-reports-closed>
+      <scfr-forum-mcp-report-reports *ngIf="isIn('mcp_reports','reports')"></scfr-forum-mcp-report-reports>
+      <scfr-forum-mcp-reports-closed *ngIf="isIn('mcp_reports','reports_closed')"></scfr-forum-mcp-reports-closed>
+
+      <!-- Notes -->
+      <scfr-forum-mcp-notes-main *ngIf="isIn(143)"></scfr-forum-mcp-notes-main>
+
+      <!-- Warnings -->
+      <scfr-forum-mcp-warn-main *ngIf="isIn(144, 'front')"></scfr-forum-mcp-warn-main>
+      <scfr-forum-mcp-warn-list *ngIf="isIn(144, 'list')"></scfr-forum-mcp-warn-list>
+
+      <!-- Logs -->
+      <scfr-forum-mcp-logs-main *ngIf="isIn(145)"></scfr-forum-mcp-logs-main>
+
+      <!-- Bans -->
+      <scfr-forum-mcp-ban-user *ngIf="isIn(146, 'user')"></scfr-forum-mcp-ban-user>
+      <scfr-forum-mcp-ban-up *ngIf="isIn(146, 'ip')"></scfr-forum-mcp-ban-up>
+      <scfr-forum-mcp-ban-email *ngIf="isIn(146, 'email')"></scfr-forum-mcp-ban-email>
     </md-card-content>
   </md-card>
 </div>
