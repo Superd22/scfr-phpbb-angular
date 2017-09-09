@@ -137,6 +137,8 @@ import { UcpNotificationsSwitchComponent } from './components/ucp/notifications/
 import { UcpNotificationListComponent } from './components/ucp/notifications/ucp-notification-list/ucp-notification-list.component';
 import { UcpNotificationOptionsComponent } from './components/ucp/notifications/ucp-notification-options/ucp-notification-options.component';
 import { environment } from "environments/environment";
+import { McpComponent } from './components/mcp/mcp.component';
+import { McpSidenavComponent } from './components/mcp/mcp-sidenav/mcp-sidenav.component';
 
 @NgModule({
     declarations: [
@@ -239,6 +241,8 @@ import { environment } from "environments/environment";
         UcpMainNotificationsComponent,
         UcpNotificationListComponent,
         UcpNotificationOptionsComponent,
+        McpComponent,
+        McpSidenavComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

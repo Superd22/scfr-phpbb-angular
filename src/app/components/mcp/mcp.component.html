@@ -1,0 +1,22 @@
+<div class="mcp-header" scfrForumFloatingMainHeader>
+  <div class="ucp-header-wrapper">
+    <h2>MCP - {{tpl.PAGE_TITLE}}</h2>
+    <h3>{{L_.TITLE}}</h3>
+  </div>
+</div>
+
+<nav md-tab-nav-bar>
+  <a md-tab-link class="tab-link" *ngFor="let link of tpl.t_block1" [active]="link.S_SELECTED" uiSref="phpbb.seo.mcp" [uiParams]="{i: link.ID,mode:null,phpbbResolved:false}">
+      {{link.L_TITLE}}
+    </a>
+</nav>
+
+<div fxLayout fxLayoutWrap class="mcp-page">
+  <md-card fxFlex.gt-sm="80">
+    <md-card-content>
+      <div [ngSwitch]="currentPage">
+        <div *ngSwitchDefault>Default</div>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>

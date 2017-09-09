@@ -55,6 +55,8 @@ export class StateTranslate {
                     return this.transform_ucp(trans);
                 case "search":
                     return this.transform_search(trans);
+                case "mcp":
+                    return this.transform_mcp(trans);
             }
         }
     }
@@ -74,7 +76,7 @@ export class StateTranslate {
 
             if (params[pParams] != null && resolved[pResolved] != params[pParams]) okay = false;
         }
-
+        console.log("okay", okay, resolved, params);
         return okay;
     }
 
@@ -413,10 +415,18 @@ export class StateTranslate {
         return retain;
     }
 
-    public getCurrentStateData(component: PhpbbComponent) {
+    /**
+     * Gives the current template to a component
+     * 
+     * @param component the comopnent to populate with current tpl
+     * @param doNotNotify if we want to not notify a tpl change (useful for sub-components)
+     */
+    public getCurrentStateData(component: PhpbbComponent, doNotNotify?: boolean) {
         let tpl = this.router.stateService.params["phpbbResolved"]["@template"];
         if (tpl) {
-            this._latestTemplateData.next(tpl)
+            // only notify if we want to
+            if (doNotNotify !== true) this._latestTemplateData.next(tpl);
+            // give the component its tpl
             this.unwrapTplData(component, tpl);
         }
     }
@@ -438,6 +448,40 @@ export class StateTranslate {
         });
 
     }
+    private mergeParamsWithPhpbbData(params: any, data: any): any {
+        return Object.assign({}, params, { phpbbResolved: data });
+    }
+
+
+    private sanitizeParamsForPhpbb(params) {
+        let p = Object.assign({}, params);
+        p["phpbbResolved"] = undefined;
+
+        return p;
+    }
+
+    /**
+     * Handles the transformation for mcp pages
+     * @param transition the transition object
+     */
+    private transform_mcp(transition: Transition): Observable<any> {
+        const params = transition.params();
+        
+        const oldParams = transition.redirectedFrom().params() || transition.$from().params;
+
+
+        let call = this.phpbbApi.postPage("mcp.php", {}, this.sanitizeParamsForPhpbb(params)).map((data) => {
+            const newParams = this.mergeParamsWithPhpbbData(params, data);
+            return transition.router.stateService.target("phpbb.seo.mcp", newParams);
+        });
+
+        if (!params.phpbbResolved) return call;
+        if (params.i !== oldParams.i || params.mode !== oldParams.mode || params.start !== oldParams.start) return call;
+
+        return Observable.of(true);
+    }
+
+
 
     /**
      * Handle the transformation of ucp pages
@@ -545,13 +589,13 @@ export class StateTranslate {
 
             if (newParam.page == "mp") stateTarget = "phpbb.seo.ucp.pmConvo";
 
-                // Fetch the actual data
-                return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
-                    (data) => {
-                        newParam.phpbbResolved = data;
-                        return transition.router.stateService.target(stateTarget, newParam);
-                    }
-                )
+            // Fetch the actual data
+            return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
+                (data) => {
+                    newParam.phpbbResolved = data;
+                    return transition.router.stateService.target(stateTarget, newParam);
+                }
+            )
         }
 
         // We had everything we wanted.
@@ -597,6 +641,9 @@ export class StateTranslate {
                     break;
                 case "phpbb.seo.search":
                     next = this.transform_search(transition);
+                    break;
+                case "phpbb.seo.mcp":
+                    next = this.transform_mcp(transition);
                     break;
                 //case "phpbb.seo.ucp.pm":
                 //   return this.transform_ucp_pm(transition);
