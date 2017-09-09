@@ -1,3 +1,34 @@
-<p>
-  mcp-main works!
-</p>
+<h3>{{L_.LATEST_UNAPPROVED}}</h3>
+<p>{{L_.UNAPPROVED_TOTAL}}</p>
+
+
+<ul  *ngIf="tpl.unapproved" class="topiclist missing-column">
+  <li class="header">
+    <dl>
+      <dt>
+        <div class="list-inner">{{L_.VIEW_DETAILS}}</div>
+      </dt>
+      <dd class="moderation"><span>{{L_.TOPIC}} &amp; {{L_.FORUM}}</span></dd>
+    </dl>
+  </li>
+</ul>
+<ul class="topiclist cplist missing-column responsive-show-all">
+
+  <li *ngFor="let unapproved of tpl.unapproved" class="row">
+    <dl>
+      <dt>
+        <div class="list-inner">
+          <a href="{{unapproved.U_POST_DETAILS}}" class="topictitle">{{unapproved.SUBJECT}}</a> <i class="icon fa-paperclip fa-fw"
+            aria-hidden="true"></i> <br /> {{L_.POSTED}} {{L_.POST_BY_AUTHOR}} {{unapproved.AUTHOR_FULL}} &raquo; {{unapproved.POST_TIME}}
+        </div>
+      </dt>
+      <dd class="moderation"><span>
+						{{L_.TOPIC}}{{L_.COLON}} <a href="{{unapproved.U_TOPIC}}">{{unapproved.TOPIC_TITLE}}</a> [<a href="{{unapproved.U_MCP_TOPIC}}">{{L_.MODERATE}}</a>]<br />
+            {{L_.FORUM}}{{L_.COLON}} <a *ngIf="unapproved.U_FORUM" [href]="unapproved.U_FORUM">{{unapproved.FORUM_NAME}}</a>
+            [<a *ng [href]="unapproved.U_MCP_FORUM">{{L_.MODERATE}}</a>]</span>
+      </dd>
+
+      <dd class="mark"><input type="checkbox" name="post_id_list[]" [value]="unapproved.POST_ID" /></dd>
+    </dl>
+  </li>
+</ul>

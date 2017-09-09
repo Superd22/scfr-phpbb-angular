@@ -155,6 +155,7 @@ import { McpLogsMainComponent } from './components/mcp/mcp-logs-main/mcp-logs-ma
 import { McpBanUserComponent } from './components/mcp/mcp-ban-user/mcp-ban-user.component';
 import { McpBanUpComponent } from './components/mcp/mcp-ban-up/mcp-ban-up.component';
 import { McpBanEmailComponent } from './components/mcp/mcp-ban-email/mcp-ban-email.component';
+import { McpQuickmodTopicComponent } from './components/mcp/mcp-quickmod-topic/mcp-quickmod-topic.component';
 
 @NgModule({
     declarations: [
@@ -275,6 +276,7 @@ import { McpBanEmailComponent } from './components/mcp/mcp-ban-email/mcp-ban-ema
         McpBanUserComponent,
         McpBanUpComponent,
         McpBanEmailComponent,
+        McpQuickmodTopicComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

@@ -12,7 +12,6 @@
         </div>
     </div>
 
-
     <scfr-forum-viewtopic-poll fxFlex="100"></scfr-forum-viewtopic-poll>
 
     <scfr-forum-viewnews *ngIf="displayNews" [news]="news" fxFlex="100"></scfr-forum-viewnews>
@@ -32,10 +31,11 @@
 </div>
 
 <scfr-forum-global-pagination [page]="tpl.CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="tpl.TOTAL_PAGES">
-    <ng-container [ngTemplateOutlet]="replyButton"></ng-container>
+    <ng-container [ngTemplateOutlet]="topicActions"></ng-container>
 </scfr-forum-global-pagination>
 
 
-<ng-template #replyButton>
+<ng-template #topicActions>
     <button md-button uiSref=".posting">Répondre</button>
+    <scfr-forum-mcp-quickmod-topic [topicId]="tpl.TOPIC_ID"></scfr-forum-mcp-quickmod-topic>
 </ng-template>

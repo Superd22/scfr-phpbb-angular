@@ -1,3 +1,4 @@
+import { PhpbbSubComponent } from './../../phpbb/phpbb-sub-component.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,11 +6,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './mcp-ban-user.component.html',
   styleUrls: ['./mcp-ban-user.component.scss']
 })
-export class McpBanUserComponent implements OnInit {
+export class McpBanUserComponent extends PhpbbSubComponent {
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
+    super.ngOnInit();
   }
 
 }
