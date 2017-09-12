@@ -75,6 +75,27 @@
 </fieldset>
 
 
+<fieldset class="display-actions">
+  <div fxLayout>
+    <md-select fxFlex="100" [placeholder]="L_.SELECT_ACTION">
+      <md-option *ngIf="tpl.S_CAN_APPROVE" value="approve">{{ L_.APPROVE_POSTS }}</md-option>
+      <md-option *ngIf="tpl.S_CAN_LOCK" value="lock_post">{{L_.LOCK_POST_POSTS}} [ {{L_.LOCK_POST_EXPLAIN}} ]</md-option>
+      <md-option *ngIf="tpl.S_CAN_LOCK" value="lock_post">{{L_.UNLOCK_POST_POSTS}} </md-option>
+      <md-option *ngIf="tpl.S_CAN_DELETE" value="delete_post">{{ L_.DELETE_POSTS }}</md-option>
+      <md-option *ngIf="tpl.S_CAN_RESTORE" value="restore">{{ L_.RESTORE_POSTS }}</md-option>
+      <md-option *ngIf="tpl.S_CAN_MERGE" value="merge_posts">{{ L_.MERGE_POSTS }}</md-option>
+      <md-option *ngIf="tpl.S_CAN_SPLIT" value="split_all">{{ L_.SPLIT_POSTS }}</md-option>
+      <md-option *ngIf="tpl.S_CAN_SPLIT" value="split_beyond">{{ L_.SPLIT_AFTER }}</md-option>
+      <md-option *ngIf="tpl.S_CAN_SYNC" value="resync">{{ L_.RESYNC }}</md-option>
+    </md-select>
+
+    <button md-button color="primary">Envoyer</button>
+  </div>
+  <div fxLayout>
+    <button md-button>{{L_.MARK_ALL}}</button>
+    <button md-button>{{L_.UNMARK_ALL}}</button>
+  </div>
+</fieldset>
 
 <scfr-forum-global-pagination [page]="tpl.CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="tpl.TOTAL_PAGES">
 </scfr-forum-global-pagination>
