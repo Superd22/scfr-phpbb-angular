@@ -17,6 +17,8 @@
     <md-card-content>
       <!-- MAIN -->
       <scfr-forum-mcp-main *ngIf="isIn(140)"></scfr-forum-mcp-main>
+      <scfr-forum-mcp-main-topic *ngIf="phpbbTemplateName == 'mcp_topic'"></scfr-forum-mcp-main-topic>
+      <scfr-forum-mcp-main-forum *ngIf="phpbbTemplateName == 'mcp_forum'"></scfr-forum-mcp-main-forum>
 
       <!-- Queue -->
       <scfr-forum-mcp-queue-unapproved *ngIf="isIn(141,'unapproved_topics')"></scfr-forum-mcp-queue-unapproved>

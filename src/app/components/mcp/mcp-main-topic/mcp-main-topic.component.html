@@ -1,0 +1,80 @@
+<div class="tabs" fxLayout>
+  <h2 fxFlex><a [href]="tpl.U_VIEW_TOPIC">{{L_.TOPIC}}{{L_.COLON}} {{tpl.TOPIC_TITLE}}</a></h2>
+
+  <nav md-tab-nav-bar>
+    <a md-tab-link (click)="activeTab = 'merge-panel'" [active]="activeTab == 'merge-panel'">{{L_.MERGE_POSTS}}</a>
+    <a md-tab-link (click)="activeTab = 'split-panel'" [active]="activeTab == 'split-panel'">{{L_.SPLIT_TOPIC}}</a>
+    <a md-tab-link (click)="activeTab = 'display-panel'" [active]="activeTab == 'display-panel'">{{L_.DISPLAY_OPTIONS}}</a>
+  </nav>
+
+</div>
+
+<fieldset class="tools">
+  <ng-container *ngIf="activeTab == 'display-panel'">
+    <dl>
+      <dt><label for="posts_per_page">{{L_.POSTS_PER_PAGE}}{{L_.COLON}}</label><br /><span>{{L_.POSTS_PER_PAGE_EXPLAIN}}</span></dt>
+      <dd><input class="inputbox autowidth" type="number" min="0" max="999999" name="posts_per_page" id="posts_per_page" value="{POSTS_PER_PAGE}"
+        /></dd>
+    </dl>
+    <dl>
+      <dt><label>{{L_DISPLAY_POSTS}}{{L_COLON}}</label></dt>
+      <dd>{{S_SELECT_SORT_DAYS}}&nbsp;&nbsp;<label>{{L_SORT_BY}} {{S_SELECT_SORT_KEY}}</label><label>{{S_SELECT_SORT_DIR}}</label>        <input type="submit" name="sort" value="{L_GO}" class="button2" /></dd>
+    </dl>
+  </ng-container>
+
+  <ng-container *ngIf="activeTab == 'split-panel'">
+    <p>{{L_.SPLIT_TOPIC_EXPLAIN}}</p>
+
+    <dl *ngIf="tpl.S_SHOW_TOPIC_ICONS">
+      <dt><label for="icon">{{L_.TOPIC_ICON}}{{L_.COLON}}</label></dt>
+      <dd><label for="icon"><input type="radio" name="icon" id="icon" value="0" checked="checked" /> {{L_.NO_TOPIC_ICON}}</label>
+        <label *ngFor="let topic_icon of tpl.topic_icon" for="icon-{{topic_icon.ICON_ID}}">
+          <!-- topic_icon.S_ICON_CHECKED -->
+          <input type="radio" name="icon" id="icon-{{topic_icon.ICON_ID}}" [value]="topic_icon.ICON_ID"  />
+          <img [src]="topic_icon.ICON_IMG" [width]="topic_icon.ICON_WIDTH" [height]="topic_icon.ICON_HEIGHT" alt="" title="" />
+        </label>
+      </dd>
+    </dl>
+
+    <dl>
+      <dt><label for="subject">Titre du nouveau sujet :</label></dt>
+      <dd><input type="text" name="subject" id="subject" size="45" maxlength="124" tabindex="2" [value]="tpl.SPLIT_SUBJECT" [title]="L_.SPLIT_SUBJECT"
+          class="inputbox" /></dd>
+    </dl>
+
+    <dl>
+      <dt><label>{{L_.SPLIT_FORUM}}{{L_.COLON}}</label></dt>
+      <dd><select name="to_forum_id">{{tpl.S_FORUM_SELECT}}</select></dd>
+    </dl>
+
+  </ng-container>
+
+  <ng-container *ngIf="activeTab == 'merge-panel'">
+    <p>{{L_.MERGE_TOPIC_EXPLAIN}}</p>
+
+    <dl>
+      <dt><label for="to_topic_id">{{L_.MERGE_TOPIC_ID}}{{L_.COLON}}</label></dt>
+      <dd>
+        <input class="inputbox autowidth" type="number" min="0" max="9999999999" name="to_topic_id" id="to_topic_id" [value]="tpl.TO_TOPIC_ID"
+        />
+        <a [href]="U_SELECT_TOPIC">{{L_.SELECT_TOPIC}}</a>
+      </dd>
+
+      <dd *ngIf="tpl.TO_TOPIC_INFO">{{tpl.TO_TOPIC_INFO}}</dd>
+    </dl>
+
+  </ng-container>
+</fieldset>
+
+
+<fieldset class="posts-wrapper">
+  <div class="post" *ngFor="let postrow of tpl.postrow">
+    <div class="tool"></div>
+    <app-viewmessage [postrow]="postrow"></app-viewmessage>
+  </div>
+</fieldset>
+
+
+
+<scfr-forum-global-pagination [page]="tpl.CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="tpl.TOTAL_PAGES">
+</scfr-forum-global-pagination>

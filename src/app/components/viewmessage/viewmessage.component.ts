@@ -30,7 +30,7 @@ export class ViewmessageComponent implements OnInit {
     return this._edit;
   }
 
-  public get tpl() {return this.viewtopic.tpl};
+  public get tpl() {return this.viewtopic ? this.viewtopic.tpl : {}};
 
   set edit(val) {
     this._edit = val;

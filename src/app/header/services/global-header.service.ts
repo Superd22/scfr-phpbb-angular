@@ -16,6 +16,7 @@ export class GlobalHeaderService {
   public isJuliet: boolean = false;
 
   public notifications: IPHPBBNotif[] = [];
+  private _env: string = "https://www.starcitizen.fr";
 
   constructor(private http: Http) { }
 
@@ -33,7 +34,7 @@ export class GlobalHeaderService {
     if (force) fetch = true;
 
     if (fetch) {
-      this.http.get(environment.baseForumUrl + "../wp-json/HeaderBar/Full/").subscribe((res) => {
+      this.http.get(environment.baseForumUrl + "/wp-json/HeaderBar/Full/").subscribe((res) => {
         this._headerDataCache.next(res.json());
       });
     }
@@ -53,11 +54,15 @@ export class GlobalHeaderService {
     else this.setForumData(tpl);
   }
 
+  public setEnv(envUrl: string) {
+    this._env = envUrl;
+  }
+
   /**
    * Fetches data from the forum
    */
   public fetchForumData() {
-    this.http.get(environment.baseForumUrl + "?scfr_json_callback=true", { withCredentials: true }).subscribe((res) => {
+    this.http.get(environment.baseForumUrl + "/Forum/?scfr_json_callback=true", { withCredentials: true }).subscribe((res) => {
       let tpl = res.json()['@template'];
       this.setForumData(tpl);
     });

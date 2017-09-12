@@ -156,6 +156,8 @@ import { McpBanUserComponent } from './components/mcp/mcp-ban-user/mcp-ban-user.
 import { McpBanUpComponent } from './components/mcp/mcp-ban-up/mcp-ban-up.component';
 import { McpBanEmailComponent } from './components/mcp/mcp-ban-email/mcp-ban-email.component';
 import { McpQuickmodTopicComponent } from './components/mcp/mcp-quickmod-topic/mcp-quickmod-topic.component';
+import { McpMainTopicComponent } from './components/mcp/mcp-main-topic/mcp-main-topic.component';
+import { McpMainForumComponent } from './components/mcp/mcp-main-forum/mcp-main-forum.component';
 
 @NgModule({
     declarations: [
@@ -277,6 +279,8 @@ import { McpQuickmodTopicComponent } from './components/mcp/mcp-quickmod-topic/m
         McpBanUpComponent,
         McpBanEmailComponent,
         McpQuickmodTopicComponent,
+        McpMainTopicComponent,
+        McpMainForumComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

@@ -20,6 +20,9 @@ export class PhpbbComponent extends PhpbbLanguageComponent implements OnInit {
 
   /** holds received phpbb tpl if any */
   public tpl: IPhpbbTemplate = {};
+  /** name of the current legacy phpbb template file */
+  public phpbbTemplateName: string;
+
 
   constructor() {
     super();

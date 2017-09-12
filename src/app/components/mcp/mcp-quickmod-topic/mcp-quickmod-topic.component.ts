@@ -69,7 +69,16 @@ export class McpQuickmodTopicComponent extends PhpbbSubComponent {
    * @param action 
    */
   public goToMcp(action: IPHPBBMCPQuickMod) {
+    let mcp = {};
 
+    // slice './mcp.php?' 
+    for(let args of action.LINK.slice(10).split("&")) {
+      const tuple = args.split("=");
+      mcp[tuple[0]] = tuple[1]
+    }
+
+    console.log(mcp);
+    this.state.go("phpbb.seo.mcp", mcp);
   }
 
   /**

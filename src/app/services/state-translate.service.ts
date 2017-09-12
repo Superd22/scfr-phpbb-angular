@@ -428,6 +428,7 @@ export class StateTranslate {
             if (doNotNotify !== true) this._latestTemplateData.next(tpl);
             // give the component its tpl
             this.unwrapTplData(component, tpl);
+            component.phpbbTemplateName = this.router.stateService.params["phpbbResolved"]["@tplName"];
         }
     }
 
@@ -470,6 +471,7 @@ export class StateTranslate {
         const oldParams = transition.redirectedFrom() ? transition.redirectedFrom().params() : transition.$from().params;
 
 
+        console.log("params send", this.sanitizeParamsForPhpbb(params));
         let call = this.phpbbApi.postPage("mcp.php", {}, this.sanitizeParamsForPhpbb(params)).map((data) => {
             const newParams = this.mergeParamsWithPhpbbData(params, data);
             return transition.router.stateService.target("phpbb.seo.mcp", newParams);
