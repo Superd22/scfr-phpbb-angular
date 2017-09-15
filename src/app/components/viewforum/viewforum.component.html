@@ -1,6 +1,6 @@
-<div class="container" fxLayout="column" fxLayoutWrap>
+<div class="" fxLayout="column" fxLayoutWrap>
     <div class="forum-header" fxLayout scfrForumFloatingMainHeader fxLayoutWrap>
-        <div class="forum-name-container" fxFlex.lt-md="100">
+        <div class="forum-name-container" fxFlex.lt-lg="100">
             <div fxLayout fxLayoutAlign="start center">
                 <h2 class="forum-title" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">
                     {{tpl.FORUM_NAME}}
@@ -8,10 +8,10 @@
                 <button *ngIf="tpl.U_WATCH_FORUM_LINK" md-icon-button (click)="toggleWatchForum()"><md-icon>{{tpl.S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
             </div>
 
-            <em class="forum-sub-title" [innerHTML]="tpl.FORUM_DESC"></em>
+            <span class="forum-sub-title" [innerHTML]="tpl.FORUM_DESC"></span>
         </div>
 
-        <div class="forum-actions-container" fxHide.lt-md="true">
+        <div class="forum-actions-container" fxHide fxHide.gt-md="false">
 
             <div class="forum-actions-sorting" *ngIf="tpl.S_SELECT_SORT_DAYS" fxLayout>
                 <scfr-forum-ucp-phpbb-field displayName="Afficher" [fullPHPBB]="tpl.S_SELECT_SORT_DAYS" [(model)]="sortSt" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
@@ -24,7 +24,7 @@
 
 
     <div *ngIf="tpl.S_HAS_SUBFORUM" fxLayout fxLayoutWrap fxFlex="100" class="sub-forum-container">
-        <scfr-forum-viewforum-forum-row fxFlex="25" fxFlex.lt-sm="100" *ngFor="let forum of tpl.forumrow" [forum]="forum"></scfr-forum-viewforum-forum-row>
+        <scfr-forum-viewforum-forum-row fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="33" fxFlex.gt-lg="25" *ngFor="let forum of tpl.forumrow" [forum]="forum"></scfr-forum-viewforum-forum-row>
     </div>
 
 
@@ -36,11 +36,6 @@
 
 
     <div *ngIf="tpl.topicrow && !loadingTopics" fxLayout="column" class="topicrow">
-        <div class="topicrow-header" fxLayout fxLayoutWrap>
-            <div fxFlex="50">Topic</div>
-            <div fxFlex="25" fxHide.lt-sm="true">Stats</div>
-            <div fxFlex="25" fxFlex.lt-sm="100">Dernière réponse</div>
-        </div>
         <scfr-forum-viewforum-topic-row *ngFor="let topic of tpl.topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
     </div>
 </div>

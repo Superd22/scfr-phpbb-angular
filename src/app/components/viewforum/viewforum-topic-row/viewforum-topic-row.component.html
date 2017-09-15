@@ -1,14 +1,14 @@
 <div class="topic-row" fxFlex="100" fxLayoutWrap fxLayout md-ripple [ngClass]="{announce: topic.S_POST_ANNOUNCE || topic.S_POST_GLOBAL, sticky: topic.S_POST_STICKY, locked: topic.S_TOPIC_LOCKED, unread: topic.S_UNREAD_TOPIC}">
   <div class="topic-icon"></div>
 
-  <div class="topic-title-container" fxFlex="50" uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: topic.FORUM_ID, topicId: topic.TOPIC_ID}">
+  <div class="topic-title-container" fxFlex="100" fxFlex.gt-xs="40" uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: topic.FORUM_ID, topicId: topic.TOPIC_ID}">
     <a class="topic-title">{{topic.TOPIC_TITLE}}</a>
     <a class="topic-new-reply" [href]="topic.U_NEWEST_POST" *ngIf="topic.S_UNREAD_TOPIC">...</a>
     <button md-button *ngIf="topic.S_TOPIC_UNAPPROVED || topic.S_POSTS_UNAPPROVED">
       <a href="{{topic.U_MCP_QUEUE}}" title="{{L_.TOPIC_UNAPPROVED}}">
         <md-icon>sentiment_neutral</md-icon>{{L_.TOPIC_UNAPPROVED}}
       </a>
-		</button>
+      </button>
 
     <button md-button *ngIf="topic.S_TOPIC_DELETED">
       <a href="{{topic.U_MCP_QUEUE}}" title="{{L_.TOPIC_DELETED}}">
@@ -21,27 +21,22 @@
         <md-icon>priority_high</md-icon>{{L_.TOPIC_REPORTED}}
       </a>
     </button>
-
-    <div class="topic-title-sub">
-      <div class="topic-title-sub-author">
-        <scfr-forum-phpbb-username [name]="topicAuthor.userName" [color]="topicAuthor.userColor" [id]="topicAuthor.userId"></scfr-forum-phpbb-username>
-      </div>
-      <a href="{{topic.U_LAST_POST}}" title="{{L_.GOTO_LAST_POST}}" class="topic-time">{{topic.FIRST_POST_TIME}}</a>
-    </div>
-
   </div>
 
-  <div class="topic-stats" fxFlex="25" fxLayout fxHide.lt-sm="true">
-    <dl fxFlex="50">
+  <scfr-forum-phpbb-username fxFlex="100" fxFlex.gt-xs="10" [name]="topicAuthor.userName" [color]="topicAuthor.userColor" [id]="topicAuthor.userId"></scfr-forum-phpbb-username>
+
+
+  <div class="topic-stats" fxLayout fxHide.lt-sm="true" fxFlex="25">
+    <dl fxFlex="50" fxHide fxHide.gt-md="false">
       <dd>{{topic.VIEWS}}</dd>
       <dt>{{L_.VIEWS}}</dt>
     </dl>
-    <dl fxFlex="50">
+    <dl fxFlex="100" fxFlex.gt-md="50">
       <dd>{{topic.REPLIES}}</dd>
       <dt>{{L_.REPLIES}}</dt>
     </dl>
   </div>
-  <div class="topic-last-reply" fxFlex="25" fxFlex.lt-sm="100" class="topic-time">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
+  <div class="topic-last-reply" fxFlex="100" fxFlex.gt-xs="25" class="topic-time">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}
     <scfr-forum-phpbb-username [name]="replyAuthor.userName" [color]="replyAuthor.userColor" [id]="replyAuthor.userId"></scfr-forum-phpbb-username>
     <br /> <span class="topic-time">{{topic.LAST_POST_TIME}}</span>
   </div>

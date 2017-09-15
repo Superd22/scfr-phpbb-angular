@@ -1,4 +1,5 @@
 @import './src/assets/material/v7/main';
+
 @mixin nodeco() {
   a {
     text-decoration: none;
@@ -9,21 +10,19 @@
 }
 .top-details{
   .forum-title {
-    font-family: 'Heebo', sans-serif;
+    font-family: $text-font-header-title;
     text-transform:uppercase;
-    font-size: 2.5rem;
-    line-height: 2.5rem;
+    font-size: $text-size-header-title;
     margin:0px;
     @include nodeco();
   }
 
   .topic-title {
-    font-family: Electrolize;
+    font-family: $text-font-header-subtitle;
     font-style: normal;
-    letter-spacing: 3.5px;
     font-weight: lighter;
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: $text-size-header-subtitle;
     margin:0px;
     @include nodeco();
   }

@@ -1,6 +1,6 @@
 <div class="forum-link-row" [ngClass]="{main: depth == 0, 'secondary': depth > 0, 'no-list': depth < 1, hidden: !visible}">
   <div class="forum-link-wrapper" [ngClass]="{new: forum?.UNREAD, 'no-list': depth < 2}" fxLayout>
-    <button class="forum-link" [ngClass]="{'no-list': depth < 1}" md-button uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum?.FORUM_ID}">{{forum?.FORUM_NAME}}</button>
+    <button class="forum-link" [ngClass]="{'no-list': depth < 1}" md-button uiSref="phpbb.seo.viewforum" (click)="toggleDisplay(true)" [uiParams]="{forumId: forum?.FORUM_ID}">{{forum?.FORUM_NAME}}</button>
     <button md-icon-button *ngIf="cacheChildren?.length > 0 " (click)="toggleDisplay()"><md-icon>{{toggleDisplaySub ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</md-icon></button>
   </div>
 

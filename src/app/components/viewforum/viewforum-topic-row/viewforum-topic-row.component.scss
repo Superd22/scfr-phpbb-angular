@@ -16,7 +16,7 @@ $secondary-size: $font-size - 0.15rem;
     position:relative;
     transition:0.5s;
     border-left:5px solid grey;
-
+    margin: 1px 0;
     &:first-of-type {border-top: none;}
 
     @mixin colorify($color, $colorizetext:true) {

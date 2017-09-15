@@ -74,9 +74,9 @@ export class ForumLinkComponent implements OnInit {
     this.toggleChange.emit(b);
   }
 
-  public toggleDisplay(): void {
-    this.toggleChange.emit(!this.toggleDisplaySub);
-    this.toggleDisplaySub = !this.toggleDisplaySub;
+  public toggleDisplay(forceSet = null): void {
+    this.toggleChange.emit((forceSet || !this.toggleDisplaySub));
+    this.toggleDisplaySub = forceSet || !this.toggleDisplaySub;
   }
 
 
