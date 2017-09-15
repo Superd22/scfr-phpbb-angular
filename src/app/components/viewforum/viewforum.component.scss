@@ -19,15 +19,17 @@
         text-transform:uppercase;
         font-size: $text-size-header-title;
         line-height: 2.5rem;
+		letter-spacing: .1em;
+		font-weight: 500;
         margin:0px;
     }
 
     .forum-sub-title {
-        font-family: $text-font-header-subtitle;
-        font-style: $text-size-header-subtitle;
+        font-family: $text-font-header-title;
+        font-size: $text-size-header-subtitle;
     }
     padding-left:10px;
-    border-left:4px solid map_get($scfr-mat-light-blue, 600);
+    border-left: 7px solid $color-blue-accent;
 }
 
 .topicrow {
@@ -43,5 +45,7 @@
     }
 }
 .sub-forum-container {
+    margin-left: -10px;
+    margin-right: -10px;
     margin-bottom: 40px;
 }

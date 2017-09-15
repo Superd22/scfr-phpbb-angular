@@ -13,6 +13,8 @@
     font-family: $text-font-header-title;
     text-transform:uppercase;
     font-size: $text-size-header-title;
+  	letter-spacing: .1em;
+  	font-weight: 500;
     margin:0px;
     @include nodeco();
   }

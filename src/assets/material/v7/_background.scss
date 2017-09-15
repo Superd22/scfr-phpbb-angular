@@ -1,4 +1,5 @@
 // Main palette for the background
+@import '../common/colors';
 $scfr-mat-blue-grey-background: (
   0: #ffffff,
   50: #E5E6E7,
@@ -6,8 +7,8 @@ $scfr-mat-blue-grey-background: (
   200: #93999D,
   300: #677075,
   400: #475158,
-  500: #26323A,
-  600: #222D34,
+  500: $dark-blue-secondary,
+  600: $dark-blue-tertiary,
   700: #1C262C,
   800: #171F25,
   900: #0D1318,

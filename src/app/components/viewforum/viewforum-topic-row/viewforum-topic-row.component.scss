@@ -1,63 +1,49 @@
 @import './src/assets/material/v7/main';
 
 $border: map-get($scfr-mat-light-blue, 600);
-$main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,500),0.25);
+$main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,600),0.15);
 $color:  map-get($scfr-mat-light-blue, 200);
 
 $font-size:1rem;
 $secondary-size: $font-size - 0.15rem;
 
+@mixin colorify($color, $colorizetext:true) {
+    border-left-color: darken($color, 1.1);
+    //background: $color;
+    .mat-ripple-element {
+        background-color: rgba(desaturate($color,20%), 0.1);
+    }
+
+    .topic-title {
+        @if $colorizetext == true {
+            color: $color;
+        }
+    }
+
+    .topic-title-container, .topic-stats, .topic-last-reply {
+        opacity: 1;
+    }
+
+    &:hover {
+        background: lighten($main-bg, 5%);
+    }
+}
+
 :host /deep/ .topic-row {
     padding: 10px 15px;
     font-family:"Electrolize";
     background: $main-bg;
-    border: 1px solid rgba(0, 0, 0, 0.06);
     align-items: center;
     position:relative;
     transition:0.5s;
-    border-left:5px solid grey;
+    border-left: 5px solid $color-blue-washed;
     margin: 1px 0;
     &:first-of-type {border-top: none;}
 
-    @mixin colorify($color, $colorizetext:true) {
-        border-left-color: darken(desaturate($color,20%),20%);
-        background: $main-bg;
-        box-shadow:none;
-
-        &.unread {
-            border-left-color: lighten($color,20%);
-            box-shadow: 100px 0px 100px -100px darken($color,10%) inset;
-        }
-
-        .mat-ripple-element {
-            background-color: rgba(desaturate($color,20%), 0.1);
-        }
-
-        .topic-title {
-            @if $colorizetext == true {
-                color: $color;
-            }
-        }
-        
-        .topic-title-container, .topic-stats, .topic-last-reply {
-            opacity: 1;
-        }
-
-        &:hover {
-            border-left-color: desaturate($color,20%);
-            background: lighten($main-bg,10%);
-        }
-    }
-
-    @include colorify(grey,false);
-
-    
-
-
+    @include colorify($main-bg,false);
     &.locked {
-        background: transparentize(map-get($scfr-mat-blue-grey-background,800),0.1);
-        border-left-color: #2d2d2d;
-        box-shadow: 0px 0px 15px black inset;
+        background: darken($main-bg, 3);
+        border-left-color: darken($main-bg, 5);
 
         .topic-title-container, .topic-stats, .topic-last-reply {
             opacity:0.7;
@@ -65,28 +51,24 @@ $secondary-size: $font-size - 0.15rem;
     }
 
     &.announce {
-        @include colorify(#ff3b00);
+        @include colorify(#dd5250);
     }
 
     &.sticky {
-        @include colorify(#ffbc00);
+        @include colorify(#fecb00);
     }
 
-
     &.unread {
-        @include colorify(map_get($scfr-mat-light-blue, 700), false);
-        background: transparentize(lighten(map-get($scfr-mat-blue-grey-background,700), 10%),0.1);
-        box-shadow: 100px 0px 100px -100px darken($border,10%) inset;
-    }    
-    
-
+        @include colorify($blue-fluo, false);
+    }
 
     .topic-title {
-        font-family: Electrolize;
+        font-family: 'Open sans';
         font-style: normal;
-        font-weight: lighter;
-        font-size: $font-size;
+        font-weight: 300;
+        font-size: 14px;
         text-decoration: none;
+        letter-spacing: .5px;
     }
     .topic-title-sub {
         font-size:$secondary-size;
@@ -118,4 +100,7 @@ $secondary-size: $font-size - 0.15rem;
         }
 
     }
+}
+scfr-forum-phpbb-username{
+    font-size: .9em;
 }

@@ -25,12 +25,18 @@ hr {
 }
 
 .mat-sidenav {
-    background-color: transparentize(map_get($scfr-mat-blue-grey-background,500),0.25);
+    background-color: transparentize(map_get($scfr-mat-blue-grey-background,500),0.15);
     .navigator-bottom {
         .mat-card {
             background-color: map_get($scfr-mat-blue-grey-background,700);
         }
     }
+}
+.mat-sidenav-backdrop.mat-sidenav-shown {
+    background-color: transparentize($color-backdrop, 0.9);
+}
+.mat-dialog-container {
+    background-color: map_get($scfr-mat-blue-grey-background, 500);
 }
 .mat-sidenav-content {
     width:100%;

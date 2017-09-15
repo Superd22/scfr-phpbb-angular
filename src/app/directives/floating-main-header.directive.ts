@@ -15,6 +15,9 @@ export class FloatingMainHeaderDirective {
   @HostBinding('style.margin-bottom')
   private _marginBottom;
 
+  @HostBinding('style.margin-left')
+  _marginLeft = 10;
+
   @HostBinding('style.position')
   private _position = "relative";
   @HostListener('window:resize')
