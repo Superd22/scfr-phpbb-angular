@@ -12,54 +12,57 @@
 <fieldset class="tools">
   <ng-container *ngIf="activeTab == 'display-panel'">
     <dl>
-      <dt><label for="posts_per_page">{{L_.POSTS_PER_PAGE}}{{L_.COLON}}</label><br /><span>{{L_.POSTS_PER_PAGE_EXPLAIN}}</span></dt>
-      <dd><input class="inputbox autowidth" type="number" min="0" max="999999" name="posts_per_page" id="posts_per_page" value="{POSTS_PER_PAGE}"
-        /></dd>
+
+      <scfr-forum-ucp-phpbb-field type="number" name="posts_per_page" [displayName]="L_.POSTS_PER_PAGE" [explain]="L_.POSTS_PER_PAGE_EXPLAIN"
+        [model]="tpl.POSTS_PER_PAGE"></scfr-forum-ucp-phpbb-field>
+
     </dl>
-    <dl>
-      <dt><label>{{L_DISPLAY_POSTS}}{{L_COLON}}</label></dt>
-      <dd>{{S_SELECT_SORT_DAYS}}&nbsp;&nbsp;<label>{{L_SORT_BY}} {{S_SELECT_SORT_KEY}}</label><label>{{S_SELECT_SORT_DIR}}</label>        <input type="submit" name="sort" value="{L_GO}" class="button2" /></dd>
+    <dl fxLayout>
+      <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_DAYS" [displayName]="L_.DISPLAY_POSTS"></scfr-forum-ucp-phpbb-field>
+      <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_KEY" [displayName]="L_.SORT_BY"></scfr-forum-ucp-phpbb-field>
+      <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_DIR"></scfr-forum-ucp-phpbb-field>
+      <button md-button (click)="doSort()">{{L_.GO}}</button>
     </dl>
   </ng-container>
 
   <ng-container *ngIf="activeTab == 'split-panel'">
-    <p>{{L_.SPLIT_TOPIC_EXPLAIN}}</p>
+    <p [innerHTML]="L_.SPLIT_TOPIC_EXPLAIN"></p>
 
-    <dl *ngIf="tpl.S_SHOW_TOPIC_ICONS">
+    <!-- <dl *ngIf="tpl.S_SHOW_TOPIC_ICONS">
       <dt><label for="icon">{{L_.TOPIC_ICON}}{{L_.COLON}}</label></dt>
       <dd><label for="icon"><input type="radio" name="icon" id="icon" value="0" checked="checked" /> {{L_.NO_TOPIC_ICON}}</label>
         <label *ngFor="let topic_icon of tpl.topic_icon" for="icon-{{topic_icon.ICON_ID}}">
-          <!-- topic_icon.S_ICON_CHECKED -->
           <input type="radio" name="icon" id="icon-{{topic_icon.ICON_ID}}" [value]="topic_icon.ICON_ID"  />
           <img [src]="topic_icon.ICON_IMG" [width]="topic_icon.ICON_WIDTH" [height]="topic_icon.ICON_HEIGHT" alt="" title="" />
         </label>
       </dd>
     </dl>
+    -->
 
     <dl>
-      <dt><label for="subject">Titre du nouveau sujet :</label></dt>
-      <dd><input type="text" name="subject" id="subject" size="45" maxlength="124" tabindex="2" [value]="tpl.SPLIT_SUBJECT" [title]="L_.SPLIT_SUBJECT"
-          class="inputbox" /></dd>
+      <dt><label for="subject"></label></dt>
+      <dd>
+        <scfr-forum-ucp-phpbb-field displayName="Titre du nouveau sujet" name="subject" [model]="tpl.SPLIT_SUBJECT"></scfr-forum-ucp-phpbb-field>
+      </dd>
     </dl>
 
     <dl>
-      <dt><label>{{L_.SPLIT_FORUM}}{{L_.COLON}}</label></dt>
-      <dd><select name="to_forum_id">{{tpl.S_FORUM_SELECT}}</select></dd>
+      <dt><label></label></dt>
+      <dd>
+        <scfr-forum-ucp-phpbb-field type="select" [htmlOptions]="tpl.S_FORUM_SELECT" [displayName]="L_.SPLIT_FORUM" name="to_forum_id"></scfr-forum-ucp-phpbb-field>
+      </dd>
     </dl>
 
   </ng-container>
 
   <ng-container *ngIf="activeTab == 'merge-panel'">
-    <p>{{L_.MERGE_TOPIC_EXPLAIN}}</p>
+    <p [innerHTML]="L_.MERGE_TOPIC_EXPLAIN"></p>
 
     <dl>
-      <dt><label for="to_topic_id">{{L_.MERGE_TOPIC_ID}}{{L_.COLON}}</label></dt>
-      <dd>
-        <input class="inputbox autowidth" type="number" min="0" max="9999999999" name="to_topic_id" id="to_topic_id" [value]="tpl.TO_TOPIC_ID"
-        />
-        <a [href]="U_SELECT_TOPIC">{{L_.SELECT_TOPIC}}</a>
-      </dd>
-
+      <dt fxLayout>
+        <scfr-forum-ucp-phpbb-field name="to_topic_id" [displayName]="L_.MERGE_TOPIC_ID" type="number" [model]="tpl.TO_TOPIC_ID"></scfr-forum-ucp-phpbb-field>
+        <button md-button (click)="getSelectTopic()">{{L_.SELECT_TOPIC}}</button>
+      </dt>
       <dd *ngIf="tpl.TO_TOPIC_INFO">{{tpl.TO_TOPIC_INFO}}</dd>
     </dl>
 
@@ -93,7 +96,7 @@
       <md-option *ngIf="tpl.S_CAN_SYNC" value="resync">{{ L_.RESYNC }}</md-option>
     </md-select>
 
-    <button md-button color="primary">Envoyer</button>
+    <button md-raised-button color="accent" style="margin-left:12px">Envoyer</button>
   </div>
   <div fxLayout>
     <button md-button (click)="checkAll()">{{L_.MARK_ALL}}</button>

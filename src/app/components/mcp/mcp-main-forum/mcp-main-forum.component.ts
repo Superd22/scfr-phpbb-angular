@@ -1,3 +1,4 @@
+import { PhpbbSubComponent } from './../../phpbb/phpbb-sub-component.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,11 +6,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './mcp-main-forum.component.html',
   styleUrls: ['./mcp-main-forum.component.scss']
 })
-export class McpMainForumComponent implements OnInit {
+export class McpMainForumComponent extends PhpbbSubComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
+    super.ngOnInit();
   }
 
 }

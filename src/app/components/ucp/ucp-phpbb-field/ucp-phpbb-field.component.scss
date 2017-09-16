@@ -27,3 +27,8 @@ md-radio-button {
     font-size:1rem;
     color: map_get($scfr-mat-light-blue,600);
 }
+
+.mat-option {
+    // hiearchical selects
+    white-space: pre-wrap;
+}

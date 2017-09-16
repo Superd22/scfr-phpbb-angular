@@ -59,6 +59,10 @@ export class UcpPhpbbFieldComponent implements OnInit {
   @Input()
   public options: IPhpbbFieldOption[];
 
+  /** html options to be compute directly */
+  @Input("htmlOptions")
+  private _htmlOptions: string;
+
   /** if we can select multiple options */
   @Input()
   public multiple: boolean = false;
@@ -145,6 +149,13 @@ export class UcpPhpbbFieldComponent implements OnInit {
       this.extrapolateNameOfInput(this._fullPhpbb);
       this.type = this.extrapolateTypeOfInput(this._fullPhpbb);
       this.extrapolateValuesOfInput(this._fullPhpbb);
+    }
+
+    if (this._htmlOptions) {
+      const h = this.formHelper.getOptionsAsObject(this._htmlOptions);
+
+      this.options = h.options;
+      this.model = h.selected;
     }
   }
 

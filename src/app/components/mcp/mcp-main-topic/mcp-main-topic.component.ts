@@ -14,10 +14,8 @@ export class McpMainTopicComponent extends PhpbbSubComponent implements OnInit {
 
   @SCFRUIParam('start')
   private _start;
-
   @ViewChildren(UcpPhpbbFieldComponent)
   private _fields: QueryList<UcpPhpbbFieldComponent>;
-
 
   constructor() {
     super();
@@ -25,8 +23,22 @@ export class McpMainTopicComponent extends PhpbbSubComponent implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
+    this.tabInit();
   }
 
+  /**
+   * Init the active tab to the one selected via phpbb
+   */
+  public tabInit() {
+    if(this.tpl.S_MERGE_VIEW) this.activeTab = 'merge-panel';
+    else if(this.tpl.S_SPLIT_VIEW) this.activeTab = 'split-panel';
+    else this.activeTab = 'display-panel';
+  }
+
+  /**
+   * Change the page for the current topic
+   * @param n the page number (1-n)
+   */
   public changePage(n: number) {
     let start = (n - 1) * 15;
 
@@ -35,6 +47,9 @@ export class McpMainTopicComponent extends PhpbbSubComponent implements OnInit {
     this._start = start;
   }
 
+  /**
+   * Select all the messages to perform the action on
+   */
   public checkAll() {
     if (!this._fields) return;
 
@@ -43,6 +58,9 @@ export class McpMainTopicComponent extends PhpbbSubComponent implements OnInit {
     });
   }
 
+  /**
+   * Un-select all the messages
+   */
   public unCheckAll() {
     if (!this._fields) return;
 
