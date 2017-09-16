@@ -28,7 +28,7 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="'checkbox'">
-    <md-checkbox [(ngModel)]="model" [mdTooltip]="explain"> {{display_name}} </md-checkbox>
+    <md-checkbox [(ngModel)]="model" [mdTooltip]="explain" [value]="value" [name]="form_name"> {{display_name}} </md-checkbox>
   </ng-container>
 
   <ng-container *ngSwitchCase="'hidden'">

@@ -1,6 +1,7 @@
+import { UcpPhpbbFieldComponent } from './../../ucp/ucp-phpbb-field/ucp-phpbb-field.component';
 import { SCFRUIParam } from 'app/decorators/UIParam.decorator';
 import { PhpbbSubComponent } from './../../phpbb/phpbb-sub-component.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
 @Component({
   selector: 'scfr-forum-mcp-main-topic',
@@ -13,6 +14,9 @@ export class McpMainTopicComponent extends PhpbbSubComponent implements OnInit {
 
   @SCFRUIParam('start')
   private _start;
+
+  @ViewChildren(UcpPhpbbFieldComponent)
+  private _fields: QueryList<UcpPhpbbFieldComponent>;
 
 
   constructor() {
@@ -29,6 +33,23 @@ export class McpMainTopicComponent extends PhpbbSubComponent implements OnInit {
     console.log(start);
 
     this._start = start;
+  }
+
+  public checkAll() {
+    if (!this._fields) return;
+
+    this._fields.map((field) => {
+      if (field.form_name == "post_id_list[]") field.model = true;
+    });
+  }
+
+  public unCheckAll() {
+    if (!this._fields) return;
+
+    this._fields.map((field) => {
+      if (field.form_name == "post_id_list[]") field.model = false;
+    });
+
   }
 
 }

@@ -40,6 +40,9 @@ export class UcpPhpbbFieldComponent implements OnInit {
   @Output("name")
   private _form_name_change: EventEmitter<string> = new EventEmitter<string>();
 
+  @Input("value")
+  public value;
+
   /** description of this field, either static or tooltip on some types */
   @Input("explain")
   private explain;

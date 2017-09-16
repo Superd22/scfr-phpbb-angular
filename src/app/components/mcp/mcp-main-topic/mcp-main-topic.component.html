@@ -69,7 +69,11 @@
 
 <fieldset class="posts-wrapper">
   <div class="post" *ngFor="let postrow of tpl.postrow">
-    <div class="tool"></div>
+    <div class="tool" fxLayout>
+      <div fxFlex></div>
+      <button md-icon-button disabled><md-icon>info</md-icon></button>
+      <scfr-forum-ucp-phpbb-field type="checkbox" displayName="Selectionner ce message" name="post_id_list[]" [value]="postrow.POST_ID"></scfr-forum-ucp-phpbb-field>
+    </div>
     <app-viewmessage [postrow]="postrow"></app-viewmessage>
   </div>
 </fieldset>
@@ -92,8 +96,8 @@
     <button md-button color="primary">Envoyer</button>
   </div>
   <div fxLayout>
-    <button md-button>{{L_.MARK_ALL}}</button>
-    <button md-button>{{L_.UNMARK_ALL}}</button>
+    <button md-button (click)="checkAll()">{{L_.MARK_ALL}}</button>
+    <button md-button (click)="unCheckAll()">{{L_.UNMARK_ALL}}</button>
   </div>
 </fieldset>
 

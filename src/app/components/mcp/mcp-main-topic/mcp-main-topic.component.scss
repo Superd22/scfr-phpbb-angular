@@ -13,4 +13,11 @@ fieldset {
     max-height:70vh;
     overflow-y: auto;
     margin-top:24px;
+    .post {
+        .tool {
+            margin-bottom: -24px;
+            background: #1d282e;
+            padding: 6px;
+        }
+    }
 }
