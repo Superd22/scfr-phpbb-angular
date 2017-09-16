@@ -1,33 +1,31 @@
 @import './src/assets/material/v7/main';
 $height: 150px;
 $t-mask-delay: 0.5s;
-$unread-color:  map-get($scfr-mat-light-blue, A200);;
-$main-bg:map_get($scfr-mat-blue-grey-background,500);
-    @mixin colorize($color, $hoverColor: false) {
-        $main: darken(desaturate($color,20%),20%);
-        @if $hoverColor != false {
-            $hoverColor: $hoverColor;
-        }
-        @else {
-            $hoverColor: $color;
-        }
+$unread-color:  map-get($scfr-mat-blue-grey-background, 500);
+$main-bg: transparentize(map_get($scfr-mat-blue-grey-background, 500), 0.25);
 
-
-        &:hover {
-            background:transparentize($hoverColor, 0.2);
-            transform: scale(1.05);
-        }
+@mixin colorize($color, $hoverColor: false) {
+    $main: darken(desaturate($color,20%),20%);
+    @if $hoverColor != false {
+        $hoverColor: $hoverColor;
+    }
+    @else {
+        $hoverColor: $color;
     }
 
+    &:hover {
+        background:transparentize($hoverColor, 0.2);
+        transform: scale(1.05);
+    }
+}
+
 .subforum {
-    min-height: 150px;
-    height: 100%;
-    margin: 0px 20px;
-    padding: 10px 20px;
+    margin: 8px 10px;
+    padding: 20px;
     position:relative;
     transition:0.5s;
     overflow:hidden;
-    background: transparentize($main-bg,0.2);
+    background: $main-bg;
     font-family: "Open Sans";
 
     &.small {
@@ -46,7 +44,7 @@ $main-bg:map_get($scfr-mat-blue-grey-background,500);
         height: 20px;
         width: 100%;
         .new {
-            background: $unread-color;
+            background:  map-get($scfr-mat-light-blue, A200);
             padding: 3px 4px;
             margin: 5px;
             border-radius: 25%;
@@ -58,38 +56,23 @@ $main-bg:map_get($scfr-mat-blue-grey-background,500);
             transition:0.25s;
         }
     }
-    em {
-        $font-size:12px;
-
+    span {
+        $font-size: 12px;
         font-style: normal;
-        text-align: justify;
+        letter-spacing: .5px;
+        text-align: left;
         font-weight: lighter;
         display: block;
         font-size: $font-size;
-        line-height: $font-size;
-        height: $font-size*3;
-        margin-bottom: 24px;
+        line-height: 14px;
+        height: 42px;
+        margin-bottom: 20px;
         overflow: hidden;
         padding: 0px;
     }
 
 
-    @include colorize($unread-color);
-
-    &.unread {
-        $color: $unread-color;
-        @include colorize($color);
-
-        &:after {
-            content:'';
-            position:absolute;
-            width:100%;
-            height:100%;
-            top:0px;
-            left:0px;
-            box-shadow: 0px -110px 130px -130px transparentize($color,0.8) inset;
-        }
-    }
+    @include colorize($unread-color, $color-blue-accent);
 
     &.locked {
         @include colorize(black);
@@ -123,8 +106,10 @@ $main-bg:map_get($scfr-mat-blue-grey-background,500);
         }
     }
     &:hover {
-        h3 .new { background: $main-bg; color: $unread-color;  }
-        .stats { color: #333333; }
+        h3 .new {
+            background: $main-bg;
+            color: $unread-color;
+        }
     }
 }
 
