@@ -158,6 +158,7 @@ import { McpBanEmailComponent } from './components/mcp/mcp-ban-email/mcp-ban-ema
 import { McpQuickmodTopicComponent } from './components/mcp/mcp-quickmod-topic/mcp-quickmod-topic.component';
 import { McpMainTopicComponent } from './components/mcp/mcp-main-topic/mcp-main-topic.component';
 import { McpMainForumComponent } from './components/mcp/mcp-main-forum/mcp-main-forum.component';
+import { McpMainForumTopicSelectComponent } from './components/mcp/mcp-main-forum-topic-select/mcp-main-forum-topic-select.component';
 
 @NgModule({
     declarations: [
@@ -281,6 +282,7 @@ import { McpMainForumComponent } from './components/mcp/mcp-main-forum/mcp-main-
         McpQuickmodTopicComponent,
         McpMainTopicComponent,
         McpMainForumComponent,
+        McpMainForumTopicSelectComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -303,7 +305,7 @@ import { McpMainForumComponent } from './components/mcp/mcp-main-forum/mcp-main-
         ColorPickerModule,
     ],
     entryComponents: [
-        DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent
+        DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent, McpMainForumTopicSelectComponent
     ],
     providers: [
         { provide: APP_BASE_HREF, useValue: environment.baseHref },

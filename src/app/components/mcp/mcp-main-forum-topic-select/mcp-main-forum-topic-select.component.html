@@ -1,0 +1,18 @@
+<h2 md-dialog-title>{{tpl.MESSAGE_TITLE}}</h2>
+<md-dialog-content>
+
+  <md-paginator [pageSize]="tpl.PER_PAGE" [pageIndex]="tpl.CURRENT_PAGE" (page)="changePage($event)">
+  </md-paginator>
+
+  <div class="topic-select" *ngFor="let topicrow of tpl.topicrow">
+    <button md-button>Selectionner ce topic pour la fusion</button>
+    <scfr-forum-viewforum-topic-row  [topic]="topicrow"></scfr-forum-viewforum-topic-row>
+  </div>
+
+  <md-paginator [pageSize]="tpl.PER_PAGE" [pageIndex]="tpl.CURRENT_PAGE" (page)="changePage($event)">
+  </md-paginator>
+
+</md-dialog-content>
+<md-dialog-actions>
+
+</md-dialog-actions>
