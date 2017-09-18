@@ -9,7 +9,7 @@ md-toolbar {
     background-color: map_get($scfr-mat-blue-grey-background,500);
     font-size:1em;
     &.logo {
-        img {
+        a.logo-container {
             width: 150px;
             height: 69.5px;
             margin: 0px auto;
