@@ -43,6 +43,17 @@ export class ViewforumTopicRowComponent extends PhpbbLanguageComponent implement
     }
   }
 
+  /**
+   * Get the id of the last post in this thread
+   */
+  public get lastPostId():number {
+    let regex = /p=([0-9]*)/;
+    let m = regex.exec(this.topic.U_LAST_POST);
+
+    if(m) return Number(m[1]);
+    return null;
+  }
+
 
 
 }

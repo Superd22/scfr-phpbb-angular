@@ -86,7 +86,7 @@ $secondary-size: $font-size - 0.15rem;
            }
         }
     }
-    .topic-time {
+    .topic-time, .topic-time a {
         font-size:$secondary-size;
         text-decoration: none;
         color: darken($color, 20%);
