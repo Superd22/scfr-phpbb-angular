@@ -1,5 +1,9 @@
 @import "v7/main";
 
+body {
+        background: $dark-blue-secondary;
+}
+
 snack-bar-container{
 	height: auto !important;
 }
