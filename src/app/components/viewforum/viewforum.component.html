@@ -19,12 +19,19 @@
                 <scfr-forum-ucp-phpbb-field displayName="Direction" [fullPHPBB]="tpl.S_SELECT_SORT_DIR" [(model)]="sortSd" (change)="sortPrefChanged()"></scfr-forum-ucp-phpbb-field>
             </div>
 
+            <div class="forum-absolute-actions">
+                <button *ngIf="tpl.U_MARK_TOPICS && !tpl.S_IS_BOT && tpl.topicrow" md-button (click)="markAllTopicsRead()">{{L_.MARK_TOPICS_READ}}</button>
+                <button *ngIf="tpl.S_HAS_SUBFORUM && !tpl.S_IS_BOT && tpl.U_MARK_FORUMS" md-button (click)="markAllSubForumRead()">{{L_.MARK_SUBFORUMS_READ}}</button>
+            </div>
+
+
         </div>
     </div>
 
 
     <div *ngIf="tpl.S_HAS_SUBFORUM" fxLayout fxLayoutWrap fxFlex="100" class="sub-forum-container">
-        <scfr-forum-viewforum-forum-row fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="33" fxFlex.gt-lg="25" *ngFor="let forum of tpl.forumrow" [forum]="forum"></scfr-forum-viewforum-forum-row>
+        <scfr-forum-viewforum-forum-row fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="33" fxFlex.gt-lg="25" *ngFor="let forum of tpl.forumrow"
+            [forum]="forum"></scfr-forum-viewforum-forum-row>
     </div>
 
 

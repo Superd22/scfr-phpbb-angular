@@ -1,3 +1,5 @@
+import { IPhpbbViewforumTopicrow } from './viewforum-topic-row/interfaces/phpbb-viewforum-topicrow.interface';
+import { IPhpbbViewforumForumrow } from './viewforum-forum-row/interfaces/phpbb-viewforum-forumrow.interface';
 import { PHPBBViewforum } from './phpbb-viewforum.model';
 import { PhpbbComponent } from './../phpbb/phpbb-component.component';
 import { StateTranslate } from './../../services/state-translate.service';
@@ -27,7 +29,9 @@ export class ViewforumComponent extends PhpbbComponent {
     super.ngOnInit();
   }
 
-
+  /**
+   * Subscribe/Unsubscribe to the given forum via legacy ajax call
+   */
   public toggleWatchForum() {
     this.phpbbApi.getPhpbbAjaxPage(this.tpl.U_WATCH_FORUM_LINK).subscribe(
       (data) => {
@@ -43,6 +47,45 @@ export class ViewforumComponent extends PhpbbComponent {
         return this.phpbbApi.openSnackBar(data.MESSAGE_TEXT);
       }
     )
+  }
+
+  /**
+   * Mark all the sub-forums as read via legacy phpbb ajax call
+   */
+  public markAllSubForumRead() {
+    this.phpbbApi.getPhpbbAjaxPage(this.tpl.U_MARK_FORUMS).subscribe(
+      (data) => {
+        // Check for errors
+        if (data.S_ERROR)
+          return this.phpbbApi.errorSnackBar(data.MESSAGE_TEXT);
+
+        // mark all sub-forums as read for the UI.
+        this.tpl.forumrow.map((forumrow: IPhpbbViewforumForumrow) => forumrow.S_UNREAD_FORUM = false);
+        // @todo notify left navbar that those are read.
+
+        // Notify the user
+        return this.phpbbApi.openSnackBar(data.MESSAGE_TEXT);
+      }
+    );
+  }
+
+  /**
+   * Mark all topics as read via legacy phpbb ajax call
+   */
+  public markAllTopicsRead() {
+    this.phpbbApi.getPhpbbAjaxPage(this.tpl.U_MARK_TOPICS).subscribe(
+      (data) => {
+        // Check for errors
+        if (data.S_ERROR)
+          return this.phpbbApi.errorSnackBar(data.MESSAGE_TEXT);
+
+        // mark all topics as read for the UI.
+        this.tpl.topicrow.map((topicrow: IPhpbbViewforumTopicrow) => topicrow.S_UNREAD_TOPIC = false);
+
+        // Notify the user
+        return this.phpbbApi.openSnackBar(data.MESSAGE_TEXT);
+      }
+    );
   }
 
   public sortPrefChanged() {
