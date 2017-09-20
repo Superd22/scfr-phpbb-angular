@@ -10,6 +10,7 @@ $hover-side-pannel-transition: 0.5s;
     background:transparentize($dark-bg, 0.2);
     position:relative;
     min-height:180px;
+    width: 100%;
 }
 
 .side-info-hover-pannel {
@@ -301,4 +302,33 @@ $hover-side-pannel-transition: 0.5s;
         }
     }
 
+}
+
+#unread {
+
+    $unread-color: $blue-fluo;
+
+    display: inline-flex;
+    width: 100%;
+    color: $unread-color;
+    font-family: "Electrolize";
+
+    .bar {
+        height: 2px;
+        align-self: center;
+        background: $unread-color;
+    }
+
+    time, .label {
+        flex-shrink: 0;
+        margin: 0px 10px;
+    }
+
+    .label {
+        text-transform: uppercase;
+    }
+}
+
+:host() {
+    flex-wrap: wrap;
 }

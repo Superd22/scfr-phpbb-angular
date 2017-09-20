@@ -45,7 +45,6 @@ export class UcpPmEditorComponent extends PhpbbComponent {
 
     this.userSearch = this.addUserControl.valueChanges.startWith(null).flatMap(
       (search) => {
-        console.log(search);
         if (search && (typeof search === typeof 123 || typeof search === typeof "abc"))
           return this.phpbbApi.getPhpbbAjaxPage("memberlist.php?mode=livesearch", { username: search }).map((data) =>
             (<any>data).results

@@ -1,4 +1,11 @@
-<a *ngIf="postrow?.S_FIRST_UNREAD" id="unread" class="anchor"></a>
+<div *ngIf="postrow?.S_FIRST_UNREAD"  id="unread" class="anchor" fxLayout fxFlex="100">
+  <div class="bar" fxFlex="100"></div>
+  <time>{{postrow?.POST_DATE}}</time>
+  <div class="bar" fxFlex="100"></div>
+  
+  <span class="label">Messages non lus</span>
+</div>
+
 <md-card [id]="'p'+post.id" [ngClass]="{unread: postrow?.S_UNREAD_VIEW}" class="message" fxLayout="column">
 
   <ng-container *ngIf="!isEditMod()">
@@ -119,5 +126,5 @@
       <scfr-forum-message-action-bar fxFlex [viewtopic]="viewtopic" *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>
     </md-card-actions>
   </ng-container>
-  <ng-container *ngIf="isEditMod()" ui-view="editMessage"></ng-container>
+  <div *ngIf="isEditMod()" ui-view="editMessage"></div>
 </md-card>

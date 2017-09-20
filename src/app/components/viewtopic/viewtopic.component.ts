@@ -1,3 +1,4 @@
+import { SCFRUIParam } from 'app/decorators/UIParam.decorator';
 import { HeaderService } from './../../services/header-service.service';
 import { IWPNews } from './../../interfaces/wp/wp-news.interface';
 import { WpService } from './../../services/wp.service';
@@ -26,6 +27,17 @@ export class ViewtopicComponent extends PhpbbComponent {
   public newPosts: number = 0;
   public news: IWPNews;
 
+  /** if we fetched to the latest unread post  */
+  @SCFRUIParam("unread")
+  private _unreadMode: boolean = null;
+
+  @SCFRUIParam("p")
+  private _stateTargetPost: number;
+
+  /** the page number according to the state */
+  @SCFRUIParam("pageNumber")
+  private _statePageNumber: number;
+
 
   @Collected() private collected: CollectorEvent;
 
@@ -42,6 +54,20 @@ export class ViewtopicComponent extends PhpbbComponent {
     });
   }
 
+  ngAfterViewInit() {
+    this.scrollToWanted();
+  }
+
+  /**
+   * Scrolls the view to whatever we wanted.
+   */
+  private scrollToWanted() {
+    const anchor = this._unreadMode ? "unread" : (this._stateTargetPost ? "p" + this._stateTargetPost : null);
+
+    if (anchor)
+      this.UI.scrollToAnchor(anchor);
+  }
+
   /**
    * Handles the fetching and displaying of data relative to a news topic (linked to wordpress)
    */
@@ -56,16 +82,25 @@ export class ViewtopicComponent extends PhpbbComponent {
     }
   }
 
+  /**
+   * the postrow for the current view
+   */
   public get postrow() {
-    if(this.displayNews) return this.tpl.postrow.slice(1);
+    if (this.displayNews) return this.tpl.postrow.slice(1);
     return this.tpl.postrow;
   }
 
-  public get isCrossPostedNews() {
+  /**
+   * If we're a crossposted news topic or a normal topic
+   */
+  public get isCrossPostedNews(): boolean {
     return this.tpl['TOPIC_IS_CROSSPOSTED'] && this.tpl['TOPIC_CROSSPOST_ID'];
   }
 
-  public get displayNews() {
+  /**
+   * If we should display ourselves as a news design.
+   */
+  public get displayNews(): boolean {
     return this.isCrossPostedNews && this.news && this.tpl.CURRENT_PAGE == 1;
   }
 
@@ -74,9 +109,14 @@ export class ViewtopicComponent extends PhpbbComponent {
    * @param n the page number to switch to
    */
   public changePage(n: number) {
-    this.fetchingNewPosts = true;
-    this.UI.scrollToTop();
-    this.stateService.go("phpbb.seo.viewtopic", { pageNumber: n });
+    console.log("setting to ", n);
+    if(n != this._statePageNumber && n != this.tpl.CURRENT_PAGE)  {
+      console.log("confirm setting to ", n);
+      this.UI.scrollToTop();
+      this.fetchingNewPosts = true;
+      this._unreadMode = false;
+      this._statePageNumber = n;
+    }
   }
 
 }

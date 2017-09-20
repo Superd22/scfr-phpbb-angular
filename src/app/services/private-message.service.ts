@@ -140,9 +140,7 @@ export class PrivateMessageService {
         this._currentConvo = null;
         if (this.convos)
             this._currentConvo = this.convos.find((cv) => cv.id == convo);
-
-        console.log("sat", this._currentConvo);
-
+        
         if (this._currentConvo === null) throw "convo is not defined";
     }
 

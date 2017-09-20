@@ -157,9 +157,10 @@ export class PhpbbApiService {
      * @param topic the id of the topic
      * @param offset the offset at which to start reading posts
      * @param post post id of the specific post we want to include
+     * @param unread if we want to fetch to the latest unread post
      */
-    public getTopicById(topic: number, offset?: number, post?: number): Observable<PhpbbTemplateResponse.DefaultResponse> {
-        return this.getPage('viewtopic.php', { t: topic, start: offset, p: post });
+    public getTopicById(topic: number, offset?: number, post?: number, unread?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
+        return this.getPage('viewtopic.php', { t: topic, start: offset, p: post, view: unread ? "unread" : null });
     }
 
     public getPrivateMessageList(): Observable<PhpbbTemplateResponse.DefaultResponse> {

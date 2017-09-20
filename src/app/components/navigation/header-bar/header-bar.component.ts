@@ -63,7 +63,7 @@ export class HeaderBarComponent implements OnInit {
   }
 
   public goToForum(forumId) {
-    this.state.go("phpbb.seo.viewforum", { forumId: forumId, forumSlug: null });
+    this.state.go("phpbb.seo.viewforum", { forumId: forumId, forumSlug: null, phpbbResolved:false });
   }
 
   ngOnInit() {
