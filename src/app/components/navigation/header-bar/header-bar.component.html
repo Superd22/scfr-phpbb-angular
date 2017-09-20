@@ -1,8 +1,7 @@
 <scfr-forum-global-header-bar [displayLogo]="!toggle" (toggled)="toggle = true" class="global-header" [tpl]="tpl"></scfr-forum-global-header-bar>
 <scfr-forum-header-background></scfr-forum-header-background>
 <div class="main-forum-nav">
-  <button md-icon-button uiSref="phpbb.seo.search"><md-icon>search</md-icon></button>
-  <ng-container *ngIf="!select">
+  <ng-container *ngIf="!select && navlinks && navlinks.length > 0">
     <button md-icon-button uiSref="phpbb.seo.index"><md-icon color="primary" class="arrow">home</md-icon></button>
     <ng-container *ngFor="let link of navlinks">
       <md-icon color="primary" class="arrow">keyboard_arrow_right</md-icon>

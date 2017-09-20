@@ -9,6 +9,7 @@ $secondary-size: $font-size - 0.15rem;
 
 @mixin colorify($color, $colorizetext:true) {
     border-left-color: darken($color, 1.1);
+
     //background: $color;
     .mat-ripple-element {
         background-color: rgba(desaturate($color,20%), 0.1);
@@ -26,6 +27,9 @@ $secondary-size: $font-size - 0.15rem;
 
     &:hover {
         background: lighten($main-bg, 5%);
+    }
+    &.unread{
+        box-shadow: inset 30px 0px 30px -30px $color;
     }
 }
 

@@ -56,7 +56,7 @@ export class ListStopAtBottomDirective implements OnInit, OnChanges {
       let last = e.lastElementChild;
       let lastHeight = last.getBoundingClientRect().height;
       let newHeight = e.getBoundingClientRect().height - lastHeight;
-      newHeight += this._baseHeight - (this._basSkew + this._baseCorrect);
+      newHeight += this._baseHeight - this._baseCorrect;
 
       // this is because on start-up we'd set everything to 32px
       if (newHeight > this._baseHeight)
