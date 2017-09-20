@@ -28,8 +28,9 @@ $secondary-size: $font-size - 0.15rem;
     &:hover {
         background: lighten($main-bg, 5%);
     }
+    
     &.unread{
-        box-shadow: inset 30px 0px 30px -30px $color;
+        box-shadow: inset 30px 0px 30px -30px rgba($color,0.8);
     }
 }
 
@@ -54,6 +55,11 @@ $secondary-size: $font-size - 0.15rem;
         }
     }
 
+
+    &.unread {
+        @include colorify($blue-fluo, false);
+    }
+
     &.announce {
         @include colorify(#dd5250);
     }
@@ -61,11 +67,7 @@ $secondary-size: $font-size - 0.15rem;
     &.sticky {
         @include colorify(#fecb00);
     }
-
-    &.unread {
-        @include colorify($blue-fluo, false);
-    }
-
+    
     .topic-title {
         font-family: 'Open sans';
         font-style: normal;
