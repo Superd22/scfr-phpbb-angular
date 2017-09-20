@@ -10,7 +10,8 @@ $secondary-size: $font-size - 0.15rem;
 @mixin colorify($color, $colorizetext:true) {
     border-left-color: darken($color, 1.1);
 
-    //background: $color;
+    // if we're colorizing, we want to overwrite the locked status.
+    background: $main-bg;
     .mat-ripple-element {
         background-color: rgba(desaturate($color,20%), 0.1);
     }
