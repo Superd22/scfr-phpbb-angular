@@ -6,11 +6,15 @@ snack-bar-container{
 a img, img {
         max-width: 100%
 }
-.mat-sidenav-content {
+.mat-sidenav-content,
+.mat-sidenav-container,
+.mat-drawer-content {
         // width:100%;
         // Workaround for position fixed & stick & aabsolute inside the content
         // @see https://github.com/angular/material2/issues/998
         transform: initial !important;
+        background: transparent;
+        width: 100%;
 }
 .main-navigator {
         .mat-button:hover .mat-button-focus-overlay {

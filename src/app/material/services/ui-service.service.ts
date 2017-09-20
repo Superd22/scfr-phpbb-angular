@@ -46,7 +46,7 @@ export class UiServiceService {
 
   private get container(): Element {
     if (!this._container) {
-      this._container = document.getElementsByClassName("mat-sidenav-content")[0];
+      this._container = document.getElementsByClassName("mat-drawer-content")[0];
     }
 
     if (!this._container) throw "COULDN'T GET SIDENAV CONTAINER";
