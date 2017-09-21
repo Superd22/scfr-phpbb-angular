@@ -10,6 +10,14 @@
     .forum-actions-container {
         // Material floating placeholder align
         margin-bottom: -10px;
+        position:relative;
+        
+        .forum-absolute-actions {
+            position: absolute;
+            bottom: -34px;
+            right: 0px;
+            display: flex;
+        }
     }
 }
 

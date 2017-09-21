@@ -1,8 +1,7 @@
 <div md-ripple class="subforum" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" fxLayout fxLayoutWrap
     [ngClass]="{unread: forum.S_UNREAD_FORUM, locked: forum.S_LOCKED_FORUM}" [ngClass.lt-sm]="{small:true}">
     <h3>{{forum.FORUM_NAME}} <span *ngIf="forum.S_UNREAD_FORUM" class="new">NEW</span> </h3>
-    <span [innerHTML]="forum.FORUM_DESC"></span>
-
+    <span class="description" [innerHTML]="forum.FORUM_DESC"></span>
     <dl class="stats" fxFlex="100">
         <dt>Topics :</dt>
         <dd> {{forum.TOPICS}}</dd>

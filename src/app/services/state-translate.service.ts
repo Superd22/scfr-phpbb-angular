@@ -70,11 +70,14 @@ export class StateTranslate {
      */
     private checkParamsAgainstResolved(resolved, params, toCheck: string[][]): boolean {
         let okay = true;
+
+        if (!resolved || !params) return false;
+
         for (let i = 0; i < toCheck.length && okay; i++) {
             let pResolved = toCheck[i][0];
             let pParams = toCheck[i][1];
 
-            if (params[pParams] != null && resolved[pResolved] != params[pParams]) okay = false;
+            if (typeof params[pParams] != "undefined" && params[pParams] != null && resolved[pResolved] != params[pParams]) okay = false;
         }
         console.log("okay", okay, resolved, params);
         return okay;
@@ -125,19 +128,26 @@ export class StateTranslate {
      * @param trans the transition we're coming from
      * @param topicId the topic we want to fetch
      */
-    private transform_viewtopic(trans: Transition, topicId?: number) {
+    private transform_viewtopic(trans: Transition, topicId?: number): Observable<any> {
         let params = trans.params();
         var trans_param = Object.assign({}, params);
         let trans_page = "phpbb.seo.index";
 
-        if (typeof topicId === "undefined") topicId = trans.params()["t"];
+        // If we want unread, we do **not** specify anything else.
+        if (trans_param['unread']) {
+            trans_param['p'] = null;
+            trans_param['pageNumber'] = null;
+        }
+
+        if (typeof topicId === "undefined") topicId = trans.params()["t"] || trans_param.topicId;
         /** @todo allow n-sized pages */
         let start = params["pageNumber"] ? (params["pageNumber"] - 1) * 15 : null;
 
-        // We already fetched what we needed
+
+        // We already fetched something
         if (params['phpbbResolved']) {
             // Check it's still what we want 
-            if (this.checkParamsAgainstResolved(params['phpbbResolved']['@template'], params, [
+            if (this.checkParamsAgainstResolved(params['phpbbResolved']['@template'], trans_param, [
                 ["FORUM_ID", "forumId"],
                 ["TOPIC_ID", "topicId"],
                 ["CURRENT_PAGE", "pageNumber"]
@@ -148,37 +158,32 @@ export class StateTranslate {
         }
 
         // We need to fetch a topic
-        if (topicId > 0) {
-            return this.phpbbApi.getTopicById(topicId, start, params['p']).map(
-                data => {
-                    let template = data["@template"];
+        return this.phpbbApi.getTopicById(topicId, start, trans_param['p'], trans_param["unread"]).map(
+            data => {
+                let template = data["@template"];
 
-                    // We got a topic
-                    if (template["TOPIC_ID"] > 0) {
+                // We got a topic
+                if (template["TOPIC_ID"] > 0) {
 
-                        // We got our new params
-                        trans_param = Object.assign(trans_param, {
-                            phpbbResolved: data,
-                            forumId: template["FORUM_ID"],
-                            forumSlug: new SeoUrlPipe().transform(template["FORUM_NAME"]),
-                            topicSlug: new SeoUrlPipe().transform(template['TOPIC_TITLE']),
-                            topicId: template["TOPIC_ID"],
-                            pageNumber: Number(template['CURRENT_PAGE']) > 1 ? template['CURRENT_PAGE'] : null,
-                        });
+                    // We got our new params
+                    trans_param = Object.assign(trans_param, {
+                        phpbbResolved: data,
+                        forumId: template["FORUM_ID"],
+                        forumSlug: new SeoUrlPipe().transform(template["FORUM_NAME"]),
+                        topicSlug: new SeoUrlPipe().transform(template['TOPIC_TITLE']),
+                        topicId: template["TOPIC_ID"],
+                        pageNumber: Number(template['CURRENT_PAGE']) > 1 ? template['CURRENT_PAGE'] : null,
+                    });
 
-
-                        // Go there
-                        return trans.router.stateService.target("phpbb.seo.viewtopic", trans_param);
-                    }
-
-                    // We didn't
-                    /** @todo redirect to information page for no-authorized */
-                    return false;
+                    // Go there
+                    return trans.router.stateService.target("phpbb.seo.viewtopic", trans_param);
                 }
-            )
-        }
-        // We can't get a topic if we don't have a topic id dude.
-        return Observable.of(false);
+
+                // We didn't
+                /** @todo redirect to information page for no-authorized */
+                return false;
+            }
+        )
     }
 
     private transform_viewforum(trans, forumId?: number, force?: boolean) {
@@ -186,11 +191,19 @@ export class StateTranslate {
         var trans_param = Object.assign({}, params);
         var trans_page = "phpbb.seo.index";
 
-        if (typeof forumId === "undefined") forumId = trans.params()["f"];
+        if (typeof forumId === "undefined") forumId = trans.params()["f"] || trans_param.forumId;
         /** @todo allow n-sized pages */
         let start = params["pageNumber"] ? (params["pageNumber"] - 1) * 20 : null;
 
-        if (forumId > 0 && this.shouldParseAgain) {
+        // If we're not authorized, go to unauthorize page.
+        const nonAuthorized = this.checkInformationMessage(trans, params.phpbbResolved);
+        if (nonAuthorized) return Observable.of(nonAuthorized);
+
+        // If we're missing anything, fetch.
+        if (!this.checkParamsAgainstResolved(params['phpbbResolved']['@template'], params, [
+            ["CURRENT_PAGE", "pageNumber"],
+            ["FORUM_ID", "forumId"]
+        ]) || !(params['phpbbResolved']['@tplName'] == "viewforum_body" )|| !(new SeoUrlPipe().transform(params['phpbbResolved']['@template']["FORUM_NAME"]) == params['forumSlug'] ))
             return this.phpbbApi.getForumById(forumId, start)
                 .map(
                 (data) => {
@@ -204,31 +217,17 @@ export class StateTranslate {
                             forumSlug: new SeoUrlPipe().transform(template["FORUM_NAME"])
                         };
 
-                        trans_page = "phpbb.seo.viewforum";
-                        let newTransition = trans.router.stateService.target(trans_page, trans_param);
-
-                        if (
-                            !trans.params().phpbbResolved
-                            || trans.params().phpbbResolved.FORUM_ID != trans.params().forumId
-                            || template["FORUM_ID"] != trans.params().forumId
-                            || (new SeoUrlPipe().transform(template["FORUM_NAME"]) != trans.params().forumSlug)
-                        ) {
-                            this.shouldParseAgain = false;
-                            return newTransition;
-                        }
-                        else {
-                            this.shouldParseAgain = true;
-                            return true;
-                        }
+                        // Let go to the final state
+                        return trans.router.stateService.target("phpbb.seo.viewforum", trans_param);
                     }
                     else {
-                        return false;
+                        const authorized = this.checkInformationMessage(trans, params.phpbbResolved);
+                        if (!authorized) return Observable.of(authorized);
+                        else return false;
                     }
-                }
-                );
-        }
-        this.shouldParseAgain = true;
-        return Observable.of(new Object()).map(() => true);
+                });
+        // We have all we ever wanted.
+        else return Observable.of(true);
     }
 
     /**
@@ -380,12 +379,12 @@ export class StateTranslate {
                     let ifM = this.checkInformationMessage(trans, data);
                     if (ifM) return ifM;
 
-
                     // Retain old state resolved data
-                    params.phpbbResolved = this.mergeRetainResolved(params.phpbbResolved, data);
+                    const newParam = Object.assign({}, params, { phpbbResolved: this.mergeRetainResolved(params.phpbbResolved, data) });
+
                     this.setOnceResolved(true);
 
-                    return trans.router.stateService.target(trans.$to().name, params, { notify: false, reload: false });
+                    return trans.router.stateService.target(trans.$to().name, newParam, { notify: false, reload: false });
                 }
             );
         }
@@ -400,19 +399,32 @@ export class StateTranslate {
      * @return false if we don't find information message, a targetState instead
      */
     private checkInformationMessage(trans: Transition, data: PhpbbTemplateResponse.DefaultResponse): false | TargetState {
-        if (data['@template'].MESSAGE_TEXT && data['@template'].MESSAGE_TITLE) {
+        if (data && data['@template'] && data['@template'].MESSAGE_TEXT && data['@template'].MESSAGE_TITLE) {
             return trans.router.stateService.target("phpbb.seo.information", { phpbbResolved: data });
         }
         return false;
     }
 
+    /**
+     * Merge two object together
+     * @param retain the object to merge into
+     * @param resolved the new data to overwrite ontop of retain
+     */
     private mergeRetainResolved(retain, resolved) {
         if (retain == false) return resolved;
 
-        for (var pp in retain)
-            retain[pp] = Object.assign(retain[pp], resolved[pp]);
+        // make sure we can write on retain
+        let newRetain = Object.assign({}, retain);
 
-        return retain;
+        for (var pp in newRetain) {
+            // If we're an object, merge
+            if (typeof newRetain[pp] === typeof {})
+                newRetain[pp] = Object.assign(newRetain[pp], resolved[pp]);
+            // Otherwise, overwrite.
+            else newRetain[pp] = resolved[pp];
+        }
+
+        return newRetain;
     }
 
     /**
@@ -611,7 +623,7 @@ export class StateTranslate {
      * @param Transition transition the current transition
      * @param force force the update of this state
      */
-    public getCurrentStateDataView(transition: Transition, force?: boolean): Observable<any> {
+    public getCurrentStateDataView(transition: Transition, force?: boolean): Promise<any> {
         let stateName = transition.$to().name;
         this._busy.next(true);
 
@@ -657,8 +669,7 @@ export class StateTranslate {
         catch (e) {
             console.log("cached", e);
         }
-
-        return next;
+        return next.toPromise();
     }
 
     /**

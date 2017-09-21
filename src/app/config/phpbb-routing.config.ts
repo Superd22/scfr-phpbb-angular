@@ -23,19 +23,22 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
 
     function seoHook() {
         router.transitionService.onBefore({ to: "phpbb.seo.**" }, (trans) =>
-            stateTranslate.getCurrentStateDataView(trans).toPromise().then(
-                state => state,
+            stateTranslate.getCurrentStateDataView(trans).then(
+                state => {
+                    console.log("ah", state);
+                    return state;
+                },
             )
         );
     }
 
     function successHook() {
-        router.transitionService.onSuccess({to: "phpbb.seo.**"}, () => {
+        router.transitionService.onSuccess({ to: "phpbb.seo.**" }, () => {
             // we're done loading.
             stateTranslate.loading.next(false);
         });
 
-        router.transitionService.onError({to: "phpbb.seo.**"}, (t) => {
+        router.transitionService.onError({ to: "phpbb.seo.**" }, (t) => {
             // we're done loading.
             stateTranslate.loading.next(false);
         });

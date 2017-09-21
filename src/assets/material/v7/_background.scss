@@ -50,5 +50,7 @@ $scfr-dark-v7-theme-background: (
   focused-button: $white-6-opacity,
   selected-button: map_get($mat-grey, 900),
   selected-disabled-button: map_get($mat-grey, 800),
-  disabled-button-toggle: map_get($mat-grey, 1000),
+  disabled-button-toggle: map_get($mat-grey, 900),
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
 );

@@ -29,7 +29,6 @@ export class ImageHeaderFitDirective {
   ngOnChanges() {
     if(this._oldUrl != this._url) {
       this._oldUrl = this._url;
-      console.log("changed url", this._url);
       this.run();
     }
   }

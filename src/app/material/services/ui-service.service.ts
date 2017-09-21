@@ -1,3 +1,4 @@
+import { UIRouter } from '@uirouter/angular';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -5,7 +6,7 @@ export class UiServiceService {
 
   private _container: Element = null;
 
-  constructor() { }
+  constructor(private router: UIRouter) { }
 
   /**
    * Jumps the page to a given anchor
@@ -34,16 +35,18 @@ export class UiServiceService {
   }
 
   /**
-   * @todo
+   * Jumps to a given anchor on the view
+   * @param anchor the id to jump to.
    */
-  public scrollToAnchor(string: number) {
-
+  public scrollToAnchor(anchor: string) {
+    // use uirouter to navigate
+    this.router.stateService.go(this.router.stateService.current, {"#": anchor});
   }
 
 
   private get container(): Element {
     if (!this._container) {
-      this._container = document.getElementsByClassName("mat-sidenav-content")[0];
+      this._container = document.getElementsByClassName("mat-drawer-content")[0];
     }
 
     if (!this._container) throw "COULDN'T GET SIDENAV CONTAINER";

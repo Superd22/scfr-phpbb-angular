@@ -11,6 +11,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser/";
 })
 export class ViewmessageComponent implements OnInit {
 
+  @Input("edit")
   protected _edit = 0;
 
   /** phpbb postrow message */
@@ -24,17 +25,18 @@ export class ViewmessageComponent implements OnInit {
   public simplePostMod: boolean = false;
   public avatarUrl: string = "";
 
-  @Output() editChange = new EventEmitter();
-  @Input()
-  get edit() {
-    return this._edit;
-  }
+  /** our change emitter for what post is being edited */
+  @Output() 
+  editChange = new EventEmitter();
 
   public get tpl() {return this.viewtopic ? this.viewtopic.tpl : {}};
 
-  set edit(val) {
-    this._edit = val;
+  set edit(val: number) {
+    this._edit = Number(val);
     this.editChange.emit(this._edit);
+  }
+  get edit(): number {
+    return Number(this._edit);
   }
 
   constructor(public sanitizer: DomSanitizer, private stateT: StateTranslate) {

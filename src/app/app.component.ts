@@ -21,6 +21,9 @@ export class AppComponent implements OnInit {
             if (gt_sm) this.mode = "side";
             else this.mode = "over";
         });
+        this.layout.gt_md.subscribe((gt_md) => {
+            if(gt_md) this.toggle = true;
+        });
     }
 
     ngOnInit() {
