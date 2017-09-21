@@ -1,3 +1,4 @@
+import { IPhpbbTemplate } from './../interfaces/phpbb/phpbb-tpl';
 import { PhpbbComponent } from './../components/phpbb/phpbb-component.component';
 import { ServiceLocator } from './ServiceLocator';
 import { Transition, UIRouter, TargetState } from '@uirouter/angular';
@@ -10,7 +11,6 @@ import { SeoUrlPipe } from '../pipes/seo-url.pipe';
 import { Injectable, Inject } from "@angular/core";
 import { Http, URLSearchParams } from "@angular/http";
 import { ReplaySubject } from "rxjs/ReplaySubject";
-import { IPhpbbTemplate } from "app/interfaces/phpbb/phpbb-tpl";
 
 
 @Injectable()
@@ -203,7 +203,7 @@ export class StateTranslate {
         if (!this.checkParamsAgainstResolved(params['phpbbResolved']['@template'], params, [
             ["CURRENT_PAGE", "pageNumber"],
             ["FORUM_ID", "forumId"]
-        ]) || !(params['phpbbResolved']['@tplName'] == "viewforum_body" )|| !(new SeoUrlPipe().transform(params['phpbbResolved']['@template']["FORUM_NAME"]) == params['forumSlug'] ))
+        ]) || !(params['phpbbResolved']['@tplName'] == "viewforum_body") || !(new SeoUrlPipe().transform(params['phpbbResolved']['@template']["FORUM_NAME"]) == params['forumSlug']))
             return this.phpbbApi.getForumById(forumId, start)
                 .map(
                 (data) => {
@@ -432,18 +432,37 @@ export class StateTranslate {
      * 
      * @param component the comopnent to populate with current tpl
      * @param doNotNotify if we want to not notify a tpl change (useful for sub-components)
+     * @param tpl optional tpl to overwrite current one
      */
-    public getCurrentStateData(component: PhpbbComponent, doNotNotify?: boolean) {
-        let tpl = this.router.stateService.params["phpbbResolved"]["@template"];
+    public getCurrentStateData(component: PhpbbComponent, doNotNotify?: boolean, tpl?: IPhpbbTemplate, autoUpdate?: boolean) {
+        tpl = tpl || this.router.stateService.params["phpbbResolved"]["@template"];
         if (tpl) {
             // only notify if we want to
             if (doNotNotify !== true) this._latestTemplateData.next(tpl);
-            // give the component its tpl
-            this.unwrapTplData(component, tpl);
-            component.phpbbTemplateName = this.router.stateService.params["phpbbResolved"]["@tplName"];
+
+            // Update the components
+            this.updateTplOfComponent(component, tpl);
+
+            // Subscribe the component if needed
+            /*if (autoUpdate) this._latestTemplateData.subscribe((tpl) => {
+                this.updateTplOfComponent(component, tpl);
+            });*/
         }
     }
 
+    /**
+     * Gives all the necesserary thing from a tpl to a component
+     * @param component 
+     * @param tpl 
+     */
+    private updateTplOfComponent(component: PhpbbComponent, tpl: IPhpbbTemplate) {
+        this.unwrapTplData(component, tpl);
+        component.phpbbTemplateName = this.router.stateService.params["phpbbResolved"]["@tplName"];
+    }
+
+    /**
+     * 
+     */
     public updateStateData(component: PhpbbComponent, resolvedData: PhpbbTemplateResponse.DefaultResponse) {
         let tpl = resolvedData['@template'];
         if (tpl) {
@@ -677,13 +696,17 @@ export class StateTranslate {
      * @param component the component instance
      * @param tpl the tpl to inject
      */
-    public unwrapTplData(component, tpl) {
+    public unwrapTplData(component: PhpbbComponent, tpl: IPhpbbTemplate) {
         this.newTeplateData = tpl;
+        console.log("setting keyArr");
         let keyArr = Object.keys(tpl);
 
         keyArr.forEach((key) => {
             component["tpl"][key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
+
+        console.log(component);
+
     }
 
     /**

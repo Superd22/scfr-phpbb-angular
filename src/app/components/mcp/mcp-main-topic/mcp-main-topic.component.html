@@ -21,7 +21,7 @@
       <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_DAYS" [displayName]="L_.DISPLAY_POSTS"></scfr-forum-ucp-phpbb-field>
       <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_KEY" [displayName]="L_.SORT_BY"></scfr-forum-ucp-phpbb-field>
       <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_DIR"></scfr-forum-ucp-phpbb-field>
-      <button md-button (click)="doSort()">{{L_.GO}}</button>
+      <button md-button (click)="postDisplaySettings()">{{L_.GO}}</button>
     </dl>
   </ng-container>
 
@@ -84,19 +84,8 @@
 
 <fieldset class="display-actions">
   <div fxLayout>
-    <md-select fxFlex="100" [placeholder]="L_.SELECT_ACTION">
-      <md-option *ngIf="tpl.S_CAN_APPROVE" value="approve">{{ L_.APPROVE_POSTS }}</md-option>
-      <md-option *ngIf="tpl.S_CAN_LOCK" value="lock_post">{{L_.LOCK_POST_POSTS}} [ {{L_.LOCK_POST_EXPLAIN}} ]</md-option>
-      <md-option *ngIf="tpl.S_CAN_LOCK" value="lock_post">{{L_.UNLOCK_POST_POSTS}} </md-option>
-      <md-option *ngIf="tpl.S_CAN_DELETE" value="delete_post">{{ L_.DELETE_POSTS }}</md-option>
-      <md-option *ngIf="tpl.S_CAN_RESTORE" value="restore">{{ L_.RESTORE_POSTS }}</md-option>
-      <md-option *ngIf="tpl.S_CAN_MERGE" value="merge_posts">{{ L_.MERGE_POSTS }}</md-option>
-      <md-option *ngIf="tpl.S_CAN_SPLIT" value="split_all">{{ L_.SPLIT_POSTS }}</md-option>
-      <md-option *ngIf="tpl.S_CAN_SPLIT" value="split_beyond">{{ L_.SPLIT_AFTER }}</md-option>
-      <md-option *ngIf="tpl.S_CAN_SYNC" value="resync">{{ L_.RESYNC }}</md-option>
-    </md-select>
-
-    <button md-raised-button color="accent" style="margin-left:12px">Envoyer</button>
+    <scfr-forum-ucp-phpbb-field fxFlex="100" type="select" [displayName]="L_.SELECT_ACTION" name="action" [options]="actionOptions"></scfr-forum-ucp-phpbb-field>
+    <button md-raised-button color="accent" style="margin-left:12px" (click)="postMainForm()">Envoyer</button>
   </div>
   <div fxLayout>
     <button md-button (click)="checkAll()">{{L_.MARK_ALL}}</button>

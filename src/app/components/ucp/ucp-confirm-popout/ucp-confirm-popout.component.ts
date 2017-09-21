@@ -22,7 +22,10 @@ export class UcpConfirmPopoutComponent implements OnInit {
   }
 
   public confirm() {
-    this.formHelper.postToPhpbbWFieldObject(UnicodeToUtf8Pipe.HTMLEncode(this.tpl['S_CONFIRM_ACTION']), {}, this.tpl, {}, { submit: 1, confirm: "Oui" }).subscribe(
+
+    let confirm = this.tpl['S_CONFIRM_ACTION'];
+
+    this.formHelper.postToPhpbbWFieldObject(UnicodeToUtf8Pipe.HTMLEncode(this.tpl['S_CONFIRM_ACTION']), {}, this.tpl, {}, { redirect: false, submit: 1, confirm: "Oui" }).subscribe(
       (data) => {
         if (this._callback) this._callback.fn.call(this._callback.context, data);
         else this.formHelper.ucpOnPostCallback(data);
