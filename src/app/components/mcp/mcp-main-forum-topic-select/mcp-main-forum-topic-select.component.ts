@@ -18,4 +18,8 @@ export class McpMainForumTopicSelectComponent extends PhpbbSubComponent implemen
   ngOnInit() {
   }
 
+  public changePage(n:number) {
+    
+  }
+
 }
