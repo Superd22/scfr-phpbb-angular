@@ -1,0 +1,18 @@
+<h2 md-dialog-title>{{tpl.S_REPORT_POST ? L_.REPORT_POST : L_.REPORT_MESSAGE}}</h2>
+<md-dialog-content>
+  <p>{{tpl.S_REPORT_POST ? L_.REPORT_POST_EXPLAIN : L_.REPORT_MESSAGE_EXPLAIN}}</p>
+
+
+  <fieldset>
+    <scfr-forum-ucp-phpbb-field type="select" [displayName]="L_.REASON" name="reason_id" [options]="getReasonsOptions()"></scfr-forum-ucp-phpbb-field>
+
+    <scfr-forum-ucp-phpbb-field *ngIf="tpl.S_CAN_NOTIFY" type="toggle" toggleAsInt="true" [displayName]="L_.REPORT_NOTIFY" name="notify"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field type="textarea" [displayName]="L_.MORE_INFO" [explain]="L_.CAN_LEAVE_BLANK" name="report_text"
+      [model]="tpl.REPORT_TEXT"></scfr-forum-ucp-phpbb-field>
+  </fieldset>
+
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button color="primary" (click)="confirm()">{{tpl.YES_VALUE}}</button>
+  <button md-button md-dialog-close>Annuler</button>
+</md-dialog-actions>

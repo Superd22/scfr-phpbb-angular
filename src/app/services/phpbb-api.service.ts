@@ -108,6 +108,9 @@ export class PhpbbApiService {
             headers.append('X-Requested-With', 'XMLHttpRequest');
         }
 
+        // Make sure we're relative to root
+        if (page.indexOf('/') === 0) page = page.substr(1);
+
         const options = new RequestOptions({ headers: headers, search: this.buildParameters(queries, raw), withCredentials: true });
 
         return this.http.get(`${baseUrl}${page}`, options)

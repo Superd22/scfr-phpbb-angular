@@ -1,3 +1,4 @@
+import { McpReportBodyComponent } from './../../mcp/mcp-report-body/mcp-report-body.component';
 import { ViewtopicComponent } from './../../viewtopic/viewtopic.component';
 import { StateService } from '@uirouter/angular';
 import { StateTranslate } from './../../../services/state-translate.service';
@@ -68,6 +69,20 @@ export class MessageActionBarComponent implements OnInit {
         this.state.reload();
       }
     )
+  }
+
+  public popOutcallback(data) {
+    this.dialog.closeAll();
+    console.log(data);
+  }
+
+  /**
+   * Report this post to phpbb
+   */
+  public report() {
+    /** this.api.getPage(this.postrow.U_REPORT).subscribe(data => {
+      this.dialog.open(McpReportBodyComponent, { data: Object.assign(data['@template'], { callback: { context: this, fn: this.popOutcallback } }) });
+    });*/
   }
 
 }
