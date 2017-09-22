@@ -159,6 +159,7 @@ import { McpQuickmodTopicComponent } from './components/mcp/mcp-quickmod-topic/m
 import { McpMainTopicComponent } from './components/mcp/mcp-main-topic/mcp-main-topic.component';
 import { McpMainForumComponent } from './components/mcp/mcp-main-forum/mcp-main-forum.component';
 import { McpMainForumTopicSelectComponent } from './components/mcp/mcp-main-forum-topic-select/mcp-main-forum-topic-select.component';
+import { McpMainMoveComponent } from './components/mcp/mcp-main-move/mcp-main-move.component';
 
 @NgModule({
     declarations: [
@@ -283,6 +284,7 @@ import { McpMainForumTopicSelectComponent } from './components/mcp/mcp-main-foru
         McpMainTopicComponent,
         McpMainForumComponent,
         McpMainForumTopicSelectComponent,
+        McpMainMoveComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -305,7 +307,7 @@ import { McpMainForumTopicSelectComponent } from './components/mcp/mcp-main-foru
         ColorPickerModule,
     ],
     entryComponents: [
-        DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent, McpMainForumTopicSelectComponent
+        DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent, McpMainForumTopicSelectComponent, McpMainMoveComponent
     ],
     providers: [
         { provide: APP_BASE_HREF, useValue: environment.baseHref },

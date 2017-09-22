@@ -1,3 +1,6 @@
+import { IPhpbbTemplate } from './../../../interfaces/phpbb/phpbb-tpl';
+import { UnicodeToUtf8Pipe } from './../../../pipes/unicode-to-utf8.pipe';
+import { McpMainMoveComponent } from './../mcp-main-move/mcp-main-move.component';
 import { UcpConfirmPopoutComponent, IConfirmPopOutCustomCallback } from './../../ucp/ucp-confirm-popout/ucp-confirm-popout.component';
 import { MdDialog } from '@angular/material';
 import { Component, OnInit, Input } from '@angular/core';
@@ -14,6 +17,9 @@ export class McpQuickmodTopicComponent extends PhpbbSubComponent {
   private _topicId;
   /** actions that can be performed via ajax without going to mcp */
   private _ajaxActions = ['lock', 'unlock', 'delete_topics', 'restore_topic', 'make_normal', 'make_sticky', 'make_announce', 'make_global'];
+  /** actions that can be performed via a pop-out without going to mcp */
+  private _popOutActions = ["move"];
+
 
   constructor(private mdDialog: MdDialog) {
     super();
@@ -31,6 +37,7 @@ export class McpQuickmodTopicComponent extends PhpbbSubComponent {
    */
   public doQuickMod(action: IPHPBBMCPQuickMod) {
     if (this.isAjaxAction(action)) this.doAjaxAction(action);
+    else if (this.isPopOutAction(action)) this.doPopOutAction(action);
     else this.goToMcp(action);
   }
 
@@ -41,7 +48,7 @@ export class McpQuickmodTopicComponent extends PhpbbSubComponent {
    */
   public doAjaxAction(action: IPHPBBMCPQuickMod) {
     this.phpbbApi.getPhpbbAjaxPage(action.LINK, { '_': Date.now() }).subscribe((data) => {
-      this.mdDialog.open(UcpConfirmPopoutComponent, { data: Object.assign(data, { callback: this.confirmCallback }) });
+      this.openMainConfirm(data);
     });
   }
 
@@ -64,6 +71,25 @@ export class McpQuickmodTopicComponent extends PhpbbSubComponent {
   }
 
   /**
+   * Opens a shared pop-out confirm with supplied tpl.
+   * @param tpl 
+   */
+  public openMainConfirm(tpl: IPhpbbTemplate) {
+    this.mdDialog.open(UcpConfirmPopoutComponent, { data: Object.assign(tpl, { callback: this.confirmCallback }) });
+  }
+
+
+  /**
+   * Displays a pop-out to do the supplied action
+   * @param action 
+   */
+  public doPopOutAction(action: IPHPBBMCPQuickMod) {
+    this.phpbbApi.getPage(action.LINK).subscribe((data) => {
+      this.mdDialog.open(McpMainMoveComponent, { data: Object.assign(UnicodeToUtf8Pipe.forEach(data['@template']), { callback: this.confirmCallback }) });
+    });
+  }
+
+  /**
    * Goes to mcp to perform specified action
    * 
    * @param action 
@@ -72,7 +98,7 @@ export class McpQuickmodTopicComponent extends PhpbbSubComponent {
     let mcp = {};
 
     // slice './mcp.php?' 
-    for(let args of action.LINK.slice(10).split("&")) {
+    for (let args of action.LINK.slice(10).split("&")) {
       const tuple = args.split("=");
       mcp[tuple[0]] = tuple[1]
     }
@@ -88,6 +114,14 @@ export class McpQuickmodTopicComponent extends PhpbbSubComponent {
    */
   public isAjaxAction(action: IPHPBBMCPQuickMod): boolean {
     return this._ajaxActions.indexOf(action.VALUE) > -1;
+  }
+
+  /**
+   * Check if an action can be performed via a confirm
+   * @param action the action to perform
+   */
+  public isPopOutAction(action: IPHPBBMCPQuickMod): boolean {
+    return this._popOutActions.indexOf(action.VALUE) > -1;
   }
 
 }
