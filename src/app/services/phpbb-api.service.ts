@@ -11,7 +11,6 @@ import { PhpbbTemplateResponse } from '../models/phpbb-template-response'
 import { IndexResponse } from '../models/IndexResponse';
 import { UnreadResponse } from '../models/Search/UnreadReponse';
 import { UcpResponse } from '../models/UcpResponse';
-
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 
@@ -104,9 +103,17 @@ export class PhpbbApiService {
      */
     public getPage(page, queries?: {}, raw?: boolean, XLMHttpRequest?: boolean, forcetSetAsTpl?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
         let headers = null;
-        if (XLMHttpRequest) headers = new Headers({ 'X-Requested-With': 'XMLHttpRequest' });
+        if (XLMHttpRequest) {
+            headers = new Headers();
+            headers.append('X-Requested-With', 'XMLHttpRequest');
+        }
 
-        return this.http.get(`${baseUrl}${page}`, { headers: headers, search: this.buildParameters(queries, raw), withCredentials: true })
+        // Make sure we're relative to root
+        if (page.indexOf('/') === 0) page = page.substr(1);
+
+        const options = new RequestOptions({ headers: headers, search: this.buildParameters(queries, raw), withCredentials: true });
+
+        return this.http.get(`${baseUrl}${page}`, options)
             .map((res: Response) => {
                 let ret = res.json();
                 this.handleSID(ret);
@@ -125,6 +132,7 @@ export class PhpbbApiService {
         return this.getPage(page, queries, null, true)
             .map((data: any) => data)
             .catch((error: any) => {
+                console.log("[AJAXERROR]", error);
                 return Observable.of({
                     MESSAGE_TEXT: "Une erreur s'est produite",
                     MESSAGE_TITLE: "Erreur",

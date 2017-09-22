@@ -1,0 +1,9 @@
+<ng-container *ngIf="tpl.quickmod">
+  <md-menu #quickMods="mdMenu">
+    <button md-menu-item *ngFor="let quickmod of tpl.quickmod" (click)="doQuickMod(quickmod)"> {{quickmod.TITLE}} </button>
+  </md-menu>
+
+  <button md-icon-button [mdMenuTriggerFor]="quickMods">
+  <md-icon>build</md-icon>
+</button>
+</ng-container>

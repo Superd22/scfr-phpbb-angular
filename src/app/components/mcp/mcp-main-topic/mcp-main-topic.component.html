@@ -1,0 +1,97 @@
+<div class="tabs" fxLayout>
+  <h2 fxFlex><a [href]="tpl.U_VIEW_TOPIC">{{L_.TOPIC}}{{L_.COLON}} {{tpl.TOPIC_TITLE}}</a></h2>
+
+  <nav md-tab-nav-bar>
+    <a md-tab-link (click)="activeTab = 'merge-panel'" [active]="activeTab == 'merge-panel'">{{L_.MERGE_POSTS}}</a>
+    <a md-tab-link (click)="activeTab = 'split-panel'" [active]="activeTab == 'split-panel'">{{L_.SPLIT_TOPIC}}</a>
+    <a md-tab-link (click)="activeTab = 'display-panel'" [active]="activeTab == 'display-panel'">{{L_.DISPLAY_OPTIONS}}</a>
+  </nav>
+
+</div>
+
+<fieldset class="tools">
+  <ng-container *ngIf="activeTab == 'display-panel'">
+    <dl>
+
+      <scfr-forum-ucp-phpbb-field type="number" name="posts_per_page" [displayName]="L_.POSTS_PER_PAGE" [explain]="L_.POSTS_PER_PAGE_EXPLAIN"
+        [model]="tpl.POSTS_PER_PAGE"></scfr-forum-ucp-phpbb-field>
+
+    </dl>
+    <dl fxLayout>
+      <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_DAYS" [displayName]="L_.DISPLAY_POSTS"></scfr-forum-ucp-phpbb-field>
+      <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_KEY" [displayName]="L_.SORT_BY"></scfr-forum-ucp-phpbb-field>
+      <scfr-forum-ucp-phpbb-field type="select" [fullPHPBB]="tpl.S_SELECT_SORT_DIR"></scfr-forum-ucp-phpbb-field>
+      <button md-button (click)="postDisplaySettings()">{{L_.GO}}</button>
+    </dl>
+  </ng-container>
+
+  <ng-container *ngIf="activeTab == 'split-panel'">
+    <p [innerHTML]="L_.SPLIT_TOPIC_EXPLAIN"></p>
+
+    <!-- <dl *ngIf="tpl.S_SHOW_TOPIC_ICONS">
+      <dt><label for="icon">{{L_.TOPIC_ICON}}{{L_.COLON}}</label></dt>
+      <dd><label for="icon"><input type="radio" name="icon" id="icon" value="0" checked="checked" /> {{L_.NO_TOPIC_ICON}}</label>
+        <label *ngFor="let topic_icon of tpl.topic_icon" for="icon-{{topic_icon.ICON_ID}}">
+          <input type="radio" name="icon" id="icon-{{topic_icon.ICON_ID}}" [value]="topic_icon.ICON_ID"  />
+          <img [src]="topic_icon.ICON_IMG" [width]="topic_icon.ICON_WIDTH" [height]="topic_icon.ICON_HEIGHT" alt="" title="" />
+        </label>
+      </dd>
+    </dl>
+    -->
+
+    <dl>
+      <dt><label for="subject"></label></dt>
+      <dd>
+        <scfr-forum-ucp-phpbb-field displayName="Titre du nouveau sujet" name="subject" [model]="tpl.SPLIT_SUBJECT"></scfr-forum-ucp-phpbb-field>
+      </dd>
+    </dl>
+
+    <dl>
+      <dt><label></label></dt>
+      <dd>
+        <scfr-forum-ucp-phpbb-field type="select" [htmlOptions]="tpl.S_FORUM_SELECT" [displayName]="L_.SPLIT_FORUM" name="to_forum_id"></scfr-forum-ucp-phpbb-field>
+      </dd>
+    </dl>
+
+  </ng-container>
+
+  <ng-container *ngIf="activeTab == 'merge-panel'">
+    <p [innerHTML]="L_.MERGE_TOPIC_EXPLAIN"></p>
+
+    <dl>
+      <dt fxLayout>
+        <scfr-forum-ucp-phpbb-field name="to_topic_id" [displayName]="L_.MERGE_TOPIC_ID" type="number" [model]="tpl.TO_TOPIC_ID"></scfr-forum-ucp-phpbb-field>
+        <button md-button (click)="getSelectTopic()">{{L_.SELECT_TOPIC}}</button>
+      </dt>
+      <dd *ngIf="tpl.TO_TOPIC_INFO">{{tpl.TO_TOPIC_INFO}}</dd>
+    </dl>
+
+  </ng-container>
+</fieldset>
+
+
+<fieldset class="posts-wrapper">
+  <div class="post" *ngFor="let postrow of tpl.postrow">
+    <div class="tool" fxLayout>
+      <div fxFlex></div>
+      <button md-icon-button disabled><md-icon>info</md-icon></button>
+      <scfr-forum-ucp-phpbb-field type="checkbox" displayName="Selectionner ce message" name="post_id_list[]" [value]="postrow.POST_ID"></scfr-forum-ucp-phpbb-field>
+    </div>
+    <app-viewmessage [postrow]="postrow"></app-viewmessage>
+  </div>
+</fieldset>
+
+
+<fieldset class="display-actions">
+  <div fxLayout>
+    <scfr-forum-ucp-phpbb-field fxFlex="100" type="select" [displayName]="L_.SELECT_ACTION" name="action" [options]="actionOptions"></scfr-forum-ucp-phpbb-field>
+    <button md-raised-button color="accent" style="margin-left:12px" (click)="postMainForm()">Envoyer</button>
+  </div>
+  <div fxLayout>
+    <button md-button (click)="checkAll()">{{L_.MARK_ALL}}</button>
+    <button md-button (click)="unCheckAll()">{{L_.UNMARK_ALL}}</button>
+  </div>
+</fieldset>
+
+<scfr-forum-global-pagination [page]="tpl.CURRENT_PAGE" (pageChange)="changePage($event)" [totalPage]="tpl.TOTAL_PAGES">
+</scfr-forum-global-pagination>

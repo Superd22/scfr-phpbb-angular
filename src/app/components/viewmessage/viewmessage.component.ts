@@ -29,7 +29,7 @@ export class ViewmessageComponent implements OnInit {
   @Output() 
   editChange = new EventEmitter();
 
-  public get tpl() { return this.viewtopic.tpl };
+  public get tpl() {return this.viewtopic ? this.viewtopic.tpl : {}};
 
   set edit(val: number) {
     this._edit = Number(val);

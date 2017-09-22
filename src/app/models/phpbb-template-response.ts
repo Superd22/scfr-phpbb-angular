@@ -1,5 +1,7 @@
+import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
 export module PhpbbTemplateResponse {
     export interface DefaultResponse {
-        '@template': any;
+        '@template': IPhpbbTemplate;
+        '@tplName': string;
     }
 }

@@ -22,10 +22,10 @@ export function SCFRUIParam(key?: string) {
         }
 
         let setter = function (value: any) {
-            let newParams = {};
-            newParams[key] = value;
+            let newParam = {};
+            newParam[key] = value;
 
-            if (state) state.go(state.current, Object.assign({}, state.params, newParams));
+            if (state) state.go(state.current, Object.assign({}, state.params, newParam));
         }
 
         ExtraModuleInjector.ready.subscribe((ready) => {

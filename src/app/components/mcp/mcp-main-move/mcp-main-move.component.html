@@ -1,0 +1,19 @@
+<h2 md-dialog-title>{{tpl.MESSAGE_TITLE}}</h2>
+<md-dialog-content>
+  <h3>{{tpl.ADDITIONAL_MSG}}</h3>
+  <p>{{tpl.MESSAGE_TEXT}}</p>
+
+
+  <fieldset>
+    <scfr-forum-ucp-phpbb-field *ngIf="tpl.S_CAN_LEAVE_SHADOW" type="select" [displayName]="L_.SELECT_DESTINATION_FORUM" name="to_forum_id"
+      [htmlOptions]="tpl.S_FORUM_SELECT"></scfr-forum-ucp-phpbb-field>
+
+    <scfr-forum-ucp-phpbb-field *ngIf="tpl.S_CAN_LEAVE_SHADOW" type="checkbox" [displayName]="L_.LEAVE_SHADOW" name="move_leave_shadow"></scfr-forum-ucp-phpbb-field>
+    <scfr-forum-ucp-phpbb-field *ngIf="tpl.S_CAN_LOCK_TOPIC" type="checkbox" [displayName]="L_.LOCK_TOPIC" name="move_lock_topics"></scfr-forum-ucp-phpbb-field>
+  </fieldset>
+
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button color="primary" (click)="confirm()">{{tpl.YES_VALUE}}</button>
+  <button md-button md-dialog-close>Annuler</button>
+</md-dialog-actions>

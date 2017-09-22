@@ -1,3 +1,4 @@
+import { mcpStates } from './phpbb-seo/mcp.states';
 import { psoSearch } from './phpbb-seo/search.state';
 import { psoInfo } from './phpbb-seo/information.state';
 import { psoUcp, psoPMConvo, psoUcpRegister } from './phpbb-seo/ucp.state';
@@ -18,5 +19,5 @@ import { defaultState } from './default.state';
 export let STATES = [
     defaultState, PhpbbLegacy, PhpbbSeo, psoIndex, psoViewForum, psoViewTopic, psoAdm,
     psoViewOnline, psoMemberList, psoTeam, psoViewProfile, psoLogin, psoPostReply, psoPostTopic, psoPostEdit, psoUcp,
-    psoPMConvo, psoInfo, psoUcpRegister, psoSearch
+    psoPMConvo, psoInfo, psoUcpRegister, psoSearch, ...mcpStates
 ];

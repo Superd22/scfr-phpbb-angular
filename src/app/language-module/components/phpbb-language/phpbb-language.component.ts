@@ -22,10 +22,13 @@ export class PhpbbLanguageComponent implements OnInit {
      * and replaces them with Language content if available.
      */
     get: (target, prop: string) => {
+      let returnString = "";
+
       if (this[prop]) return this[prop];
-      if (this['tpl'] && this["tpl"][prop]) return this["tpl"][prop];
-      if (this['tpl'] && this["tpl"]["L_"+prop]) return this["tpl"]["L_"+prop];
-      return this._language_service.getTranslation(prop);
+      if (this['tpl'] && this["tpl"][prop]) returnString = this["tpl"][prop];
+      if (this['tpl'] && this["tpl"]["L_" + prop]) returnString = this["tpl"]["L_" + prop];
+
+      return this._language_service.getTranslation(prop) || returnString;
     }
   });
 

@@ -1,0 +1,7 @@
+.side-nav-button {
+    font-family: "Electrolize";
+    &.active {
+        background: transparentize(forestgreen, 0.5);
+        font-weight:bolder;
+    }
+}

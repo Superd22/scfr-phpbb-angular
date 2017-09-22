@@ -137,6 +137,31 @@ import { UcpNotificationsSwitchComponent } from './components/ucp/notifications/
 import { UcpNotificationListComponent } from './components/ucp/notifications/ucp-notification-list/ucp-notification-list.component';
 import { UcpNotificationOptionsComponent } from './components/ucp/notifications/ucp-notification-options/ucp-notification-options.component';
 import { environment } from "environments/environment";
+import { McpComponent } from './components/mcp/mcp.component';
+import { McpSidenavComponent } from './components/mcp/mcp-sidenav/mcp-sidenav.component';
+import { McpMainComponent } from './components/mcp/mcp-main/mcp-main.component';
+import { McpQueueUnapprovedComponent } from './components/mcp/mcp-queue-unapproved/mcp-queue-unapproved.component';
+import { McpQueueUnapprovedPostsComponent } from './components/mcp/mcp-queue-unapproved-posts/mcp-queue-unapproved-posts.component';
+import { McpQueueDeletedTopicsComponent } from './components/mcp/mcp-queue-deleted-topics/mcp-queue-deleted-topics.component';
+import { McpQueueDeletedPostsComponent } from './components/mcp/mcp-queue-deleted-posts/mcp-queue-deleted-posts.component';
+import { McpReportPmReportsComponent } from './components/mcp/mcp-report-pm-reports/mcp-report-pm-reports.component';
+import { McpReportPmReportsClosedComponent } from './components/mcp/mcp-report-pm-reports-closed/mcp-report-pm-reports-closed.component';
+import { McpReportReportsComponent } from './components/mcp/mcp-report-reports/mcp-report-reports.component';
+import { McpReportsClosedComponent } from './components/mcp/mcp-reports-closed/mcp-reports-closed.component';
+import { McpNotesMainComponent } from './components/mcp/mcp-notes-main/mcp-notes-main.component';
+import { McpWarnMainComponent } from './components/mcp/mcp-warn-main/mcp-warn-main.component';
+import { McpWarnListComponent } from './components/mcp/mcp-warn-list/mcp-warn-list.component';
+import { McpLogsMainComponent } from './components/mcp/mcp-logs-main/mcp-logs-main.component';
+import { McpBanUserComponent } from './components/mcp/mcp-ban-user/mcp-ban-user.component';
+import { McpBanUpComponent } from './components/mcp/mcp-ban-up/mcp-ban-up.component';
+import { McpBanEmailComponent } from './components/mcp/mcp-ban-email/mcp-ban-email.component';
+import { McpQuickmodTopicComponent } from './components/mcp/mcp-quickmod-topic/mcp-quickmod-topic.component';
+import { McpMainTopicComponent } from './components/mcp/mcp-main-topic/mcp-main-topic.component';
+import { McpMainForumComponent } from './components/mcp/mcp-main-forum/mcp-main-forum.component';
+import { McpMainForumTopicSelectComponent } from './components/mcp/mcp-main-forum-topic-select/mcp-main-forum-topic-select.component';
+import { McpMainMoveComponent } from './components/mcp/mcp-main-move/mcp-main-move.component';
+import { McpReportBodyComponent } from './components/mcp/mcp-report-body/mcp-report-body.component';
+import { McpSubPopoutComponent } from './components/mcp/mcp-sub-popout/mcp-sub-popout.component';
 
 @NgModule({
     declarations: [
@@ -239,6 +264,31 @@ import { environment } from "environments/environment";
         UcpMainNotificationsComponent,
         UcpNotificationListComponent,
         UcpNotificationOptionsComponent,
+        McpComponent,
+        McpSidenavComponent,
+        McpMainComponent,
+        McpQueueUnapprovedComponent,
+        McpQueueUnapprovedPostsComponent,
+        McpQueueDeletedTopicsComponent,
+        McpQueueDeletedPostsComponent,
+        McpReportPmReportsComponent,
+        McpReportPmReportsClosedComponent,
+        McpReportReportsComponent,
+        McpReportsClosedComponent,
+        McpNotesMainComponent,
+        McpWarnMainComponent,
+        McpWarnListComponent,
+        McpLogsMainComponent,
+        McpBanUserComponent,
+        McpBanUpComponent,
+        McpBanEmailComponent,
+        McpQuickmodTopicComponent,
+        McpMainTopicComponent,
+        McpMainForumComponent,
+        McpMainForumTopicSelectComponent,
+        McpMainMoveComponent,
+        McpReportBodyComponent,
+        McpSubPopoutComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -261,7 +311,8 @@ import { environment } from "environments/environment";
         ColorPickerModule,
     ],
     entryComponents: [
-        DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent
+        DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent, McpMainForumTopicSelectComponent, McpMainMoveComponent,
+        McpReportBodyComponent
     ],
     providers: [
         { provide: APP_BASE_HREF, useValue: environment.baseHref },

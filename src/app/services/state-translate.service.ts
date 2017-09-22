@@ -1,3 +1,4 @@
+import { IPhpbbTemplate } from './../interfaces/phpbb/phpbb-tpl';
 import { PhpbbComponent } from './../components/phpbb/phpbb-component.component';
 import { ServiceLocator } from './ServiceLocator';
 import { Transition, UIRouter, TargetState } from '@uirouter/angular';
@@ -10,7 +11,6 @@ import { SeoUrlPipe } from '../pipes/seo-url.pipe';
 import { Injectable, Inject } from "@angular/core";
 import { Http, URLSearchParams } from "@angular/http";
 import { ReplaySubject } from "rxjs/ReplaySubject";
-import { IPhpbbTemplate } from "app/interfaces/phpbb/phpbb-tpl";
 
 
 @Injectable()
@@ -55,6 +55,8 @@ export class StateTranslate {
                     return this.transform_ucp(trans);
                 case "search":
                     return this.transform_search(trans);
+                case "mcp":
+                    return this.transform_mcp(trans);
             }
         }
     }
@@ -77,7 +79,7 @@ export class StateTranslate {
 
             if (typeof params[pParams] != "undefined" && params[pParams] != null && resolved[pResolved] != params[pParams]) okay = false;
         }
-
+        console.log("okay", okay, resolved, params);
         return okay;
     }
 
@@ -201,7 +203,7 @@ export class StateTranslate {
         if (!this.checkParamsAgainstResolved(params['phpbbResolved']['@template'], params, [
             ["CURRENT_PAGE", "pageNumber"],
             ["FORUM_ID", "forumId"]
-        ]) || !(params['phpbbResolved']['@tplName'] == "viewforum_body" )|| !(new SeoUrlPipe().transform(params['phpbbResolved']['@template']["FORUM_NAME"]) == params['forumSlug'] ))
+        ]) || !(params['phpbbResolved']['@tplName'] == "viewforum_body") || !(new SeoUrlPipe().transform(params['phpbbResolved']['@template']["FORUM_NAME"]) == params['forumSlug']))
             return this.phpbbApi.getForumById(forumId, start)
                 .map(
                 (data) => {
@@ -425,14 +427,42 @@ export class StateTranslate {
         return newRetain;
     }
 
-    public getCurrentStateData(component: PhpbbComponent) {
-        let tpl = this.router.stateService.params["phpbbResolved"]["@template"];
+    /**
+     * Gives the current template to a component
+     * 
+     * @param component the comopnent to populate with current tpl
+     * @param doNotNotify if we want to not notify a tpl change (useful for sub-components)
+     * @param tpl optional tpl to overwrite current one
+     */
+    public getCurrentStateData(component: PhpbbComponent, doNotNotify?: boolean, tpl?: IPhpbbTemplate, autoUpdate?: boolean) {
+        tpl = tpl || this.router.stateService.params["phpbbResolved"]["@template"];
         if (tpl) {
-            this._latestTemplateData.next(tpl)
-            this.unwrapTplData(component, tpl);
+            // only notify if we want to
+            if (doNotNotify !== true) this._latestTemplateData.next(tpl);
+
+            // Update the components
+            this.updateTplOfComponent(component, tpl);
+
+            // Subscribe the component if needed
+            /*if (autoUpdate) this._latestTemplateData.subscribe((tpl) => {
+                this.updateTplOfComponent(component, tpl);
+            });*/
         }
     }
 
+    /**
+     * Gives all the necesserary thing from a tpl to a component
+     * @param component 
+     * @param tpl 
+     */
+    private updateTplOfComponent(component: PhpbbComponent, tpl: IPhpbbTemplate) {
+        this.unwrapTplData(component, tpl);
+        component.phpbbTemplateName = this.router.stateService.params["phpbbResolved"]["@tplName"];
+    }
+
+    /**
+     * 
+     */
     public updateStateData(component: PhpbbComponent, resolvedData: PhpbbTemplateResponse.DefaultResponse) {
         let tpl = resolvedData['@template'];
         if (tpl) {
@@ -450,6 +480,43 @@ export class StateTranslate {
         });
 
     }
+    private mergeParamsWithPhpbbData(params: any, data: any): any {
+        return Object.assign({}, params, { phpbbResolved: data });
+    }
+
+
+    private sanitizeParamsForPhpbb(params) {
+        let p = Object.assign({}, params);
+        p["phpbbResolved"] = undefined;
+
+        return p;
+    }
+
+    /**
+     * Handles the transformation for mcp pages
+     * @param transition the transition object
+     */
+    private transform_mcp(transition: Transition): Observable<any> {
+        const params = transition.params();
+        const oldState = transition.redirectedFrom() || transition.$from();
+        const oldParams = transition.redirectedFrom() ? transition.redirectedFrom().params() : transition.$from().params;
+
+
+        console.log("params send", this.sanitizeParamsForPhpbb(params));
+        let call = this.phpbbApi.postPage("mcp.php", {}, this.sanitizeParamsForPhpbb(params)).map((data) => {
+            const newParams = this.mergeParamsWithPhpbbData(params, data);
+            return transition.router.stateService.target("phpbb.seo.mcp", newParams);
+        });
+
+        console.log(!params.phpbbResolved, params.i !== oldParams.i || params.mode !== oldParams.mode || params.start !== oldParams.start);
+
+        if (!params.phpbbResolved) return call;
+        if (params.i !== oldParams.i || params.mode !== oldParams.mode || params.start !== oldParams.start) return call;
+
+        return Observable.of(true);
+    }
+
+
 
     /**
      * Handle the transformation of ucp pages
@@ -610,6 +677,9 @@ export class StateTranslate {
                 case "phpbb.seo.search":
                     next = this.transform_search(transition);
                     break;
+                case "phpbb.seo.mcp":
+                    next = this.transform_mcp(transition);
+                    break;
                 //case "phpbb.seo.ucp.pm":
                 //   return this.transform_ucp_pm(transition);
                 //break;
@@ -626,13 +696,17 @@ export class StateTranslate {
      * @param component the component instance
      * @param tpl the tpl to inject
      */
-    public unwrapTplData(component, tpl) {
+    public unwrapTplData(component: PhpbbComponent, tpl: IPhpbbTemplate) {
         this.newTeplateData = tpl;
+        console.log("setting keyArr");
         let keyArr = Object.keys(tpl);
 
         keyArr.forEach((key) => {
             component["tpl"][key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
+
+        console.log(component);
+
     }
 
     /**

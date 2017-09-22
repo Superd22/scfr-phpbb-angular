@@ -29,6 +29,9 @@ export class GlobalHeaderBarComponent implements OnInit {
   @Input()
   public tpl;
 
+  @Input("env")
+  public envUrl;
+
   public SCM = SCMenu;
   public COM = COMMenu;
 
