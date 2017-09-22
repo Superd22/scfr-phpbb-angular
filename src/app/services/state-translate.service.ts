@@ -79,7 +79,6 @@ export class StateTranslate {
 
             if (typeof params[pParams] != "undefined" && params[pParams] != null && resolved[pResolved] != params[pParams]) okay = false;
         }
-        console.log("okay", okay, resolved, params);
         return okay;
     }
 
@@ -502,13 +501,10 @@ export class StateTranslate {
         const oldParams = transition.redirectedFrom() ? transition.redirectedFrom().params() : transition.$from().params;
 
 
-        console.log("params send", this.sanitizeParamsForPhpbb(params));
         let call = this.phpbbApi.postPage("mcp.php", {}, this.sanitizeParamsForPhpbb(params)).map((data) => {
             const newParams = this.mergeParamsWithPhpbbData(params, data);
             return transition.router.stateService.target("phpbb.seo.mcp", newParams);
         });
-
-        console.log(!params.phpbbResolved, params.i !== oldParams.i || params.mode !== oldParams.mode || params.start !== oldParams.start);
 
         if (!params.phpbbResolved) return call;
         if (params.i !== oldParams.i || params.mode !== oldParams.mode || params.start !== oldParams.start) return call;
@@ -698,15 +694,11 @@ export class StateTranslate {
      */
     public unwrapTplData(component: PhpbbComponent, tpl: IPhpbbTemplate) {
         this.newTeplateData = tpl;
-        console.log("setting keyArr");
         let keyArr = Object.keys(tpl);
 
         keyArr.forEach((key) => {
             component["tpl"][key] = UnicodeToUtf8Pipe.forEach(tpl[key]);
         });
-
-        console.log(component);
-
     }
 
     /**

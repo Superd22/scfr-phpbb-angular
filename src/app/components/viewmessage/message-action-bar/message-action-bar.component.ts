@@ -73,7 +73,6 @@ export class MessageActionBarComponent implements OnInit {
 
   public popOutcallback(data) {
     this.dialog.closeAll();
-    console.log(data);
   }
 
   /**

@@ -145,7 +145,6 @@ export class PhpbbFormHelperService {
     let post = new FormData();
 
     if (fields) fields.forEach((field) => {
-      console.log(field.form_name, field.model, field.value, (field.value || field.model))
       if (field.model !== undefined) post.append(field.form_name, (field.value || field.model));
     });
 

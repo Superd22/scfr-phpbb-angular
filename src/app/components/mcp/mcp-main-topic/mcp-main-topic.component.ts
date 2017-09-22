@@ -49,8 +49,6 @@ export class McpMainTopicComponent extends PhpbbSubComponent implements OnInit {
   public changePage(n: number) {
     let start = (n - 1) * 15;
 
-    console.log(start);
-
     this._start = start;
   }
 

@@ -109,9 +109,7 @@ export class ViewtopicComponent extends PhpbbComponent {
    * @param n the page number to switch to
    */
   public changePage(n: number) {
-    console.log("setting to ", n);
     if(n != this._statePageNumber && n != this.tpl.CURRENT_PAGE)  {
-      console.log("confirm setting to ", n);
       this.UI.scrollToTop();
       this.fetchingNewPosts = true;
       this._unreadMode = false;

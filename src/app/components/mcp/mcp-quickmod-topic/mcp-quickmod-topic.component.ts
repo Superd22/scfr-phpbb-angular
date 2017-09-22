@@ -103,7 +103,6 @@ export class McpQuickmodTopicComponent extends PhpbbSubComponent {
       mcp[tuple[0]] = tuple[1]
     }
 
-    console.log(mcp);
     this.state.go("phpbb.seo.mcp", mcp);
   }
 
