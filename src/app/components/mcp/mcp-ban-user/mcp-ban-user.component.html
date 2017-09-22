@@ -1,30 +1,30 @@
 <fieldset>
   <dl>
-    <dt><label for="ban">{{L_BAN_CELL}}{{L_COLON}}</label></dt>
+    <dt><label for="ban">{{L_.BAN_CELL}}{{L_.COLON}}</label></dt>
     <dd><label for="ban"><textarea name="ban" id="ban" class="inputbox" cols="40" rows="3">{{tpl.BAN_QUANTIFIER}}</textarea></label></dd>
-    <dd *ngIf="tpl.S_USERNAME_BAN"><strong><a [href]="U_FIND_USERNAME" onclick="find_username(this.href); return false;">{{L_FIND_USERNAME}}</a></strong></dd>
+    <dd *ngIf="tpl.S_USERNAME_BAN"><strong><a [href]="U_FIND_USERNAME" onclick="find_username(this.href); return false;">{{L_.FIND_USERNAME}}</a></strong></dd>
   </dl>
   <dl>
-    <dt><label for="banlength">{{L_BAN_LENGTH}}{{L_COLON}}</label></dt>
+    <dt><label for="banlength">{{L_.BAN_LENGTH}}{{L_.COLON}}</label></dt>
     <dd><label for="banlength"><select name="banlength" id="banlength" onchange="if(this.value==-1){document.getElementById('banlengthother').style.display = 'block';}else{document.getElementById('banlengthother').style.display='none';}">{{tpl.S_BAN_END_OPTIONS}}</select></label></dd>
-    <dd id="banlengthother" style="display: none;"><label><input type="text" name="banlengthother" class="inputbox" /><br /><span>{{L_YEAR_MONTH_DAY}}</span></label></dd>
+    <dd id="banlengthother" style="display: none;"><label><input type="text" name="banlengthother" class="inputbox" /><br /><span>{{L_.YEAR_MONTH_DAY}}</span></label></dd>
   </dl>
   <dl>
-    <dt><label for="banreason">{{L_BAN_REASON}}{{L_COLON}}</label></dt>
+    <dt><label for="banreason">{{L_.BAN_REASON}}{{L_.COLON}}</label></dt>
     <dd><input name="banreason" id="banreason" type="text" class="inputbox" maxlength="255" /></dd>
   </dl>
   <dl>
-    <dt><label for="bangivereason">{{L_BAN_GIVE_REASON}}{{L_COLON}}</label></dt>
+    <dt><label for="bangivereason">{{L_.BAN_GIVE_REASON}}{{L_.COLON}}</label></dt>
     <dd><input name="bangivereason" id="bangivereason" type="text" class="inputbox" maxlength="255" /></dd>
   </dl>
 
   <hr />
 
   <dl>
-    <dt><label for="banexclude0">{{L_BAN_EXCLUDE}}{{L_COLON}}</label><br /><span>{{L_BAN_EXCLUDE_EXPLAIN}}</span></dt>
+    <dt><label for="banexclude0">{{L_.BAN_EXCLUDE}}{{L_.COLON}}</label><br /><span>{{L_.BAN_EXCLUDE_EXPLAIN}}</span></dt>
     <dd>
-      <label for="banexclude1"><input type="radio" name="banexclude" id="banexclude1" value="1" /> {{L_YES}}</label>
-      <label for="banexclude0"><input type="radio" name="banexclude" id="banexclude0" value="0" checked="checked" /> {{L_NO}}</label>
+      <label for="banexclude1"><input type="radio" name="banexclude" id="banexclude1" value="1" /> {{L_.YES}}</label>
+      <label for="banexclude0"><input type="radio" name="banexclude" id="banexclude0" value="0" checked="checked" /> {{L_.NO}}</label>
     </dd>
   </dl>
 </fieldset>
@@ -33,24 +33,24 @@
 <div class="panel">
   <div class="inner">
 
-    <h3>{{L_UNBAN_TITLE}}</h3>
-    <p>{{L_UNBAN_EXPLAIN}}</p>
+    <h3>{{L_.UNBAN_TITLE}}</h3>
+    <p>{{L_.UNBAN_EXPLAIN}}</p>
 
     <fieldset *ngIf="tpl.S_BANNED_OPTIONS">
       <dl>
-        <dt><label for="unban">{{L_BAN_CELL}}{{L_COLON}}</label></dt>
+        <dt><label for="unban">{{L_.BAN_CELL}}{{L_.COLON}}</label></dt>
         <dd><select name="unban[]" id="unban" multiple="multiple" size="5" onchange="if (this.selectedIndex != -1) {display_details(this.options[this.selectedIndex].value);}">{{tpl.BANNED_OPTIONS}}</select></dd>
       </dl>
       <dl>
-        <dt>{{L_BAN_LENGTH}}{{L_COLON}}</dt>
+        <dt>{{L_.BAN_LENGTH}}{{L_.COLON}}</dt>
         <dd><strong id="unbanlength"></strong></dd>
       </dl>
       <dl>
-        <dt>{{L_BAN_REASON}}{{L_COLON}}</dt>
+        <dt>{{L_.BAN_REASON}}{{L_.COLON}}</dt>
         <dd><strong id="unbanreason"></strong></dd>
       </dl>
       <dl>
-        <dt>{{L_BAN_GIVE_REASON}}{{L_COLON}}</dt>
+        <dt>{{L_.BAN_GIVE_REASON}}{{L_.COLON}}</dt>
         <dd><strong id="unbangivereason"></strong></dd>
       </dl>
     </fieldset>
@@ -59,4 +59,4 @@
 </div>
 
 
-<p><strong>{{L_NO_BAN_CELL}}</strong></p>
+<p><strong>{{L_.NO_BAN_CELL}}</strong></p>

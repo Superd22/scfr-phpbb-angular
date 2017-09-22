@@ -1,3 +1,4 @@
+import { PhpbbTemplateResponse } from './phpbb-template-response';
 export module IndexResponse {
 
     export interface Subforum {
@@ -202,8 +203,7 @@ export module IndexResponse {
         forumrow: Forumrow[];
     }
 
-    export interface IndexRoot {
-        '@template': Template;
+    export interface IndexRoot extends PhpbbTemplateResponse.DefaultResponse {
     }
 
 }
