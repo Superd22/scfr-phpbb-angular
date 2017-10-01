@@ -25,7 +25,6 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
         router.transitionService.onBefore({ to: "phpbb.seo.**" }, (trans) =>
             stateTranslate.getCurrentStateDataView(trans).then(
                 state => {
-                    console.log("ah", state);
                     return state;
                 },
             )
