@@ -162,6 +162,7 @@ import { McpMainForumTopicSelectComponent } from './components/mcp/mcp-main-foru
 import { McpMainMoveComponent } from './components/mcp/mcp-main-move/mcp-main-move.component';
 import { McpReportBodyComponent } from './components/mcp/mcp-report-body/mcp-report-body.component';
 import { McpSubPopoutComponent } from './components/mcp/mcp-sub-popout/mcp-sub-popout.component';
+import { CommunityHubModule } from './community-hub/community-hub.module';
 
 @NgModule({
     declarations: [
@@ -309,11 +310,13 @@ import { McpSubPopoutComponent } from './components/mcp/mcp-sub-popout/mcp-sub-p
         HeaderModule,
         NgxChartsModule,
         ColorPickerModule,
+        CommunityHubModule,
     ],
     entryComponents: [
         DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent, McpMainForumTopicSelectComponent, McpMainMoveComponent,
         McpReportBodyComponent
     ],
+    exports: [],
     providers: [
         { provide: APP_BASE_HREF, useValue: environment.baseHref },
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
