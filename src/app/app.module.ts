@@ -316,6 +316,7 @@ import { CommunityHubModule } from './community-hub/community-hub.module';
         DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent, McpMainForumTopicSelectComponent, McpMainMoveComponent,
         McpReportBodyComponent
     ],
+    exports: [],
     providers: [
         { provide: APP_BASE_HREF, useValue: environment.baseHref },
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
