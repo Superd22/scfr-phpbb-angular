@@ -15,8 +15,6 @@ export class GlobalHeaderBarComponent implements OnInit {
 
   public topLinks = mainLinks;
   public WPHeader: IMainHeaderBarWP;
-  @Input()
-  public displayLogo: boolean = true;
   @Output("toggled")
   private _toggleChange = new EventEmitter<boolean>();
   public set toggleMenu(toggle: boolean) { this._toggleChange.emit(toggle); }

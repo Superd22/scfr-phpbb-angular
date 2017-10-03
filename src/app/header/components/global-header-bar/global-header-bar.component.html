@@ -1,11 +1,11 @@
-<div class="global-nav-bar" [ngClass]="{logo: displayLogo, fixed: fixed}" [style.top]='scrollTop' [style.margin-top]="marginTop"
-  fxLayout="column">
-  <div class="logo">
+<div class="global-nav-bar" [ngClass]="{fixed: fixed}" [style.top]='scrollTop' [style.margin-top]="marginTop" fxLayout="column">
+
+  <div class="logo" fxFlex.lt-sm="80%" fxFlex.gt-sm="325px">
     <button (click)="toggleMenu = true"><i class="material-icons">menu</i></button>
     <a uiSref="phpbb.seo.index"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
   </div>
 
-  <div class="main-links">
+  <div class="main-links" fxFlex>
     <scfr-forum-main-link *ngFor="let link of topLinks" [link]="link">
       <ng-container [ngSwitch]="link.name">
         <ng-container *ngSwitchCase="'News'">
@@ -60,8 +60,6 @@
     <button class="notifications" [ngClass]="{active:hasNotification}"><i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i> {{notificationCount}}
       <scfr-header-notification-pannel class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
     </button>
-
-
   </div>
 
 </div>

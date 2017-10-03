@@ -22,14 +22,13 @@ md-toolbar {
 
 .main-navigator-wrapper {
     height:100vh;
-
+    padding-top: 64px;
     .main-navigator {
         .main-navigator-list {
-            padding-left:0px;
             overflow: hidden;
             overflow-y: auto;
             margin: 0;
-            padding: 10px 0px;
+            padding: 0px 0px 10px;
         }
     }
 

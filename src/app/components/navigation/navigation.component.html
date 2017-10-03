@@ -1,10 +1,5 @@
 <div class="main-navigator-wrapper" fxLayout="column">
 
-    <md-toolbar class="logo">
-        <button md-icon-button (click)="toggle = false"><md-icon>menu</md-icon></button>
-        <a uiSref="phpbb.seo.index" class="logo-container"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
-    </md-toolbar>
-
     <div class="main-navigator" fxFlex fxLayout="column">
         <ul class="main-navigator-list" fxFlex>
             <scfr-forum-navigation-forum-link *ngFor="let forum of forumMap[0]" [forum]="forum" [navCo]="this" [depth]="0"></scfr-forum-navigation-forum-link>
