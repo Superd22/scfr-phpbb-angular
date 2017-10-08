@@ -1,0 +1,4 @@
+@import "material/common/colors";
+:host {
+    background: transparentize($dark-blue, 0.6);
+}

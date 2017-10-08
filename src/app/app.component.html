@@ -1,7 +1,7 @@
+<scfr-global-header-bar (toggleNav)="toggleLeftNav()" class="global-header" [tpl]="tpl"></scfr-global-header-bar>
 <md-sidenav-container class="app-layout">
-  <md-sidenav #sidenav #start [mode]="mode" [opened]="toggle" (close-start)="toggle = false" fxFlex.lt-sm="80%" fxFlex.gt-sm="325px">
-    <scfr-forum-global-header-bar (toggled)="toggle = true" class="global-header" [tpl]="tpl"></scfr-forum-global-header-bar>
-    <app-navigation [(toggle)]="toggle" ></app-navigation>
+  <md-sidenav #sidenav #start [mode]="mode" [opened]="toggle" fxFlex.lt-sm="80%" fxFlex.gt-sm="325px">
+    <app-navigation></app-navigation>
   </md-sidenav>
   <div id="top"></div>
   <scfr-forum-header-bar></scfr-forum-header-bar>

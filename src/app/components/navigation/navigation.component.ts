@@ -9,7 +9,8 @@ import { IndexResponse } from '../../models/IndexResponse';
 
 import { PhpbbApiService } from '../../services/phpbb-api.service';
 import { LoginService } from '../../services/login.service';
-import { UnreadResponse } from "../../models/Search/UnreadReponse";
+import { UnreadResponse } from '../../models/Search/UnreadReponse';
+import {LayoutService} from 'app/material/services/layout-service.service';
 
 
 @Component({
@@ -26,19 +27,25 @@ export class NavigationComponent implements OnInit {
     /** holder of the states we need to display */
     public filteredForumList: FilteredForumsPipeResult = { original: [], extended: [] };
     /** current string search for forums */
-    public searchForum: string = "";
+    public searchForum: string = '';
 
-    @Input("toggle")
-    public _toggle: boolean;
-    @Output()
-    public toggleChange = new EventEmitter<boolean>();
-
-    public get toggle(): boolean { return this._toggle; }
-    public set toggle(toggle: boolean) { this._toggle = toggle; this.toggleChange.emit(toggle); }
+    /**
+     * Is the current media <= md
+     */
+    public mobileNavigation: boolean;
 
     private _registeredForums: { [forumId: number]: ForumLinkComponent } = {};
 
-    constructor(private stateT: StateTranslate, public LoginService: LoginService, private state: StateService) { }
+    constructor(
+        private stateT: StateTranslate,
+        public LoginService: LoginService,
+        private state: StateService,
+        public layout: LayoutService
+    ) { }
+
+    ngOnInit() {
+        this.fetchForumList();
+    }
 
     public get forumList() {
         return this._forumList;
@@ -46,10 +53,6 @@ export class NavigationComponent implements OnInit {
 
     public set forumList(set) {
         this._forumList = set;
-    }
-
-    ngOnInit() {
-        this.fetchForumList();
     }
 
     /**
@@ -65,15 +68,15 @@ export class NavigationComponent implements OnInit {
                 }
             }
             // Should never happen.
-            else throw "NO JUMPBOX FORUM FROM TEMPLATE";
+            else throw 'NO JUMPBOX FORUM FROM TEMPLATE';
         });
     }
 
     /**
-     * Creates our hiearchy of forum/sub-forums 
-     * 
-     * @param jumpbox 
-     * @param map 
+     * Creates our hiearchy of forum/sub-forums
+     *
+     * @param jumpbox
+     * @param map
      */
     private handleForumJumpBox(jumpbox: UnreadResponse.JumpboxForum[], map) {
         let jb = jumpbox.slice();
@@ -178,14 +181,14 @@ export class NavigationComponent implements OnInit {
     }
 
     /**
-     * Helper method to go to the search state 
+     * Helper method to go to the search state
      */
     public goToSearch() {
         // Go search
-        this.state.go("phpbb.seo.search", { keywords: this.searchForum });
+        this.state.go('phpbb.seo.search', { keywords: this.searchForum });
 
         // Reset the search to display forums again
-        this.searchForum = "";
+        this.searchForum = '';
     }
 
 }

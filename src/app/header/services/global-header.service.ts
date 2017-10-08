@@ -20,7 +20,7 @@ export class GlobalHeaderService {
 
   constructor(private http: Http) { }
 
-  /** 
+  /**
    * Fetch the header data from the back-end
    * @param force force update even if we have a cached value.
    */
@@ -44,14 +44,13 @@ export class GlobalHeaderService {
 
   /**
    * Get a forum tpl object by the component, and fetches it if undefined.
-   * 
-   * @param tpl 
+   *
+   * @param tpl
    */
   public setForumTpl(tpl: any) {
     if (!tpl) {
       this.fetchForumData();
-    }
-    else this.setForumData(tpl);
+    } else this.setForumData(tpl);
   }
 
   public setEnv(envUrl: string) {
@@ -70,8 +69,8 @@ export class GlobalHeaderService {
 
   /**
    * Takes a forum tpl and sets all the value we use.
-   * 
-   * @param tpl the forum tpl object. 
+   *
+   * @param tpl the forum tpl object.
    */
   private setForumData(tpl) {
     this.loggedIn = (Number(tpl['CURRENT_USER_ID']) > 1);

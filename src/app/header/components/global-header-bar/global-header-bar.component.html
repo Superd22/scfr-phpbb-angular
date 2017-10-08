@@ -1,11 +1,11 @@
-<div class="global-nav-bar" [ngClass]="{fixed: fixed}" [style.top]='scrollTop' [style.margin-top]="marginTop" fxLayout="column">
+<div class="global-nav-bar" [ngClass]="{fixed: fixed}" [style.top]='scrollTop' [style.margin-top]="marginTop" ngClass.lt-lg="mobile">
 
-  <div class="logo" fxFlex.lt-sm="80%" fxFlex.gt-sm="325px">
-    <button (click)="toggleMenu = true"><i class="material-icons">menu</i></button>
-    <a uiSref="phpbb.seo.index"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
+  <div class="logo-container" fxFlex="80%" fxFlex.gt-sm="325px">
+    <button (click)="toggleMenu()"><i class="material-icons">menu</i></button>
+    <a uiSref="phpbb.seo.index" class="logo"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
   </div>
 
-  <div class="main-links" fxFlex>
+  <div class="main-links" fxHide fxShow.gt-md>
     <scfr-forum-main-link *ngFor="let link of topLinks" [link]="link">
       <ng-container [ngSwitch]="link.name">
         <ng-container *ngSwitchCase="'News'">
@@ -28,7 +28,7 @@
           <ul class="primary">
             <li *ngFor="let sub of SCM.pages">
               <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
-                {{sub.title}} 
+                {{sub.title}}
               </a>
             </li>
           </ul>
@@ -38,7 +38,7 @@
           <ul class="primary">
             <li *ngFor="let sub of COM.pages">
               <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
-                    {{sub.title}} 
+                    {{sub.title}}
                   </a>
             </li>
           </ul>

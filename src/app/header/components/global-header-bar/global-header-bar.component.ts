@@ -4,10 +4,10 @@ import { COMMenu } from './../../enums/communaute.const';
 import { IMainHeaderBarWP } from './../../interfaces/main-header-bar-wp.interface';
 import { mainLinks } from './../../enums/main-links.const';
 import { Component, OnInit, Input, HostListener, NgZone, EventEmitter, Output } from '@angular/core';
-import { GlobalHeaderService } from "app/header/services/global-header.service";
+import { GlobalHeaderService } from 'app/header/services/global-header.service';
 
 @Component({
-  selector: 'scfr-forum-global-header-bar',
+  selector: 'scfr-global-header-bar',
   templateUrl: './global-header-bar.component.html',
   styleUrls: ['./global-header-bar.component.scss']
 })
@@ -15,10 +15,9 @@ export class GlobalHeaderBarComponent implements OnInit {
 
   public topLinks = mainLinks;
   public WPHeader: IMainHeaderBarWP;
-  @Output("toggled")
-  private _toggleChange = new EventEmitter<boolean>();
-  public set toggleMenu(toggle: boolean) { this._toggleChange.emit(toggle); }
 
+  @Output()
+  private toggleNav = new EventEmitter<boolean>();
 
   @Input()
   public displayEvents: boolean = true;
@@ -27,7 +26,7 @@ export class GlobalHeaderBarComponent implements OnInit {
   @Input()
   public tpl;
 
-  @Input("env")
+  @Input('env')
   public envUrl;
 
   public SCM = SCMenu;
@@ -52,6 +51,7 @@ export class GlobalHeaderBarComponent implements OnInit {
     window.addEventListener('scroll', this._onScroll, true);
   }
 
+  public toggleMenu() { this.toggleNav.emit(); }
   public get loggedIn(): boolean { return this.api.loggedIn }
   public get notificationCount(): number { return this.api.notificationCount }
   public get pmCount(): number { return this.api.pmCount; }
@@ -67,7 +67,7 @@ export class GlobalHeaderBarComponent implements OnInit {
       this.ngZone.run(() => this._scrollTop = scrollAmount);
   }
 
-  public get scrollTop(): string { return this._scrollTop + "px"; }
+  public get scrollTop(): string { return this._scrollTop + 'px'; }
 
   public get fixed(): boolean { return this._scrollTop > 64; }
 
@@ -75,7 +75,7 @@ export class GlobalHeaderBarComponent implements OnInit {
     let margin = 0;
     margin = this._scrollTop <= margin ? this._scrollTop : margin;
 
-    return margin + "px";
+    return margin + 'px';
   }
 
   public get hasPm() { return this.pmCount > 0; }

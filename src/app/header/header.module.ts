@@ -6,12 +6,22 @@ import { GlobalHeaderService } from './services/global-header.service';
 import { SmallSecondaryLinkComponent } from './components/global-header-bar/small-secondary-link/small-secondary-link.component';
 import { NotificationPannelComponent } from './components/global-header-bar/notification/notification-pannel/notification-pannel.component';
 import { ANotifComponent } from './components/global-header-bar/notification/a-notif/a-notif.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MobileNavigationComponent} from './components/global-header-bar/mobile-navigation/mobile-navigation.component';
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FlexLayoutModule
   ],
-  declarations: [GlobalHeaderBarComponent, MainLinkComponent, SmallSecondaryLinkComponent, NotificationPannelComponent, ANotifComponent],
-  exports: [GlobalHeaderBarComponent],
+  declarations: [
+    GlobalHeaderBarComponent,
+    MainLinkComponent,
+    SmallSecondaryLinkComponent,
+    NotificationPannelComponent,
+    ANotifComponent,
+    MobileNavigationComponent
+  ],
+  exports: [GlobalHeaderBarComponent, MobileNavigationComponent],
   providers: [GlobalHeaderService]
 })
 export class HeaderModule { }

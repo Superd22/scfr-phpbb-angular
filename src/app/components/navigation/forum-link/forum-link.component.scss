@@ -18,7 +18,7 @@ $list-border-color: rgba(255, 255, 255, 0.3);
         &.secondary {
             .mat-button {font-size:14px;}
         }
-        
+
         &.hidden {
             // !important because fxFlex will set display:flex on elem.
             display: none !important;
@@ -52,6 +52,7 @@ $list-border-color: rgba(255, 255, 255, 0.3);
     .forum-link {
         width:100%;
         text-align:left;
+        //min-width: auto;
         &.mat-button {
             font-family: 'Roboto', sans-serif;
             font-weight:normal;
@@ -63,7 +64,7 @@ $list-border-color: rgba(255, 255, 255, 0.3);
         }
     }
     .sub-forums {
-        padding-left:20px;       
+        padding-left:20px;
         position: relative;
         .leftborder {
             display: none;

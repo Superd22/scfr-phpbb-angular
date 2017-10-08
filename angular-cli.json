@@ -23,6 +23,7 @@
       "stylePreprocessorOptions": {
         "includePaths": [
           "styles",
+          "assets",
           "../node_modules"
         ]
       },

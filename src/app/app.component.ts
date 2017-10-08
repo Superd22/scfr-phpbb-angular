@@ -12,24 +12,25 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
 
     public title = 'SCFR PHPBB APP';
-    public mode = "side";
-    @SCFRLocalStorage("navbar:toggle")
+    public mode = 'side';
+    @SCFRLocalStorage('navbar:toggle')
     public toggle: boolean;
 
-    constructor(private layout: LayoutService, private extra: ExtraModuleInjector) {
-        this.layout.gt_sm.subscribe((gt_sm) => {
-            if (gt_sm) this.mode = "side";
-            else this.mode = "over";
-        });
-        this.layout.gt_md.subscribe((gt_md) => {
-            if(gt_md) this.toggle = true;
-        });
-    }
+    constructor(
+        private layout: LayoutService,
+        private extra: ExtraModuleInjector,
+    ) {}
 
     ngOnInit() {
-
+        this.layout.gt_md.subscribe((gt_md) => {
+            this.mode = (gt_md) ? 'side' : 'over';
+            //this.toggle = gt_md;
+        });
     }
 
+    public toggleLeftNav(){
+        this.toggle = !this.toggle;
+    }
 
 
 }
