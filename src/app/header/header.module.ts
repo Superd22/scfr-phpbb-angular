@@ -8,10 +8,13 @@ import { NotificationPannelComponent } from './components/global-header-bar/noti
 import { ANotifComponent } from './components/global-header-bar/notification/a-notif/a-notif.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MobileNavigationComponent} from './components/global-header-bar/mobile-navigation/mobile-navigation.component';
+import {MdButtonModule, MdIconModule} from '@angular/material';
 @NgModule({
   imports: [
     CommonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MdButtonModule,
+    MdIconModule
   ],
   declarations: [
     GlobalHeaderBarComponent,
@@ -19,7 +22,7 @@ import {MobileNavigationComponent} from './components/global-header-bar/mobile-n
     SmallSecondaryLinkComponent,
     NotificationPannelComponent,
     ANotifComponent,
-    MobileNavigationComponent
+    MobileNavigationComponent,
   ],
   exports: [GlobalHeaderBarComponent, MobileNavigationComponent],
   providers: [GlobalHeaderService]

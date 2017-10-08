@@ -11,25 +11,26 @@ $index-nav-width: 325px;
     display: inline-flex;
     width:100%;
     transition: background-color 0.5s;
-	background: transparentize($bar-background, 0.6);
+    background: transparentize($bar-background, 0.6);
     .logo-container {
+        position: relative;
         max-width: $index-nav-width !important;
         button {
-            position: relative;
+            position: absolute;
             height: 100%;
+            left:0;
+            top:0;
             background: transparent;
             color: white;
             border: 0px;
             outline: none;
             cursor: pointer;
-            float: left;
+            padding: 0 20px;
         }
         .logo {
             position: relative;
             height: 100%;
             display: block;
-            width: calc(100% - 36px);
-            margin-left: 36px;
             img{
                 position: relative;
                 display: block;
@@ -39,6 +40,13 @@ $index-nav-width: 325px;
                 width: auto;
                 margin: auto;
             }
+        }
+        .navigation-mobile-toggle{
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: white;
+            padding: 20px;
         }
     }
 
@@ -107,8 +115,9 @@ $index-nav-width: 325px;
         }
     }
     &.mobile{
-        .logo-container .logo img{
-            margin-left: 30px;
+        background: none;
+        .logo-container .logo{
+            padding: 0 64px;
         }
     }
 }

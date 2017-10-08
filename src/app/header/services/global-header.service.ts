@@ -4,6 +4,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { IMainHeaderBarWP } from './../interfaces/main-header-bar-wp.interface';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class GlobalHeaderService {
@@ -18,7 +19,11 @@ export class GlobalHeaderService {
   public notifications: IPHPBBNotif[] = [];
   private _env: string = "https://www.starcitizen.fr";
 
-  constructor(private http: Http) { }
+  private mobileNavigation: BehaviorSubject<boolean>;
+
+  constructor(private http: Http) {
+      this.mobileNavigation = new BehaviorSubject(false);
+  }
 
   /**
    * Fetch the header data from the back-end
@@ -65,6 +70,14 @@ export class GlobalHeaderService {
       let tpl = res.json()['@template'];
       this.setForumData(tpl);
     });
+  }
+
+  public getMobileNavigation(){
+    return this.mobileNavigation;
+  }
+
+  public toggleMobileNavigation(){
+    this.mobileNavigation.next(!this.mobileNavigation.value);
   }
 
   /**

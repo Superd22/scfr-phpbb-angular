@@ -1,4 +1,10 @@
 @import "material/common/colors";
 :host {
-    background: transparentize($dark-blue, 0.6);
+    background: $dark-blue;
+    position: relative;
+}
+.navigation-toggle{
+    md-icon{
+
+    }
 }

@@ -2,6 +2,7 @@ import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
 import { SCFRLocalStorage } from './decorators/LocalStorage.decorator';
 import { LayoutService } from './material/services/layout-service.service';
 import { Component, OnInit } from '@angular/core';
+import {GlobalHeaderService} from 'app/header/services/global-header.service';
 
 @Component({
     selector: 'scfr-phpbb',
@@ -19,12 +20,13 @@ export class AppComponent implements OnInit {
     constructor(
         private layout: LayoutService,
         private extra: ExtraModuleInjector,
+        private navigation: GlobalHeaderService
     ) {}
 
     ngOnInit() {
         this.layout.gt_md.subscribe((gt_md) => {
             this.mode = (gt_md) ? 'side' : 'over';
-            //this.toggle = gt_md;
+            this.toggle = gt_md;
         });
     }
 

@@ -3,7 +3,7 @@ import { SCMenu } from './../../enums/star-citizen.const';
 import { COMMenu } from './../../enums/communaute.const';
 import { IMainHeaderBarWP } from './../../interfaces/main-header-bar-wp.interface';
 import { mainLinks } from './../../enums/main-links.const';
-import { Component, OnInit, Input, HostListener, NgZone, EventEmitter, Output } from '@angular/core';
+import {Component, OnInit, Input, HostListener, NgZone, EventEmitter, Output, OnChanges} from '@angular/core';
 import { GlobalHeaderService } from 'app/header/services/global-header.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { GlobalHeaderService } from 'app/header/services/global-header.service';
   templateUrl: './global-header-bar.component.html',
   styleUrls: ['./global-header-bar.component.scss']
 })
-export class GlobalHeaderBarComponent implements OnInit {
+export class GlobalHeaderBarComponent implements OnInit, OnChanges {
 
   public topLinks = mainLinks;
   public WPHeader: IMainHeaderBarWP;
@@ -35,19 +35,21 @@ export class GlobalHeaderBarComponent implements OnInit {
   private _scrollTop = 0;
 
 
-  constructor(private api: GlobalHeaderService, private ngZone: NgZone) {
-    this.api.getHeaderData().subscribe((wpHeader) => {
-      this.WPHeader = wpHeader;
-    });
-
-    this.api.setForumTpl(this.tpl);
-  }
+  constructor(
+      private api: GlobalHeaderService,
+      private ngZone: NgZone,
+  ) {}
 
   ngOnChanges() {
     this.api.setForumTpl(this.tpl);
   }
 
   ngOnInit() {
+    this.api.getHeaderData().subscribe((wpHeader) => {
+      this.WPHeader = wpHeader;
+    });
+
+    this.api.setForumTpl(this.tpl);
     window.addEventListener('scroll', this._onScroll, true);
   }
 
@@ -57,6 +59,10 @@ export class GlobalHeaderBarComponent implements OnInit {
   public get pmCount(): number { return this.api.pmCount; }
   public get notifications(): IPHPBBNotif[] { return this.api.notifications; }
   public get markNotificationRead(): string { return this.api.markNotificationRead; }
+  public get hasPm() { return this.pmCount > 0; }
+  public get hasNotification() { return this.notificationCount > 0; }
+  public togglePrimaryNavigation() {this.api.toggleMobileNavigation();}
+  public get mobileNavToggled() {return this.api.getMobileNavigation();}
 
   private _onScroll = () => {
     let material = document.getElementsByClassName('mat-sidenav-content');
@@ -77,9 +83,6 @@ export class GlobalHeaderBarComponent implements OnInit {
 
     return margin + 'px';
   }
-
-  public get hasPm() { return this.pmCount > 0; }
-  public get hasNotification() { return this.notificationCount > 0; }
 
   public markAllNotificationRead() {
 
