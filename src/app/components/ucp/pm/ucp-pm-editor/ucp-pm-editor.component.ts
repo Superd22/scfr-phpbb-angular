@@ -19,7 +19,7 @@ export class UcpPmEditorComponent extends PhpbbComponent {
 
 
   @SCFRUIParam("action")
-  private _action: "reply" | "quote" | "forward" = null;
+  private _action: "reply" | "quote" | "forward";
   @SCFRUIParam("p")
   private _postId: number;
   @SCFRUIParam("u")

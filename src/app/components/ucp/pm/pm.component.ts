@@ -16,7 +16,7 @@ export class PmComponent implements OnInit {
 
 
   @SCFRUIParam("mode")
-  public _mode = null;
+  public _mode;
 
   constructor(public MPService: PrivateMessageService, public state: StateService) {
   }
