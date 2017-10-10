@@ -22,6 +22,9 @@ export function SCFRUIParam(key?: string) {
         }
 
         let setter = function (value: any) {
+            // Do not do anything if the value hasn't changed
+            if(state.params[key] === value) return;
+
             let newParam = {};
             newParam[key] = value;
 
