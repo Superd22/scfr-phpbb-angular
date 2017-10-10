@@ -19,10 +19,7 @@ export class GlobalHeaderService {
   public notifications: IPHPBBNotif[] = [];
   private _env: string = "https://www.starcitizen.fr";
 
-  private mobileNavigation: BehaviorSubject<boolean>;
-
   constructor(private http: Http) {
-      this.mobileNavigation = new BehaviorSubject(false);
   }
 
   /**
@@ -32,7 +29,7 @@ export class GlobalHeaderService {
   public getHeaderData(force?: boolean): ReplaySubject<IMainHeaderBarWP> {
     let fetch = false;
     if (!this._headerDataCache) {
-      fetch = true
+      fetch = true;
       this._headerDataCache = new ReplaySubject(1);
     }
 
@@ -70,14 +67,6 @@ export class GlobalHeaderService {
       let tpl = res.json()['@template'];
       this.setForumData(tpl);
     });
-  }
-
-  public getMobileNavigation(){
-    return this.mobileNavigation;
-  }
-
-  public toggleMobileNavigation(){
-    this.mobileNavigation.next(!this.mobileNavigation.value);
   }
 
   /**

@@ -1,4 +1,4 @@
-<ul [hidden]="!(expanded | async)">
+<ul>
     <li *ngFor="let link of mainLinks">
         <a [href]="link.target">{{link.name}}</a>
     </li>

@@ -16,8 +16,14 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
   public topLinks = mainLinks;
   public WPHeader: IMainHeaderBarWP;
 
-  @Output()
-  private toggleNav = new EventEmitter<boolean>();
+  @Input() sidenav: boolean;
+  @Input('sidenav-open') sidenavOpen: boolean;
+  @Input('mobile-sidenav-open') mobileSidenavOpen: boolean;
+  @Input('mobile-menu') mobileMenu: boolean;
+  @Output() private toggleNav = new EventEmitter<boolean>();
+  @Output() toggleSidenav = new EventEmitter<boolean>();
+  @Output() toggleMobileNav = new EventEmitter<boolean>();
+
 
   @Input()
   public displayEvents: boolean = true;
@@ -33,7 +39,6 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
   public COM = COMMenu;
 
   private _scrollTop = 0;
-
 
   constructor(
       private api: GlobalHeaderService,
@@ -53,16 +58,14 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
     window.addEventListener('scroll', this._onScroll, true);
   }
 
-  public toggleMenu() { this.toggleNav.emit(); }
-  public get loggedIn(): boolean { return this.api.loggedIn }
-  public get notificationCount(): number { return this.api.notificationCount }
+  //public toggleMenu() { this.toggleNav.emit(); }
+  public get loggedIn(): boolean { return this.api.loggedIn; }
+  public get notificationCount(): number { return this.api.notificationCount; }
   public get pmCount(): number { return this.api.pmCount; }
   public get notifications(): IPHPBBNotif[] { return this.api.notifications; }
   public get markNotificationRead(): string { return this.api.markNotificationRead; }
   public get hasPm() { return this.pmCount > 0; }
   public get hasNotification() { return this.notificationCount > 0; }
-  public togglePrimaryNavigation() {this.api.toggleMobileNavigation();}
-  public get mobileNavToggled() {return this.api.getMobileNavigation();}
 
   private _onScroll = () => {
     let material = document.getElementsByClassName('mat-sidenav-content');
