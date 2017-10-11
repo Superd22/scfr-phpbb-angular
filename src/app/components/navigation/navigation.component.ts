@@ -10,8 +10,9 @@ import { IndexResponse } from '../../models/IndexResponse';
 import { PhpbbApiService } from '../../services/phpbb-api.service';
 import { LoginService } from '../../services/login.service';
 import { UnreadResponse } from '../../models/Search/UnreadReponse';
-import {LayoutService} from 'app/material/services/layout-service.service';
-import {NavigationService} from 'app/services/navigation.service';
+import { LayoutService } from 'app/material/services/layout-service.service';
+import { NavigationService } from 'app/services/navigation.service';
+import { ObservableMedia } from '@angular/flex-layout';
 
 
 @Component({
@@ -41,8 +42,23 @@ export class NavigationComponent implements OnInit {
         private stateT: StateTranslate,
         public LoginService: LoginService,
         private state: StateService,
-        public navigation: NavigationService
-    ) { }
+        public navigation: NavigationService,
+        protected media: ObservableMedia
+    ) {
+
+        // subscribe to break-points activations
+        media.subscribe((newMedia) => {
+            // > md
+            if (newMedia.mqAlias == "lg" || newMedia.mqAlias == "xl") {
+                // We got back the full header-bar, force un-toggle of the mobile version.
+                if (this.mobileNavigation) this.navigation.sidenavMainNavigationToggled.next(false);
+                // We're no longer in mobile navigation
+                this.mobileNavigation = false;
+            }
+            else this.mobileNavigation = true;
+        });
+
+    }
 
     ngOnInit() {
         this.fetchForumList();
