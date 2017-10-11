@@ -1,4 +1,4 @@
-<div class="navigation-container" [class.collapsed]="toggle">
+<div class="navigation-container" [class.collapsed]="!toggle">
     <ul class="navigation-list">
         <li *ngFor="let link of mainLinks" class="navigation-item">
             <a [href]="link.target">{{link.name}}</a>
