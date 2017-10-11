@@ -1,5 +1,6 @@
 <scfr-global-header-bar class="global-header"
-                        [sidenav]="true"
+                        [tpl]="tpl"
+                        [sidenav-open]="navigation.sidenavToggled | async"
                         [mobile-menu]="navigation.mobileMenu | async"
                         (toggleSidenav)="navigation.toggleSidenav()"
 ></scfr-global-header-bar>
