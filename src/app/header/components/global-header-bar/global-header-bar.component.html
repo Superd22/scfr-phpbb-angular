@@ -3,7 +3,9 @@
   <div class="logo-container" fxFlex="80%" fxFlex.gt-sm="325px">
     <a uiSref="phpbb.seo.index" class="logo"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
     <button *ngIf="sidenav" (click)="toggleSidenav.emit()"><i class="material-icons">menu</i></button>
-    <div *ngIf="sidenav && sidenavOpen" class="navigation-mobile-toggle" (click)="toggleMobileNav.emit()" fxShow fxHide.gt-md><md-icon>{{(mobileSidenavOpen) ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon></div>
+    <div *ngIf="sidenav && sidenavOpen" class="navigation-mobile-toggle" (click)="toggleMobileNav.emit()" fxShow fxHide.gt-md>
+      <md-icon>{{(mobileSidenavOpen) ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+    </div>
   </div>
 
   <div class="main-links" fxHide fxShow.gt-md>
@@ -56,10 +58,11 @@
     </scfr-forum-main-link>
   </div>
 
+  <div class="separator" fxFlex></div>
+
   <div class="events" *ngIf="displayEvents && loggedIn">
-    <button class="pm" [ngClass]="{active:hasPm}"><i class="material-icons">{{hasPm ? 'mail' : 'mail_outline'}}</i> {{pmCount}}</button>
-    <button class="notifications" [ngClass]="{active:hasNotification}"><i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i> {{notificationCount}}
-      <scfr-header-notification-pannel class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
+    <button class="pm" [ngClass]="{active:hasPm}"><i class="material-icons">{{hasPm ? 'mail' : 'mail_outline'}}</i> <span class="count">{{pmCount}}</span></button>
+    <button class="notifications" [ngClass]="{active:hasNotification}"><i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i> <span class="count">{{notificationCount}}</span>      <scfr-header-notification-pannel class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
     </button>
   </div>
 
