@@ -31,7 +31,6 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.layout.gt_md.subscribe((gt_md) => {
             this.navigation.setSidenavMode((gt_md) ? 'side' : 'over');
-            this.navigation.setSidenavToggled(gt_md);
             this.navigation.setMobileMenu(!gt_md);
         });
     }
