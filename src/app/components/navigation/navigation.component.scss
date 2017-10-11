@@ -33,14 +33,15 @@ md-toolbar {
     }
 
     .search {
-        padding:24px;
-        padding-bottom:0px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px 24px 0;
         align-items: center;
-        font-family: "Open Sans";
+        font-family: $text-font-main;
         font-size:18px;
         .search-more {
             padding:12px;
+        }
+        md-icon{
+            vertical-align: bottom;
         }
     }
 }

@@ -1,5 +1,6 @@
-@import './src/assets/material/v7/main';
-@import "./src/assets/material/common/common";
+@import 'material/v7/main';
+@import 'material/common/common';
+@import 'material/common/breakpoint';
 .forum-header {
     align-items: flex-end;
 
@@ -11,7 +12,7 @@
         // Material floating placeholder align
         margin-bottom: -10px;
         position:relative;
-        
+
         .forum-absolute-actions {
             position: absolute;
             bottom: -34px;
@@ -45,15 +46,20 @@
         padding: 10px 20px;
         background: #adc8dc;
         z-index: 0;
-        font-family: "Electrolize";
+        font-family: 'Electrolize';
         text-transform: uppercase;
         color: #26323b;
         font-weight: bolder;
-        
+
     }
 }
 .sub-forum-container {
-    margin-left: -10px;
-    margin-right: -10px;
-    margin-bottom: 40px;
+    //margin-left: -10px;
+    //margin-right: -10px;
+    //margin-bottom: 40px;
+}
+@include media-breakpoint-down(md){
+    .container{
+        margin: 0;
+    }
 }

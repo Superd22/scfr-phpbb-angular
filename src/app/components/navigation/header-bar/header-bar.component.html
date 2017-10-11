@@ -9,9 +9,7 @@
   </ng-container>
 
   <md-select *ngIf="select && navlinks" (change)="goToForum($event.value)" [(ngModel)]="selectedForum" fxFlex>
-    <md-option *ngFor="let link of navlinks" [value]="link.FORUM_ID">
-      {{link.FORUM_NAME}}
-    </md-option>
+    <md-option *ngFor="let link of navlinks" [value]="link.FORUM_ID">{{link.FORUM_NAME}}</md-option>
   </md-select>
 </div>
 <md-progress-bar class="progress-bar" [ngClass]="{hidden:!busy}" color="accent" mode="indeterminate"></md-progress-bar>
