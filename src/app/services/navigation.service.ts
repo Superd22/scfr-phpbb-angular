@@ -4,10 +4,29 @@ import {environment} from 'environments/environment';
 
 @Injectable()
 export class NavigationService {
-
+  /**
+   * Sidenav open/closed
+   * @type {BehaviorSubject<boolean>}
+   * @private
+   */
   protected _sidenavToggled: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  /**
+   * Sidenav mode
+   * @type {BehaviorSubject<string>}
+   * @private
+   */
   protected _sidenavMode: BehaviorSubject<string> = new BehaviorSubject('over');
+  /**
+   * Main Navigation in the sidenav (Mobile)
+   * @type {BehaviorSubject<boolean>}
+   * @private
+   */
   protected _sidenavMainNavigationToggled: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  /**
+   * Desktop/Mobile menu
+   * @type {BehaviorSubject<boolean>}
+   * @private
+   */
   protected _mobileMenu: BehaviorSubject<boolean> = new BehaviorSubject(false);
   
   constructor() { }

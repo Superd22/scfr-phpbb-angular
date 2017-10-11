@@ -1,5 +1,7 @@
-<ul>
-    <li *ngFor="let link of mainLinks">
-        <a [href]="link.target">{{link.name}}</a>
-    </li>
-</ul>
+<div class="navigation-container" [class.collapsed]="toggle">
+    <ul class="navigation-list">
+        <li *ngFor="let link of mainLinks" class="navigation-item">
+            <a [href]="link.target">{{link.name}}</a>
+        </li>
+    </ul>
+</div>

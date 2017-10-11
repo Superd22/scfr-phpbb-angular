@@ -1,5 +1,5 @@
 <div class="main-navigator-wrapper" fxLayout="column">
-    <scfr-mobile-navigation *ngIf="this.layout.lt_lg | async"></scfr-mobile-navigation>
+    <scfr-mobile-navigation [toggle]="navigation.sidenavMainNavigationToggled | async"></scfr-mobile-navigation>
 
     <div class="main-navigator" fxFlex fxLayout="column">
         <ul class="main-navigator-list" fxFlex>

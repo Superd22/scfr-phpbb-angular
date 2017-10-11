@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+    production: false,
     baseForumUrl: 'https://beta.starcitizen.fr/forum-api/',
     reCaptchaKey: "",
     websocket: 'wss://beta.starcitizen.fr:8080',

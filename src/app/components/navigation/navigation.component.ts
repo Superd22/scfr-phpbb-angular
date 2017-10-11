@@ -11,6 +11,7 @@ import { PhpbbApiService } from '../../services/phpbb-api.service';
 import { LoginService } from '../../services/login.service';
 import { UnreadResponse } from '../../models/Search/UnreadReponse';
 import {LayoutService} from 'app/material/services/layout-service.service';
+import {NavigationService} from 'app/services/navigation.service';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class NavigationComponent implements OnInit {
         private stateT: StateTranslate,
         public LoginService: LoginService,
         private state: StateService,
-        public layout: LayoutService
+        public navigation: NavigationService
     ) { }
 
     ngOnInit() {
