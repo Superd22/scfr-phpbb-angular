@@ -17,13 +17,8 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
   public WPHeader: IMainHeaderBarWP;
 
   @Input() sidenav: boolean;
-  @Input('sidenav-open') sidenavOpen: boolean;
-  @Input('mobile-sidenav-open') mobileSidenavOpen: boolean;
   @Input('mobile-menu') mobileMenu: boolean;
-  @Output() private toggleNav = new EventEmitter<boolean>();
   @Output() toggleSidenav = new EventEmitter<boolean>();
-  @Output() toggleMobileNav = new EventEmitter<boolean>();
-
 
   @Input()
   public displayEvents: boolean = true;

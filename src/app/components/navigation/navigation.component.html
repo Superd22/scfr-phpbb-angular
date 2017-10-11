@@ -1,4 +1,13 @@
 <div class="main-navigator-wrapper" fxLayout="column">
+
+    <div class="logo-container">
+        <a uiSref="phpbb.seo.index" class="logo"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
+        <button (click)="navigation.toggleSidenav()"><i class="material-icons">menu</i></button>
+        <button class="navigation-mobile-toggle" fxShow fxHide.gt-md (click)="navigation.toggleSidenavMainNavigation()">
+            <md-icon>{{(navigation.sidenavMainNavigationToggled | async) ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+        </button>
+    </div>
+
     <scfr-mobile-navigation [toggle]="navigation.sidenavMainNavigationToggled | async"></scfr-mobile-navigation>
 
     <div class="main-navigator" fxFlex fxLayout="column">

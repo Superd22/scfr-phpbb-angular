@@ -1,11 +1,7 @@
 <scfr-global-header-bar class="global-header"
-                        [tpl]="tpl"
                         [sidenav]="true"
-                        [sidenav-open]="navigation.sidenavToggled | async"
                         [mobile-menu]="navigation.mobileMenu | async"
-                        [mobile-sidenav-open]="navigation.sidenavMainNavigationToggled | async"
                         (toggleSidenav)="navigation.toggleSidenav()"
-                        (toggleMobileNav)="navigation.toggleSidenavMainNavigation()"
 ></scfr-global-header-bar>
 <md-sidenav-container class="app-layout">
   <md-sidenav #sidenav #start [mode]="navigation.sidenavMode | async" [opened]="navigation.sidenavToggled | async" fxFlex.lt-sm="80%" fxFlex.gt-sm="325px">
