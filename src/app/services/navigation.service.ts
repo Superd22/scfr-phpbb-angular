@@ -21,7 +21,7 @@ export class NavigationService {
    * @type {BehaviorSubject<string>}
    * @private
    */
-  protected _sidenavMode: BehaviorSubject<string> = new BehaviorSubject('side');
+  protected _sidenavMode: BehaviorSubject<NavBarSupportedMode> = new BehaviorSubject<NavBarSupportedMode>('side');
   /**
    * Main Navigation in the sidenav (Mobile)
    * @type {BehaviorSubject<boolean>}
@@ -70,7 +70,7 @@ export class NavigationService {
     this._sidenavMainNavigationToggled.next(!this._sidenavMainNavigationToggled.value);
   }
 
-  setSidenavMode(value: string) {
+  setSidenavMode(value: NavBarSupportedMode) {
     if (!environment.production) console.log('Set Sidenav Mode :' + value);
     this._sidenavMode.next(value);
   }
@@ -82,3 +82,7 @@ export class NavigationService {
 
 
 }
+
+
+/** describe the mode of navbars supported by the app */
+export type NavBarSupportedMode = "over" | "side";

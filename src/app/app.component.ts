@@ -5,7 +5,7 @@ import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
 import { SCFRLocalStorage } from './decorators/LocalStorage.decorator';
 import { LayoutService } from './material/services/layout-service.service';
 import { Component, OnInit } from '@angular/core';
-import { NavigationService } from 'app/services/navigation.service';
+import { NavigationService, NavBarSupportedMode } from 'app/services/navigation.service';
 
 @Component({
     selector: 'scfr-phpbb',
@@ -16,7 +16,7 @@ import { NavigationService } from 'app/services/navigation.service';
 export class AppComponent implements OnInit {
 
     public title = 'SCFR PHPBB APP';
-    public mode = 'side';
+    public mode: NavBarSupportedMode = 'side';
     public tpl: IPhpbbTemplate;
 
     constructor(
@@ -29,8 +29,23 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.navbarHandler();
+    }
+
+
+    /**
+     * Handles the logic around the type/mode of navbar we want
+     */
+    public navbarHandler() {
         this.layout.gt_md.subscribe((gt_md) => {
-            this.navigation.setSidenavMode((gt_md) ? 'side' : 'over');
+            const newMod: NavBarSupportedMode = (gt_md) ? 'side' : 'over';
+
+            if (newMod != this.mode) {
+                // Set our mod
+                this.navigation.setSidenavMode(newMod);
+
+                this.mode = newMod;
+            }
             this.navigation.setMobileMenu(!gt_md);
         });
     }
