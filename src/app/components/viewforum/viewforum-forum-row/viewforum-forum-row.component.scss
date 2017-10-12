@@ -1,4 +1,5 @@
-@import './src/assets/material/v7/main';
+@import 'material/v7/main';
+@import 'material/common/breakpoint';
 $height: 150px;
 $t-mask-delay: 0.5s;
 $unread-color:  map-get($scfr-mat-blue-grey-background, 500);
@@ -21,17 +22,12 @@ $main-bg: transparentize(map_get($scfr-mat-blue-grey-background, 500), 0.25);
 
 .subforum {
     margin: 8px 10px;
-    padding: 20px;
+    padding: 10px 20px;
     position:relative;
     transition:0.5s;
     overflow:hidden;
     background: $main-bg;
-    font-family: "Open Sans";
-
-    &.small {
-        margin: -4px -20px;
-    }
-
+    font-family: $text-font-main;
     h3 {
         font-size: 16px;
         line-height: 16px;
@@ -67,12 +63,16 @@ $main-bg: transparentize(map_get($scfr-mat-blue-grey-background, 500), 0.25);
         display: block;
         font-size: $font-size;
         line-height: 14px;
-        height: 42px;
         margin-bottom: 20px;
         overflow: hidden;
         padding: 0px;
         &.description{
-           width: 100%;
+            width: 100%;
+            height: 42px;
+            @include media-breakpoint-down(md){
+                height: auto;
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -84,7 +84,7 @@ $main-bg: transparentize(map_get($scfr-mat-blue-grey-background, 500), 0.25);
     }
 
     .stats {
-        font-family: "Electrolize";
+        font-family: $text-font-header-title;
         color: #a0a0a0;
         position: relative;
         display: block;
@@ -108,6 +108,9 @@ $main-bg: transparentize(map_get($scfr-mat-blue-grey-background, 500), 0.25);
             &:first-of-type {
                 margin-right:12px;
             }
+        }
+        @include media-breakpoint-down(md){
+            margin-top: 10px;
         }
     }
 }

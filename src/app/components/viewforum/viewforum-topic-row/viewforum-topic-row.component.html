@@ -39,6 +39,6 @@
   <div class="topic-last-reply" fxFlex="100" fxFlex.gt-xs="25" class="topic-time">
     <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: topic.FORUM_ID, topicId: topic.TOPIC_ID, p: lastPostId}">{{L_.LAST_POST}} {{L_.POST_BY_AUTHOR}}{{L_.COLON}}</a>
     <scfr-forum-phpbb-username [name]="replyAuthor?.userName" [color]="replyAuthor?.userColor" [id]="replyAuthor?.userId"></scfr-forum-phpbb-username>
-    <br /> <span class="topic-time">{{topic.LAST_POST_TIME}}</span>
+    <br fxHide fxShow.gt-sm/> <span class="topic-time">{{topic.LAST_POST_TIME}}</span>
   </div>
 </div>

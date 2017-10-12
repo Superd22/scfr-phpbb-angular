@@ -1,11 +1,11 @@
-<div class="global-nav-bar" [ngClass]="{logo: displayLogo, fixed: fixed}" [style.top]='scrollTop' [style.margin-top]="marginTop"
-  fxLayout="column">
-  <div class="logo">
-    <button (click)="toggleMenu = true"><i class="material-icons">menu</i></button>
-    <a uiSref="phpbb.seo.index"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
+<div class="global-nav-bar" [ngClass]="{fixed: fixed}" [style.top]='scrollTop' [style.margin-top]="marginTop" [class.mobile]="mobileMenu">
+
+  <div class="logo-container" fxFlex="80%" fxFlex.gt-sm="325px">
+    <a uiSref="phpbb.seo.index" class="logo"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
+    <button *ngIf="sidenav" (click)="toggleSidenav.emit()"><i class="material-icons">menu</i></button>
   </div>
 
-  <div class="main-links">
+  <div class="main-links" fxHide fxShow.gt-md>
     <scfr-forum-main-link *ngFor="let link of topLinks" [link]="link">
       <ng-container [ngSwitch]="link.name">
         <ng-container *ngSwitchCase="'News'">
@@ -28,7 +28,7 @@
           <ul class="primary">
             <li *ngFor="let sub of SCM.pages">
               <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
-                {{sub.title}} 
+                {{sub.title}}
               </a>
             </li>
           </ul>
@@ -38,7 +38,7 @@
           <ul class="primary">
             <li *ngFor="let sub of COM.pages">
               <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
-                    {{sub.title}} 
+                    {{sub.title}}
                   </a>
             </li>
           </ul>
@@ -55,13 +55,12 @@
     </scfr-forum-main-link>
   </div>
 
+  <div class="separator" fxFlex></div>
+
   <div class="events" *ngIf="displayEvents && loggedIn">
-    <button class="pm" [ngClass]="{active:hasPm}"><i class="material-icons">{{hasPm ? 'mail' : 'mail_outline'}}</i> {{pmCount}}</button>
-    <button class="notifications" [ngClass]="{active:hasNotification}"><i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i> {{notificationCount}}
-      <scfr-header-notification-pannel class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
+    <button class="pm" [ngClass]="{active:hasPm}"><i class="material-icons">{{hasPm ? 'mail' : 'mail_outline'}}</i> <span class="count">{{pmCount}}</span></button>
+    <button class="notifications" [ngClass]="{active:hasNotification}"><i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i> <span class="count">{{notificationCount}}</span>      <scfr-header-notification-pannel class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
     </button>
-
-
   </div>
 
 </div>

@@ -10,6 +10,9 @@ snack-bar-container{
 a img, img {
         max-width: 100%
 }
+.mat-drawer{
+    min-width: 320px !important;
+}
 .mat-sidenav-content,
 .mat-sidenav-container,
 .mat-drawer-content {

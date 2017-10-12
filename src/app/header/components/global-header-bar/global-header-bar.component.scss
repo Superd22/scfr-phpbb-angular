@@ -1,5 +1,8 @@
+@import "material/common/colors";
+
 $line-height: 64px;
-$bar-background: #212B32;
+$bar-background: $dark-blue;
+$index-nav-width: 325px;
 
 .global-nav-bar {
     height: $line-height;
@@ -8,44 +11,35 @@ $bar-background: #212B32;
     display: inline-flex;
     width:100%;
     transition: background-color 0.5s;
-	background: transparentize($bar-background, 0.6);
-    .logo {
-        display:flex;
+    background: transparentize($bar-background, 0.6);
+    .logo-container {
+        position: relative;
+        max-width: $index-nav-width !important;
         button {
+            position: absolute;
+            height: 100%;
+            left:0;
+            top:0;
             background: transparent;
             color: white;
             border: 0px;
             outline: none;
-            margin-left: 12px;
             cursor: pointer;
-            opacity:0;
-            transition:0.2s;
-            &:hover {
-
-            }
+            padding: 0 20px;
         }
-        img {
-            height: $line-height*1.50; 
-            margin-top: -($line-height*0.25);
-            opacity: 0;
-            position: relative;
-            z-index: 11;
-            transition:0.2s;
-            margin-left: -220px;
-            width: 150px;
-            height: 69.5px;
-            padding-top: 14px;
-        }
-    }
-    &.logo {
-        margin-top:15px;
-        flex: 1 1 auto;
         .logo {
-            button {opacity:1;}
-            img {
-                margin-left: 0;
-                opacity:1;
-
+            position: relative;
+            height: 100%;
+            display: block;
+            img{
+                position: relative;
+                display: block;
+                max-width: 100%;
+                max-height: 100%;
+                height: 100%;
+                width: auto;
+                margin: auto;
+                min-width: 139px;
             }
         }
     }
@@ -53,10 +47,6 @@ $bar-background: #212B32;
     &.fixed {
         background-color:$bar-background;
         margin-top:0px;
-    }
-
-    .main-links {
-        flex: 1 1 auto;
     }
 
     .events {
@@ -79,7 +69,7 @@ $bar-background: #212B32;
         }
 
 
-        button {    
+        button {
             cursor:pointer;
             width: 82px;
             background: transparent;
@@ -91,8 +81,12 @@ $bar-background: #212B32;
             line-height: 22px;
             font-family: "Electrolize";
             i {
-                margin-right: 7px;
-                vertical-align: bottom;
+                font-size: 18px;
+                vertical-align: text-bottom;
+            }
+
+            .count {
+                margin-left: 7px;
             }
 
             &.active i {
@@ -106,7 +100,7 @@ $bar-background: #212B32;
                 color: $bar-background;
                 i {color: $bar-background;}
             }
-            
+
             &:hover > .event-menu {
                 display:block;
             }
@@ -117,27 +111,30 @@ $bar-background: #212B32;
                 outline:none;
             }
         }
-
-
-
+    }
+    &.mobile{
+        background: none;
+        .logo-container .logo{
+            padding: 0 64px;
+        }
     }
 }
 
 
 @keyframes shake {
-    
+
     10% {
       transform: translate3d(0px, -6px, 0);
     }
-    
+
     20%, 40%, 60%, 80% {
       transform: translate3d(0px, -6px, 0) rotate(2deg);
     }
-    
+
     30%, 50%, 70% {
       transform: translate3d(0px, -6px, 0) rotate(-2deg);
     }
-    
+
     100% {
       transform: translate3d(0px, 0px, 0)
     }

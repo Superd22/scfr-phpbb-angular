@@ -10,12 +10,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header-bar.component.scss']
 })
 export class HeaderBarComponent implements OnInit {
-
-  @Input("toggle")
-  private _toggle: boolean;
-  @Output()
-  private toggleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   public select: boolean = false;
   public navlinks: NavLink[] = [];
   public busy: boolean;
@@ -26,15 +20,6 @@ export class HeaderBarComponent implements OnInit {
   public loggedIn;
 
   public tpl: IPhpbbTemplate;
-
-  public get toggle() {
-    return this._toggle;
-  }
-
-  public set toggle(toggle: boolean) {
-    this._toggle = toggle;
-    this.toggleChange.emit(toggle);
-  }
 
   constructor(private stateT: StateTranslate, private layout: LayoutService, private state: StateService) {
     this.stateT.latestTemplateData.subscribe((tpl) => {

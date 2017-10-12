@@ -1,5 +1,4 @@
 @import './src/assets/material/v7/main';
-
 .navigator{
     margin: 0;
     flex-grow: 1;
@@ -22,26 +21,65 @@ md-toolbar {
 
 .main-navigator-wrapper {
     height:100vh;
-
     .main-navigator {
         .main-navigator-list {
-            padding-left:0px;
             overflow: hidden;
             overflow-y: auto;
             margin: 0;
-            padding: 10px 0px;
+            padding: 0px 0px 10px;
         }
     }
 
     .search {
-        padding:24px;
-        padding-bottom:0px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px 24px 0;
         align-items: center;
-        font-family: "Open Sans";
+        font-family: $text-font-main;
         font-size:18px;
         .search-more {
             padding:12px;
         }
+        md-icon{
+            vertical-align: bottom;
+        }
+    }
+}
+
+.logo-container {
+    position: relative;
+    height: 64px;
+    background: $dark-blue-secondary;
+    button {
+        position: absolute;
+        height: 100%;
+        left:0;
+        top:0;
+        background: transparent;
+        color: white;
+        border: 0px;
+        outline: none;
+        cursor: pointer;
+        padding: 0 20px;
+    }
+    .logo {
+        position: relative;
+        height: 100%;
+        display: block;
+        img{
+            position: relative;
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            height: 100%;
+            width: auto;
+            margin: auto;
+        }
+    }
+    .navigation-mobile-toggle{
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: white;
+        padding: 20px;
+        left: initial;
     }
 }
