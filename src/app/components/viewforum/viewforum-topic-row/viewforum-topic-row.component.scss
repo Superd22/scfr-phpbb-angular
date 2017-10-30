@@ -70,6 +70,18 @@ $secondary-size: $font-size - 0.15rem;
         @include colorify(#fecb00);
     }
 
+    .forum-title {
+        font-family: "Roboto", sans-serif, sans-serif;
+        text-transform: uppercase;
+        font-size: 0.6rem;
+        display: block;
+        color: #cccccc;
+        &:after {
+            content: '//';
+            color: dodgerblue;
+            margin: 5px;
+        }
+    }
     .topic-title {
         font-family: 'Open sans';
         font-style: normal;

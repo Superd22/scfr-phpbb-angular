@@ -2,6 +2,7 @@
   <div class="topic-icon"></div>
   <!-- uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: topic.FORUM_ID, topicId: topic.TOPIC_ID}" -->
   <div class="topic-title-container" fxFlex="100" fxFlex.gt-xs="40" uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: topic.FORUM_ID, topicId: topic.TOPIC_ID, unread:true}">
+    <a class="forum-title" *ngIf="topic.FORUM_TITLE">{{topic.FORUM_TITLE}}</a>
     <a class="topic-title">{{topic.TOPIC_TITLE}}</a>
     <a class="topic-new-reply" *ngIf="topic.S_UNREAD_TOPIC">...</a>
     <button md-button *ngIf="topic.S_TOPIC_UNAPPROVED || topic.S_POSTS_UNAPPROVED">
