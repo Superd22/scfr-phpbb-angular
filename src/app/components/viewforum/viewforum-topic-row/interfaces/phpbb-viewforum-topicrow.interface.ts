@@ -57,4 +57,7 @@ export interface IPhpbbViewforumTopicrow {
     U_VIEW_FORUM: string;
     U_VIEW_TOPIC: string;
     VIEWS: string;
+    FORUM_TITLE?:string;
+    TOPIC_VIEWS?:string;
+    TOPIC_REPLIES?:string;
 }
