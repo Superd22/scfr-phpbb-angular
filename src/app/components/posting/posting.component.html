@@ -10,13 +10,14 @@
   <md-card-content fxLayout="column" fxLayoutWrap>
 
     <scfr-forum-post-editor [(message)]="post.message"></scfr-forum-post-editor>
-
-    <scfr-forum-posting-options-switcher [posting]="this" ></scfr-forum-posting-options-switcher>
+    <md-progress-bar mode="indeterminate" *ngIf="busy"></md-progress-bar>
+    
+    <scfr-forum-posting-options-switcher [posting]="this"></scfr-forum-posting-options-switcher>
 
   </md-card-content>
   <md-card-actions>
-    <button md-button color="primary" (click)="sendPost()">Envoyer</button>
-    <button md-button (click)="previewPost()">Previsualiser</button>
-    <button md-button color="warn" uiSref='^'>Annuler</button>
+    <button md-button color="primary" (click)="sendPost()" [disabled]="busy">Envoyer</button>
+    <button md-button (click)="previewPost()" [disabled]="busy">Previsualiser</button>
+    <button md-button color="warn" uiSref='^' [disabled]="busy">Annuler</button>
   </md-card-actions>
 </md-card>

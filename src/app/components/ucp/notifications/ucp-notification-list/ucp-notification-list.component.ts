@@ -1,3 +1,4 @@
+import { NotificationsService } from './../../../../services/notifications.service';
 import { UcpSubPageFormComponent } from './../../ucp-sub-page-form/ucp-sub-page-form.component';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UcpNotificationListComponent extends UcpSubPageFormComponent implements OnInit {
 
-  constructor() {
+  constructor(protected notifs: NotificationsService) {
     super();
   }
 
@@ -31,6 +32,6 @@ export class UcpNotificationListComponent extends UcpSubPageFormComponent implem
    * @todo 
    */
   public markAllRead() {
-
+    this.notifs.markAllRead();
   }
 }
