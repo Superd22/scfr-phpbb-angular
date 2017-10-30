@@ -4,5 +4,4 @@ export const environment = {
     reCaptchaKey: "",
     websocket: 'wss://beta.starcitizen.fr:8080',
     baseHref: "/Forum/",
-  };
-  
+};

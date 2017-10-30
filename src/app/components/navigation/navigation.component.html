@@ -1,9 +1,14 @@
 <div class="main-navigator-wrapper" fxLayout="column">
 
-    <md-toolbar class="logo">
-        <button md-icon-button (click)="toggle = false"><md-icon>menu</md-icon></button>
-        <a uiSref="phpbb.seo.index" class="logo-container"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
-    </md-toolbar>
+    <div class="logo-container">
+        <a uiSref="phpbb.seo.index" class="logo"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
+        <button (click)="navigation.toggleSidenav()"><i class="material-icons">menu</i></button>
+        <button class="navigation-mobile-toggle" fxShow fxHide.gt-md (click)="navigation.toggleSidenavMainNavigation()">
+            <md-icon>{{(navigation.sidenavMainNavigationToggled | async) ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+        </button>
+    </div>
+
+    <scfr-mobile-navigation [toggle]="navigation.sidenavMainNavigationToggled | async"></scfr-mobile-navigation>
 
     <div class="main-navigator" fxFlex fxLayout="column">
         <ul class="main-navigator-list" fxFlex>
@@ -12,7 +17,6 @@
     </div>
 
     <div class="search" fxLayout fxLayoutWrap>
-
         <div class="search-more" *ngIf="searchForum" fxFlex="100">
             <button md-raised-button color="primary" (click)="goToSearch()" fxFlex="100"> Recherche avancée </button>
         </div>
@@ -24,5 +28,6 @@
             </md-input-container>
         </div>
     </div>
+
     <app-login class="navigator-bottom"></app-login>
 </div>

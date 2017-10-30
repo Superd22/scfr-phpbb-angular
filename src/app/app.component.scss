@@ -3,3 +3,11 @@ app-navigation{
     flex-direction: column;
     height: 100vh;
 }
+.global-header {
+    z-index: 95;
+    width:100vw;
+    position: fixed;
+}
+md-sidenav{
+    overflow-y: visible;
+}

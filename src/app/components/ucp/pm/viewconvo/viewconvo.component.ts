@@ -13,7 +13,7 @@ export class ViewconvoComponent implements OnInit {
   public convo_id;
 
   @SCFRUIParam("mode")
-  public mode = null;
+  public mode;
   constructor(public MPService: PrivateMessageService, public state: StateService) { }
 
   ngOnInit() {

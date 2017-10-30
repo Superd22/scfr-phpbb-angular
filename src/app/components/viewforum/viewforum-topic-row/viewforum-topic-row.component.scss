@@ -1,4 +1,5 @@
-@import './src/assets/material/v7/main';
+@import 'material/v7/main';
+@import 'material/common/breakpoint';
 
 $border: map-get($scfr-mat-light-blue, 600);
 $main-bg:  transparentize(map-get($scfr-mat-blue-grey-background,600),0.15);
@@ -29,7 +30,7 @@ $secondary-size: $font-size - 0.15rem;
     &:hover {
         background: lighten($main-bg, 5%);
     }
-    
+
     &.unread{
         box-shadow: inset 30px 0px 30px -30px rgba($color,0.8);
     }
@@ -68,7 +69,7 @@ $secondary-size: $font-size - 0.15rem;
     &.sticky {
         @include colorify(#fecb00);
     }
-    
+
     .topic-title {
         font-family: 'Open sans';
         font-style: normal;
@@ -90,6 +91,12 @@ $secondary-size: $font-size - 0.15rem;
         font-size:$secondary-size;
         text-decoration: none;
         color: darken($color, 20%);
+        @include media-breakpoint-down(xs){
+            font-size: .85em;
+            span.topic-time{
+                float: right;
+            }
+        }
     }
     .topic-stats {
         font-size:$secondary-size;

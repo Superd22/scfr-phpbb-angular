@@ -519,10 +519,11 @@ export class StateTranslate {
      * @param transition the transition object to get into an ucp state
      */
     private transform_ucp(transition: Transition): Observable<any> {
+
+
         let params = transition.params();
         let newParam: any = Object.assign({}, params);
         let stateTarget = transition.$to().name == "phpbb.seo.register" ? "phpbb.seo.register" : "phpbb.seo.ucp";
-
 
         /**
          * Array of pretty states (?i=)
@@ -565,6 +566,7 @@ export class StateTranslate {
             indesirables: "foes",
             register: "register",
             liste: "notification_list",
+            compose: "compose",
         };
 
         function get_pretty_state(i) {
@@ -618,7 +620,7 @@ export class StateTranslate {
             if (params.page && !params.i) newParam.i = pretty_states[params.page][0];
             if (params.subPage && !params.mode) newParam.mode = pretty_sub_states[params.subPage];
 
-            if (newParam.page == "mp") stateTarget = "phpbb.seo.ucp.pmConvo";
+            if (newParam.page == "mp" && params.convo) stateTarget = "phpbb.seo.ucp.pmConvo";
 
             // Fetch the actual data
             return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
@@ -628,7 +630,6 @@ export class StateTranslate {
                 }
             )
         }
-
         // We had everything we wanted.
         return Observable.of(true);
     }
@@ -684,6 +685,7 @@ export class StateTranslate {
         catch (e) {
             console.log("cached", e);
         }
+
         return next.toPromise();
     }
 

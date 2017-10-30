@@ -27,13 +27,12 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
     }
 
     &.small {
-        padding: 12px 0px;
+        padding: 12px;
     }
 
-
     .topic-row {
-        @include common-topic-message();       
-        flex: 1 1 100%;     
+        @include common-topic-message();
+        flex: 1 1 100%;
         padding: 12px;
         margin: 4px;
         position:relative;
@@ -42,7 +41,7 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         }
         .title {
             .forum-name {
-                font-family: 'Heebo', sans-serif;
+                font-family: $text-font-header-subtitle, sans-serif;
                 text-transform: uppercase;
                 font-size:0.7rem;
                 &:after {
@@ -54,14 +53,14 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
                 }
             }
             .topic-title {
-                font-family: 'Electrolize';
+                font-family: $text-font-header-title;
                 font-size:1rem;
             }
         }
         .deets {
             display: flex;
             flex-wrap: wrap;
-            font-family: 'Electrolize';
+            font-family: $text-font-header-title;
             font-size: 0.7rem;
             flex: 1 1 25%;
             > div {
@@ -85,11 +84,12 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
     .forums {
         padding-bottom:1.5rem;
         .forum-row {
-            position: relative;
             @include common-topic-message();
+            position: relative;
             background: $bg-color;
+            margin: 8px 0;
             .forum-name {
-                font-family: 'Heebo', sans-serif;
+                font-family: $text-font-header-subtitle, sans-serif;
                 font-size: 1.1rem;
                 text-transform: uppercase;
             }
@@ -99,7 +99,7 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
     .messages {
         padding-bottom:1.5rem;
     }
-    
+
 
     @mixin righty-background-row() {
         margin:14px;
@@ -118,7 +118,7 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
             background-color:transparentize($bg-color, 0.3);
         }
 
-        &.small .mask {    
+        &.small .mask {
             padding: 24px 12px;
             font-size: 0.8rem;
         }
@@ -130,12 +130,12 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         @include righty-background-row();
 
         .parts {
-            margin: 24px 48px;
+            margin: 24px;
             li {
                 padding:8px;
                 position:relative;
                 a {
-                    font-family: "Electrolize";
+                    font-family: $text-font-header-title;
                     text-decoration: none;
                 }
                 &:before {
