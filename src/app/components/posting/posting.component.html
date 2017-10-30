@@ -6,7 +6,6 @@
 </md-card>
 
 <md-card class="posting">
-  <md-card-subtitle>{{L_.INFORMATION}}</md-card-subtitle>
   <md-card-content fxLayout="column" fxLayoutWrap>
 
     <scfr-forum-post-editor [(message)]="post.message"></scfr-forum-post-editor>
@@ -20,4 +19,13 @@
     <button md-button (click)="previewPost()" [disabled]="busy">Previsualiser</button>
     <button md-button color="warn" uiSref='^' [disabled]="busy">Annuler</button>
   </md-card-actions>
+</md-card>
+
+
+<md-card id="topic-summary" *ngIf="tpl.topic_review_row && tpl.topic_review_row.length">
+    <md-card-title>Résumé du topic</md-card-title>
+    <md-card-content>
+      <app-viewmessage *ngFor="let postrow of tpl.topic_review_row" [postrow]="postrow"></app-viewmessage>
+    </md-card-content>
+    
 </md-card>

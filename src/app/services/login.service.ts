@@ -59,6 +59,7 @@ export class LoginService {
             let m = / src="([^"]*)"/.exec(data.CURRENT_USER_AVATAR)
             this.avatar = m && m[1] ? m[1] : "";
             this.username = data.S_USERNAME;
+            /** @todo THIS IS NOT THE USER'S GROUP */
             this.legend = data.LEGEND.split(',')[0];
             this.userStatus.next({ status: data.S_USER_LOGGED_IN });
         } else {

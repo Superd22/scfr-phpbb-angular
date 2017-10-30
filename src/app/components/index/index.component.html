@@ -64,7 +64,8 @@
 </div>
 
 <ng-template #topicDetails let-topic="topic">
-    <div class="topic-row mat-elevation-z1" mdRipple uiSref="phpbb.seo.viewtopic" [uiParams]="{topicId:topic.TOPIC_ID, forumId:topic.FORUM_ID}" >
+    <scfr-forum-viewforum-topic-row fxFlex="100" [topic]="topic"></scfr-forum-viewforum-topic-row>
+    <!-- <div class="topic-row mat-elevation-z1" mdRipple uiSref="phpbb.seo.viewtopic" [uiParams]="{topicId:topic.TOPIC_ID, forumId:topic.FORUM_ID}" >
         <div class="lefty" fxFlex="100" fxLayout fxLayoutWrap>
             <div class="title" fxFlex="100">
                 <span class="forum-name">{{topic.FORUM_TITLE}}</span><span class="topic-title">{{topic.TOPIC_TITLE}}</span>
@@ -85,5 +86,5 @@
                 <em>réponses</em>
             </div>
         </div>
-    </div>
+    </div> -->
 </ng-template>

@@ -29,11 +29,11 @@
 
   <div class="topic-stats" fxLayout fxHide.lt-sm="true" fxFlex="25">
     <dl fxFlex="50" fxHide fxHide.gt-md="false">
-      <dd>{{topic.VIEWS}}</dd>
+      <dd>{{topic.VIEWS || topic.TOPIC_VIEWS}}</dd>
       <dt>{{L_.VIEWS}}</dt>
     </dl>
     <dl fxFlex="100" fxFlex.gt-md="50">
-      <dd>{{topic.REPLIES}}</dd>
+      <dd>{{topic.REPLIES || topic.TOPIC_REPLIES}}</dd>
       <dt>{{L_.REPLIES}}</dt>
     </dl>
   </div>

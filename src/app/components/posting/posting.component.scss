@@ -1,11 +1,19 @@
 @import './src/assets/material/v7/main';
-
 $light-bg: map-get($scfr-mat-blue-grey-background,500);
-
-.preview, .posting {
-    background:$light-bg;
-}
 
 md-card {
     margin:20px;
+    background:$light-bg;
+}
+
+.posting, #topic-summary {
+    background:transparent;
+    box-shadow:none;
+}
+
+#topic-summary {
+    .mat-card-content {
+        max-height:500px;
+        overflow-y:scroll;
+    }
 }

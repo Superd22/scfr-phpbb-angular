@@ -22,7 +22,7 @@ md-card {
     height:30px;
     width:30px;
     font-size:30px;
-    line-height: 30px;
+    line-height: 0px;
     .mat-icon {
         font-size:20px;
         height:20px;
@@ -33,4 +33,6 @@ md-card {
 .tools {
     margin:-12px 0px;
     height: 56px;
+    align-self:center;
+
 }
