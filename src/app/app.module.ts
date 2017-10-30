@@ -163,7 +163,8 @@ import { McpMainMoveComponent } from './components/mcp/mcp-main-move/mcp-main-mo
 import { McpReportBodyComponent } from './components/mcp/mcp-report-body/mcp-report-body.component';
 import { McpSubPopoutComponent } from './components/mcp/mcp-sub-popout/mcp-sub-popout.component';
 import { CommunityHubModule } from './community-hub/community-hub.module';
-import {NavigationService} from 'app/services/navigation.service';
+import { NavigationService } from 'app/services/navigation.service';
+import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
     declarations: [
@@ -312,6 +313,10 @@ import {NavigationService} from 'app/services/navigation.service';
         NgxChartsModule,
         ColorPickerModule,
         CommunityHubModule,
+        AdsenseModule.forRoot({
+            adClient: 'ca-pub-4775589448707742',
+            adSlot: 9343295739,
+        }),
     ],
     entryComponents: [
         DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent, McpMainForumTopicSelectComponent, McpMainMoveComponent,
