@@ -109,13 +109,14 @@ export class StateTranslate {
             return Observable.of(trans.router.stateService.target("phpbb.seo.search", newParams));
 
         // If we haven't fetched data do it
-        if (!params['phpbbResolved'] || !this.isOnceResolved())
+        if (!params['phpbbResolved']) {
             return this.phpbbApi.getSearch(newParams['search_id'], Object.assign(newParams, { phpbbResolved: undefined })).map((data) => {
                 newParams['phpbbResolved'] = data;
 
                 this.setOnceResolved(true);
                 return trans.router.stateService.target("phpbb.seo.search", newParams);
             });
+        }
 
         // We have all we need
         this.setOnceResolved(false);

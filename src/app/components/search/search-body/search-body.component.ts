@@ -26,14 +26,14 @@ export class SearchBodyComponent extends PhpbbComponent {
     super.ngOnInit();
     this.searchForumOptions = this.formHelper.getOptionsAsObject(this.tpl["S_FORUM_OPTIONS"]);
     this.searchCharacterOptions = this.formHelper.getOptionsAsObject(this.tpl["S_CHARACTER_OPTIONS"]);
+    if(this.phpbbTemplateName === "message_body") this.phpbbApi.errorSnackBar(this.tpl["MESSAGE_TEXT"]);
   }
 
   public submit() {
     let hiddens = this.formHelper.getHiddensFromTemplateAsObject(this.tpl);
-    let searchParams = this.formHelper.getFieldsFromFieldComponent(this._fields);
+    let searchParams = this.formHelper.getFieldsFromFieldComponent(this._fields, true);
 
-    let params = Object.assign(hiddens, searchParams, {submit: 'envoyer'});
-
+    let params = Object.assign({}, hiddens, searchParams, {submit: 'envoyer'}, {phpbbResolved: undefined});
     this.state.go("phpbb.seo.search", params);
   }
 

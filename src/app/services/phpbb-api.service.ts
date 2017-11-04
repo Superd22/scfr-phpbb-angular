@@ -185,6 +185,8 @@ export class PhpbbApiService {
      */
     public getSearch(searchId: string, moreArgs = {}): Observable<PhpbbTemplateResponse.DefaultResponse> {
         let params = Object.assign(moreArgs, { search_id: searchId });
+
+        if(params['keywords']) params["keywords"] = decodeURIComponent(params["keywords"]);
         return this.getPage('search.php', params, false, false, true);
     }
 
