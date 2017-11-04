@@ -1,4 +1,4 @@
-# RealSpaceV7
+# RealSpaceV7 [![Build Status](https://travis-ci.com/Superd22/scfr-phpbb-angular.svg?token=ci6yFThxq1SzzactyqxK&branch=master)](https://travis-ci.com/Superd22/scfr-phpbb-angular)
 
 ## Front-end build
 - clone repo
