@@ -5,11 +5,18 @@ import { UIRouter, StatesModule } from "@uirouter/angular";
 import { Inject, Injectable, Injector } from '@angular/core';
 //import * as vis from '@uirouter/visualizer';
 
+declare let ga: any;
+
 export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module: StatesModule) {
     let stateTranslate: StateTranslate = injector.get(StateTranslate);
     let phpbbApi: PhpbbApiService = injector.get(PhpbbApiService);
 
     stateTranslate.uiRouter = router;
+
+    function doGa() {
+        ga('set', 'page', "/Forum/" + location.pathname);
+        ga('send', 'pageview');
+    }
 
     function legacyHook() {
         router.transitionService.onBefore({ to: "phpbb.legacy" }, (trans) =>
@@ -35,11 +42,13 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
         router.transitionService.onSuccess({ to: "phpbb.seo.**" }, () => {
             // we're done loading.
             stateTranslate.loading.next(false);
+            doGa();
         });
 
         router.transitionService.onError({ to: "phpbb.seo.**" }, (t) => {
             // we're done loading.
             stateTranslate.loading.next(false);
+            doGa();
         });
     }
 
