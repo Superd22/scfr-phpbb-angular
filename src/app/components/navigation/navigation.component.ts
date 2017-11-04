@@ -30,6 +30,10 @@ export class NavigationComponent implements OnInit {
     public filteredForumList: FilteredForumsPipeResult = { original: [], extended: [] };
     /** current string search for forums */
     public searchForum: string = '';
+    /** if we're displaying search results inline */
+    public inlineSearch: boolean = false;
+    /** the inline results we got */
+    public inlineSearchResults = [];
 
     /**
      * Is the current media <= md
@@ -43,7 +47,8 @@ export class NavigationComponent implements OnInit {
         public LoginService: LoginService,
         private state: StateService,
         public navigation: NavigationService,
-        protected media: ObservableMedia
+        protected media: ObservableMedia,
+        private api: PhpbbApiService
     ) {
 
         // subscribe to break-points activations
@@ -124,18 +129,25 @@ export class NavigationComponent implements OnInit {
         });
     }
 
+    /**
+     * Triggered on search model change
+     */
     public shouldFilterDisplay() {
         // parents we should open
         let parents: ForumLinkComponent[] = [];
         // forum whose children we should open
         let children: number[] = [];
 
+        let toBeDisplayed = 0;
 
         this._forumList.map((forum) => {
             // check we have the forum component
             if (this._registeredForums[Number(forum.FORUM_ID)]) {
                 // No search, set to true.
-                if (!this.searchForum) this._registeredForums[Number(forum.FORUM_ID)].searchVisible = true;
+                if (!this.searchForum || this.searchForum == "") {
+                    this._registeredForums[Number(forum.FORUM_ID)].searchVisible = true;
+                    toBeDisplayed++;
+                }
                 // We want this forum.
                 else if (forum.FORUM_NAME.toLowerCase().indexOf(this.searchForum.toLowerCase()) > -1) {
                     // We're gonna display it
@@ -144,6 +156,8 @@ export class NavigationComponent implements OnInit {
                     parents.push(this._registeredForums[Number(forum.FORUM_ID)].parent);
                     // We're gonna make sure its children are displayed
                     children.push(Number(forum.FORUM_ID));
+                    // We're displaying something
+                    toBeDisplayed++;
                 }
                 // We don't want this forum
                 else this._registeredForums[Number(forum.FORUM_ID)].searchVisible = false;
@@ -174,8 +188,25 @@ export class NavigationComponent implements OnInit {
         children.forEach((parentId) => {
             doChildren(parentId);
         });
+
+        if (toBeDisplayed == 0) {
+            this.tryInlineSearch();
+        }
+        else this.inlineSearch = false;
     }
 
+    public tryInlineSearch() {
+        this.api.getPage("search.php?keywords=" + this.searchForum).subscribe((data) => {
+            if (data) {
+                this.inlineSearch = true;
+                this.inlineSearchResults = UnicodeToUtf8Pipe.forEach(data['@template'].searchresults);
+            }
+            else {
+                this.inlineSearch = false;
+                this.inlineSearchResults = [];
+            }
+        });
+    }
     public getChildrenOfForum(forum: UnreadResponse.JumpboxForum): UnreadResponse.JumpboxForum[]
     public getChildrenOfForum(forumId: number): UnreadResponse.JumpboxForum[]
     public getChildrenOfForum(forum): UnreadResponse.JumpboxForum[] {

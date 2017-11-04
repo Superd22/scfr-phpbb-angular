@@ -1,8 +1,8 @@
-<div *ngIf="postrow?.S_FIRST_UNREAD"  id="unread" class="anchor" fxLayout fxFlex="100">
+<div *ngIf="postrow?.S_FIRST_UNREAD" id="unread" class="anchor" fxLayout fxFlex="100">
   <div class="bar" fxFlex="100"></div>
   <time>{{postrow?.POST_DATE}}</time>
   <div class="bar" fxFlex="100"></div>
-  
+
   <span class="label">Messages non lus</span>
 </div>
 
@@ -62,14 +62,15 @@
       <div class="side-info-wrapper">
         <div class="side-info-hover-pannel mat-elevation-z3">
           <div fxLayout fxLayoutWrap>
-            <div class="avatar-container"  fxFlex="20">
+            <div class="avatar-container" fxFlex="20">
               <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
               <img *ngIf="!avatarUrl" src="./assets/images/default-avatar.jpg" class="avatar">
             </div>
             <div id="column-2" fxFlex="50" fxLayout="column">
-              <scfr-forum-phpbb-username class="username" [mdTooltip]="postrow?.RANK_TITLE" color="#ffffff"
-                                         [name]="postrow?.POST_AUTHOR" [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
-              <a *ngIf="postrow?.G_SHOW_H && postrow?.G_U_HANDLE" class="handle" href="https://robertsspaceindustries.com/citizens/{{postrow?.G_U_HANDLE}}" target="_blank">
+              <scfr-forum-phpbb-username class="username" [mdTooltip]="postrow?.RANK_TITLE" color="#ffffff" [name]="postrow?.POST_AUTHOR"
+                [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
+              <a *ngIf="postrow?.G_SHOW_H && postrow?.G_U_HANDLE" class="handle" href="https://robertsspaceindustries.com/citizens/{{postrow?.G_U_HANDLE}}"
+                target="_blank">
                 @{{postrow?.G_U_HANDLE}}
               </a>
             </div>
@@ -79,7 +80,9 @@
                 <div class="buttons" fxLayout>
                   <md-icon uiSref="phpbb.seo.ucp.pmConvo" [uiParams]="{mode: 'compose', page:'mp', subPage:'', phpbbResolved:false, u: postrow?.POSTER_ID}">textsms</md-icon>
                   <md-icon uiSref="phpbb.seo.viewprofile" [uiParams]="{userId: postrow?.POSTER_ID}">accessibility</md-icon>
-                  <button *ngIf="tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET" fxFlex><a [href]="'https://starcitizen.fr/Flotte/?page=user&id='+postrow?.POSTER_ID">JULIET</a></button>
+                  <button *ngIf="tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET" fxFlex>
+                    <a [href]="'https://starcitizen.fr/Flotte/?page=user&id='+postrow?.POSTER_ID">JULIET</a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -112,7 +115,7 @@
 
           <h4 class="poster-name" fxFlex="100">
             <scfr-forum-phpbb-username [mdTooltip]="postrow?.RANK_TITLE" [color]="postrow?.POST_AUTHOR_COLOUR" [name]="postrow?.POST_AUTHOR"
-                                       [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
+              [id]="postrow?.POSTER_ID"></scfr-forum-phpbb-username>
           </h4>
 
           <div class="guild-logo">
@@ -139,6 +142,11 @@
         <span class="message-id">#{{postrow?.POST_ID}}</span> -
         <time class="message-time">{{postrow?.POST_DATE}}</time>
       </div>
+      <ng-container *ngIf="searchResult">
+        <button class="search-button forum" md-button uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: postrow?.FORUM_ID}">{{postrow?.FORUM_TITLE}}</button>
+        <button class="search-button topic" md-button uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: postrow?.FORUM_ID, topicId: postrow?.TOPIC_ID, p:postrow?.POST_ID}">{{postrow?.TOPIC_TITLE}}</button>
+      </ng-container>
+
       <scfr-forum-message-action-bar fxFlex [viewtopic]="viewtopic" *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>
     </md-card-actions>
   </ng-container>

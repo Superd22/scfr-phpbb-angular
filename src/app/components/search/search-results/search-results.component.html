@@ -18,7 +18,7 @@
     <scfr-forum-viewforum-topic-row *ngFor="let topic of tpl.searchresults" [topic]="topic"></scfr-forum-viewforum-topic-row>
   </div>
   <div class="messages" *ngIf="!tpl.S_SHOW_TOPICS">
-    <app-viewmessage  *ngFor="let message of tpl.searchresults" [postrow]="message"></app-viewmessage>
+    <app-viewmessage  *ngFor="let message of tpl.searchresults" [postrow]="message" [search]="true"></app-viewmessage>
   </div>
 </div>
 
