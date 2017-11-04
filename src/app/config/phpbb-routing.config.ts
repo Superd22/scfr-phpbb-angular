@@ -14,7 +14,7 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
     stateTranslate.uiRouter = router;
 
     function doGa() {
-        ga('set', 'page', "/Forum/" + location.pathname);
+        ga('set', 'page', "/Forum" + location.pathname);
         ga('send', 'pageview');
     }
 
