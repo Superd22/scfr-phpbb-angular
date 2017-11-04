@@ -291,3 +291,7 @@ $hover-side-pannel-transition: 0.5s;
 :host() {
     flex-wrap: wrap;
 }
+
+.search-button {
+    flex-shrink: 0;
+}
