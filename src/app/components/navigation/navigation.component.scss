@@ -83,3 +83,19 @@ md-toolbar {
         left: initial;
     }
 }
+
+.small-message {
+    height: 64px;
+    font-size:9px;
+    position:relative;
+    margin-bottom:8px;
+    .mat-button {
+        font-size:9px;
+    }
+
+    p.mat-line {
+        max-height: 28px;
+        font-size:10px;
+        overflow: hidden;
+    }
+}

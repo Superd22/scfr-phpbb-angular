@@ -23,7 +23,7 @@ export class UcpPhpbbFieldComponent implements OnInit {
 
   /** model to bind to*/
   @Input("model")
-  private _model;
+  private _model = null;
   @Output()
   private modelChange: EventEmitter<any> = new EventEmitter<any>();
 

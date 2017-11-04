@@ -21,15 +21,17 @@ export class ViewmessageComponent implements OnInit {
   /** if this post is editable */
   @Input("editable") public editable: boolean = false;
   @Input("viewtopic") public viewtopic: ViewtopicComponent = null;
+  /** if this post is being displayed as a search result */
+  @Input("search") public searchResult: boolean = false;
   /** if we're displaying a full post or a simple post */
   public simplePostMod: boolean = false;
   public avatarUrl: string = "";
 
   /** our change emitter for what post is being edited */
-  @Output() 
+  @Output()
   editChange = new EventEmitter();
 
-  public get tpl() {return this.viewtopic ? this.viewtopic.tpl : {}};
+  public get tpl() { return this.viewtopic ? this.viewtopic.tpl : {} };
 
   set edit(val: number) {
     this._edit = Number(val);

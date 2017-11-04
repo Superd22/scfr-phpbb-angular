@@ -141,13 +141,23 @@ export class PhpbbFormHelperService {
    * @param fields a QueryList of UcpPhpbbFieldComponent
    * @return object an object contaning all the data from those fields, ready to be sent.
    */
-  public getFieldsFromFieldComponent(fields: any): FormData {
+  public getFieldsFromFieldComponent(fields: any): FormData
+  public getFieldsFromFieldComponent(fields: any, asObj: true): Object
+  public getFieldsFromFieldComponent(fields: any, asObj?: boolean): FormData | Object {
     let post = new FormData();
 
-    if (fields) fields.forEach((field) => {
+    if (fields) fields.map((field) => {
       if (field.model !== undefined) post.append(field.form_name, (field.value || field.model));
+
     });
 
+    if (asObj) return Array.from(
+      (<any>post).entries()
+    ).reduce((entries, entry) => {
+      if(entry[1] !== "null" && entry[1] !== "undefined") entries[entry[0]] = entry[1];
+
+      return entries;
+    }, {});
     return post;
   }
 
