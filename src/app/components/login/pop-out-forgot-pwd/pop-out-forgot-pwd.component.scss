@@ -1,0 +1,24 @@
+@import './src/assets/material/v7/main';
+
+h2 {
+    text-align: center;
+    font-family: $text-font-header-title;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.content {
+    padding: 15px 50px;
+    md-progress-bar {
+        margin: 20px 0px;
+    }
+}
+
+input {
+    padding: 10px;
+    background :map-get($scfr-mat-blue-grey-background, 600);
+    font-family: "Heebo";
+    color:white;
+    border: 0px;
+    margin: 5px 10px;
+}

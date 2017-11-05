@@ -2,11 +2,13 @@
 
 <md-dialog-content class="content" fxLayout fxLayoutWrap>
   <div fxFlex="100" fxLayout fxLayoutWrap>
-      <input fxFlex="100" [(ngModel)]="username"  placeholder="Username" />
-      <input type="password" fxFlex="100" [(ngModel)]="password" placeholder="Password" />
+    <input fxFlex="100" [(ngModel)]="username" placeholder="Username" />
+    <input type="password" fxFlex="100" [(ngModel)]="password" placeholder="Password" />
   </div>
   <div fxFlex="100" style="margin:10px;">
     <md-checkbox [(ngModel)]="rememberMe">Rester connecté</md-checkbox>
+    <div fxFlex></div>
+    <button md-button (click)="forgotPWD()">Mot de passe oublié</button>
   </div>
 
   <md-progress-bar *ngIf="busy" color="accent" mode="indeterminate"></md-progress-bar>
@@ -14,7 +16,7 @@
 </md-dialog-content>
 
 <md-dialog-actions>
-  <button md-button uiSref="phpbb.seo.register" md-dialog-close>Register</button>
+  <button md-button uiSref="phpbb.seo.register" md-dialog-close>S'inscrire</button>
   <div fxFlex></div>
   <button md-raised-button color="accent" (click)="login()" [disabled]="busy">Connexion</button>
 </md-dialog-actions>

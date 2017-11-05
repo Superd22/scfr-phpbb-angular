@@ -165,6 +165,7 @@ import { McpSubPopoutComponent } from './components/mcp/mcp-sub-popout/mcp-sub-p
 import { CommunityHubModule } from './community-hub/community-hub.module';
 import { NavigationService } from 'app/services/navigation.service';
 import { AdsenseModule } from 'ng2-adsense';
+import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/pop-out-forgot-pwd.component';
 
 @NgModule({
     declarations: [
@@ -292,6 +293,7 @@ import { AdsenseModule } from 'ng2-adsense';
         McpMainMoveComponent,
         McpReportBodyComponent,
         McpSubPopoutComponent,
+        PopOutForgotPwdComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -320,7 +322,7 @@ import { AdsenseModule } from 'ng2-adsense';
     ],
     entryComponents: [
         DialogDeleteComponent, PopOutLoginComponent, UcpConfirmPopoutComponent, McpMainForumTopicSelectComponent, McpMainMoveComponent,
-        McpReportBodyComponent
+        McpReportBodyComponent, PopOutForgotPwdComponent
     ],
     exports: [],
     providers: [

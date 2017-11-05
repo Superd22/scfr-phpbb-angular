@@ -1,3 +1,4 @@
+import { PopOutForgotPwdComponent } from './../pop-out-forgot-pwd/pop-out-forgot-pwd.component';
 import { MdDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../services/login.service';
@@ -31,6 +32,11 @@ export class PopOutLoginComponent implements OnInit {
         else this.busy = false;
       }
     );
+  }
+
+  public forgotPWD() {
+    this.mdDialog.closeAll();
+    const dialog = this.mdDialog.open(PopOutForgotPwdComponent);
   }
 
 }

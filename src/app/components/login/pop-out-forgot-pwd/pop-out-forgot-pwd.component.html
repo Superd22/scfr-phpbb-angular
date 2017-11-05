@@ -1,0 +1,23 @@
+<h2 md-dialog-title>Mot de passe oublié</h2>
+
+<md-dialog-content class="content" fxLayout fxLayoutWrap>
+
+  <div fxFlex="100" fxLayout fxLayoutWrap>
+
+    <p>
+      C'est embarassant... Merci d'indiquer votre nom d'utilisateur & adresse email pour générer un nouveau mot de passe.
+    </p>
+
+    <input fxFlex="100" [(ngModel)]="username" placeholder="Username" />
+    <input type="email" fxFlex="100" [(ngModel)]="email" placeholder="Adresse e-mail" />
+  </div>
+
+  <md-progress-bar *ngIf="busy" color="accent" mode="indeterminate"></md-progress-bar>
+
+</md-dialog-content>
+
+<md-dialog-actions>
+  <div fxFlex></div>
+  <button md-button (click)="close()">Fermer</button>
+  <button md-raised-button color="accent" (click)="newPWD()" [disabled]="busy">Envoyer</button>
+</md-dialog-actions>
