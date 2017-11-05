@@ -8,7 +8,7 @@
 <md-card class="posting">
   <md-card-content fxLayout="column" fxLayoutWrap>
 
-    <scfr-forum-post-editor [(message)]="post.message"></scfr-forum-post-editor>
+    <scfr-forum-post-editor [(message)]="post.message" [(subject)]="post.subject"></scfr-forum-post-editor>
     <md-progress-bar mode="indeterminate" *ngIf="busy"></md-progress-bar>
     
     <scfr-forum-posting-options-switcher [posting]="this"></scfr-forum-posting-options-switcher>

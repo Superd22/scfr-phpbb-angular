@@ -93,7 +93,6 @@ export class PostingComponent extends PhpbbComponent {
     }).subscribe(
       (data) => {
         this.busy = false;
-        console.log(data);
       });
   }
 
