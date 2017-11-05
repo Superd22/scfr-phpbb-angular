@@ -109,7 +109,10 @@ export class StateTranslate {
             return Observable.of(trans.router.stateService.target("phpbb.seo.search", newParams));
 
         // If we haven't fetched data do it
-        if (!params['phpbbResolved']) {
+        if (
+            !params['phpbbResolved'] 
+            || params['phpbbResolved']['@tplName'] !== "search_results" 
+            || params.start && (params.start != params['phpbbResolved']['@template']['PER_PAGE'] * (params['phpbbResolved']['@template']['CURRENT_PAGE'] - 1))) {
             return this.phpbbApi.getSearch(newParams['search_id'], Object.assign(newParams, { phpbbResolved: undefined })).map((data) => {
                 newParams['phpbbResolved'] = data;
 
