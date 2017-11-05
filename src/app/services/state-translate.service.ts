@@ -731,7 +731,5 @@ export class StateTranslate {
         this.newTeplateData = Object.assign(current, params);
     }
 
-    public doScroll() {
-    }
 
 }

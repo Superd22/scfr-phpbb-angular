@@ -39,8 +39,16 @@ export class UiServiceService {
    * @param anchor the id to jump to.
    */
   public scrollToAnchor(anchor: string) {
-    // use uirouter to navigate
-    this.router.stateService.go(this.router.stateService.current, {"#": anchor});
+    setTimeout(() => {
+      // use uirouter to navigate
+      this.router.stateService.go(this.router.stateService.current, { "#": anchor });
+      setTimeout(() => {
+        if (anchor) {
+          const el = document.querySelector("#" + anchor);
+          if (el) el.scrollIntoView();
+        }
+      });
+    });
   }
 
 

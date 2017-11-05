@@ -64,8 +64,9 @@ export class ViewtopicComponent extends PhpbbComponent {
   private scrollToWanted() {
     const anchor = this._unreadMode ? "unread" : (this._stateTargetPost ? "p" + this._stateTargetPost : null);
 
-    if (anchor)
+    if (anchor) {
       this.UI.scrollToAnchor(anchor);
+    }
   }
 
   /**
@@ -109,7 +110,7 @@ export class ViewtopicComponent extends PhpbbComponent {
    * @param n the page number to switch to
    */
   public changePage(n: number) {
-    if(n != this._statePageNumber && n != this.tpl.CURRENT_PAGE)  {
+    if (n != this._statePageNumber && n != this.tpl.CURRENT_PAGE) {
       this.UI.scrollToTop();
       this.fetchingNewPosts = true;
       this._unreadMode = false;
