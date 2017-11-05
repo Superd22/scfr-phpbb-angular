@@ -58,8 +58,8 @@
   <div class="separator" fxFlex></div>
 
   <div class="events" *ngIf="displayEvents && loggedIn">
-    <button class="pm" [ngClass]="{active:hasPm}"><i class="material-icons">{{hasPm ? 'mail' : 'mail_outline'}}</i> <span class="count">{{pmCount}}</span></button>
-    <button class="notifications" [ngClass]="{active:hasNotification}"><i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i> <span class="count">{{notificationCount}}</span>      <scfr-header-notification-pannel class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
+    <button class="pm" [ngClass]="{active:hasPm}"><a href="https://starcitizen.fr/Forum/ucp/mp/"><i class="material-icons">{{hasPm ? 'mail' : 'mail_outline'}}</i> <span class="count">{{pmCount}}</span></a></button>
+    <button class="notifications" [ngClass]="{active:hasNotification}"><a href="https://starcitizen.fr/Forum/ucp/notifications/"><i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i> <span class="count">{{notificationCount}}</span> </a>     <scfr-header-notification-pannel *ngIf="hasNotification > 0" class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
     </button>
   </div>
 
