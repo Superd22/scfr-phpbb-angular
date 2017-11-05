@@ -43,6 +43,7 @@ export class UcpPmEditorComponent extends PhpbbComponent {
 
   ngOnInit() {
 
+    console.log("action", this._action);
     this.userSearch = this.addUserControl.valueChanges.startWith(null).flatMap(
       (search) => {
         if (search && (typeof search === typeof 123 || typeof search === typeof "abc"))
@@ -53,6 +54,8 @@ export class UcpPmEditorComponent extends PhpbbComponent {
         return [];
       }
     );
+
+    console.log("action", this._action);
 
     this.phpbbApi.getPage("ucp.php", {
       i: "ucp_pm",
@@ -139,7 +142,7 @@ export class UcpPmEditorComponent extends PhpbbComponent {
       p: this._postId,
       reply_to_all: this._replyToAll,
       u: this._userTarget,
-      action: "post",
+      action: this._action || "post",
     }, extraPost).subscribe((data) => {
       let tpl = data['@template'];
 

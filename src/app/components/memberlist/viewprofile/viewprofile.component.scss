@@ -1,0 +1,24 @@
+dt {
+    font-family: "Electrolize";
+    font-weight:bolder;
+    text-transform: uppercase;
+    color:grey;
+}
+dd {
+    color:white;
+    font-family: "Electrolize";
+}
+
+.middle-box-col {
+    padding:12px;
+    text-align:center;
+    dd {
+        margin: 0px;
+    }
+    dt {
+        background: #1d262d;
+        padding: 12px;
+        margin: 12px;
+        color: white;
+    }
+}
