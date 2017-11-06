@@ -68,8 +68,6 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
     let scrollAmount = window.scrollY;
     if (material) scrollAmount = material.scrollTop;
 
-    console.log("caca", material, scrollAmount);
-
     if (this.ngZone)
       this.ngZone.run(() => this._scrollTop = scrollAmount);
   }
