@@ -5,16 +5,20 @@
         <div class="forums">
             <h3>Les forums</h3>
 
-            <div class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout mdRipple uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:forum.FORUM_ID}">
+            <a class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout mdRipple uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:forum.FORUM_ID}">
                 <span class="forum-name" fxFlex="50">{{forum.FORUM_NAME}}</span>
                 <!--
                 <div class="topics">{{}}</div>
                 <div class="replies">{{}}</div> -->
-            </div>
+            </a>
         </div>
 
         <div class="messages">
-            <h3>Messages non lus <button md-button color="primary" uiSref="phpbb.seo.search" [uiParams]="{search_id:'unreadposts'}">Voir tous les nouveaux messages</button></h3>
+            <h3>Messages non lus
+                <a uiSref="phpbb.seo.search" [uiParams]="{search_id:'unreadposts'}">
+                    <button md-button color="primary">Voir tous les nouveaux messages</button>
+                </a>
+            </h3>
 
             <div class="messages" fxLayout fxLayoutWrap>
                 <ng-container *ngFor="let message of unreadTopicList">
@@ -28,7 +32,7 @@
 
     <div class="right" fxFlex="50%" fxFlex.lt-md="100%">
         <div class="guide mat-elevation-z3" *ngIf="guideNouveau" [ngClass.lt-md]="'small'">
-            <div class="mask" >
+            <div class="mask">
                 <h3>Guide des nouveaux</h3>
 
                 <nav class="parts">
@@ -42,7 +46,11 @@
 
         <div class="own-messages mat-elevation-z3" *ngIf="ownMessages" [ngClass.lt-md]="'small'">
             <div class="mask">
-                <h3>Vos messages <button md-button color="primary"  uiSref="phpbb.seo.search" [uiParams]="{search_id:'egosearch'}">Voir tous vos messages</button></h3>
+                <h3>Vos messages
+                    <a uiSref="phpbb.seo.search" [uiParams]="{search_id:'egosearch'}">
+                        <button md-button color="primary">Voir tous vos messages</button>
+                    </a>
+                </h3>
 
                 <div class="messages" fxLayout fxLayoutWrap>
                     <ng-container *ngFor="let message of ownMessages">
@@ -53,9 +61,12 @@
         </div>
 
         <div class="online" *ngIf="displayOnlineMembers">
-            <h3>En ligne <button md-button color="accent">{{onlineMembers.length}}</button></h3>
+            <h3>En ligne
+                <button md-button color="accent">{{onlineMembers.length}}</button>
+            </h3>
 
-            <img *ngFor="let user of displayOnlineMembers" class="avatar" [src]="user.avatar | avatarURL" [mdTooltip]="user.row.username" [style.border-color]="'#'+user.row.user_colour">
+            <img *ngFor="let user of displayOnlineMembers" class="avatar" [src]="user.avatar | avatarURL" [mdTooltip]="user.row.username"
+                [style.border-color]="'#'+user.row.user_colour">
 
         </div>
 

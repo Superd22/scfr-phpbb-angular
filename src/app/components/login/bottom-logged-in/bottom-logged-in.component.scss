@@ -13,6 +13,14 @@ md-card {
     align-self: center;
     flex: 1 1 100%;
 }
+.a-avatar {
+        height: 70px;
+        width: 70px;
+        display: block;
+        flex: 1 1 100%;
+        max-width: 70px;
+        margin-left: -12px;
+}
 .avatar {
     height: 70px;
     width: 70px;

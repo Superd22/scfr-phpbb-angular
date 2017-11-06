@@ -17,8 +17,9 @@
 </div>
 
 <ng-template #mainButton let-link="link">
-  <button class="side-nav-button" md-button fxFlex="100" uiSref="phpbb.seo.ucp" [uiParams]="{mode: link.MODE, subPage:'', phpbbResolved:false}" [uiOptions]="{refresh:true}"
-    [ngClass]="{'active': link.S_SELECTED}">
-    {{link.L_TITLE}}
-  </button>
+  <a uiSref="phpbb.seo.ucp" [uiParams]="{mode: link.MODE, subPage:'', phpbbResolved:false}" [uiOptions]="{refresh:true}">
+    <button class="side-nav-button" md-button fxFlex="100" [ngClass]="{'active': link.S_SELECTED}">
+      {{link.L_TITLE}}
+    </button>
+  </a>
 </ng-template>

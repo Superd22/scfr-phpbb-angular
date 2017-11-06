@@ -13,13 +13,14 @@ import { PhpbbFormHelperService } from "../../../services/phpbb-form-helper.serv
 })
 export class RegisterComponent extends PhpbbComponent implements OnInit {
 
-  public capchaKey = environment.reCaptchaKey;
+  public capchaKey;
   @ViewChildren(UcpPhpbbFieldComponent)
   protected _fields: QueryList<UcpPhpbbFieldComponent>;
   private _capchaConfirm;
 
   constructor(protected formHelper: PhpbbFormHelperService, protected stateT: StateTranslate, protected api:PhpbbApiService) {
-    super();
+    super();    
+    this.capchaKey = environment.reCaptchaKey;
   }
 
   ngOnInit() {
