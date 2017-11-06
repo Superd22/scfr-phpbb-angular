@@ -37,6 +37,13 @@ export class NavigationService {
 
   constructor() { }
 
+  /**
+   * if the sidenav is displaying in mobile mode
+   */
+  get sidenavIsMobileMod() {
+    return this.sidenavMode.getValue() === "over";
+  }
+
   get sidenavToggled(): BehaviorSubject<boolean> {
     return this._sidenavToggled;
   }
