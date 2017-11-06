@@ -78,8 +78,12 @@
               <span class="group" [style.background-color]="postrow?.POST_AUTHOR_COLOUR">{{postrow?.RANK_TITLE}}</span>
               <div class="more">
                 <div class="buttons" fxLayout>
-                  <md-icon uiSref="phpbb.seo.ucp.pmConvo" [uiParams]="{mode: 'compose', page:'mp', subPage:'', phpbbResolved:false, u: postrow?.POSTER_ID}">textsms</md-icon>
-                  <md-icon uiSref="phpbb.seo.viewprofile" [uiParams]="{userId: postrow?.POSTER_ID}">accessibility</md-icon>
+                  <a uiSref="phpbb.seo.ucp.pmConvo" [uiParams]="{mode: 'compose', page:'mp', subPage:'', phpbbResolved:false, u: postrow?.POSTER_ID}">
+                    <md-icon>textsms</md-icon>
+                  </a>
+                  <a uiSref="phpbb.seo.viewprofile" [uiParams]="{userId: postrow?.POSTER_ID}">
+                    <md-icon>accessibility</md-icon>
+                  </a>
                   <button *ngIf="tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET" fxFlex>
                     <a [href]="'https://starcitizen.fr/Flotte/?page=user&id='+postrow?.POSTER_ID">JULIET</a>
                   </button>
@@ -143,8 +147,12 @@
         <time class="message-time">{{postrow?.POST_DATE}}</time>
       </div>
       <ng-container *ngIf="searchResult">
-        <button class="search-button forum" md-button uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: postrow?.FORUM_ID}">{{postrow?.FORUM_TITLE}}</button>
-        <button class="search-button topic" md-button uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: postrow?.FORUM_ID, topicId: postrow?.TOPIC_ID, p:postrow?.POST_ID}">{{postrow?.TOPIC_TITLE}}</button>
+        <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: postrow?.FORUM_ID}">
+          <button class="search-button forum" md-button>{{postrow?.FORUM_TITLE}}</button>
+        </a>
+        <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: postrow?.FORUM_ID, topicId: postrow?.TOPIC_ID, p:postrow?.POST_ID}">
+          <button class="search-button topic" md-button>{{postrow?.TOPIC_TITLE}}</button>
+        </a>
       </ng-container>
 
       <scfr-forum-message-action-bar fxFlex [viewtopic]="viewtopic" *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>

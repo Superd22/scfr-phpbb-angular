@@ -1,8 +1,12 @@
 <div class="container" fxLayoutWrap>
     <div scfrForumFloatingMainHeader>
         <div class="top-details">
-            <h2 class="forum-title"><a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">{{tpl.FORUM_NAME}}</a></h2>
-            <span class="topic-title"><a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: tpl.FORUM_ID, topicId: tpl.TOPIC_ID}">{{tpl.TOPIC_TITLE}}</a></span>
+            <h2 class="forum-title">
+                <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">{{tpl.FORUM_NAME}}</a>
+            </h2>
+            <span class="topic-title">
+                <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: tpl.FORUM_ID, topicId: tpl.TOPIC_ID}">{{tpl.TOPIC_TITLE}}</a>
+            </span>
         </div>
     </div>
 
@@ -15,7 +19,7 @@
     <scfr-forum-viewtopic-poll fxFlex="100"></scfr-forum-viewtopic-poll>
 
     <scfr-forum-viewnews *ngIf="displayNews" [news]="news" fxFlex="100"></scfr-forum-viewnews>
-    
+
     <div *ngIf="tpl.postrow && !fetchingNewPosts" fxFlex="100">
         <app-viewmessage [viewtopic]="this" *ngFor="let post of postrow" [postrow]="post" [editable]="true" [(edit)]="editedMessage"></app-viewmessage>
     </div>
@@ -39,6 +43,8 @@
 
 
 <ng-template #topicActions>
-    <button md-button uiSref=".posting">Répondre</button>
+    <a uiSref=".posting">
+        <button md-button>Répondre</button>
+    </a>
     <scfr-forum-mcp-quickmod-topic [topicId]="tpl.TOPIC_ID"></scfr-forum-mcp-quickmod-topic>
 </ng-template>

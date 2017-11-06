@@ -15,19 +15,23 @@
     <scfr-mobile-navigation [toggle]="navigation.sidenavMainNavigationToggled | async"></scfr-mobile-navigation>
 
     <div class="main-navigator" fxFlex fxLayout="column">
-        <ul class="main-navigator-list" fxFlex  *ngIf="!inlineSearch">
+        <ul class="main-navigator-list" fxFlex *ngIf="!inlineSearch">
             <scfr-forum-navigation-forum-link *ngFor="let forum of forumMap[0]" [forum]="forum" [navCo]="this" [depth]="0"></scfr-forum-navigation-forum-link>
         </ul>
 
-        <md-list *ngIf="inlineSearch" class="main-navigator-list"  fxFlex dense>
+        <md-list *ngIf="inlineSearch" class="main-navigator-list" fxFlex dense>
             <md-list-item *ngFor="let result of inlineSearchResults" class="small-message">
                 <h4 mdLine>
                     <scfr-forum-phpbb-username [html]="result.CURRENT_USERNAME_FULL"></scfr-forum-phpbb-username>
                 </h4>
                 <p mdLine [innerHTML]="result.MESSAGE"></p>
                 <span mdLine>
-                    <button md-button uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: result.FORUM_ID}">{{result.FORUM_TITLE}}</button>
-                    <button md-button uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: result.FORUM_ID, topicId: result.TOPIC_ID, p:result.POST_ID}">{{result.TOPIC_TITLE}}</button>
+                    <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: result.FORUM_ID}">
+                        <button md-button>{{result.FORUM_TITLE}}</button>
+                    </a>
+                    <a uiSref="phpbb.seo.viewtopic" [uiParams]="{forumId: result.FORUM_ID, topicId: result.TOPIC_ID, p:result.POST_ID}">
+                        <button md-button>{{result.TOPIC_TITLE}}</button>
+                    </a>
                 </span>
             </md-list-item>
         </md-list>

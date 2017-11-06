@@ -1,4 +1,4 @@
-<div md-ripple class="subforum" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" fxLayout fxLayoutWrap
+<a md-ripple class="subforum" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}" fxLayout fxLayoutWrap
     [ngClass]="{unread: forum.S_UNREAD_FORUM, locked: forum.S_LOCKED_FORUM}">
     <h3>{{forum.FORUM_NAME}} <span *ngIf="forum.S_UNREAD_FORUM" class="new">NEW</span> </h3>
     <span class="description" [innerHTML]="forum.FORUM_DESC"></span>
@@ -14,4 +14,4 @@
         <time mdTooltip="{{forum.LAST_POST_TIME}}">{{forum.LAST_POST_TIME}}</time>
         par <scfr-forum-phpbb-username [name]="forum.LAST_POSTER" [color]="forum.LAST_POSTER_COLOUR" [html]="forum.LAST_POSTER_FULL"></scfr-forum-phpbb-username>
     </div> -->
-</div>
+</a>

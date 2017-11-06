@@ -14,12 +14,17 @@
 
     <md-card-actions>
       <ng-container *ngIf="register.tpl.S_SHOW_COPPA">
-        <strong><a href="{{register.tpl.U_COPPA_NO}}" class="button1">{{register.tpl.L_COPPA_NO}}</a></strong>&nbsp; <a href="{{U_COPPA_YES}}" class="button2">{{L_COPPA_YES}}</a>
+        <strong>
+          <a href="{{register.tpl.U_COPPA_NO}}" class="button1">{{register.tpl.L_COPPA_NO}}</a>
+        </strong>&nbsp;
+        <a href="{{U_COPPA_YES}}" class="button2">{{L_COPPA_YES}}</a>
       </ng-container>
 
       <ng-container *ngIf="!register.tpl.S_SHOW_COPPA">
         <button md-button (click)="submit()">{{L_.AGREE}}</button>
-        <button md-button color="warn" uiSref="phpbb.seo.index">{{L_.NOT_AGREE}}</button>
+        <a uiSref="phpbb.seo.index">
+          <button md-button color="warn">{{L_.NOT_AGREE}}</button>
+        </a>
       </ng-container>
     </md-card-actions>
   </ng-container>

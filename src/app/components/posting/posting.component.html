@@ -10,22 +10,24 @@
 
     <scfr-forum-post-editor [(message)]="post.message" [(subject)]="post.subject"></scfr-forum-post-editor>
     <md-progress-bar mode="indeterminate" *ngIf="busy"></md-progress-bar>
-    
+
     <scfr-forum-posting-options-switcher [posting]="this"></scfr-forum-posting-options-switcher>
 
   </md-card-content>
   <md-card-actions>
     <button md-button color="primary" (click)="sendPost()" [disabled]="busy">Envoyer</button>
     <button md-button (click)="previewPost()" [disabled]="busy">Previsualiser</button>
-    <button md-button color="warn" uiSref='^' [disabled]="busy">Annuler</button>
+    <a uiSref='^'>
+      <button md-button color="warn" [disabled]="busy">Annuler</button>
+    </a>
   </md-card-actions>
 </md-card>
 
 
 <md-card id="topic-summary" *ngIf="tpl.topic_review_row && tpl.topic_review_row.length">
-    <md-card-title>Résumé du topic</md-card-title>
-    <md-card-content>
-      <app-viewmessage *ngFor="let postrow of tpl.topic_review_row" [postrow]="postrow"></app-viewmessage>
-    </md-card-content>
-    
+  <md-card-title>Résumé du topic</md-card-title>
+  <md-card-content>
+    <app-viewmessage *ngFor="let postrow of tpl.topic_review_row" [postrow]="postrow"></app-viewmessage>
+  </md-card-content>
+
 </md-card>

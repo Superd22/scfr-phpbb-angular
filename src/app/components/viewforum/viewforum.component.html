@@ -2,10 +2,14 @@
     <div class="forum-header" fxLayout scfrForumFloatingMainHeader fxLayoutWrap>
         <div class="forum-name-container" fxFlex.lt-lg="100">
             <div fxLayout fxLayoutAlign="start center">
-                <h2 class="forum-title" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">
-                    {{tpl.FORUM_NAME}}
+                <h2 class="forum-title">
+                    <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">
+                        {{tpl.FORUM_NAME}}
+                    </a>
                 </h2>
-                <button *ngIf="tpl.U_WATCH_FORUM_LINK" md-icon-button (click)="toggleWatchForum()"><md-icon>{{tpl.S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon></button>
+                <button *ngIf="tpl.U_WATCH_FORUM_LINK" md-icon-button (click)="toggleWatchForum()">
+                    <md-icon>{{tpl.S_WATCHING_FORUM ? 'star' : 'star_border'}}</md-icon>
+                </button>
             </div>
 
             <span class="forum-sub-title" [innerHTML]="tpl.FORUM_DESC"></span>
@@ -58,7 +62,11 @@
 
 <ng-template #newTopicButton>
     <ng-container *ngIf="tpl.S_DISPLAY_POST_INFO">
-        <button *ngIf="!tpl.S_IS_LOCKED" md-button uiSref=".posting"><md-icon>add</md-icon> Nouveau Topic </button>
-        <button *ngIf="tpl.S_IS_LOCKED" md-button disabled="true"><md-icon>lock</md-icon> Forum verouillé </button>
+        <a uiSref=".posting">
+            <button *ngIf="!tpl.S_IS_LOCKED" md-button>
+                <md-icon>add</md-icon> Nouveau Topic </button>
+        </a>
+        <button *ngIf="tpl.S_IS_LOCKED" md-button disabled="true">
+            <md-icon>lock</md-icon> Forum verouillé </button>
     </ng-container>
 </ng-template>
