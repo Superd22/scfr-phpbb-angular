@@ -1,3 +1,4 @@
+import { SCFRUIParamService } from './decorators/UIParam.decorator';
 import { UcpMainNotificationsComponent } from './components/ucp/notifications/notifications.component';
 import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
 import { HeaderService } from './services/header-service.service';
@@ -329,7 +330,7 @@ import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/
         { provide: APP_BASE_HREF, useValue: environment.baseHref },
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
         NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService, ExtraModuleInjector,
-        NavigationService
+        NavigationService, SCFRUIParamService
     ],
     bootstrap: [AppComponent],
 })
