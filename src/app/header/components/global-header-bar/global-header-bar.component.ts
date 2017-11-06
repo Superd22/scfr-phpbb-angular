@@ -50,7 +50,8 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
     });
 
     this.api.setForumTpl(this.tpl);
-    window.addEventListener('scroll', this._onScroll, true);
+    console.log("doc",document.querySelector(".mat-drawer-content"));
+    setTimeout(() => document.querySelector(".mat-drawer-content").addEventListener('scroll', this._onScroll, true));
   }
 
   //public toggleMenu() { this.toggleNav.emit(); }
@@ -63,9 +64,11 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
   public get hasNotification() { return this.notificationCount > 0; }
 
   private _onScroll = () => {
-    let material = document.getElementsByClassName('mat-sidenav-content');
+    let material = document.querySelector('.mat-drawer-content');
     let scrollAmount = window.scrollY;
-    if (material && material[0]) scrollAmount = material[0].scrollTop;
+    if (material) scrollAmount = material.scrollTop;
+
+    console.log("caca", material, scrollAmount);
 
     if (this.ngZone)
       this.ngZone.run(() => this._scrollTop = scrollAmount);
@@ -74,13 +77,6 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
   public get scrollTop(): string { return this._scrollTop + 'px'; }
 
   public get fixed(): boolean { return this._scrollTop > 64; }
-
-  public get marginTop(): string {
-    let margin = 0;
-    margin = this._scrollTop <= margin ? this._scrollTop : margin;
-
-    return margin + 'px';
-  }
 
   public markAllNotificationRead() {
 
