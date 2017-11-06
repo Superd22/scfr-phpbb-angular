@@ -1,3 +1,4 @@
+import { UIRouterModule } from '@uirouter/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GlobalHeaderBarComponent } from './components/global-header-bar/global-header-bar.component';
@@ -14,7 +15,8 @@ import {MdButtonModule, MdIconModule} from '@angular/material';
     CommonModule,
     FlexLayoutModule,
     MdButtonModule,
-    MdIconModule
+    MdIconModule,
+    UIRouterModule.forChild()
   ],
   declarations: [
     GlobalHeaderBarComponent,
