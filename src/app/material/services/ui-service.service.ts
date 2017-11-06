@@ -45,7 +45,11 @@ export class UiServiceService {
       setTimeout(() => {
         if (anchor) {
           const el = document.querySelector("#" + anchor);
-          if (el) el.scrollIntoView();
+          if (el) {
+            el.scrollIntoView();
+            // Add a little offset because headerbar
+            //this.container.scrollBy(0, -64);
+          }
         }
       });
     });
@@ -53,9 +57,7 @@ export class UiServiceService {
 
 
   private get container(): Element {
-    if (!this._container) {
-      this._container = document.getElementsByClassName("mat-drawer-content")[0];
-    }
+    if (!this._container) this._container = document.querySelector(".mat-drawer-content");
 
     if (!this._container) throw "COULDN'T GET SIDENAV CONTAINER";
 
