@@ -44,7 +44,7 @@
     </div>
 
 
-    <div *ngIf="tpl.topicrow && !loadingTopics" fxLayout="column" class="topicrow">
+    <div *ngIf="tpl.topicrow && !loadingTopics" fxLayout="column" class="topicrow" id="topicrow">
         <scfr-forum-viewforum-topic-row *ngFor="let topic of tpl.topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>
         <ng-adsense *ngIf="!loadingTopics"></ng-adsense>
     </div>

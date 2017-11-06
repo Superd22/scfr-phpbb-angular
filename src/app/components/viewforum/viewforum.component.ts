@@ -1,3 +1,4 @@
+import { UiServiceService } from './../../material/services/ui-service.service';
 import { IPhpbbViewforumTopicrow } from './viewforum-topic-row/interfaces/phpbb-viewforum-topicrow.interface';
 import { IPhpbbViewforumForumrow } from './viewforum-forum-row/interfaces/phpbb-viewforum-forumrow.interface';
 import { PHPBBViewforum } from './phpbb-viewforum.model';
@@ -21,7 +22,7 @@ export class ViewforumComponent extends PhpbbComponent {
   public sortSd;
   public loadingTopics: boolean = false;
 
-  constructor() {
+  constructor(private UI: UiServiceService) {
     super();
   }
 
@@ -116,7 +117,10 @@ export class ViewforumComponent extends PhpbbComponent {
 
   public changePage(n: number) {
     this.loadingTopics = true;
-    this.stateService.go("phpbb.seo.viewforum", { pageNumber: n });
+    this.stateService.go("phpbb.seo.viewforum", { pageNumber: n }).then(() => {
+      this.UI.scrollToAnchor("topicrow");
+    });
+
   }
 
   public updateLocalSortPref() {
