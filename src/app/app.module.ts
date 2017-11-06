@@ -168,6 +168,7 @@ import { CommunityHubModule } from './community-hub/community-hub.module';
 import { NavigationService } from 'app/services/navigation.service';
 import { AdsenseModule } from 'ng2-adsense';
 import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/pop-out-forgot-pwd.component';
+import { BreadcrumbsComponent } from './components/navigation/header-bar/breadcrumbs/breadcrumbs.component';
 
 @NgModule({
     declarations: [
@@ -297,6 +298,7 @@ import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/
         McpSubPopoutComponent,
         PopOutForgotPwdComponent,
         SCFRAvatarURL,
+        BreadcrumbsComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

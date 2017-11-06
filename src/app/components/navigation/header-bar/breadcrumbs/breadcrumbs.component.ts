@@ -1,20 +1,19 @@
-import { IPhpbbTemplate } from 'app/interfaces/phpbb/phpbb-tpl';
 import { StateService } from '@uirouter/angular';
-import { LayoutService } from './../../../material/services/layout-service.service';
-import { StateTranslate } from './../../../services/state-translate.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { LayoutService } from './../../../../material/services/layout-service.service';
+import { StateTranslate } from './../../../../services/state-translate.service';
+import { IPhpbbTemplate } from './../../../../interfaces/phpbb/phpbb-tpl';
+import { NavLink } from './../header-bar.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'scfr-forum-header-bar',
-  templateUrl: './header-bar.component.html',
-  styleUrls: ['./header-bar.component.scss']
+  selector: 'scfr-forum-breadcrumbs',
+  templateUrl: './breadcrumbs.component.html',
+  styleUrls: ['./breadcrumbs.component.scss']
 })
-export class HeaderBarComponent implements OnInit {
-
-  @Input() public displayBackground: boolean = true;
+export class BreadcrumbsComponent implements OnInit {
+  
   public select: boolean = false;
   public navlinks: NavLink[] = [];
-  public busy: boolean;
   public selectedForum: number;
 
   public pmCount;
@@ -41,7 +40,6 @@ export class HeaderBarComponent implements OnInit {
       }
     });
 
-    this.stateT.loading.subscribe(loading => this.busy = loading);
 
     this.layout.lt_sm.subscribe((lt_sm) => {
       this.select = lt_sm;
@@ -56,18 +54,4 @@ export class HeaderBarComponent implements OnInit {
   ngOnInit() {
   }
 
-}
-
-export interface NavLink {
-  FORUM_ID: number,
-  FORUM_NAME: string,
-  MICRODATA: string,
-  S_BLOCK_NAME: string,
-  S_FIRST_ROW: boolean,
-  S_IS_CAT: boolean,
-  S_IS_LINK: boolean,
-  S_IS_POST: boolean,
-  S_ROW_COUNT: number,
-  S_ROW_NUM: number,
-  U_VIEW_FORUM: string,
 }
