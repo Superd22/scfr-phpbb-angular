@@ -1,3 +1,4 @@
+import { SCFRAvatarURL } from './pipes/avatar-url.pipe';
 import { SCFRUIParamService } from './decorators/UIParam.decorator';
 import { UcpMainNotificationsComponent } from './components/ucp/notifications/notifications.component';
 import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
@@ -295,6 +296,7 @@ import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/
         McpReportBodyComponent,
         McpSubPopoutComponent,
         PopOutForgotPwdComponent,
+        SCFRAvatarURL,
     ],
     imports: [
         UIRouterModule.forRoot({

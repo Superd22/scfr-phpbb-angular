@@ -16,7 +16,7 @@ export const psoPostReply = {
 
 export const psoPostEdit = {
     name: 'phpbb.seo.viewtopic.edit',
-    url: 'edit/:postId',
+    url: '-edit/:postId',
     views: {
         'editMessage': {
             component: PostingComponent,
