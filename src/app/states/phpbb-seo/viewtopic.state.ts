@@ -5,7 +5,7 @@ export const psoViewTopic = {
     params: {
         forumSlug: "",
         topicSlug: "",
-        pageNumber: null,
+        pageNumber: 1,
         unread: "",
     },
     component: ViewtopicComponent,

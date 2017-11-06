@@ -8,7 +8,7 @@
 
 <md-card [id]="'p'+post.id" [ngClass]="{unread: postrow?.S_UNREAD_VIEW}" class="message" fxLayout="column">
 
-  <ng-container *ngIf="!isEditMod()">
+  <ng-container>
 
     <!-- <div class="message-header" *ngIf="!simplePostMod" fxLayout>
       <div class="message-header-avatar">
@@ -150,5 +150,4 @@
       <scfr-forum-message-action-bar fxFlex [viewtopic]="viewtopic" *ngIf="editable" [postrow]="postrow" (edit)="edit = $event"></scfr-forum-message-action-bar>
     </md-card-actions>
   </ng-container>
-  <div *ngIf="isEditMod()" ui-view="editMessage"></div>
 </md-card>
