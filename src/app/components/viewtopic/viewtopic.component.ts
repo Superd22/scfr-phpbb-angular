@@ -29,7 +29,7 @@ export class ViewtopicComponent extends PhpbbComponent {
 
   /** if we fetched to the latest unread post  */
   @SCFRUIParam("unread")
-  private _unreadMode: boolean = null;
+  private _unreadMode: boolean;
 
   @SCFRUIParam("p")
   private _stateTargetPost: number;
@@ -37,7 +37,6 @@ export class ViewtopicComponent extends PhpbbComponent {
   /** the page number according to the state */
   @SCFRUIParam("pageNumber")
   private _statePageNumber: number;
-
 
   @Collected() private collected: CollectorEvent;
 

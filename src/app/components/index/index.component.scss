@@ -9,7 +9,11 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
     cursor:pointer;
     font-family: "Open Sans";
 }
+/**
 
+    background: rgba(93, 129, 150, 0.8);
+    font-weight: bolder;
+*/
 .index {
     padding:24px;
     h3 {

@@ -1,3 +1,5 @@
+import { SCFRAvatarURL } from './pipes/avatar-url.pipe';
+import { SCFRUIParamService } from './decorators/UIParam.decorator';
 import { UcpMainNotificationsComponent } from './components/ucp/notifications/notifications.component';
 import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
 import { HeaderService } from './services/header-service.service';
@@ -166,6 +168,7 @@ import { CommunityHubModule } from './community-hub/community-hub.module';
 import { NavigationService } from 'app/services/navigation.service';
 import { AdsenseModule } from 'ng2-adsense';
 import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/pop-out-forgot-pwd.component';
+import { BreadcrumbsComponent } from './components/navigation/header-bar/breadcrumbs/breadcrumbs.component';
 
 @NgModule({
     declarations: [
@@ -294,6 +297,8 @@ import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/
         McpReportBodyComponent,
         McpSubPopoutComponent,
         PopOutForgotPwdComponent,
+        SCFRAvatarURL,
+        BreadcrumbsComponent,
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -329,7 +334,7 @@ import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/
         { provide: APP_BASE_HREF, useValue: environment.baseHref },
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
         NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService, ExtraModuleInjector,
-        NavigationService
+        NavigationService, SCFRUIParamService
     ],
     bootstrap: [AppComponent],
 })

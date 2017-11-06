@@ -63,7 +63,7 @@
         <div class="side-info-hover-pannel mat-elevation-z3">
           <div fxLayout fxLayoutWrap>
             <div class="avatar-container" fxFlex="20">
-              <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
+              <img *ngIf="avatarUrl" [src]="avatarUrl | avatarURL" class="avatar">
               <img *ngIf="!avatarUrl" src="./assets/images/default-avatar.jpg" class="avatar">
             </div>
             <div id="column-2" fxFlex="50" fxLayout="column">

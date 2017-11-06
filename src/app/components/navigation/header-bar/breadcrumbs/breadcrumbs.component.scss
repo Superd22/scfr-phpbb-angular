@@ -1,0 +1,26 @@
+.main-forum-nav {
+    padding:0px 20px;
+    height:40px;
+}
+
+.toggle-menu {
+    transition:0.5s;
+    &.toggled {
+        transform:rotate(90deg);
+    }
+}
+
+.arrow {
+    position: relative;
+    vertical-align: middle;
+}
+
+.progress-bar {
+    opacity:1;
+    transition:0.25s;
+    margin-top: -5px;
+    &.hidden {opacity:0;}
+}
+md-select{
+    margin-top: -24px;
+}

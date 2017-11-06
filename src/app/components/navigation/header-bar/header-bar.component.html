@@ -1,15 +1,3 @@
-<scfr-forum-header-background></scfr-forum-header-background>
-<div class="main-forum-nav">
-  <ng-container *ngIf="!select && navlinks && navlinks.length > 0">
-    <button md-icon-button uiSref="phpbb.seo.index"><md-icon color="primary" class="arrow">home</md-icon></button>
-    <ng-container *ngFor="let link of navlinks">
-      <md-icon color="primary" class="arrow">keyboard_arrow_right</md-icon>
-      <button md-button color="primary" (click)="goToForum(link.FORUM_ID)">{{link.FORUM_NAME}}</button>
-    </ng-container>
-  </ng-container>
-
-  <md-select *ngIf="select && navlinks" (change)="goToForum($event.value)" [(ngModel)]="selectedForum" fxFlex>
-    <md-option *ngFor="let link of navlinks" [value]="link.FORUM_ID">{{link.FORUM_NAME}}</md-option>
-  </md-select>
-</div>
+<scfr-forum-header-background *ngIf="displayBackground"></scfr-forum-header-background>
+<scfr-forum-breadcrumbs class="main-forum-nav"></scfr-forum-breadcrumbs>
 <md-progress-bar class="progress-bar" [ngClass]="{hidden:!busy}" color="accent" mode="indeterminate"></md-progress-bar>

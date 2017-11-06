@@ -35,8 +35,10 @@ $list-border-color: rgba(255, 255, 255, 0.3);
         }
         &.new {
             //background: rgba(81, 195, 250, 0.15);
-            font-weight: bolder;
-            color: white;
+            color: #62cbff;
+            .mat-button.forum-link {
+                font-weight: bold;
+            }
         }
         &:not(.no-list):before {
             content: '';

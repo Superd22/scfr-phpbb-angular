@@ -98,7 +98,7 @@ export class ViewmessageComponent implements OnInit {
 
     if (match[1].indexOf('./') === 0) {
       /** @todo figure this out */
-      this.avatarUrl = "https://www.starcitizen.fr/Forum/" + match[1].substr(2);
+      this.avatarUrl = "https://starcitizen.fr/forum-api/" + match[1].substr(2);
     }
     else this.avatarUrl = match[1];
   }

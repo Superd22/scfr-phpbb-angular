@@ -1,6 +1,6 @@
 <md-card *ngIf="LoginService.loggedIn">
   <md-card-header>
-    <img uiSref="phpbb.seo.viewprofile" class="avatar" [uiParams]="{userId: currentTpl?.S_USER_ID}" md-card-avatar [src]="LoginService.avatar">
+    <img uiSref="phpbb.seo.viewprofile" class="avatar" [uiParams]="{userId: currentTpl?.S_USER_ID}" md-card-avatar [src]="LoginService.avatar | avatarURL">
     <div class="text">
       <md-card-title>
         <scfr-forum-phpbb-username [html]="currentTpl?.CURRENT_USERNAME_FULL"></scfr-forum-phpbb-username>
