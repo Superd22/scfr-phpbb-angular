@@ -1,3 +1,4 @@
+import { UiServiceService } from './../../material/services/ui-service.service';
 import { PostingOptionsSwitcherComponent } from './posting-options-switcher/posting-options-switcher.component';
 import { IPostingOptionContainer } from './posting-options-switcher/posting-options-container.interface';
 import { UcpPhpbbFieldComponent } from './../ucp/ucp-phpbb-field/ucp-phpbb-field.component';
@@ -33,13 +34,17 @@ export class PostingComponent extends PhpbbComponent {
 
   public preview: SimplePost;
 
-  constructor(private formHelper: PhpbbFormHelperService, protected transition: Transition, protected snack: MdSnackBar) {
+  constructor(private formHelper: PhpbbFormHelperService, protected transition: Transition, protected snack: MdSnackBar, private UI: UiServiceService) {
     super();
   }
 
   ngOnInit() {
     super.ngOnInit();
     this.initAssign();
+  }
+
+  ngAfterViewInit() {
+    this.UI.scrollToAnchor("posting");
   }
 
   /**
@@ -63,12 +68,14 @@ export class PostingComponent extends PhpbbComponent {
       (data) => {
         this.busy = false;
         let tpl = data["@template"];
-        if (tpl.PREVIEW_MESSAGE)
+        if (tpl.PREVIEW_MESSAGE) {
           this.preview = {
             message: tpl.PREVIEW_MESSAGE,
             subject: tpl.PREVIEW_SUBJECT,
             id: 0,
           }
+          this.UI.scrollToAnchor("preview");
+        }
         else this.preview = null;
 
         if (tpl.ERROR) {

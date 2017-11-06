@@ -50,7 +50,6 @@ export class GlobalHeaderBarComponent implements OnInit, OnChanges {
     });
 
     this.api.setForumTpl(this.tpl);
-    console.log("doc",document.querySelector(".mat-drawer-content"));
     setTimeout(() => document.querySelector(".mat-drawer-content").addEventListener('scroll', this._onScroll, true));
   }
 

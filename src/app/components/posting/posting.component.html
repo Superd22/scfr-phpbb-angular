@@ -1,11 +1,11 @@
-<md-card *ngIf="preview" class="preview">
+<md-card *ngIf="preview" class="preview" id="preview">
   <md-card-title>Previsualiser</md-card-title>
   <md-card-content>
     <app-viewmessage [editable]="false" [post]="preview"></app-viewmessage>
   </md-card-content>
 </md-card>
 
-<md-card class="posting">
+<md-card class="posting" id="posting">
   <md-card-content fxLayout="column" fxLayoutWrap>
 
     <scfr-forum-post-editor [(message)]="post.message" [(subject)]="post.subject"></scfr-forum-post-editor>

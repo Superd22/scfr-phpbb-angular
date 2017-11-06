@@ -1,3 +1,4 @@
+import { NavigationService } from 'app/services/navigation.service';
 import { PhpbbApiService } from './../services/phpbb-api.service';
 import { StateTranslate } from '../services/state-translate.service';
 import { STATES } from '../states/_.states';
@@ -8,8 +9,9 @@ import { Inject, Injectable, Injector } from '@angular/core';
 declare let ga: any;
 
 export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module: StatesModule) {
-    let stateTranslate: StateTranslate = injector.get(StateTranslate);
-    let phpbbApi: PhpbbApiService = injector.get(PhpbbApiService);
+    const stateTranslate: StateTranslate = injector.get(StateTranslate);
+    const phpbbApi: PhpbbApiService = injector.get(PhpbbApiService);
+    const nav: NavigationService = injector.get(NavigationService);
 
     stateTranslate.uiRouter = router;
 
@@ -42,12 +44,14 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
         router.transitionService.onSuccess({ to: "phpbb.seo.**" }, () => {
             // we're done loading.
             stateTranslate.loading.next(false);
+            if(nav.sidenavIsMobileMod) nav.setSidenavToggled(false);
             doGa();
         });
 
         router.transitionService.onError({ to: "phpbb.seo.**" }, (t) => {
             // we're done loading.
             stateTranslate.loading.next(false);
+            if(nav.sidenavIsMobileMod) nav.setSidenavToggled(false);
             doGa();
         });
     }
