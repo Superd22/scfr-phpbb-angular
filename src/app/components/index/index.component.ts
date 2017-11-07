@@ -63,10 +63,10 @@ export class IndexComponent extends PhpbbComponent {
     private mapForums(forums: IPHPBBIndexForum[]) {
         let map = new Map();
 
-        if(forums)
-        forums.map((forum) => {
-            map.set(Number(forum.FORUM_ID), forum);
-        });
+        if (forums)
+            forums.map((forum) => {
+                map.set(Number(forum.FORUM_ID), forum);
+            });
 
         return map;
     }
@@ -80,6 +80,22 @@ export class IndexComponent extends PhpbbComponent {
         this.phpbb.getUserMessage(true).subscribe((data) => {
             this.ownMessages = data ? data.slice(0, 3) : null;
         });
+    }
+
+    public markEverythingRead() {
+        if (this.tpl.U_MARK_FORUMS)
+            this.phpbbApi.getPhpbbAjaxPage(this.tpl.U_MARK_FORUMS).subscribe(
+                (data) => {
+                    // Check for errors
+                    if (data.S_ERROR)
+                        return this.phpbbApi.errorSnackBar(data.MESSAGE_TEXT);
+
+                    // @todo mark all read
+
+                    // Notify the user
+                    return this.phpbbApi.openSnackBar(data.MESSAGE_TEXT);
+                }
+            );
     }
 
 

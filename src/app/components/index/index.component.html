@@ -18,6 +18,8 @@
                 <a uiSref="phpbb.seo.search" [uiParams]="{search_id:'unreadposts'}">
                     <button md-button color="primary">Voir tous les nouveaux messages</button>
                 </a>
+                <button class="markall"  color="primary" md-button *ngIf="tpl.U_MARK_FORUMS" (click)="markEverythingRead()">Tout marquer comme lu</button>
+                
             </h3>
 
             <div class="messages" fxLayout fxLayoutWrap>
