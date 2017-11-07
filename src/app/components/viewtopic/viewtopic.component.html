@@ -43,7 +43,7 @@
 
 
 <ng-template #topicActions>
-    <a uiSref=".posting">
+    <a uiSref=".posting" [uiParams]="{'#': null, page:null, unread:null}">
         <button md-button>Répondre</button>
     </a>
     <scfr-forum-mcp-quickmod-topic [topicId]="tpl.TOPIC_ID"></scfr-forum-mcp-quickmod-topic>

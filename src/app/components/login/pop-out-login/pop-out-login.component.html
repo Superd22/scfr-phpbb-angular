@@ -16,7 +16,9 @@
 </md-dialog-content>
 
 <md-dialog-actions>
-  <button md-button uiSref="phpbb.seo.register" md-dialog-close>S'inscrire</button>
+  <a uiSref="phpbb.seo.register">
+    <button md-buttonmd-dialog-close>S'inscrire</button>
+  </a>
   <div fxFlex></div>
   <button md-raised-button color="accent" (click)="login()" [disabled]="busy">Connexion</button>
 </md-dialog-actions>

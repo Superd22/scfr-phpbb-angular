@@ -1,3 +1,4 @@
+import { UiServiceService } from './../material/services/ui-service.service';
 import { NavigationService } from 'app/services/navigation.service';
 import { PhpbbApiService } from './../services/phpbb-api.service';
 import { StateTranslate } from '../services/state-translate.service';
@@ -12,6 +13,7 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
     const stateTranslate: StateTranslate = injector.get(StateTranslate);
     const phpbbApi: PhpbbApiService = injector.get(PhpbbApiService);
     const nav: NavigationService = injector.get(NavigationService);
+    //const UI: UiServiceService = injector.get(UiServiceService);
 
     stateTranslate.uiRouter = router;
 
@@ -41,17 +43,24 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
     }
 
     function successHook() {
-        router.transitionService.onSuccess({ to: "phpbb.seo.**" }, () => {
+        router.transitionService.onSuccess({ to: "phpbb.seo.**" }, (transition) => {
             // we're done loading.
             stateTranslate.loading.next(false);
-            if(nav.sidenavIsMobileMod) nav.setSidenavToggled(false);
+
+            if (!transition.targetState().params()["#"])
+                setTimeout(() => {
+                    const el = document.querySelector("#top");
+                    el.scrollIntoView();
+                });
+
+            if (nav.sidenavIsMobileMod) nav.setSidenavToggled(false);
             doGa();
         });
 
         router.transitionService.onError({ to: "phpbb.seo.**" }, (t) => {
             // we're done loading.
             stateTranslate.loading.next(false);
-            if(nav.sidenavIsMobileMod) nav.setSidenavToggled(false);
+            if (nav.sidenavIsMobileMod) nav.setSidenavToggled(false);
             doGa();
         });
     }

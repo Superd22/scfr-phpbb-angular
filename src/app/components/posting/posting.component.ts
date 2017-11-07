@@ -44,7 +44,6 @@ export class PostingComponent extends PhpbbComponent {
   }
 
   ngAfterViewInit() {
-    this.UI.scrollToAnchor("posting");
   }
 
   /**
