@@ -16,7 +16,12 @@ export class ForumLinkComponent implements OnInit {
 
   /** this forum object */
   @Input("forum")
-  public forum: UnreadResponse.JumpboxForum;
+  private _forumId: number;
+
+  public get forum(): UnreadResponse.JumpboxForum {
+    return this.navCo.forumList.get(Number(this._forumId));
+  }
+
   /** the main nav component */
   @Input("navCo")
   public navCo: NavigationComponent;
@@ -41,7 +46,7 @@ export class ForumLinkComponent implements OnInit {
 
   public toggled: boolean = null;
   @Input()
-  public parent:ForumLinkComponent;
+  public parent: ForumLinkComponent;
 
 
   constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate, private throttle: ThrottlerService) { }
@@ -96,7 +101,7 @@ export class ForumLinkComponent implements OnInit {
     return this._searchVisible;
   }
 
-  public set searchVisible(visible:boolean) {
+  public set searchVisible(visible: boolean) {
     this._searchVisible = visible;
 
     // Update our parent -later-
@@ -119,7 +124,7 @@ export class ForumLinkComponent implements OnInit {
       // If one of our sub-forum is unread, so r we.
       this._subForums.forEach((forum) => { if (forum.unread) flag = true });
 
-    if(flag) this.unread = true;
+    if (flag) this.unread = true;
   }
 
   /**

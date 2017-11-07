@@ -23,7 +23,7 @@ import { ObservableMedia } from '@angular/flex-layout';
 
 export class NavigationComponent implements OnInit {
     /** all the availables forums */
-    private _forumList: UnreadResponse.JumpboxForum[] = [];
+    private _forumList: Map<number, UnreadResponse.JumpboxForum> = new Map();
     /** the mmain map parent => children[] */
     public forumMap: { [parentId: number]: UnreadResponse.JumpboxForum[] } = { 0: [] };
     /** holder of the states we need to display */
@@ -74,7 +74,11 @@ export class NavigationComponent implements OnInit {
     }
 
     public set forumList(set) {
-        this._forumList = set;
+        (<UnreadResponse.JumpboxForum[]><any>set).map((forum) => {
+            const fId = Number(forum.FORUM_ID);
+            if(this._forumList.has(fId)) this._forumList.get(fId).UNREAD = forum.UNREAD;
+            else this._forumList.set(fId, forum);
+        });
     }
 
     /**
@@ -84,10 +88,12 @@ export class NavigationComponent implements OnInit {
         this.stateT.latestTemplateData.subscribe((data) => {
             if (data.jumpbox_full) {
                 // Only trigger if the list actually changed.
-                if (data.jumpbox_forums.length != this.forumList.length) {
+                if (data.jumpbox_full.length != this.forumList.size) {
                     this.forumList = UnicodeToUtf8Pipe.forEach(data.jumpbox_full);
                     this.handleForumJumpBox(data.jumpbox_full, data.jumpbox_map);
                 }
+                // Just update our data
+                else this.forumList = UnicodeToUtf8Pipe.forEach(data.jumpbox_full);
             }
             // Should never happen.
             else throw 'NO JUMPBOX FORUM FROM TEMPLATE';
@@ -140,7 +146,7 @@ export class NavigationComponent implements OnInit {
 
         let toBeDisplayed = 0;
 
-        this._forumList.map((forum) => {
+        Array.from(this._forumList.values()).map((forum) => {
             // check we have the forum component
             if (this._registeredForums[Number(forum.FORUM_ID)]) {
                 // No search, set to true.
