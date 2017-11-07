@@ -646,7 +646,7 @@ export class StateTranslate {
     public getCurrentStateDataView(transition: Transition, force?: boolean): Promise<any> {
         let stateName = transition.$to().name;
         this._busy.next(true);
-
+        console.log(stateName, transition.params());
         let next: Observable<any> = Observable.of(new Object()).map(() => true);
 
         try {
