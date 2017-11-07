@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   baseForumUrl: 'http://' + window.location.hostname + "/",
-  reCaptchaKey: "6LccPSYUAAAAAL-NZ0q_M-3X6vfHPfB59WeWI4d8",
+  reCaptchaKey: "6LfVmeUSAAAAACv_hIeVFhNxf4LPYr03GY8TnphL",
   websocket: 'ws://www.newforum.fr:8080',
   baseHref: "/",
 };
