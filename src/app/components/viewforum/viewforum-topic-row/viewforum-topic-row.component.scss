@@ -9,7 +9,12 @@ $font-size:1rem;
 $secondary-size: $font-size - 0.15rem;
 
 @mixin colorify($color, $colorizetext:true) {
-    border-left-color: darken($color, 1.1);
+    @if $colorizetext == true {
+        border-left-color: desaturate(darken($color, 25%),25%);
+    }
+    @else {
+        border-left-color: darken($color, 1.1);
+    }
 
     // if we're colorizing, we want to overwrite the locked status.
     background: $main-bg;
@@ -32,6 +37,7 @@ $secondary-size: $font-size - 0.15rem;
     }
 
     &.unread{
+        border-left-color: $color;
         box-shadow: inset 30px 0px 30px -30px rgba($color,0.8);
     }
 }
