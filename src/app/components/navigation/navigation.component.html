@@ -16,7 +16,7 @@
 
     <div class="main-navigator" fxFlex fxLayout="column">
         <ul class="main-navigator-list" fxFlex *ngIf="!inlineSearch">
-            <scfr-forum-navigation-forum-link *ngFor="let forum of forumMap[0]" [forum]="forum" [navCo]="this" [depth]="0"></scfr-forum-navigation-forum-link>
+            <scfr-forum-navigation-forum-link *ngFor="let forum of forumMap[0]" [forum]="forum.FORUM_ID" [navCo]="this" [depth]="0"></scfr-forum-navigation-forum-link>
         </ul>
 
         <md-list *ngIf="inlineSearch" class="main-navigator-list" fxFlex dense>

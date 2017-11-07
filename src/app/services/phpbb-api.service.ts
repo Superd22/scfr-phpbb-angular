@@ -129,6 +129,8 @@ export class PhpbbApiService {
     }
 
     public getPhpbbAjaxPage(page, queries?: {}): Observable<PhpbbAjaxMessageResponse> {
+        if(!queries) queries = {};
+        queries['scfr_json_callback'] = true;
         return this.getPage(page, queries, null, true)
             .map((data: any) => data)
             .catch((error: any) => {
@@ -186,7 +188,7 @@ export class PhpbbApiService {
     public getSearch(searchId: string, moreArgs = {}): Observable<PhpbbTemplateResponse.DefaultResponse> {
         let params = Object.assign(moreArgs, { search_id: searchId });
 
-        if(params['keywords']) params["keywords"] = decodeURIComponent(params["keywords"]);
+        if (params['keywords']) params["keywords"] = decodeURIComponent(params["keywords"]);
         return this.getPage('search.php', params, false, false, true);
     }
 

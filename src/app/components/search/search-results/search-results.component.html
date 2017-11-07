@@ -4,6 +4,8 @@
   <h3 *ngIf="tpl.SEARCHED_QUERY">Requête recherchée: <strong>{{tpl.SEARCHED_QUERY}}</strong></h3>
   <h3 *ngIf="tpl.IGNORED_WORDS">{{L_.IGNORED_TERMS}} <strong>{{tpl.IGNORED_WORDS}}</strong></h3>
   <h3 *ngIf="tpl.PHRASE_SEARCH_DISABLED"><strong>{{L_.PHRASE_SEARCH_DISABLED}}</strong></h3>
+
+  <button class="markall" md-button *ngIf="tpl.U_MARK_ALL_READ" (click)="markEverythingRead()">Tout marquer comme lu</button>
 </div>
 
 <!-- <div class="refine-search" *ngIf="tpl.TOTAL_MATCHES > 1">

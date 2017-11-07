@@ -63,23 +63,39 @@ export class IndexComponent extends PhpbbComponent {
     private mapForums(forums: IPHPBBIndexForum[]) {
         let map = new Map();
 
-        if(forums)
-        forums.map((forum) => {
-            map.set(Number(forum.FORUM_ID), forum);
-        });
+        if (forums)
+            forums.map((forum) => {
+                map.set(Number(forum.FORUM_ID), forum);
+            });
 
         return map;
     }
 
     public getUserSpecificData() {
-        this.phpbb.getUnreadTopicList().subscribe(
+        this.phpbb.getUnreadTopicList(true).subscribe(
             data => this.unreadTopicList = data ? data.slice(0, 5) : null,
             err => console.log(err)
         );
 
-        this.phpbb.getUserMessage().subscribe((data) => {
+        this.phpbb.getUserMessage(true).subscribe((data) => {
             this.ownMessages = data ? data.slice(0, 3) : null;
         });
+    }
+
+    public markEverythingRead() {
+        if (this.tpl.U_MARK_FORUMS)
+            this.phpbbApi.getPhpbbAjaxPage(this.tpl.U_MARK_FORUMS).subscribe(
+                (data) => {
+                    // Check for errors
+                    if (data.S_ERROR)
+                        return this.phpbbApi.errorSnackBar(data.MESSAGE_TEXT);
+
+                    // @todo mark all read
+
+                    // Notify the user
+                    return this.phpbbApi.openSnackBar(data.MESSAGE_TEXT);
+                }
+            );
     }
 
 

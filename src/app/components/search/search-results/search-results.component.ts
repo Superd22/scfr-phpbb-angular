@@ -30,7 +30,7 @@ export class SearchResultsComponent extends PhpbbComponent {
       newParams['search_id'] = null;
       newParams['prettyMod'] = null;
     }
-    
+
     this.state.go("phpbb.seo.search", Object.assign({}, this.state.params, this.computeSearchParams(), newParams));
   }
 
@@ -56,5 +56,21 @@ export class SearchResultsComponent extends PhpbbComponent {
 
   public affineSearch() {
     //this.state.go(this.state.current, Object.assign(this.state.params, {}))
+  }
+
+  public markEverythingRead() {
+    if (this.tpl.U_MARK_ALL_READ)
+      this.phpbbApi.getPhpbbAjaxPage(this.tpl.U_MARK_ALL_READ).subscribe(
+        (data) => {
+          // Check for errors
+          if (data.S_ERROR)
+            return this.phpbbApi.errorSnackBar(data.MESSAGE_TEXT);
+
+          // @todo mark all read
+
+          // Notify the user
+          return this.phpbbApi.openSnackBar(data.MESSAGE_TEXT);
+        }
+      );
   }
 }
