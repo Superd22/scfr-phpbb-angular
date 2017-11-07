@@ -72,12 +72,12 @@ export class IndexComponent extends PhpbbComponent {
     }
 
     public getUserSpecificData() {
-        this.phpbb.getUnreadTopicList().subscribe(
+        this.phpbb.getUnreadTopicList(true).subscribe(
             data => this.unreadTopicList = data ? data.slice(0, 5) : null,
             err => console.log(err)
         );
 
-        this.phpbb.getUserMessage().subscribe((data) => {
+        this.phpbb.getUserMessage(true).subscribe((data) => {
             this.ownMessages = data ? data.slice(0, 3) : null;
         });
     }
