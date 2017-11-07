@@ -15,40 +15,41 @@
         <ng-container *ngSwitchCase="'News'">
 
           <ul class="primary">
-            <li>
-              <a href="//starcitizen.fr">Index</a>
-            </li>
-            <li>
-              <a href="{{WPHeader?.links['categories']}}">Catégories</a>
-            </li>
+
+            <a href="//starcitizen.fr">
+              <li>Index</li>
+            </a>
+            <a href="{{WPHeader?.links['categories']}}">
+              <li> Catégories </li>
+            </a>
             <li>Recherche</li>
           </ul>
 
           <ul class="secondary" *ngFor="let cat of WPHeader?.news.categories">
             <a href="{{cat.link}}"> {{cat.name}} </a>
-            <li *ngFor="let subc of cat.sub">
-              <a href="{{subc.link}}">{{subc.name}}</a>
-            </li>
+            <a *ngFor="let subc of cat.sub" href="{{subc.link}}">
+              <li> {{subc.name}} </li>
+            </a>
           </ul>
 
         </ng-container>
         <ng-container *ngSwitchCase="'Star Citizen'">
           <ul class="primary">
-            <li *ngFor="let sub of SCM.pages">
-              <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
+            <a *ngFor="let sub of SCM.pages" [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
+              <li>
                 {{sub.title}}
-              </a>
-            </li>
+              </li>
+            </a>
           </ul>
         </ng-container>
 
         <ng-container *ngSwitchCase="'Communauté'">
           <ul class="primary">
-            <li *ngFor="let sub of COM.pages">
-              <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
+            <a *ngFor="let sub of COM.pages" [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
+              <li>
                 {{sub.title}}
-              </a>
-            </li>
+              </li>
+            </a>
           </ul>
         </ng-container>
 
