@@ -11,7 +11,6 @@ import { ANotifComponent } from './components/global-header-bar/notification/a-n
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MobileNavigationComponent } from './components/global-header-bar/mobile-navigation/mobile-navigation.component';
 import { MdButtonModule, MdIconModule } from '@angular/material';
-import { SCFRAvatarURL } from '../pipes/avatar-url.pipe';
 
 @NgModule({
   imports: [
