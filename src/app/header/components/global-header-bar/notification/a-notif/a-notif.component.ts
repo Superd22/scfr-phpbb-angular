@@ -1,4 +1,7 @@
+import { StateService } from '@uirouter/angular';
+import { PhpbbApiService } from './../../../../../services/phpbb-api.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { UrlService } from '@uirouter/core';
 
 @Component({
   selector: 'scfr-header-notification-a-notif',
@@ -9,10 +12,36 @@ export class ANotifComponent implements OnInit {
 
   @Input()
   public notif: IPHPBBNotif;
+  public avatar: string;
 
-  constructor() { }
+  constructor(protected phpbbApi: PhpbbApiService, protected url: UrlService) { }
 
   ngOnInit() {
+    this.getAvatar()
+  }
+
+  public getAvatar() {
+    const regex = new RegExp(/ data-src=['"]([^'"]*)/);
+
+    let m = regex.exec(this.notif.AVATAR);
+    if (m && m[1]) this.avatar = m[1];
+  }
+
+  public goTo(event: Event) {
+    this.markAsRead();
+
+    this.url.url(this.notif.URL, true);
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  public markAsRead() {
+
+    this.phpbbApi.getPhpbbAjaxPage(this.notif.U_MARK_READ).subscribe((data) => {
+
+    });
+
   }
 
 }

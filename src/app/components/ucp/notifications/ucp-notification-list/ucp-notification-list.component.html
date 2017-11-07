@@ -4,16 +4,18 @@
   </h4>
 
   <md-list class="notifications" fxFlex="650px">
-    <md-list-item mdRipple *ngFor="let notif of ucp.tpl.notification_list" [ngClass]="{unread: notif.UNREAD}" class="a-notif">
-      <img md-list-avatar [src]="notif.AVATAR ? notif.AVATAR : '//starcitizen.fr/Forum/' + ucp.tpl.T_THEME_PATH + '/images/no_avatar.gif'">
-      <h3 md-line [innerHTML]="notif.FORMATTED_TITLE"></h3>
-      <p md-line>
-        <span *ngIf="notif.FORUM"> {{notif.FORUM}} </span>
-        <span *ngIf="notif.REFERENCE"> {{notif.REFERENCE}} </span>
-        <span *ngIf="notif.REASON"> {{notif.REASON}} </span>
-      </p>
-      <time md-line>{{notif.TIME}}</time>
-    </md-list-item>
+    <a *ngFor="let notif of ucp.tpl.notification_list" [href]="notif.URL">
+      <md-list-item mdRipple [ngClass]="{unread: notif.UNREAD}" class="a-notif" (click)="goTo($event, notif)">
+        <img md-list-avatar [src]="notif.avatar | avatarURL">
+        <h3 md-line [innerHTML]="notif.FORMATTED_TITLE"></h3>
+        <p md-line>
+          <span *ngIf="notif.FORUM"> {{notif.FORUM}} </span>
+          <span *ngIf="notif.REFERENCE"> {{notif.REFERENCE}} </span>
+          <span *ngIf="notif.REASON"> {{notif.REASON}} </span>
+        </p>
+        <time md-line>{{notif.TIME}}</time>
+      </md-list-item>
+    </a>
   </md-list>
 </div>
 

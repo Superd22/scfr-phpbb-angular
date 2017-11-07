@@ -1,8 +1,12 @@
 <div class="global-nav-bar" [ngClass]="{fixed: fixed}" [class.mobile]="mobileMenu">
 
   <div class="logo-container" fxFlex="80%" fxFlex.gt-sm="325px">
-    <a uiSref="phpbb.seo.index" class="logo"><img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr"></a>
-    <button *ngIf="sidenav" (click)="toggleSidenav.emit()"><i class="material-icons">menu</i></button>
+    <a uiSref="phpbb.seo.index" class="logo">
+      <img src="https://starcitizen.fr/wp-content/themes/FutureSpaceV6/images/logo.min.png" alt="StarCitizen.fr">
+    </a>
+    <button *ngIf="sidenav" (click)="toggleSidenav.emit()">
+      <i class="material-icons">menu</i>
+    </button>
   </div>
 
   <div class="main-links" fxHide fxShow.gt-md>
@@ -11,8 +15,12 @@
         <ng-container *ngSwitchCase="'News'">
 
           <ul class="primary">
-            <li><a href="//starcitizen.fr">Index</a></li>
-            <li><a href="{{WPHeader?.links['categories']}}">Catégories</a></li>
+            <li>
+              <a href="//starcitizen.fr">Index</a>
+            </li>
+            <li>
+              <a href="{{WPHeader?.links['categories']}}">Catégories</a>
+            </li>
             <li>Recherche</li>
           </ul>
 
@@ -38,8 +46,8 @@
           <ul class="primary">
             <li *ngFor="let sub of COM.pages">
               <a [href]="sub.src ? sub.src : WPHeader?.links[sub.page]">
-                    {{sub.title}}
-                  </a>
+                {{sub.title}}
+              </a>
             </li>
           </ul>
         </ng-container>
@@ -58,9 +66,20 @@
   <div class="separator" fxFlex></div>
 
   <div class="events" *ngIf="displayEvents && loggedIn">
-    <button class="pm" [ngClass]="{active:hasPm}"><a href="https://starcitizen.fr/Forum/ucp/mp/"><i class="material-icons">{{hasPm ? 'mail' : 'mail_outline'}}</i> <span class="count">{{pmCount}}</span></a></button>
-    <button class="notifications" [ngClass]="{active:hasNotification}"><a href="https://starcitizen.fr/Forum/ucp/notifications/"><i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i> <span class="count">{{notificationCount}}</span> </a>     <scfr-header-notification-pannel *ngIf="hasNotification > 0" class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
-    </button>
+    <a uiSref="phpbb.seo.ucp" [uiParams]="{page:'mp', subPage: ''}">
+      <button class="pm" [ngClass]="{active:hasPm}">
+        <i class="material-icons">{{hasPm ? 'mail' : 'mail_outline'}}</i>
+        <span class="count">{{pmCount}}</span>
+      </button>
+    </a>
+    <a uiSref="phpbb.seo.ucp" [uiParams]="{page:'notifications', subPage: ''}">
+      <button class="notifications" [ngClass]="{active:hasNotification}">
+        <i class="material-icons">{{hasNotification > 0 ? 'notifications_active' : 'notifications_none'}}</i>
+        <span class="count">{{notificationCount}}</span>
+
+        <scfr-header-notification-pannel *ngIf="hasNotification > 0" class="event-menu" [notifs]="notifications" style="right:24px;"></scfr-header-notification-pannel>
+      </button>
+    </a>
   </div>
 
 </div>

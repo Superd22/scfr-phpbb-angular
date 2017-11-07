@@ -1,3 +1,4 @@
+import { ScfrcommonModule } from './common/scfrcommon.module';
 import { SCFRAvatarURL } from './pipes/avatar-url.pipe';
 import { SCFRUIParamService } from './decorators/UIParam.decorator';
 import { UcpMainNotificationsComponent } from './components/ucp/notifications/notifications.component';
@@ -297,7 +298,6 @@ import { BreadcrumbsComponent } from './components/navigation/header-bar/breadcr
         McpReportBodyComponent,
         McpSubPopoutComponent,
         PopOutForgotPwdComponent,
-        SCFRAvatarURL,
         BreadcrumbsComponent,
     ],
     imports: [
@@ -309,6 +309,7 @@ import { BreadcrumbsComponent } from './components/navigation/header-bar/breadcr
         CommonModule,
         FormsModule,
         HttpModule,
+        ScfrcommonModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MaterialModule,

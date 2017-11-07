@@ -1,3 +1,4 @@
+import { ScfrcommonModule } from './../common/scfrcommon.module';
 import { UIRouterModule } from '@uirouter/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,14 +8,17 @@ import { GlobalHeaderService } from './services/global-header.service';
 import { SmallSecondaryLinkComponent } from './components/global-header-bar/small-secondary-link/small-secondary-link.component';
 import { NotificationPannelComponent } from './components/global-header-bar/notification/notification-pannel/notification-pannel.component';
 import { ANotifComponent } from './components/global-header-bar/notification/a-notif/a-notif.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {MobileNavigationComponent} from './components/global-header-bar/mobile-navigation/mobile-navigation.component';
-import {MdButtonModule, MdIconModule} from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MobileNavigationComponent } from './components/global-header-bar/mobile-navigation/mobile-navigation.component';
+import { MdButtonModule, MdIconModule } from '@angular/material';
+import { SCFRAvatarURL } from '../pipes/avatar-url.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
     FlexLayoutModule,
     MdButtonModule,
+    ScfrcommonModule,
     MdIconModule,
     UIRouterModule.forChild()
   ],
