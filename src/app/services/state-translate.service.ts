@@ -36,27 +36,29 @@ export class StateTranslate {
         this.phpbbApi.translate = this;
     }
 
-    public legacyToSeo(trans) {
+    public async legacyToSeo(trans) {
+        const checkHashes = await this.ensureHashes(trans);
+        if(checkHashes !== true) return Observable.of(checkHashes).toPromise();
         if (!trans.params()["phpbbResolved"]) {
             let page = trans.params().page.toLowerCase().replace('.php', '');
             switch (page) {
                 case "index":
                     return trans.router.stateService.target("phpbb.seo.index");
                 case "viewtopic":
-                    return this.transform_viewtopic(trans);
+                    return this.transform_viewtopic(trans).toPromise();
                 case "viewforum":
-                    return this.transform_viewforum(trans);
+                    return this.transform_viewforum(trans).toPromise();
                 case "memberlist":
                     switch (trans.params().mode) {
                         case "viewprofile":
-                            return this.transform_viewonline_viewprofile(trans);
+                            return this.transform_viewonline_viewprofile(trans).toPromise();
                     }
                 case "ucp":
-                    return this.transform_ucp(trans);
+                    return this.transform_ucp(trans).toPromise();
                 case "search":
-                    return this.transform_search(trans);
+                    return this.transform_search(trans).toPromise();
                 case "mcp":
-                    return this.transform_mcp(trans);
+                    return this.transform_mcp(trans).toPromise();
             }
         }
     }
@@ -110,8 +112,8 @@ export class StateTranslate {
 
         // If we haven't fetched data do it
         if (
-            !params['phpbbResolved'] 
-            || params['phpbbResolved']['@tplName'] !== "search_results" 
+            !params['phpbbResolved']
+            || params['phpbbResolved']['@tplName'] !== "search_results"
             || params.start && (params.start != params['phpbbResolved']['@template']['PER_PAGE'] * (params['phpbbResolved']['@template']['CURRENT_PAGE'] - 1))) {
             return this.phpbbApi.getSearch(newParams['search_id'], Object.assign(newParams, { phpbbResolved: undefined })).map((data) => {
                 newParams['phpbbResolved'] = data;
@@ -133,8 +135,9 @@ export class StateTranslate {
      */
     private transform_viewtopic(trans: Transition, topicId?: number): Observable<any> {
         let params = trans.params();
-        var trans_param = Object.assign({}, params);
+        let trans_param = Object.assign({}, params);
         let trans_page = "phpbb.seo.index";
+
 
         // If we want unread, we do **not** specify anything else.
         if (trans_param['unread']) {
@@ -643,10 +646,13 @@ export class StateTranslate {
      * @param Transition transition the current transition
      * @param force force the update of this state
      */
-    public getCurrentStateDataView(transition: Transition, force?: boolean): Promise<any> {
+    public async getCurrentStateDataView(transition: Transition, force?: boolean): Promise<any> {
+        const checkHashes = await this.ensureHashes(transition);
+        if(checkHashes !== true) return checkHashes;
+
         let stateName = transition.$to().name;
         this._busy.next(true);
-        
+
         let next: Observable<any> = Observable.of(new Object()).map(() => true);
 
         try {
@@ -734,5 +740,27 @@ export class StateTranslate {
         this.newTeplateData = Object.assign(current, params);
     }
 
+    public async ensureHashes(trans: Transition) {
+        const hash: string = trans.params()["#"];
+        if (!hash) return true;
+        const sepIndex = hash.indexOf("?");
+        if (sepIndex == -1) return true;
+        if (hash) {
+            let urlParams = {"#": hash.slice(0, sepIndex)};
+            let e,
+                a = /\+/g,  // Regex for replacing addition symbol with a space
+                r = /([^&=]+)=?([^&]*)/g,
+                d = function (s) {
+                    return decodeURIComponent(s.replace(a, " "));
+                }
+
+            while (e = r.exec(hash.slice(sepIndex + 1)))
+                urlParams[d(e[1])] = d(e[2]);
+
+            return trans.router.stateService.target(<string>trans.targetState().name(), Object.assign({}, trans.params(), urlParams));
+        }
+
+        return true;
+    }
 
 }

@@ -1,3 +1,4 @@
+import { UrlService } from '@uirouter/core';
 import { NotificationsService } from './../../../../services/notifications.service';
 import { UcpSubPageFormComponent } from './../../ucp-sub-page-form/ucp-sub-page-form.component';
 import { Component, OnInit } from '@angular/core';
@@ -9,11 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UcpNotificationListComponent extends UcpSubPageFormComponent implements OnInit {
 
-  constructor(protected notifs: NotificationsService) {
+  constructor(protected notifs: NotificationsService, protected url: UrlService) {
     super();
   }
 
   ngOnInit() {
+    this.getAvatars()
   }
 
   /**
@@ -33,5 +35,32 @@ export class UcpNotificationListComponent extends UcpSubPageFormComponent implem
    */
   public markAllRead() {
     this.notifs.markAllRead();
+  }
+
+
+  public getAvatars() {
+    if (this.ucp && this.ucp.tpl.notification_list)
+      for (let notif of this.ucp.tpl.notification_list) {
+        const regex = new RegExp(/ data-src=['"]([^'"]*)/);
+
+        let m = regex.exec(notif.AVATAR);
+        if (m && m[1]) notif.avatar = m[1];
+      }
+  }
+
+  public goTo(event: Event, notif) {
+    this.markAsRead(notif);
+
+    this.url.url(notif.URL, true);
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  public markAsRead(notif) {
+    this.api.getPhpbbAjaxPage(notif.U_MARK_READ).subscribe((data) => {
+
+    });
+
   }
 }

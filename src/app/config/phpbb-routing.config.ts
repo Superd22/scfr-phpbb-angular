@@ -22,13 +22,15 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
         ga('send', 'pageview');
     }
 
+
+
     function legacyHook() {
         router.transitionService.onBefore({ to: "phpbb.legacy" }, (trans) =>
-            stateTranslate.legacyToSeo(trans).toPromise().then(
+            stateTranslate.legacyToSeo(trans).then(
                 state => {
                     return state;
                 },
-            )
+            ), { priority: 1 }
         );
     }
 
@@ -38,7 +40,7 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
                 state => {
                     return state;
                 },
-            )
+            ), { priority: 1 }
         );
     }
 
