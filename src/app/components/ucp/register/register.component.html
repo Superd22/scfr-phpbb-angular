@@ -29,7 +29,7 @@
     <scfr-forum-ucp-phpbb-field *ngFor="let pf of tpl.profile_fields" fxFlex [explain]="pf.LANG_EXPLAIN" [displayName]="pf.LANG_NAME"
       [fullPHPBB]="pf.FIELD"></scfr-forum-ucp-phpbb-field>
 
-    <re-captcha (captchaResponse)="capchaCallback($event)" site_key="6LccPSYUAAAAAL-NZ0q_M-3X6vfHPfB59WeWI4d8" theme="dark"></re-captcha>
+    <re-captcha (captchaResponse)="capchaCallback($event)" [site_key]="capchaKey" theme="dark"></re-captcha>
 
   </md-card-content>
 
