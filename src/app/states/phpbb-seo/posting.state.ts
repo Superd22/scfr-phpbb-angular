@@ -2,10 +2,11 @@ import { PostingComponent } from './../../components/posting/posting.component';
 
 export const psoPostReply = {
     name: 'phpbb.seo.viewtopic.posting',
-    url: 'repondre/',
+    url: '/repondre/',
     params: {
         postId: null,
         quote: null,
+        '#': 'posting',
     },
     views: {
         '@': {
@@ -16,7 +17,10 @@ export const psoPostReply = {
 
 export const psoPostEdit = {
     name: 'phpbb.seo.viewtopic.edit',
-    url: 'edit/:postId',
+    url: '/edit/:postId',
+    params: {
+        '#': 'posting'
+    },
     views: {
         '@': {
             component: PostingComponent,
@@ -27,6 +31,9 @@ export const psoPostEdit = {
 export const psoPostTopic = {
     name: 'phpbb.seo.viewforum.posting',
     url: 'nouveau/',
+    params: {
+        '#': 'posting'
+    },
     views: {
         '@': {
             component: PostingComponent,

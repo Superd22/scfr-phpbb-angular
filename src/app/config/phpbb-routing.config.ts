@@ -47,10 +47,11 @@ export function PhpbbRoutingConfig(router: UIRouter, injector: Injector, module:
             // we're done loading.
             stateTranslate.loading.next(false);
 
-            setTimeout(() => {
-                const el = document.querySelector("#top");
-                el.scrollIntoView();
-            });
+            if (!transition.targetState().params()["#"])
+                setTimeout(() => {
+                    const el = document.querySelector("#top");
+                    el.scrollIntoView();
+                });
 
             if (nav.sidenavIsMobileMod) nav.setSidenavToggled(false);
             doGa();
