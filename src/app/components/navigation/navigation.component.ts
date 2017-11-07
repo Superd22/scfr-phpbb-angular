@@ -82,11 +82,11 @@ export class NavigationComponent implements OnInit {
      */
     public fetchForumList(): void {
         this.stateT.latestTemplateData.subscribe((data) => {
-            if (data.jumpbox_forums) {
+            if (data.jumpbox_full) {
                 // Only trigger if the list actually changed.
                 if (data.jumpbox_forums.length != this.forumList.length) {
-                    this.forumList = UnicodeToUtf8Pipe.forEach(data.jumpbox_forums);
-                    this.handleForumJumpBox(data.jumpbox_forums, data.jumpbox_map);
+                    this.forumList = UnicodeToUtf8Pipe.forEach(data.jumpbox_full);
+                    this.handleForumJumpBox(data.jumpbox_full, data.jumpbox_map);
                 }
             }
             // Should never happen.

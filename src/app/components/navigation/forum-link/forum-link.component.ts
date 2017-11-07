@@ -65,7 +65,6 @@ export class ForumLinkComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.throttle.addToStack(this, this.computeUnreadStatus);
   }
 
   public get toggleDisplaySub(): boolean { return this._toggleDisplay; }
