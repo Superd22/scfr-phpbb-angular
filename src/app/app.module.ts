@@ -1,5 +1,4 @@
 import { ScfrcommonModule } from './common/scfrcommon.module';
-import { SCFRAvatarURL } from './pipes/avatar-url.pipe';
 import { SCFRUIParamService } from './decorators/UIParam.decorator';
 import { UcpMainNotificationsComponent } from './components/ucp/notifications/notifications.component';
 import { ExtraModuleInjector } from './decorators/ExtraModuleInjector';
