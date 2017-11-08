@@ -1,3 +1,5 @@
+import { Collected } from 'ng2-rx-collector';
+import { PhpbbWebsocketService } from './../../services/phpbb-websocket.service';
 import { UiServiceService } from './../../material/services/ui-service.service';
 import { IPhpbbViewforumTopicrow } from './viewforum-topic-row/interfaces/phpbb-viewforum-topicrow.interface';
 import { IPhpbbViewforumForumrow } from './viewforum-forum-row/interfaces/phpbb-viewforum-forumrow.interface';
@@ -21,13 +23,19 @@ export class ViewforumComponent extends PhpbbComponent {
   public sortSk;
   public sortSd;
   public loadingTopics: boolean = false;
+  public newTopic = 0;
+  @Collected() private _collected;
 
-  constructor(private UI: UiServiceService) {
+  constructor(private UI: UiServiceService, private ws: PhpbbWebsocketService) {
     super();
   }
 
   ngOnInit() {
     super.ngOnInit();
+
+    this.ws.onNewThread(Number(this.tpl.FORUM_ID), true).takeUntil(this._collected).subscribe((data) => {
+      this.newTopic++;
+    });
   }
 
   /**
@@ -121,6 +129,10 @@ export class ViewforumComponent extends PhpbbComponent {
       this.UI.scrollToAnchor("topicrow");
     });
 
+  }
+
+  public refresh() {
+    this.stateService.go(this.stateService.current.name, Object.assign({}, this.stateService.current.params, { phpbbResolved: false }), { reload: true });
   }
 
   public updateLocalSortPref() {

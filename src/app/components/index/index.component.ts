@@ -1,3 +1,5 @@
+import { Collected } from 'ng2-rx-collector';
+import { PhpbbWebsocketService } from './../../services/phpbb-websocket.service';
 import { IPHPBBIndexForum } from './../../interfaces/phpbb/phpbb-index-forum';
 import { IGuideDesNouveauxResponse } from './interfaces/guide-des-nouveaux.interface';
 import { WpService } from 'app/services/wp.service';
@@ -25,13 +27,18 @@ export class IndexComponent extends PhpbbComponent {
     public guideNouveau: IGuideDesNouveauxResponse;
     public onlineMembers = [];
 
-    constructor(public phpbb: PhpbbService, public loginService: LoginService, protected stateT: StateTranslate, protected wp: WpService) {
+    @Collected() private _collected;
+
+    private _userSpecificFetch = 0;
+
+    constructor(public phpbb: PhpbbService, public loginService: LoginService, protected stateT: StateTranslate, protected wp: WpService,
+        private ws: PhpbbWebsocketService) {
         super();
     }
 
     ngOnInit() {
         super.ngOnInit();
-        this.loginService.userStatus.subscribe(
+        this.loginService.userStatus.takeUntil(this._collected).subscribe(
             (isLoggedIn) => {
                 this.isLoggedIn = isLoggedIn;
                 if (isLoggedIn) {
@@ -40,7 +47,11 @@ export class IndexComponent extends PhpbbComponent {
             }
         );
 
-        this.stateT.latestTemplateData.subscribe((data) => {
+        this.ws.onPosting.takeUntil(this._collected).subscribe((data) => {
+            if(this.isLoggedIn) this.getUserSpecificData();
+        });
+
+        this.stateT.latestTemplateData.takeUntil(this._collected).subscribe((data) => {
             this.forumList = this.filterForumsToDisplay(data.jumpbox_forums);
             this.forumMap = this.mapForums(data.forumrow)
             if (data.LOGGED_IN_USER_LIST) this.onlineMembers = data.LOGGED_IN_USER_LIST;
@@ -72,14 +83,21 @@ export class IndexComponent extends PhpbbComponent {
     }
 
     public getUserSpecificData() {
-        this.phpbb.getUnreadTopicList(true).subscribe(
-            data => this.unreadTopicList = data ? data.slice(0, 5) : null,
-            err => console.log(err)
-        );
+        if (this._userSpecificFetch <= 0) {
+            this._userSpecificFetch = 2;
+            this.phpbb.getUnreadTopicList(true).subscribe(
+                data => {
+                    this.unreadTopicList = data ? data.slice(0, 5) : null;
+                    this._userSpecificFetch -= 1;
+                },
+                err => console.log(err)
+            );
 
-        this.phpbb.getUserMessage(true).subscribe((data) => {
-            this.ownMessages = data ? data.slice(0, 3) : null;
-        });
+            this.phpbb.getUserMessage(true).subscribe((data) => {
+                this.ownMessages = data ? data.slice(0, 3) : null;
+                this._userSpecificFetch -= 1;
+            });
+        }
     }
 
     public markEverythingRead() {
