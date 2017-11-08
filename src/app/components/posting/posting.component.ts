@@ -98,6 +98,7 @@ export class PostingComponent extends PhpbbComponent {
       return Observable.of("caca");
     }).subscribe(
       (data) => {
+        console.log(data);
         this.busy = false;
       });
   }

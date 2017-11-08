@@ -81,11 +81,13 @@ export class PhpbbApiService {
                 } catch (error) {
                     // We don't have a JSON thingy, most likely we got redirected by PHPBB.
                     // We're gonna redirect ourselves there.
+
                     let regex = new RegExp(baseUrl + "(.*)");
-                    let m = regex.exec(res.url);
+                    let m = regex.exec(res.url.replace("forum-api/", "Forum/"));
 
                     if (m[1] && m[1].indexOf(".php") > -1) {
                         this.stranslate.goToOld(m[1]);
+                        
                     }
                     else throw "NO JSON CAN'T REDIRECT";
                 }
