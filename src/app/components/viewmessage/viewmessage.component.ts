@@ -1,7 +1,7 @@
 import { ViewtopicComponent } from './../viewtopic/viewtopic.component';
 import { StateTranslate } from './../../services/state-translate.service';
 import { SimplePost } from './../../interfaces/simple-post';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { PhpbbPostMessage } from '../../interfaces/phpbb/phpbb-post-message';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser/";
 @Component({
@@ -41,11 +41,15 @@ export class ViewmessageComponent implements OnInit {
     return Number(this._edit);
   }
 
-  constructor(public sanitizer: DomSanitizer, private stateT: StateTranslate) {
+  constructor(public sanitizer: DomSanitizer, private stateT: StateTranslate, private _elRef: ElementRef) {
   }
 
   ngOnInit() {
     this.initPost();
+  }
+
+  ngAfterViewInit() {
+    this.doSpoilers();
   }
 
   /**
@@ -106,6 +110,19 @@ export class ViewmessageComponent implements OnInit {
   public displayInfoRight(): boolean {
     return this.postrow.J_IS_JULIET && this.tpl.S_USER_IS_JULIET ||
       (this.postrow.G_SHOW_H || this.postrow.G_SHOW_G) && !(this.tpl.S_USER_IS_JULIET && this.postrow.J_IS_JULIET)
+  }
+
+  public doSpoilers() {
+    setTimeout(() => {
+      const spoilers = (<Element>this._elRef.nativeElement).querySelectorAll(".ForumSpoiler");
+      for (let i = 0; i < spoilers.length; i++) {
+        const spoil = spoilers[i];
+
+        const h3 = spoil.querySelector("h3").addEventListener("click", () => {
+          spoil.querySelector(".content").classList.toggle("visible");
+        });
+      }
+    });
   }
 
 }
