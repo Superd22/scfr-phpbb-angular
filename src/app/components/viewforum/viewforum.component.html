@@ -47,6 +47,20 @@
         </div>
     </div>
 
+    <div fxFlex="100" class="new-topics" *ngIf="newTopic > 0">
+        <div class="bar"></div>
+        <div class="label">
+            <span [ngPlural]="newTopic">
+                <ng-template ngPluralCase="=1">Un nouveau topic a été posté</ng-template>
+                <ng-template ngPluralCase="other">{{newTopic}} nouveaux topics ont étés postés</ng-template>
+            </span>
+
+            <button md-icon-button (click)="refresh()">
+                <md-icon>refresh</md-icon>
+            </button>
+        </div>
+        <div class="bar"></div>
+    </div>
 
     <div *ngIf="tpl.topicrow && !loadingTopics" fxLayout="column" class="topicrow" id="topicrow">
         <scfr-forum-viewforum-topic-row *ngFor="let topic of tpl.topicrow" [topic]="topic"></scfr-forum-viewforum-topic-row>

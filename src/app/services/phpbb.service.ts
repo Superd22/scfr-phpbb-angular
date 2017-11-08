@@ -1,8 +1,7 @@
 import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
-import { BehaviorSubject, Observable } from 'rxjs/Rx';
+import { BehaviorSubject, Subject, Observable } from 'rxjs/Rx';
 import { PhpbbApiService } from './phpbb-api.service';
 
 @Injectable()
@@ -11,6 +10,10 @@ export class PhpbbService {
     private unreadTopics: ReplaySubject<any> = null;
     private privateMessages: ReplaySubject<any> = null;
     private ownMessages: ReplaySubject<any> = null;
+
+    private _forumEventObs: Subject<IPHPBBForumReadStatusEvent> = new Subject();
+
+    public get forumReadStatus() { return this._forumEventObs; }
 
     constructor(private phpbbApi: PhpbbApiService) { }
 
@@ -72,4 +75,9 @@ export class PhpbbService {
 
         return this[cacheName];
     }
+}
+
+export interface IPHPBBForumReadStatusEvent {
+    forumId: number,
+    unread: boolean
 }

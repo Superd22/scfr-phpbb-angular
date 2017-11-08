@@ -25,10 +25,17 @@
     </div>
 
     <div *ngIf="newPosts > 0" class="newpostsws">
-        <p [ngPlural]="newPosts">
-            <ng-template ngPluralCase="=1">Une nouvelle réponse</ng-template>
-            <ng-template ngPluralCase="other">{{newPosts}} nouvelles réponses</ng-template>
-        </p>
+        <div class="bar"></div>
+        <div class="label">
+            <span [ngPlural]="newPosts">
+                <ng-template ngPluralCase="=1">une nouvelle réponse</ng-template>
+                <ng-template ngPluralCase="other">{{newPosts}} nouvelles réponses</ng-template>
+            </span>
+            <button md-icon-button (click)="refresh()">
+                <md-icon> refresh </md-icon>
+            </button>
+        </div>
+        <div class="bar"></div>
     </div>
 
     <scfr-forum-breadcrumbs fxFlex="100"></scfr-forum-breadcrumbs>
