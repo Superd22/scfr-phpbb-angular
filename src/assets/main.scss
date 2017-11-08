@@ -73,6 +73,23 @@ hr {
         max-height: 1.2em;
         vertical-align: middle;
     }
+
+    .ForumSpoiler {
+        h3 {
+            background: transparentize(map-get($scfr-mat-blue-grey-background, 900), 0.1);
+            margin: 0px;
+            padding: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: "Electrolize";
+        }
+        .content {
+            display:none;
+            &.visible {display:block;}
+            padding:12px;
+            background: transparentize(map-get($scfr-mat-blue-grey-background, 800), 0.4);
+        }
+    }
 }
 
 ng-adsense {

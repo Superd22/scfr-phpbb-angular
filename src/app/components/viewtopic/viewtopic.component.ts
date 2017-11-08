@@ -113,6 +113,7 @@ export class ViewtopicComponent extends PhpbbComponent {
       this.UI.scrollToTop();
       this.fetchingNewPosts = true;
       this._unreadMode = false;
+      this._stateTargetPost = null;
       this._statePageNumber = n;
     }
   }
