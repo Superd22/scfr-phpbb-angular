@@ -23,7 +23,6 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         line-height: 1.5rem;
         margin: 0px;
         font-weight: bolder;
-        margin-bottom:1.5rem;
 
         .mat-button {
             vertical-align: text-bottom;
@@ -108,16 +107,31 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
     @mixin righty-background-row() {
         margin:14px;
         min-height: 33vh;
-        margin-top: 50px;
+        max-height: 33vh;
         display: flex;
         background-position:center center;
         background-repeat:no-repeat;
         background-size:cover;
 
-
         .mask {
             padding:28px;
             flex: 1 1 100%;
+
+            ::ng-deep {
+                    h2 {
+                    font-family: 'Heebo', sans-serif;
+                    text-transform: uppercase;
+                    font-size: 1.5rem;
+                    line-height: 1.5rem;
+                    margin: 0px;
+                    font-weight: bolder;
+                    margin-bottom: 0.5rem;
+            
+                    .mat-button {
+                        vertical-align: text-bottom;
+                    }
+                }
+            }
 
             background-color:transparentize($bg-color, 0.3);
         }
@@ -133,37 +147,16 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
 
         @include righty-background-row();
 
-        .parts {
-            margin: 24px;
-            li {
-                padding:8px;
-                position:relative;
-                a {
-                    font-family: $text-font-header-title;
-                    text-decoration: none;
-                }
-                &:before {
-                    content: '';
-                    position: absolute;
-                    border-left: 1px solid white;
-                    width: 1px;
-                    height: 100%;
-                    left: 10px;
-                    top: -15px;
-                }
-                &:first-of-type:before {
-                    border-left:0px;
-                }
-            }
-        }
-        &.small .parts {
-            margin: 24px 0px;
-        }
     }
 
     .own-messages {
         @include righty-background-row();
         background-image: url(//starcitizen.fr/wp-content/uploads/2017/04/26-1024x576.png);
+    }
+
+    .news {
+        @include righty-background-row();
+        background-image: url(//starcitizen.fr/wp-content/uploads/2017/11/banu-1024x437.jpg);
     }
 
     .online {

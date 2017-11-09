@@ -1,0 +1,41 @@
+<scfr-forum-index-tab-forum-row-category fxFlex="100%" *ngIf="forum.S_NO_CAT" [category]="forum"></scfr-forum-index-tab-forum-row-category>
+
+<md-card class="forum" fxFlex="100%" fxLayout fxLayoutWrap mdRipple [ngClass]="{unread: forum.S_UNREAD_FORUM}">
+  <a class="link-wrapper" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}">
+    <div class="forum-title" fxLayoutWrap fxFlex="50" fxFlex.lt-sm="100">
+      <span class="title">{{forum.FORUM_NAME}}</span>
+      <span class="description" [innerHTML]="forum.FORUM_DESC" fxFlex="100%">
+      </span>
+    </div>
+
+    <div class="forum-stats" fxLayout fxHide.lt-sm="true" fxFlex="25">
+      <dl fxFlex="50" fxHide fxHide.gt-md="false">
+        <dd>{{forum.TOPICS}}</dd>
+        <dt>{{L_.TOPICS}}</dt>
+      </dl>
+      <dl fxFlex="100" fxFlex.gt-md="50">
+        <dd>{{forum.POSTS}}</dd>
+        <dt>{{L_.POSTS}}</dt>
+      </dl>
+    </div>
+  </a>
+
+  <div class="forum-last-reply forum-time" fxFlex="100" fxFlex.gt-xs="25">
+    <span fxHide fxShow.gt-sm>{{L_.LAST_POST}} dans</span>
+
+    <br fxHide fxShow.gt-sm>
+    <span>
+      «
+      <a uiSref="phpbb.seo.viewtopic" [uiParams]="lastPostParams">{{forum.LAST_POST_SUBJECT}}</a> »
+    </span>
+
+    <br /> {{L_.POST_BY_AUTHOR}}
+    <scfr-forum-phpbb-username [html]="forum.LAST_POSTER_FULL"></scfr-forum-phpbb-username>
+    <span class="topic-time">{{forum.LAST_POST_TIME}}</span>
+  </div>
+
+  <div class="sub-forums" *ngIf="forum.S_LIST_SUBFORUMS && forum.subforum" fxLayout fxLayoutWrap fxFlex="75%" fxFlex.lt-sm="100%">
+    <scfr-forum-index-tab-forum-subforum class="a-sub-forum" *ngFor="let subForum of forum.subforum" [subForum]="subForum" fxFlex="33%"
+      fxFlex.lt-sm="50%"></scfr-forum-index-tab-forum-subforum>
+  </div>
+</md-card>

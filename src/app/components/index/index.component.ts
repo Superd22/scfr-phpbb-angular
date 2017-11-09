@@ -8,6 +8,7 @@ import { PhpbbService } from '../../services/phpbb.service';
 import { LoginService } from '../../services/login.service';
 import { PhpbbComponent } from '../phpbb/phpbb-component.component';
 import { UnreadResponse } from '../../models/Search/UnreadReponse';
+import { SCFRLocalStorage } from 'app/decorators/LocalStorage.decorator';
 
 @Component({
     selector: 'app-index',
@@ -18,15 +19,15 @@ export class IndexComponent extends PhpbbComponent {
     public unreadTopicList;
     public ownMessages;
     public isLoggedIn;
-    /** all the availables forums */
-    public forumList: UnreadResponse.JumpboxForum[];
-    /** information on every forums */
-    public forumMap = new Map<number, IPHPBBIndexForum>();
     public guideNouveau: IGuideDesNouveauxResponse;
     public onlineMembers = [];
+    /** the currently active tab */
+    @SCFRLocalStorage("scfr:index:activetab") public activeTab: string;
 
     constructor(public phpbb: PhpbbService, public loginService: LoginService, protected stateT: StateTranslate, protected wp: WpService) {
         super();
+
+        if(!this.activeTab) this.activeTab = "forum";
     }
 
     ngOnInit() {
@@ -41,14 +42,9 @@ export class IndexComponent extends PhpbbComponent {
         );
 
         this.stateT.latestTemplateData.subscribe((data) => {
-            this.forumList = this.filterForumsToDisplay(data.jumpbox_forums);
-            this.forumMap = this.mapForums(data.forumrow)
             if (data.LOGGED_IN_USER_LIST) this.onlineMembers = data.LOGGED_IN_USER_LIST;
         });
 
-        this.wp.getGuideDesNouveaux().subscribe((guide) => {
-            if (guide) this.guideNouveau = guide;
-        });
     }
 
     /**

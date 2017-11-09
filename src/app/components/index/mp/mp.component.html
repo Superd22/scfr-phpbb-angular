@@ -1,0 +1,10 @@
+<h2>Messages privés
+  <a uiSref="phpbb.seo.ucp" [uiParams]="{page:'mp', subPage:''}">
+    <button md-button color="primary">Voir tous vos MP</button>
+  </a>
+</h2>
+
+
+<md-list dense>
+  <scfr-forum-ucp-pm-convo-row *ngFor="let convo of convos" [convo]="convo" class="mp"></scfr-forum-ucp-pm-convo-row>
+</md-list>

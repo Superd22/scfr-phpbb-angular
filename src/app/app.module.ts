@@ -169,6 +169,16 @@ import { NavigationService } from 'app/services/navigation.service';
 import { AdsenseModule } from 'ng2-adsense';
 import { PopOutForgotPwdComponent } from './components/login/pop-out-forgot-pwd/pop-out-forgot-pwd.component';
 import { BreadcrumbsComponent } from './components/navigation/header-bar/breadcrumbs/breadcrumbs.component';
+import { GuideDesNouveauxComponent } from './components/index/guide-des-nouveaux/guide-des-nouveaux.component';
+import { MpComponent } from './components/index/mp/mp.component';
+import { NewsComponent } from './components/index/news/news.component';
+import { ForumComponent } from './components/index/tab/forum/forum.component';
+import { UnreadComponent } from './components/index/tab/unread/unread.component';
+import { EgoComponent } from './components/index/tab/ego/ego.component';
+import { LastComponent } from './components/index/tab/last/last.component';
+import { RowCategoryComponent } from './components/index/tab/forum/row-category/row-category.component';
+import { RowForumComponent } from './components/index/tab/forum/row-forum/row-forum.component';
+import { SubforumComponent } from './components/index/tab/forum/row-forum/subforum/subforum.component';
 
 @NgModule({
     declarations: [
@@ -298,6 +308,16 @@ import { BreadcrumbsComponent } from './components/navigation/header-bar/breadcr
         McpSubPopoutComponent,
         PopOutForgotPwdComponent,
         BreadcrumbsComponent,
+        GuideDesNouveauxComponent,
+        MpComponent,
+        NewsComponent,
+        ForumComponent,
+        UnreadComponent,
+        EgoComponent,
+        LastComponent,
+        RowCategoryComponent,
+        RowForumComponent,
+        SubforumComponent,
     ],
     imports: [
         UIRouterModule.forRoot({

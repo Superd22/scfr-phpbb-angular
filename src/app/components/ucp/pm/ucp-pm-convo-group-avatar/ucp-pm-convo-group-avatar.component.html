@@ -1,13 +1,13 @@
 <div class="avatars" fxLayout fxLayoutWrap>
 
-  <div *ngIf="participantsCount > 0" [fxFlex]="participantsCount <= 1 ? '100%' : '50%'" [ngClass]="{full: (participantsCount < 3)}">
-    <img [ngClass]="{lefty: (participantsCount > 1)}" [src]="convo.participants[0].image">
+  <div *ngIf="participantsCount >= 0" [fxFlex]="participantsCount <= 0 ? '100%' : '50%'" [ngClass]="{full: (participantsCount < 3)}">
+    <img [ngClass]="{lefty: (participantsCount > 1)}" [src]="convo.participants[0]?.image | avatarURL">
   </div>
   <div *ngIf="participantsCount > 1" fxFlex="50%" class="b-left" [ngClass]="{full: (participantsCount < 4)}">
-    <img class="righty" [src]="convo.participants[1].image">
+    <img class="righty" [src]="convo.participants[1].image | avatarURL">
   </div>
   <div *ngIf="participantsCount > 2" fxFlex="50%" class="b-top" [style.margin-top]="participantsCount > 3 ? '0px' : 'inherit'">
-    <img class="lefty" [src]="convo.participants[2].image">
+    <img class="lefty" [src]="convo.participants[2].image | avatarURL">
   </div>
 
   <span *ngIf="participantsCount > 3" fxFlex="50%" class="moar b-left b-top">+{{participantsCount-3}}</span>

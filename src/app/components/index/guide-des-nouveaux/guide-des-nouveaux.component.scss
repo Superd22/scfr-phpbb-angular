@@ -1,0 +1,27 @@
+@import './src/assets/material/v7/main';
+.parts {
+    margin: 24px;
+    li {
+        padding:8px;
+        position:relative;
+        a {
+            font-family: $text-font-header-title;
+            text-decoration: none;
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            border-left: 1px solid white;
+            width: 1px;
+            height: 100%;
+            left: 10px;
+            top: -15px;
+        }
+        &:first-of-type:before {
+            border-left:0px;
+        }
+    }
+}
+.small .parts {
+    margin: 24px 0px;
+}

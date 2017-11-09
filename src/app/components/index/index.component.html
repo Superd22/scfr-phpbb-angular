@@ -1,25 +1,52 @@
 <div class="index" fxLayout fxLayoutWrap [ngClass.lt-md]="'small'">
 
-    <div class="left" fxFlex="50%" fxFlex.lt-md="100%">
+    <div fxFlex="100%" class="top-row" fxLayout>
 
-        <div class="forums">
-            <h3>Les forums</h3>
-
-            <a class="forum-row mat-elevation-z2" *ngFor="let forum of forumList" fxLayout mdRipple uiSref="phpbb.seo.viewforum" [uiParams]="{forumId:forum.FORUM_ID}">
-                <span class="forum-name" fxFlex="50">{{forum.FORUM_NAME}}</span>
-                <!--
-                <div class="topics">{{}}</div>
-                <div class="replies">{{}}</div> -->
-            </a>
+        <div class="news mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
+            <div class="mask">
+                <scfr-forum-index-news></scfr-forum-index-news>
+            </div>
         </div>
 
-        <div class="messages">
+        <div class="guide mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
+            <div class="mask">
+                <scfr-forum-index-guide-des-nouveaux></scfr-forum-index-guide-des-nouveaux>
+            </div>
+        </div>
+
+
+        <div class="own-messages mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
+            <div class="mask">
+                <scfr-forum-index-mp></scfr-forum-index-mp>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tab-wrapper" fxLayoutWrap fxFlex="100">
+        <nav md-tab-nav-bar fxFlex="100">
+            <a md-tab-link (click)="activeTab = 'forum'" [active]="activeTab == 'forum'">FORUM</a>
+            <a md-tab-link (click)="activeTab = 'unread'" [active]="activeTab == 'unread'" *ngIf="isLoggedIn">Messages non lus</a>
+            <a md-tab-link (click)="activeTab = 'last'" [active]="activeTab == 'last'">Derniers Messages</a>
+            <a md-tab-link (click)="activeTab = 'ego'" [active]="activeTab == 'ego'" *ngIf="isLoggedIn">Mes Messages</a>
+        </nav>
+
+        <div class="tab-active" [ngSwitch]="activeTab">
+            <scfr-forum-index-tab-forum *ngSwitchCase="'forum'"></scfr-forum-index-tab-forum>
+            <scfr-forum-index-tab-unread *ngSwitchCase="'unread'"></scfr-forum-index-tab-unread>
+            <scfr-forum-index-tab-last *ngSwitchCase="'last'"></scfr-forum-index-tab-last>
+            <scfr-forum-index-tab-ego *ngSwitchCase="'ego'"></scfr-forum-index-tab-ego>
+        </div>
+    </div>
+
+
+    <!-- <div class="messages">
             <h3>Messages non lus
                 <a uiSref="phpbb.seo.search" [uiParams]="{search_id:'unreadposts'}">
                     <button md-button color="primary">Voir tous les nouveaux messages</button>
                 </a>
-                <button class="markall"  color="primary" md-button *ngIf="tpl.U_MARK_FORUMS" (click)="markEverythingRead()">Tout marquer comme lu</button>
-                
+                <button class="markall" color="primary" md-button *ngIf="tpl.U_MARK_FORUMS" (click)="markEverythingRead()">Tout marquer comme lu</button>
+
             </h3>
 
             <div class="messages" fxLayout fxLayoutWrap>
@@ -28,76 +55,18 @@
                 </ng-container>
             </div>
 
-        </div>
-
-    </div>
-
-    <div class="right" fxFlex="50%" fxFlex.lt-md="100%">
-        <div class="guide mat-elevation-z3" *ngIf="guideNouveau" [ngClass.lt-md]="'small'">
-            <div class="mask">
-                <h3>Guide des nouveaux</h3>
-
-                <nav class="parts">
-                    <li *ngFor="let partId of guideNewbiesParts">
-                        <a [href]="guideNouveau.pageList[partId].guid">{{guideNouveau.pageList[partId].post_title}}</a>
-                    </li>
-                </nav>
-            </div>
-        </div>
+        </div> -->
 
 
-        <div class="own-messages mat-elevation-z3" *ngIf="ownMessages" [ngClass.lt-md]="'small'">
-            <div class="mask">
-                <h3>Vos messages
-                    <a uiSref="phpbb.seo.search" [uiParams]="{search_id:'egosearch'}">
-                        <button md-button color="primary">Voir tous vos messages</button>
-                    </a>
-                </h3>
 
-                <div class="messages" fxLayout fxLayoutWrap>
-                    <ng-container *ngFor="let message of ownMessages">
-                        <ng-container *ngTemplateOutlet="topicDetails;context:{topic:message}"></ng-container>
-                    </ng-container>
-                </div>
-            </div>
-        </div>
+    <div class="online" *ngIf="displayOnlineMembers" fxFlex="100">
+        <h3>En ligne
+            <button md-button color="accent">{{onlineMembers.length}}</button>
+        </h3>
 
-        <div class="online" *ngIf="displayOnlineMembers">
-            <h3>En ligne
-                <button md-button color="accent">{{onlineMembers.length}}</button>
-            </h3>
-
-            <img *ngFor="let user of displayOnlineMembers" class="avatar" [src]="user.avatar | avatarURL" [mdTooltip]="user.row.username"
-                [style.border-color]="'#'+user.row.user_colour">
-
-        </div>
+        <img *ngFor="let user of displayOnlineMembers" class="avatar" [src]="user.avatar | avatarURL" [mdTooltip]="user.row.username"
+            [style.border-color]="'#'+user.row.user_colour">
 
     </div>
 
 </div>
-
-<ng-template #topicDetails let-topic="topic">
-    <scfr-forum-viewforum-topic-row fxFlex="100" [topic]="topic"></scfr-forum-viewforum-topic-row>
-    <!-- <div class="topic-row mat-elevation-z1" mdRipple uiSref="phpbb.seo.viewtopic" [uiParams]="{topicId:topic.TOPIC_ID, forumId:topic.FORUM_ID}" >
-        <div class="lefty" fxFlex="100" fxLayout fxLayoutWrap>
-            <div class="title" fxFlex="100">
-                <span class="forum-name">{{topic.FORUM_TITLE}}</span><span class="topic-title">{{topic.TOPIC_TITLE}}</span>
-            </div>
-            <div class="details">
-                Dernier message par
-                <scfr-forum-phpbb-username [html]="topic.LAST_POST_AUTHOR_FULL"></scfr-forum-phpbb-username>
-                {{topic.LAST_POST_TIME }}
-            </div>
-        </div>
-        <div class="deets">
-            <div fxFlex="50">
-                <span>{{topic.TOPIC_VIEWS}}</span>
-                <em>vues</em>
-            </div>
-            <div fxFlex="50">
-                <span>{{topic.TOPIC_REPLIES}}</span>
-                <em>réponses</em>
-            </div>
-        </div>
-    </div> -->
-</ng-template>
