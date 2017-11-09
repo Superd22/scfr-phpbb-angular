@@ -29,8 +29,15 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         }
     }
 
+    .top-row {
+        flex-wrap: nowrap;
+    }
+
     &.small {
-        padding: 12px;
+        padding: 0px;
+        .top-row {
+            flex-wrap: wrap;
+        }
     }
 
     .topic-row {
@@ -136,9 +143,13 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
             background-color:transparentize($bg-color, 0.3);
         }
 
-        &.small .mask {
-            padding: 24px 12px;
-            font-size: 0.8rem;
+        &.small {
+            min-height: 280px;
+            margin: 14px 0px;
+            .mask {
+                padding: 24px 12px;
+                font-size: 0.8rem;
+            }
         }
     }
 

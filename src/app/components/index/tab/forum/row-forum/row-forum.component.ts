@@ -1,3 +1,5 @@
+import { Collected } from 'ng2-rx-collector';
+import { PhpbbService } from './../../../../../services/phpbb.service';
 import { PhpbbSubComponent } from './../../../../phpbb/phpbb-sub-component.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { IPHPBBIndexSubForumRow } from './subforum/subforum.component';
@@ -11,12 +13,21 @@ export class RowForumComponent extends PhpbbSubComponent {
   @Input() public forum: IPHPBBIndexForumRow
   protected _lastPostParams;
 
-  constructor() {
+  @Collected() private _collected;
+
+  constructor(protected phpbb: PhpbbService) {
     super();
   }
 
   ngOnInit() {
-    super.ngOnInit()
+    super.ngOnInit();
+
+
+    this.phpbb.forumReadStatus.takeUntil(this._collected)
+      .filter((data) => data.forumId === Number(this.forum.FORUM_ID)).subscribe((data) => {
+        // We just got said that we were unread.
+        if (data.unread) this.forum.S_UNREAD_FORUM = true;
+      });
   }
 
   public get lastPostParams() {

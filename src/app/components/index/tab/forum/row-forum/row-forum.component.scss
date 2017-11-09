@@ -7,10 +7,11 @@ $secondary-size: $font-size - 0.15rem;
 .forum {
     margin:6px;
     font-family: "Electrolize";
-    background-color: map_get($scfr-mat-blue-grey-background,500);
+    background-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.5);
     font-size: $secondary-size;
     padding:16px;
     position:relative;
+    box-shadow: none;
     .link-wrapper {
         display: contents !important;
         cursor: pointer;
@@ -74,6 +75,15 @@ $secondary-size: $font-size - 0.15rem;
         margin:12px;
         .a-sub-forum {    
             flex-shrink: 0 !important;
+            display: inline-flex !important;
+        }
+    }
+
+    &.small {
+        margin: 6px 0px;
+        .forum-last-reply {
+            margin-top: 6px;
+            text-align: right;
         }
     }
 }

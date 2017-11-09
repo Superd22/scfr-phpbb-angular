@@ -1,3 +1,5 @@
+import { ObservableMedia } from '@angular/flex-layout';
+import { UiServiceService } from './../../material/services/ui-service.service';
 import { Collected } from 'ng2-rx-collector';
 import { PhpbbWebsocketService } from './../../services/phpbb-websocket.service';
 import { IPHPBBIndexForum } from './../../interfaces/phpbb/phpbb-index-forum';
@@ -29,12 +31,19 @@ export class IndexComponent extends PhpbbComponent {
     @Collected() private _collected;
 
     private _userSpecificFetch = 0;
+    public rowOnTop = true;
 
-    constructor(public phpbb: PhpbbService, public loginService: LoginService, protected stateT: StateTranslate, protected wp: WpService,
-        private ws: PhpbbWebsocketService) {
+    constructor(
+        public phpbb: PhpbbService,
+        public loginService: LoginService,
+        protected stateT: StateTranslate,
+        protected wp: WpService,
+        private ws: PhpbbWebsocketService,
+        private media: ObservableMedia
+    ) {
         super();
 
-        if(!this.activeTab) this.activeTab = "forum";
+        if (!this.activeTab) this.activeTab = "forum";
     }
 
     ngOnInit() {
@@ -42,19 +51,18 @@ export class IndexComponent extends PhpbbComponent {
         this.loginService.userStatus.takeUntil(this._collected).subscribe(
             (isLoggedIn) => {
                 this.isLoggedIn = isLoggedIn;
-                if (isLoggedIn) {
-                    this.getUserSpecificData();
-                }
             }
         );
 
-        this.ws.onPosting.takeUntil(this._collected).subscribe((data) => {
-            if(this.isLoggedIn) this.getUserSpecificData();
+        this.media.subscribe((newMedia) => {
+            // > sm
+            if (newMedia.mqAlias == "md" || newMedia.mqAlias == "lg" || newMedia.mqAlias == "xl") {
+                this.rowOnTop = true;
+            }
+            else this.rowOnTop = false;
         });
 
         this.stateT.latestTemplateData.takeUntil(this._collected).subscribe((data) => {
-            this.forumList = this.filterForumsToDisplay(data.jumpbox_forums);
-            this.forumMap = this.mapForums(data.forumrow)
             if (data.LOGGED_IN_USER_LIST) this.onlineMembers = data.LOGGED_IN_USER_LIST;
         });
 
@@ -78,24 +86,6 @@ export class IndexComponent extends PhpbbComponent {
             });
 
         return map;
-    }
-
-    public getUserSpecificData() {
-        if (this._userSpecificFetch <= 0) {
-            this._userSpecificFetch = 2;
-            this.phpbb.getUnreadTopicList(true).subscribe(
-                data => {
-                    this.unreadTopicList = data ? data.slice(0, 5) : null;
-                    this._userSpecificFetch -= 1;
-                },
-                err => console.log(err)
-            );
-
-            this.phpbb.getUserMessage(true).subscribe((data) => {
-                this.ownMessages = data ? data.slice(0, 3) : null;
-                this._userSpecificFetch -= 1;
-            });
-        }
     }
 
     public markEverythingRead() {

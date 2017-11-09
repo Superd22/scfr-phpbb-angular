@@ -1,26 +1,9 @@
 <div class="index" fxLayout fxLayoutWrap [ngClass.lt-md]="'small'">
 
-    <div fxFlex="100%" class="top-row" fxLayout>
 
-        <div class="news mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
-            <div class="mask">
-                <scfr-forum-index-news></scfr-forum-index-news>
-            </div>
-        </div>
-
-        <div class="guide mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
-            <div class="mask">
-                <scfr-forum-index-guide-des-nouveaux></scfr-forum-index-guide-des-nouveaux>
-            </div>
-        </div>
-
-
-        <div class="own-messages mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
-            <div class="mask">
-                <scfr-forum-index-mp></scfr-forum-index-mp>
-            </div>
-        </div>
-    </div>
+    <ng-container *ngIf="rowOnTop">
+        <ng-container *ngTemplateOutlet="firstRow"></ng-container>
+    </ng-container>
 
 
     <div class="tab-wrapper" fxLayoutWrap fxFlex="100">
@@ -40,6 +23,9 @@
     </div>
 
 
+    <ng-container *ngIf="!rowOnTop">
+        <ng-container *ngTemplateOutlet="firstRow"></ng-container>
+    </ng-container>
     <!-- <div class="messages">
             <h3>Messages non lus
                 <a uiSref="phpbb.seo.search" [uiParams]="{search_id:'unreadposts'}">
@@ -70,3 +56,27 @@
     </div>
 
 </div>
+
+
+<ng-template #firstRow>
+    <div fxFlex="100%" class="top-row" fxLayout>
+        <div class="news mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
+            <div class="mask">
+                <scfr-forum-index-news></scfr-forum-index-news>
+            </div>
+        </div>
+
+        <div class="guide mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
+            <div class="mask">
+                <scfr-forum-index-guide-des-nouveaux></scfr-forum-index-guide-des-nouveaux>
+            </div>
+        </div>
+
+
+        <div class="own-messages mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
+            <div class="mask">
+                <scfr-forum-index-mp></scfr-forum-index-mp>
+            </div>
+        </div>
+    </div>
+</ng-template>
