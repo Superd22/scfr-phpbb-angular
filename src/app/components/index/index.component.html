@@ -7,18 +7,29 @@
 
 
     <div class="tab-wrapper" fxLayoutWrap fxFlex="100">
-        <nav md-tab-nav-bar fxFlex="100">
+        <nav md-tab-nav-bar fxFlex="100" class="tabs">
             <a md-tab-link (click)="activeTab = 'forum'" [active]="activeTab == 'forum'">FORUM</a>
-            <a md-tab-link (click)="activeTab = 'unread'" [active]="activeTab == 'unread'" *ngIf="isLoggedIn">Messages non lus</a>
-            <a md-tab-link (click)="activeTab = 'last'" [active]="activeTab == 'last'">Derniers Messages</a>
-            <a md-tab-link (click)="activeTab = 'ego'" [active]="activeTab == 'ego'" *ngIf="isLoggedIn">Mes Messages</a>
+            <a md-tab-link (click)="activeTab = 'unreadposts'" [active]="activeTab == 'unreadposts'" *ngIf="isLoggedIn">Messages non lus</a>
+            <a md-tab-link (click)="activeTab = 'newposts'" [active]="activeTab == 'newposts'">Derniers Messages</a>
+            <a md-tab-link (click)="activeTab = 'egosearch'" [active]="activeTab == 'egosearch'" *ngIf="isLoggedIn">Mes Messages</a>
+
         </nav>
+
+        <div fxFlex="100" fxLayout fxLayoutWrap [ngClass.gt-md]="'top-btns'">
+            <div fxFlex></div>
+            <div>
+                <button md-button color="primary" *ngIf="tpl.U_MARK_FORUMS" (click)="markEverythingRead()">Marquer tous les forums comme lu</button>
+                <a uiSref="phpbb.seo.search" [uiParams]="{search_id: activeTab}" *ngIf="activeTab != 'forum'">
+                    <button md-button color="primary">Lancer la recherche détaillée</button>
+                </a>
+            </div>
+        </div>
 
         <div class="tab-active" [ngSwitch]="activeTab">
             <scfr-forum-index-tab-forum *ngSwitchCase="'forum'"></scfr-forum-index-tab-forum>
-            <scfr-forum-index-tab-unread *ngSwitchCase="'unread'"></scfr-forum-index-tab-unread>
-            <scfr-forum-index-tab-last *ngSwitchCase="'last'"></scfr-forum-index-tab-last>
-            <scfr-forum-index-tab-ego *ngSwitchCase="'ego'"></scfr-forum-index-tab-ego>
+            <scfr-forum-index-tab-unread *ngSwitchCase="'unreadposts'"></scfr-forum-index-tab-unread>
+            <scfr-forum-index-tab-last *ngSwitchCase="'newposts'"></scfr-forum-index-tab-last>
+            <scfr-forum-index-tab-ego *ngSwitchCase="'egosearch'"></scfr-forum-index-tab-ego>
         </div>
     </div>
 

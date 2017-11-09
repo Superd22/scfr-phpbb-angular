@@ -113,7 +113,7 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
 
     @mixin righty-background-row() {
         margin:14px;
-        min-height: 33vh;
+        min-height: 300px;
         max-height: 33vh;
         display: flex;
         background-position:center center;
@@ -144,7 +144,6 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
         }
 
         &.small {
-            min-height: 280px;
             margin: 14px 0px;
             .mask {
                 padding: 24px 12px;
@@ -189,5 +188,15 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
             border-width: 2px;
             border-color: #70b6db;
         }
+    }
+
+    .tabs {
+        .mat-button {
+            vertical-align: bottom;
+        }
+    }
+
+    .top-btns {
+        margin-top: -37px;
     }
 }
