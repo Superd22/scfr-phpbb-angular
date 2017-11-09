@@ -38,6 +38,9 @@ export class ViewtopicComponent extends PhpbbComponent {
   @SCFRUIParam("pageNumber")
   private _statePageNumber: number;
 
+  @SCFRUIParam("phpbbResolved")
+  private _phpbbResolved;
+
   @Collected() private collected: CollectorEvent;
 
   constructor(public PhpbbService: PhpbbService, public UI: UiServiceService, private ws: PhpbbWebsocketService, private wpApi: WpService, private header: HeaderService) {
@@ -105,6 +108,15 @@ export class ViewtopicComponent extends PhpbbComponent {
   }
 
   /**
+   * Convenience method to refresh to the latest post
+   */
+  public refresh() {
+    this._unreadMode = true;
+    // Force update
+    this._phpbbResolved = false;
+  }
+
+  /**
    * Handles the logic to switch to the nth page of a topic
    * @param n the page number to switch to
    */
@@ -113,6 +125,7 @@ export class ViewtopicComponent extends PhpbbComponent {
       this.UI.scrollToTop();
       this.fetchingNewPosts = true;
       this._unreadMode = false;
+      this._stateTargetPost = null;
       this._statePageNumber = n;
     }
   }

@@ -83,11 +83,11 @@ export class PhpbbApiService {
                     // We're gonna redirect ourselves there.
 
                     let regex = new RegExp(baseUrl + "(.*)");
-                    let m = regex.exec(res.url.replace("forum-api/", "Forum/"));
+                    let m = regex.exec(res.url.replace("Forum/", "forum-api/"));
 
                     if (m[1] && m[1].indexOf(".php") > -1) {
                         this.stranslate.goToOld(m[1]);
-                        
+
                     }
                     else throw "NO JSON CAN'T REDIRECT";
                 }

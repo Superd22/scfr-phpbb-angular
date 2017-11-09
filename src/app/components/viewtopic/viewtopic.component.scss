@@ -31,3 +31,29 @@
   padding-left:10px;
   border-left:4px solid map_get($scfr-mat-light-blue, 600);
 }
+
+.newpostsws {
+  $unread-color: $blue-fluo;
+  
+    display: inline-flex;
+    width: 100%;
+    color: $unread-color;
+    font-family: "Electrolize";
+
+  
+    .bar {
+        height: 2px;
+        flex:1;
+        align-self: center;
+        background: $unread-color;
+    }
+  
+    time, .label {
+        flex-shrink: 0;
+        margin: 0px 10px;
+    }
+  
+      .label {
+          text-transform: uppercase;
+      }
+}

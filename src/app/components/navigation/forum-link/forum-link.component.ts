@@ -1,3 +1,4 @@
+import { PhpbbService } from './../../../services/phpbb.service';
 import { ThrottlerService } from 'app/services/throttler.service';
 import { SCFRLocalStorage } from './../../../decorators/LocalStorage.decorator';
 import { StateTranslate } from './../../../services/state-translate.service';
@@ -34,8 +35,6 @@ export class ForumLinkComponent implements OnInit {
   @Output() toggleChange = new EventEmitter<boolean>();
   /** our computed children */
   public cacheChildren: UnreadResponse.JumpboxForum[] = null;
-  /** changes to this unread status */
-  @Output() public unreadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   /** collector for end ws observable */
   @Collected() private collected: CollectorEvent;
   /** our children forums */
@@ -49,14 +48,25 @@ export class ForumLinkComponent implements OnInit {
   public parent: ForumLinkComponent;
 
 
-  constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate, private throttle: ThrottlerService) { }
+  constructor(private ws: PhpbbWebsocketService, private stateT: StateTranslate, private throttle: ThrottlerService,
+    private phpbb: PhpbbService) { }
 
   ngOnInit() {
     if (this.depth > 1) this.toggleDisplaySub = false;
     else this.toggleDisplaySub = true;
 
-    this.subForumsToDisplay();
+    // Get our children ids
+    const childrenIds = this.subForumsToDisplay() ? this.subForumsToDisplay().map((forum) => Number(forum.FORUM_ID)) : [];
 
+    // Subscribe to children events
+    this.phpbb.forumReadStatus.filter((event) => childrenIds.indexOf(event.forumId) > -1).takeUntil(this.collected).subscribe((event) => {
+      // If our child is unread, so are we.
+      if (event.unread) this.unread = event.unread;
+      // Else we need to compute 
+      this.computeUnreadStatus();
+    });
+
+    // Subscribe to ws events
     this.ws.onNewPostsInForum(Number(this.forum.FORUM_ID), false).takeUntil(this.collected).subscribe(
       data => {
         this.unread = true;
@@ -134,7 +144,10 @@ export class ForumLinkComponent implements OnInit {
   public set unread(unread: boolean) {
     if (this.forum.UNREAD != unread) {
       this.forum.UNREAD = unread;
-      this.unreadChange.next(unread);
+      this.phpbb.forumReadStatus.next({
+        forumId: Number(this.forum.FORUM_ID),
+        unread: unread
+      });
     }
   }
 
