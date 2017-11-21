@@ -199,7 +199,7 @@ export class PhpbbApiService {
     // LOGIN
     public authenticate(username, password, sid, remember): Observable<IndexResponse.IndexRoot> {
 
-        let redirect = environment.baseForumUrl + `index.php?${callback}`;
+        let redirect = environment.siteUrl + environment.baseHref + `index.php?${callback}`;
         let params: any = {
             username: username,
             password: password,
