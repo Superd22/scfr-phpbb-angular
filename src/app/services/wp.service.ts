@@ -13,8 +13,8 @@ import { Observable } from "rxjs/Observable";
  */
 @Injectable()
 export class WpService {
-
-  private _scfr = "https://starcitizen.fr/";
+  
+  private _scfr = environment.siteUrl;
   private _guide: BehaviorSubject<IGuideDesNouveauxResponse> = new BehaviorSubject(null);
   private _news: BehaviorSubject<IWPANews[]> = new BehaviorSubject([]);
 

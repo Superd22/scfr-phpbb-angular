@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   baseForumUrl: 'http://' + window.location.hostname + "/",
+  siteUrl: 'https://starcitizen.fr',
   reCaptchaKey: "6LfVmeUSAAAAACv_hIeVFhNxf4LPYr03GY8TnphL",
   websocket: 'ws://www.newforum.fr:8080',
   baseHref: "/",
