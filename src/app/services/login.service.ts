@@ -26,7 +26,12 @@ export class LoginService {
     public loginUser(username: string, password: string, rememberMe) {
         this.phpbbApi.authenticate(username, password, this.sid, rememberMe).subscribe(
             data => this.hydrateUserData(data["@template"]),
-            err => console.log(err)
+            err => {
+                // We couldn't redirect, but we're probably logged in...
+                if(err.status == 503) {
+                    this.authenticationCheck();
+                }
+            }
         );
     }
 

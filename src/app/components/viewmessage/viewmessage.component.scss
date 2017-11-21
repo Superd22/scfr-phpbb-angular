@@ -29,6 +29,14 @@ $hover-side-pannel-transition: 0.5s;
     padding: 0px;
     width: 0px;
     overflow: hidden;
+
+    max-width:100%;
+    
+    &.small {
+        left:-24px;
+        top:-24px;
+    }
+
     #column-2{
         padding: 10px;
     }
@@ -91,6 +99,19 @@ $hover-side-pannel-transition: 0.5s;
     align-content: flex-start;
     position: relative;
     transition: 0.25s;
+
+    &.small {
+        margin: 0px;
+        height: 75px;
+        margin: -24px 0px;
+        margin-top: -18px;
+        margin-bottom: 14px;
+        align-content: space-between;
+        align-items: center;
+        text-align: center;
+        width:100%;
+
+    }
     .avatar {
         $avatar-size: 75px;
         flex:1 1 100%;
@@ -105,8 +126,9 @@ $hover-side-pannel-transition: 0.5s;
         overflow: hidden;
         margin-top: 6px;
         transition: $hover-side-pannel-transition;
+        line-height: 17px;
         font-size: 14px;
-        height: 14px;
+        height: 17px;
     }
 
     .guild-logo {

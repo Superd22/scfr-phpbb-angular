@@ -36,12 +36,12 @@ export class WpService {
   }
 
   public getWpAPI(endpoint: string, args = {}) {
-    return this.get(this._scfr + "wp-json/" + endpoint, args);
+    return this.get(this._scfr + "/wp-json/" + endpoint, args);
   }
 
   public getGuideDesNouveaux(force?: boolean): Observable<IGuideDesNouveauxResponse> {
     if (force || !this._guide.getValue()) {
-      return this.getPageCallback("star-citizen/guide-des-nouveaux/").map((data) => { this._guide.next(data); return data });
+      return this.getPageCallback("/star-citizen/guide-des-nouveaux/").map((data) => { this._guide.next(data); return data });
     }
 
     return this._guide;
