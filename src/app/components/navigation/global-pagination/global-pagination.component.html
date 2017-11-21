@@ -1,14 +1,28 @@
-<div class="global" fxLayout >
+<div class="global" fxLayout>
   <div class="bar" fxFlex></div>
   <div class="nav">
     <div class="angle"></div>
     <div class="pagination">
-      <button md-icon-button color="primary" (click)="move(-1)" [disabled]="page == 1"><md-icon>navigate_before</md-icon></button> 
-        {{page}} / {{totalPage > 0 ? totalPage : 1}}
-      <button md-icon-button color="primary" (click)="move(1)" [disabled]="page >= totalPage"><md-icon>navigate_next</md-icon></button> 
+      <button md-icon-button color="primary" (click)="page = 1" [disabled]="page == 1" class="exterior">
+        <md-icon>first_page</md-icon>
+      </button>
+      <button md-icon-button color="primary" (click)="move(-1)" [disabled]="page == 1">
+        <md-icon>navigate_before</md-icon>
+      </button>
+      <span class="pages" [mdMenuTriggerFor]="paginationMenu">{{page}} / {{maxPage}}</span>
+      <button md-icon-button color="primary" (click)="move(1)" [disabled]="page >= totalPage">
+        <md-icon>navigate_next</md-icon>
+      </button>
+      <button md-icon-button color="primary" (click)="page = maxPage" [disabled]="page >= totalPage" class="exterior">
+        <md-icon>last_page</md-icon>
+      </button>
     </div>
     <div class="moar">
       <ng-content></ng-content>
     </div>
   </div>
 </div>
+
+<md-menu #paginationMenu="mdMenu" class="pagination-menu">
+  <button class="pagination-menu-button" *ngFor="let npage of pageArray" (click)="page = npage" md-menu-item> Page {{npage}} </button>
+</md-menu>

@@ -37,6 +37,14 @@ $angle-size: 26px;
             color:$color;
             font-size: 0.8rem;
             display: inline-block;
+            .pages {
+                cursor:pointer;
+            }
+            .exterior {    
+                margin: 0px -16px;
+                &:first-of-type {margin-left:0px;}
+                &:last-of-type {margin-right:0px;}
+            }
         }
         .moar {
             display: inline-block;
@@ -54,4 +62,8 @@ $angle-size: 26px;
         }
     }
     
+}
+
+.pagination-menu-button {
+    text-align: center;
 }
