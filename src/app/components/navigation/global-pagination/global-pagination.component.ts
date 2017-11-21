@@ -17,7 +17,16 @@ export class GlobalPaginationComponent implements OnInit {
   @Output()
   private pageChange: EventEmitter<number> = new EventEmitter<number>();
 
+  public pageArray: number[];
+
   constructor() { }
+
+  /**
+   * the max page you can go to
+   */
+  public get maxPage(): number {
+    return this.totalPage > 0 ? this.totalPage : 1;
+  }
 
   public get page(): number {
     return this._page;
@@ -31,10 +40,12 @@ export class GlobalPaginationComponent implements OnInit {
   ngOnInit() {
     this.totalPage = Number(this.totalPage) || 1;
     this._page = Number(this._page) || 1;
+
+    this.pageArray = Array(this.maxPage).fill(0).map((x, i) => i+1);
   }
 
   public move(n: number) {
-    if(this.page + n > 0 && this.page + n <= this.totalPage) this.page = this.page + n; 
+    if (this.page + n > 0 && this.page + n <= this.totalPage) this.page = this.page + n;
   }
 
 
