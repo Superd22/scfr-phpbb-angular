@@ -63,7 +63,7 @@ export class PostingComponent extends PhpbbComponent {
     let opts = this.forPHPBBPostingArgs();
     let form = this.forPHPBBPostingFORM("preview");
 
-    this.phpbbApi.postPage("posting.php", form, opts).subscribe(
+    this.phpbbApi.postPage("posting.php", form, opts, false, false, true).subscribe(
       (data) => {
         this.busy = false;
         let tpl = data["@template"];

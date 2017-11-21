@@ -51,8 +51,9 @@ export class PhpbbApiService {
      * @param params the optionals get paramaters to append to the page url
      * @param raw if we want raw HTML return instead of JSON return.
      * @param forcetSetAsTpl force the return value to be set as the new tpl.
+     * @param noRedirect do not use redirect information to reload the state
      */
-    public postPage(page, query, params?: any, raw?: boolean, forcetSetAsTpl?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
+    public postPage(page, query, params?: any, raw?: boolean, forcetSetAsTpl?: boolean, noRedirect?: boolean): Observable<PhpbbTemplateResponse.DefaultResponse> {
         /** No explicit content-type so the browser can auto-identify it and set the boundary.
          * @see https://stackoverflow.com/a/39281156
          */
@@ -86,7 +87,8 @@ export class PhpbbApiService {
                     let m = regex.exec(res.url.replace("Forum/", "forum-api/"));
 
                     if (m[1] && m[1].indexOf(".php") > -1) {
-                        this.stranslate.goToOld(m[1]);
+                        if (!noRedirect)
+                            this.stranslate.goToOld(m[1]);
 
                     }
                     else throw "NO JSON CAN'T REDIRECT";
@@ -131,7 +133,7 @@ export class PhpbbApiService {
     }
 
     public getPhpbbAjaxPage(page, queries?: {}): Observable<PhpbbAjaxMessageResponse> {
-        if(!queries) queries = {};
+        if (!queries) queries = {};
         queries['scfr_json_callback'] = true;
         return this.getPage(page, queries, null, true)
             .map((data: any) => data)
@@ -197,7 +199,7 @@ export class PhpbbApiService {
     // LOGIN
     public authenticate(username, password, sid, remember): Observable<IndexResponse.IndexRoot> {
 
-        let redirect = environment.baseForumUrl +  `index.php?${callback}`;
+        let redirect = environment.baseForumUrl + `index.php?${callback}`;
         let params: any = {
             username: username,
             password: password,
