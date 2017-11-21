@@ -1,0 +1,7 @@
+<h2>Guide des nouveaux</h2>
+
+<nav class="parts">
+  <li *ngFor="let partId of guideNewbiesParts">
+    <a [href]="guideNouveau.pageList[partId].guid">{{guideNouveau.pageList[partId].post_title}}</a>
+  </li>
+</nav>

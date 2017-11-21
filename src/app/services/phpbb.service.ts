@@ -10,6 +10,7 @@ export class PhpbbService {
     private unreadTopics: ReplaySubject<any> = null;
     private privateMessages: ReplaySubject<any> = null;
     private ownMessages: ReplaySubject<any> = null;
+    private latestTopics: ReplaySubject<any> = null;
 
     private _forumEventObs: Subject<IPHPBBForumReadStatusEvent> = new Subject();
 
@@ -24,6 +25,15 @@ export class PhpbbService {
         );
 
         return this.cacheOrFetch(call, "unreadTopics", force);
+    }
+
+    public getLatestTopicList(force?: boolean) {
+        let call = this.phpbbApi.getSearch("newposts").map(
+            data => UnicodeToUtf8Pipe.forEach(data['@template'].searchresults),
+            err => console.log(err)
+        );
+
+        return this.cacheOrFetch(call, "latestTopics", force);
     }
 
     public getUserMessage(force?: boolean) {

@@ -94,7 +94,7 @@ export class PrivateMessageService {
     public get convos(): IPHPBBPMConvo[] {
         let i = 0;
 
-        return this._convos.getValue() ? this._convos.getValue().filter(() => { i = i++; return i <= this._convoPerPage }) : null;
+        return this._convos.getValue() ? this._convos.getValue().filter(() => { i = i++; return i <= this._convoPerPage }) : [];
     }
 
     public get convosChange(): BehaviorSubject<IPHPBBPMConvo[]> { return this._convos; }
