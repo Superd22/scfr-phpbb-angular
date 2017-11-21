@@ -59,8 +59,8 @@
       </div>
     </div> -->
     <md-card-content *ngIf="post.message" fxLayout fxLayoutWrap>
-      <div class="side-info-wrapper">
-        <div class="side-info-hover-pannel mat-elevation-z3">
+      <div class="side-info-wrapper" fxFlex="65px" fxFlex.lt-sm="100%">
+        <div class="side-info-hover-pannel mat-elevation-z3" ngClass.lt-sm="small">
           <div fxLayout fxLayoutWrap>
             <div class="avatar-container" fxFlex="20">
               <img *ngIf="avatarUrl" [src]="avatarUrl | avatarURL" class="avatar">
@@ -113,7 +113,7 @@
           </p>
         </div>
 
-        <div class="side-info" fxFlex="100px" fxLayout fxLayoutWrap>
+        <div class="side-info" fxFlex.lt-sm="100%" fxFlex="100px" fxLayout fxLayout.lt-sm="column" fxLayoutWrap ngClass.lt-sm="small">
           <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
           <img *ngIf="!avatarUrl" src="./assets/images/default-avatar.jpg" class="avatar">
 
