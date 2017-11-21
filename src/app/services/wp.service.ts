@@ -1,3 +1,5 @@
+import { UnicodeToUtf8Pipe } from './../pipes/unicode-to-utf8.pipe';
+import { IWPANews } from './../components/index/interfaces/wp-news.interface';
 import { environment } from 'environments/environment';
 import { IWPNews } from './../interfaces/wp/wp-news.interface';
 import { IGuideDesNouveauxResponse } from './../components/index/interfaces/guide-des-nouveaux.interface';
@@ -11,9 +13,10 @@ import { Observable } from "rxjs/Observable";
  */
 @Injectable()
 export class WpService {
-
+  
   private _scfr = environment.siteUrl;
   private _guide: BehaviorSubject<IGuideDesNouveauxResponse> = new BehaviorSubject(null);
+  private _news: BehaviorSubject<IWPANews[]> = new BehaviorSubject([]);
 
   constructor(private http: Http) { }
 
@@ -42,6 +45,14 @@ export class WpService {
     }
 
     return this._guide;
+  }
+
+  public getNews(force?: boolean): Observable<IWPANews[]> {
+    if (force || !this._news.getValue().length) {
+      return this.getWpAPI("wp/v2/posts").map(data => { this._news.next(UnicodeToUtf8Pipe.forEach(data)); return data });
+    }
+
+    return this._news;
   }
 
   public getNewsById(id: number): Observable<IWPNews> {

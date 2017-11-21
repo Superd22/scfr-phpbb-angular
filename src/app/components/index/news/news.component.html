@@ -1,0 +1,5 @@
+<h2>News</h2>
+
+<md-list dense>
+  <md-list-item *ngFor="let new of news"><a [href]="new.link">{{new.title.rendered}}</a> </md-list-item>
+</md-list>

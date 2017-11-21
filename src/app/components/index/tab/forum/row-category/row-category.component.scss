@@ -1,0 +1,21 @@
+@import 'material/v7/main';
+@import 'material/common/common';
+@import 'material/common/breakpoint';
+
+.title-container {
+    h3 {
+        font-family: $text-font-header-title;
+        text-transform:uppercase;
+        font-size: $text-size-header-title;
+        line-height: 2.5rem;
+        letter-spacing: .1em;
+        font-weight: 500;
+        margin:0px;
+    }
+
+    padding-left:10px;
+    border-left: 7px solid $color-blue-accent;    
+    margin-top: 64px;
+    margin-left: 32px;
+    margin-bottom: 12px;
+}

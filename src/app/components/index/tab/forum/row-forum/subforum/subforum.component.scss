@@ -1,0 +1,31 @@
+@import 'material/v7/main';
+@import 'material/common/breakpoint';
+
+.title {
+    padding: 6px;
+    font-size: 0.8rem;
+    transition: 0.5s;
+    
+
+    &.unread {
+        a{color:  map-get($scfr-mat-light-blue, A200);}
+            &:after {
+                content:'NEW';
+                background:  map-get($scfr-mat-light-blue, A200);
+                padding: 3px 4px;
+                margin: 0px 6px;
+                border-radius: 25%;
+                font-weight: bolder;
+                color: black;
+                font-size: 9px;
+                line-height: 9px;
+                vertical-align: middle;
+                transition:0.25s;
+                display: inline-block;
+                height: 9px;
+            }
+    }
+}
+
+
+

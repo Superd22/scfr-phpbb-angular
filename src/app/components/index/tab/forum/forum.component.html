@@ -1,0 +1,6 @@
+<div fxLayout fxLayoutWrap>
+  <ng-container *ngFor="let f of tpl.forumrow">
+    <scfr-forum-index-tab-forum-row-category *ngIf="f.S_IS_CAT" [category]="f" fxFlex="100%"></scfr-forum-index-tab-forum-row-category>
+    <scfr-forum-index-tab-forum-row-forum *ngIf="!f.S_IS_CAT" [forum]="f" fxFlex="100%" fxLayoutWrap></scfr-forum-index-tab-forum-row-forum>
+  </ng-container>
+</div>
