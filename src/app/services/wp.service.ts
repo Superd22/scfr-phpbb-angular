@@ -12,7 +12,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class WpService {
 
-  private _scfr = environment.baseForumUrl + "../";
+  private _scfr = environment.siteUrl;
   private _guide: BehaviorSubject<IGuideDesNouveauxResponse> = new BehaviorSubject(null);
 
   constructor(private http: Http) { }

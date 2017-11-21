@@ -5,16 +5,23 @@ import { IWPNews } from '../../../interfaces/wp/wp-news.interface';
   selector: 'scfr-forum-viewnews',
   templateUrl: './viewnews.component.html',
   styleUrls: ['./viewnews.component.scss'],
-  encapsulation: ViewEncapsulation.Native,
 })
 export class ViewnewsComponent implements OnInit {
 
   @Input()
   public news: IWPNews;
+  private _okPoly: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+    /** make sure wc are ready */
+    window.addEventListener('WebComponentsReady', function () {
+      this._okPoly = true;
+    });
   }
 
+  public get canDisplay(): boolean {
+    return this.news && this._okPoly;
+  }
 }
