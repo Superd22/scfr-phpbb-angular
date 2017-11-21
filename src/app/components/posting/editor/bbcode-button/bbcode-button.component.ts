@@ -31,13 +31,14 @@ export class BbcodeButtonComponent implements OnInit {
     // We need to wrap our code around a selection
     if (select) {
       this.replaceMsgWithCode(select.start, select.end);
+      this.focusToEditor(select);
     }
     // We need to append our code
     else {
       this.replaceMsgWithCode((this.editor.message.length + 1));
+      this.focusToEditor(select, true);
     }
 
-    this.editor.editor.nativeElement.focus();
   }
 
   protected replaceMsgWithCode(start: number, end?: number) {
@@ -58,6 +59,32 @@ export class BbcodeButtonComponent implements OnInit {
   }
 
   /**
+   * Used to set the focus back in the editor after clicking the button
+   * @param select the selection we might have had beforehand
+   * @param append if we're appending code to a non existent text
+   */
+  protected focusToEditor(select: ISelection, append?: boolean) {
+    const firstBBLength = this.bbcode.code[0].length;
+    const editor = <HTMLTextAreaElement>this.editor.editor.nativeElement;
+
+    let newSelect: ISelection;
+
+    // We did not have a selection to begin with
+    if (append || select.end === select.start) {
+      // this will move to right after the first block of bbcode.
+      if (select)
+        newSelect = { start: select.start + firstBBLength, end: select.start + firstBBLength };
+      else newSelect = { start: firstBBLength, end: firstBBLength }
+    }
+    // We had a selection, keep it.
+    else
+      newSelect = { start: select.start + firstBBLength, end: select.end + firstBBLength };
+
+    editor.focus();
+    setTimeout(() => editor.setSelectionRange(newSelect.start, newSelect.end));
+  }
+
+  /**
    * Splices a substring into another string
    * @param original the original string to splice into
    * @param start index at which to insert
@@ -73,9 +100,11 @@ export class BbcodeButtonComponent implements OnInit {
    * Check if there is a valid selection into the editor
    * @return Selection a selection inside the editor, or null.
    */
-  protected checkForSelection(): { start: number, end: number } {
+  protected checkForSelection(): ISelection {
     let editor: HTMLTextAreaElement = this.editor.editor.nativeElement;
     return { start: editor.selectionStart, end: editor.selectionEnd };
   }
 
 }
+
+interface ISelection { start: number, end: number };

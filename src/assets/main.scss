@@ -48,6 +48,13 @@ hr {
     line-height: 18px;
     font-family: 'open sans';
 
+    a {
+        color: #75d1ff;
+        &:hover {
+            color: #dd5250;
+        }
+    }
+
     /** search hilight in post */
     .posthilit {
         background: map-get($scfr-mat-light-blue, 500);
