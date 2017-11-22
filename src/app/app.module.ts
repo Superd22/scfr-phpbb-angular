@@ -179,6 +179,7 @@ import { LastComponent } from './components/index/tab/last/last.component';
 import { RowCategoryComponent } from './components/index/tab/forum/row-category/row-category.component';
 import { RowForumComponent } from './components/index/tab/forum/row-forum/row-forum.component';
 import { SubforumComponent } from './components/index/tab/forum/row-forum/subforum/subforum.component';
+import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
 
 @NgModule({
     declarations: [
@@ -318,6 +319,7 @@ import { SubforumComponent } from './components/index/tab/forum/row-forum/subfor
         RowCategoryComponent,
         RowForumComponent,
         SubforumComponent,
+        UnsafeSrc
     ],
     imports: [
         UIRouterModule.forRoot({

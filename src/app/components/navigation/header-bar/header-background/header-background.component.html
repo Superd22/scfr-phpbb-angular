@@ -1,9 +1,14 @@
-<div id="main-header-image" class="header-image" [ngClass]="{guild:guildMod, custom: customMod}" [ngStyle]="{'background-image': 'url('+prevImage+')', height: forceHeight ? forceHeight+'px': undefined}" [scfrForumImageHeaderFit]="prevImage">
+<div id="main-header-image" class="header-image" [ngClass]="{guild:guildMod, custom: customMod}" [ngStyle]="{'background-image': 'url('+prevImage+')', height: forceHeight ? forceHeight+'px': undefined}"
+    [scfrForumImageHeaderFit]="prevImage">
 
-    <div #imageTransition class="next-image-transition" [ngStyle]="{'background-image': 'url('+headerImage+')', 'animation-duration':transitionTime+'s'}" [scfrForumImageHeaderFit]="headerImage"></div>
+    <div #imageTransition class="next-image-transition" [ngStyle]="{'background-image': 'url('+headerImage+')', 'animation-duration':transitionTime+'s'}"
+        [scfrForumImageHeaderFit]="headerImage"></div>
 
+    <script src="https://www.youtube.com/iframe_api" *ngIf="youtube"></script>
+    
     <div class="video" *ngIf="youtube || twitch">
-        <iframe frameborder="0" height="100%" width="100%" src="https://youtube.com/embed/pFSnSuV9jz8?autoplay=1&controls=0&showinfo=0&autohide=1&loop=1"></iframe>
+        <div class="inner" id="ytplayer" *ngIf="youtube"></div>
+        <div class="inner" id="twitchplayer" *ngIf="twitch"></div>
     </div>
 
 </div>
