@@ -2,6 +2,10 @@ import { IPhpbbTemplate } from './../../../../interfaces/phpbb/phpbb-tpl';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser/';
 import { StateTranslate } from './../../../../services/state-translate.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import YouTubePlayer from 'youtube-player';
+import 'twitch-embed';
+import { LayoutService } from 'app/material/services/layout-service.service';
+import { SCFRLocalStorage } from 'app/decorators/LocalStorage.decorator';
 
 @Component({
   selector: 'scfr-forum-header-background',
@@ -27,18 +31,48 @@ export class HeaderBackgroundComponent implements OnInit {
   public transitionTime = 1.5;
 
   /** youtube video currently displayed */
-  public youtube;
+  public _youtube;
   /** twitch video currently displayed */
-  public twitch;
+  private _twitch;
+  /** our twitch player object */
+  private _twitchPlayer;
+  /** the latest twitch having been loaded */
+  private _lastTwitchLoaded: string = null;
+  /** the youtube player */
+  private _ytPlayer;
+  /** the latest yt video having been loaded */
+  private _lastYtLoaded: string = null;
+  /** if we're currently greater than md */
+  public displayVid = false;
+
+  /** the status of our playback */
+  public paused = false;
+  /** the status of our mute */
+  public muted = true;
+
+  @SCFRLocalStorage("scfr:video:volume")
+  public volume: number;
+
+  /** youtube id that we want to display */
+  public get youtube(): string { return this._youtube; }
+  /** twitch id that we want to display */
+  public get twitch(): string { return this._twitch; }
+  public set youtube(yt: string) { this._twitch = false; this._youtube = yt; }
+  public set twitch(tw: string) { this._twitch = tw; this._youtube = false; }
+
+  public set customImage(image: string) { this._customForum = image; this.youtube = null; }
 
   @ViewChild("imageTransition")
   private _imageTransition: ElementRef;
 
-  constructor(private stateT: StateTranslate, private sanitizer: DomSanitizer, private _element: ElementRef) {
+  constructor(private stateT: StateTranslate, private sanitizer: DomSanitizer, private _element: ElementRef,
+    private layout: LayoutService) {
     this.stateT.latestTemplateData.subscribe((tpl) => {
       this.computeNextBanner(tpl);
       this.handleTransition();
     });
+
+    this.layout.gt_xs.subscribe((gtMd) => this.displayVid = gtMd);
   }
 
   ngOnInit() {
@@ -56,21 +90,49 @@ export class HeaderBackgroundComponent implements OnInit {
     else this.forceHeight = 0;
 
 
-    if (tpl['CUSTOM_BANNER']) {
-      this._customForum = tpl['CUSTOM_BANNER'];
+    if (tpl['TWITCH_BANNER'] && this.displayVid) {
+      if (!this.forceHeight) this.forceHeight = 400;
+      this.twitch = tpl['TWITCH_BANNER'];
+    }
+    else if (tpl['YOUTUBE_BANNER'] && this.displayVid) {
+      if (!this.forceHeight) this.forceHeight = 400;
+      this.youtube = tpl['YOUTUBE_BANNER'];
+    }
+    else if (tpl['CUSTOM_BANNER']) {
+      this.customImage = tpl['CUSTOM_BANNER'];
       this.customMod = true;
     }
     else if (tpl['GUILD_BANNER']) {
-      this._customForum = tpl['GUILD_BANNER'];
+      this.customImage = tpl['GUILD_BANNER'];
       this.guildMod = true;
     }
     else if (tpl['S_JU_BAN']) {
-      this._customForum = tpl['S_JU_BAN'];
+      this.customImage = tpl['S_JU_BAN'];
     }
     else {
-      this._customForum = null;
+      this.customImage = null;
       this._userSelected = tpl['PROFILE_CUSTOM_BG_VALUE'];
     }
+
+    if (!this.youtube) {
+      this._ytPlayer = null;
+      this._lastYtLoaded = null;
+    }
+
+    if (!this.twitch) {
+      this._twitchPlayer = null;
+      this._lastTwitchLoaded = null;
+    }
+
+    if (this.twitch) {
+      setTimeout(() => this.doTwitch());
+    }
+
+
+    if (this.youtube) {
+      setTimeout(() => this.doYoutube());
+    }
+
   }
 
   /**
@@ -92,7 +154,7 @@ export class HeaderBackgroundComponent implements OnInit {
 
         setTimeout(() => {
           this.prevImage = this.headerImage;
-        }, (this.transitionTime * 1000)/2);
+        }, (this.transitionTime * 1000) / 2);
 
         // gc
         nextImage = null;
@@ -115,5 +177,131 @@ export class HeaderBackgroundComponent implements OnInit {
 
   public get isTransition(): boolean {
     return this.prevImage != this.headerImage;
+  }
+
+  public doTwitch() {
+    // Handle the changing of a video when the player is already there
+    if (this._lastTwitchLoaded !== this.twitch && this._twitchPlayer) {
+      this._lastTwitchLoaded = this.twitch;
+      this._twitchPlayer.setChannel(this.twitch);
+      this._twitchPlayer.setMuted(true);
+    }
+    // handles the creation of the twitch thingy if we need to
+    else if (this._lastTwitchLoaded !== this.twitch) {
+
+      // Create the thingy if we have to
+      const twitch = this.twitch;
+      this._twitchPlayer = new (<any>window).Twitch.Player("twitchplayer",
+        {
+          channel: twitch,
+          height: 1024,
+          width: 1980,
+        }
+      );
+      this._lastTwitchLoaded = this.twitch;
+
+      // Mute the damn thing
+      this._twitchPlayer.setMuted(true);
+    }
+
+  }
+
+  /**
+   * Creates the youtube thingy
+   */
+  public doYoutube() {
+    // Handle the changing of a video when the player is already there
+    if (this._lastYtLoaded !== this.youtube && this._ytPlayer) {
+      this._lastYtLoaded = this.youtube;
+      this._ytPlayer.loadVideoById(this.youtube);
+      this._ytPlayer.mute();
+    }
+    // Make sure we're changing video if we have to
+    else if (this._lastYtLoaded !== this.youtube) {
+
+      // Create the thingy if we have to
+      this._ytPlayer = YouTubePlayer("ytplayer", {
+        videoId: this.youtube,
+        playerVars: {
+          'autoplay': 1,
+          'rel': 0,
+          'showinfo': 0,
+          'egm': 0,
+          'showsearch': 0,
+          'controls': 1,
+          'modestbranding': 1,
+          'loop': 1,
+          'iv_load_policy': 3,
+          'playlist': this.youtube
+        },
+      });
+
+      this._lastYtLoaded = this.youtube;
+
+
+      // Mute the damn thing
+      this._ytPlayer.mute();
+    }
+
+  }
+
+
+  /**
+   * Toggle the play/pause for whatever is displayed curently
+   */
+  public togglePlay(event: Event) {
+    if (this._ytPlayer) this.togglePlayYt();
+    if (this._twitchPlayer) this.togglePlayTwitch();
+  }
+
+  /**
+   * toggle the play/pause for youtube
+   */
+  private async togglePlayYt() {
+    if (await this._ytPlayer.getPlayerState() !== 1) { this._ytPlayer.playVideo(); this.paused = false; }
+    else { this._ytPlayer.pauseVideo(); this.paused = true; }
+  }
+
+  /**
+   * Toggle the play/pause for twitch
+   */
+  private togglePlayTwitch() {
+    if (this._twitchPlayer.isPaused()) { this._twitchPlayer.play(); this.paused = false; }
+    else { this._twitchPlayer.pause(); this.paused = true }
+  }
+
+  public toggleMute(event: Event) {
+    if (!this.muted) this.mute();
+    else {
+      this.muted = false;
+      if (this._ytPlayer) this._ytPlayer.unMute();
+      if (this._twitchPlayer) this._twitchPlayer.setMuted(false);
+    }
+  }
+
+  public get videoLink() {
+    if (this.twitch) return "https://twitch.tv/" + this.twitch;
+    if (this.youtube) return "https://www.youtube.com/watch?v=" + this.youtube;
+  }
+
+  public get videoName() {
+    if (this.twitch) return this.twitch + " est en direct!";
+    if (this.youtube) return "Voir sur youtube";
+  }
+
+  /**
+   * Mute the video, whatever it is
+   */
+  public mute() {
+    this.muted = true;
+    if (this._ytPlayer) this._ytPlayer.mute();
+    if (this._twitchPlayer) this._twitchPlayer.setMuted(true);
+  }
+
+  public changeVolume(event) {
+    const val = event.value;
+
+    if(this._ytPlayer) this._ytPlayer.setVolume(val);
+    if(this._twitchPlayer) this._twitchPlayer.setVolume(val/100)
   }
 }

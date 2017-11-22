@@ -38,10 +38,10 @@ export class MessageActionBarComponent implements OnInit {
   /**
    * Called when the user pushed the delete button
    */
-  public deleteThis() {
+  public async deleteThis() {
     let dialogRef = this.dialog.open(DialogDeleteComponent);
 
-    let formfetched = dialogRef.componentInstance.fetchDeleteConfirm({ p: this.postrow.POST_ID, f: this.stateT.latestTemplateData._getNow()["FORUM_ID"] });
+    let formfetched = dialogRef.componentInstance.fetchDeleteConfirm(this.postrow);
 
     let dialogClose = dialogRef.afterClosed().map(result => {
       if (result.delete) {
@@ -63,9 +63,11 @@ export class MessageActionBarComponent implements OnInit {
    * @param reason optional reason for the deletion
    */
   private doDelete(reason?: string) {
-    this.api.postPage(this._deleteHiddenFields.action, Object.assign({ mode: "delete", confirm: "Yes", delete_reason: reason }, this._deleteHiddenFields.hidden)).subscribe(
+    this.api.postPage(this._deleteHiddenFields.action, Object.assign({ mode: "delete", confirm: "Oui", delete_reason: reason }, this._deleteHiddenFields.hidden)).subscribe(
       (data) => {
         let tpl = data['@template'];
+
+        this.api.openSnackBar(tpl.MESSAGE_TEXT, true);
         this.state.reload();
       }
     )

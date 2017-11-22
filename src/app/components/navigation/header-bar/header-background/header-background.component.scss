@@ -14,6 +14,28 @@
 
 }
 
+.video-info {
+    position:absolute;
+    right:0px;
+    top:150px;
+    min-width:220px;
+    .buttons {
+        opacity:0;
+        transition:0.5s;
+    }
+    &:hover .buttons{ opacity: 1;}
+    .title {
+        background: transparentize($dark-blue,0.2);
+        display:block;
+        position: relative;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-family: "Electrolize";
+        line-height: 13px;
+        text-align:center;
+    }
+}
+
 .header-image {
     width:100%;
     height:300px;
@@ -50,12 +72,17 @@
         padding-bottom: 56.3%;
         position: relative;
         overflow: hidden;
-        iframe {
+        ::ng-deep .inner {
             position: absolute;
             width: 100%;
             height: 100%;
             margin-top: -10%;
             z-index:-1;
+            > iframe {
+                // twitch is a btich
+                width:100% !important;
+                height:100% !important;
+            }
         }
     }
 }

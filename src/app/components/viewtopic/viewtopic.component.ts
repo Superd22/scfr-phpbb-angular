@@ -80,7 +80,14 @@ export class ViewtopicComponent extends PhpbbComponent {
       // Get news data
       this.wpApi.getNewsById(this.tpl['TOPIC_CROSSPOST_ID']).subscribe((data) => {
         this.news = data;
+
+        // Fallback image to be set no matter what.
+        // And set our size.
         this.header.changeHeader(data.thumbnail, 510);
+
+        // set video header if we have
+        if(data.twitch) this.header.setHeaderTwitch(data.twitch);
+        else if(data.youtube) this.header.setHeaderYoutube(data.youtube);
       });
     }
   }

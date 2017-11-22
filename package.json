@@ -43,6 +43,8 @@
     "sockjs-client": "^1.1.4",
     "strip-ansi": "^4.0.0",
     "ts-helpers": "^1.1.2",
+    "twitch-embed": "^1.1.4",
+    "youtube-player": "^5.4.0",
     "zone.js": "^0.8.17"
   },
   "devDependencies": {

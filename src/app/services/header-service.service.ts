@@ -26,13 +26,22 @@ export class HeaderService {
    * Sets a youtube video as header for the whole app
    */
   public setHeaderYoutube(youtubeId: string) {
+    let tpl = {
+      YOUTUBE_BANNER: youtubeId,
+      TWITCH_BANNER:false,
+    };
 
+    this.stateT.assignNewTemplateData(tpl);
   }
 
   /**
    * Sets a twitch video as header for the whole app
    */
   public setHeaderTwitch(twitchId: string) {
+    let tpl = {
+      TWITCH_BANNER: twitchId,
+    };
 
+    this.stateT.assignNewTemplateData(tpl);
   }
 }

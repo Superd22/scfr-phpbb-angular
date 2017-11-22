@@ -50,7 +50,8 @@ export class IndexComponent extends PhpbbComponent {
         super.ngOnInit();
         this.loginService.userStatus.takeUntil(this._collected).subscribe(
             (isLoggedIn) => {
-                this.isLoggedIn = isLoggedIn;
+                console.log("islogg", isLoggedIn);
+                this.isLoggedIn = isLoggedIn.status;
             }
         );
 

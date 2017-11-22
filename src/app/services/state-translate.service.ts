@@ -38,7 +38,7 @@ export class StateTranslate {
 
     public async legacyToSeo(trans) {
         const checkHashes = await this.ensureHashes(trans);
-        if(checkHashes !== true) return Observable.of(checkHashes).toPromise();
+        if (checkHashes !== true) return Observable.of(checkHashes).toPromise();
         if (!trans.params()["phpbbResolved"]) {
             let page = trans.params().page.toLowerCase().replace('.php', '');
             switch (page) {
@@ -633,6 +633,7 @@ export class StateTranslate {
             return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
                 (data) => {
                     newParam.phpbbResolved = data;
+                    if (this.checkAuthLogin(transition, data['@template'])) return this.checkAuthLogin(transition, data['@template']);
                     return transition.router.stateService.target(stateTarget, newParam);
                 }
             )
@@ -648,7 +649,7 @@ export class StateTranslate {
      */
     public async getCurrentStateDataView(transition: Transition, force?: boolean): Promise<any> {
         const checkHashes = await this.ensureHashes(transition);
-        if(checkHashes !== true) return checkHashes;
+        if (checkHashes !== true) return checkHashes;
 
         let stateName = transition.$to().name;
         this._busy.next(true);
@@ -746,7 +747,7 @@ export class StateTranslate {
         const sepIndex = hash.indexOf("?");
         if (sepIndex == -1) return true;
         if (hash) {
-            let urlParams = {"#": hash.slice(0, sepIndex)};
+            let urlParams = { "#": hash.slice(0, sepIndex) };
             let e,
                 a = /\+/g,  // Regex for replacing addition symbol with a space
                 r = /([^&=]+)=?([^&]*)/g,
