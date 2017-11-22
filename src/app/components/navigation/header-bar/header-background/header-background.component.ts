@@ -4,6 +4,7 @@ import { StateTranslate } from './../../../../services/state-translate.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import YouTubePlayer from 'youtube-player';
 import 'twitch-embed';
+import { LayoutService } from 'app/material/services/layout-service.service';
 
 @Component({
   selector: 'scfr-forum-header-background',
@@ -40,6 +41,8 @@ export class HeaderBackgroundComponent implements OnInit {
   private _ytPlayer;
   /** the latest yt video having been loaded */
   private _lastYtLoaded: string = null;
+  /** if we're currently greater than md */
+  public displayVid = false;
 
   /** youtube id that we want to display */
   public get youtube(): string { return this._youtube; }
@@ -53,11 +56,14 @@ export class HeaderBackgroundComponent implements OnInit {
   @ViewChild("imageTransition")
   private _imageTransition: ElementRef;
 
-  constructor(private stateT: StateTranslate, private sanitizer: DomSanitizer, private _element: ElementRef) {
+  constructor(private stateT: StateTranslate, private sanitizer: DomSanitizer, private _element: ElementRef,
+    private layout: LayoutService) {
     this.stateT.latestTemplateData.subscribe((tpl) => {
       this.computeNextBanner(tpl);
       this.handleTransition();
     });
+
+    this.layout.gt_xs.subscribe((gtMd) => this.displayVid = gtMd);
   }
 
   ngOnInit() {
@@ -75,12 +81,12 @@ export class HeaderBackgroundComponent implements OnInit {
     else this.forceHeight = 0;
 
 
-    if (tpl['TWITCH_BANNER']) {
-      if(!this.forceHeight) this.forceHeight = 400;
+    if (tpl['TWITCH_BANNER'] && this.displayVid) {
+      if (!this.forceHeight) this.forceHeight = 400;
       this.twitch = tpl['TWITCH_BANNER'];
     }
-    else if (tpl['YOUTUBE_BANNER']) {
-      if(!this.forceHeight) this.forceHeight = 400;
+    else if (tpl['YOUTUBE_BANNER'] && this.displayVid) {
+      if (!this.forceHeight) this.forceHeight = 400;
       this.youtube = tpl['YOUTUBE_BANNER'];
     }
     else if (tpl['CUSTOM_BANNER']) {

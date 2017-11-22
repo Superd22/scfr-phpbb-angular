@@ -5,8 +5,8 @@
         [scfrForumImageHeaderFit]="headerImage"></div>
 
     <script src="https://www.youtube.com/iframe_api" *ngIf="youtube"></script>
-    
-    <div class="video" *ngIf="youtube || twitch">
+
+    <div class="video" *ngIf="(youtube || twitch) && displayVid">
         <div class="inner" id="ytplayer" *ngIf="youtube"></div>
         <div class="inner" id="twitchplayer" *ngIf="twitch"></div>
     </div>
