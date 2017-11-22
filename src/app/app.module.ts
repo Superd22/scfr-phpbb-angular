@@ -356,7 +356,7 @@ import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
         { provide: APP_BASE_HREF, useValue: environment.baseHref },
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
         NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService, ExtraModuleInjector,
-        NavigationService, SCFRUIParamService
+        NavigationService, SCFRUIParamService, SanitizeHtml
     ],
     bootstrap: [AppComponent],
 })

@@ -13,6 +13,7 @@ import { UnreadResponse } from '../models/Search/UnreadReponse';
 import { UcpResponse } from '../models/UcpResponse';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Observable";
+import { SanitizeHtml } from 'app/pipes/sanitize-html.pipe';
 
 // Will be broken by SSR
 const baseUrl = environment.baseForumUrl;
@@ -25,7 +26,7 @@ export class PhpbbApiService {
     public set translate(t: StateTranslate) {
         this.stranslate = t;
     }
-    constructor(private http: Http, private snackBar: MdSnackBar) { }
+    constructor(private http: Http, private snackBar: MdSnackBar, private safeHTML: SanitizeHtml) { }
 
     public buildParameters(arrayOfParam?: {}, raw?: boolean, noSID?: boolean): string {
         let urlParam = new URLSearchParams();
@@ -237,7 +238,7 @@ export class PhpbbApiService {
      * @param trustAsHtml trust the message as a safe html 
      */
     public openSnackBar(message: string, trustAsHtml?: boolean) {
-        this.snackBar.open(message, "Information", {
+        this.snackBar.open(trustAsHtml ? String(this.safeHTML.transform(message)) : message, "Information", {
             duration: 5000,
         });
     }
