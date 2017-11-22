@@ -84,7 +84,7 @@
         </div>
 
 
-        <div class="own-messages mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
+        <div *ngIf="isLoggedIn" class="own-messages mat-elevation-z3" [ngClass.lt-md]="'small'" fxFlex="100%">
             <div class="mask">
                 <scfr-forum-index-mp></scfr-forum-index-mp>
             </div>
