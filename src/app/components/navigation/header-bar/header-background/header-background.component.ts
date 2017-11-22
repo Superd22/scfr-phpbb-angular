@@ -258,7 +258,6 @@ export class HeaderBackgroundComponent implements OnInit {
    * toggle the play/pause for youtube
    */
   private async togglePlayYt() {
-    console.log(this._ytPlayer.getPlayerState());
     if (await this._ytPlayer.getPlayerState() !== 1) { this._ytPlayer.playVideo(); this.paused = false; }
     else { this._ytPlayer.pauseVideo(); this.paused = true; }
   }
