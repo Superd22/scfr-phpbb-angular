@@ -633,6 +633,8 @@ export class StateTranslate {
             return this.phpbbApi.getPage("ucp.php", { i: newParam.i, mode: newParam.mode, start: newParam.start }).map(
                 (data) => {
                     newParam.phpbbResolved = data;
+
+                    if (this.checkAuthLogin(transition, data['@template'])) return this.checkAuthLogin(transition, data['@template'])
                     return transition.router.stateService.target(stateTarget, newParam);
                 }
             )
