@@ -6,7 +6,7 @@ export const psoViewTopic = {
         forumSlug: "",
         topicSlug: "",
         pageNumber: 1,
-        unread: "",
+        unread: null,
     },
     component: ViewtopicComponent,
 };

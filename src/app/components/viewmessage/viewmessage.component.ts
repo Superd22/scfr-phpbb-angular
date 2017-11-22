@@ -4,12 +4,13 @@ import { SimplePost } from './../../interfaces/simple-post';
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { PhpbbPostMessage } from '../../interfaces/phpbb/phpbb-post-message';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser/";
+import { PhpbbSubComponent } from 'app/components/phpbb/phpbb-sub-component.component';
 @Component({
   selector: 'app-viewmessage',
   templateUrl: './viewmessage.component.html',
   styleUrls: ['./viewmessage.component.scss']
 })
-export class ViewmessageComponent implements OnInit {
+export class ViewmessageComponent extends PhpbbSubComponent {
 
   @Input("edit")
   protected _edit = 0;
@@ -31,7 +32,7 @@ export class ViewmessageComponent implements OnInit {
   @Output()
   editChange = new EventEmitter();
 
-  public get tpl() { return this.viewtopic ? this.viewtopic.tpl : {} };
+  //public get tpl() { return this.viewtopic ? this.viewtopic.tpl : {} };
 
   set edit(val: number) {
     this._edit = Number(val);
@@ -42,9 +43,11 @@ export class ViewmessageComponent implements OnInit {
   }
 
   constructor(public sanitizer: DomSanitizer, private stateT: StateTranslate, private _elRef: ElementRef) {
+    super();
   }
 
   ngOnInit() {
+    super.ngOnInit();
     this.initPost();
   }
 

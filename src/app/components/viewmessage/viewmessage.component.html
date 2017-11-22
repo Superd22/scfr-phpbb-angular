@@ -142,10 +142,10 @@
       <div fxFlex [innerHTML]="(post.message | unsafeHtml)" class="post-inner"></div>
     </md-card-content>
     <md-card-actions class="message-actions" fxLayout fxFlex="100">
-      <div class="message-details" fxFlex="100">
+      <a uiSref="phpbb.seo.viewtopic" [uiParams]="{'#':'p'+postrow?.POST_ID, p: postrow?.POST_ID, forumId: tpl.FORUM_ID, topicId: tpl.TOPIC_ID, unread:null}" class="message-details" fxFlex="100">
         <span class="message-id">#{{postrow?.POST_ID}}</span> -
         <time class="message-time">{{postrow?.POST_DATE}}</time>
-      </div>
+      </a>
       <ng-container *ngIf="searchResult">
         <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: postrow?.FORUM_ID}">
           <button class="search-button forum" md-button>{{postrow?.FORUM_TITLE}}</button>

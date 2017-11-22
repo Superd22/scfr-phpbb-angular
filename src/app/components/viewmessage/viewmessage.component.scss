@@ -167,6 +167,7 @@ $hover-side-pannel-transition: 0.5s;
     margin-top: 42px;
     padding: 0px 24px;
     align-items: flex-end;
+    a:hover {color:$link-hover;}
     .message-details {
         font-family: "Open sans";
         color: #9a9a9a;
