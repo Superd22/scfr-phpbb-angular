@@ -78,15 +78,16 @@
               <span class="group" [style.background-color]="postrow?.POST_AUTHOR_COLOUR">{{postrow?.RANK_TITLE}}</span>
               <div class="more">
                 <div class="buttons" fxLayout>
-                  <a uiSref="phpbb.seo.ucp.pmConvo" [uiParams]="{mode: 'compose', page:'mp', subPage:'', phpbbResolved:false, u: postrow?.POSTER_ID}">
+                  <a md-icon-button  uiSref="phpbb.seo.ucp.pmConvo" [uiParams]="{mode: 'compose', page:'mp', subPage:'', phpbbResolved:false, u: postrow?.POSTER_ID}">
                     <md-icon>textsms</md-icon>
                   </a>
-                  <a uiSref="phpbb.seo.viewprofile" [uiParams]="{userId: postrow?.POSTER_ID}">
+                  <a md-icon-button uiSref="phpbb.seo.viewprofile" [uiParams]="{userId: postrow?.POSTER_ID}">
                     <md-icon>accessibility</md-icon>
                   </a>
-                  <button *ngIf="tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET" fxFlex>
-                    <a [href]="'https://starcitizen.fr/Flotte/?page=user&id='+postrow?.POSTER_ID">JULIET</a>
-                  </button>
+                  <a [href]="'https://juliet.starcitizen.fr/User/'+postrow?.POSTER_ID" target="_blank" md-button *ngIf="tpl.S_USER_IS_JULIET && postrow?.J_IS_JULIET"
+                    fxFlex>
+                    JULIET
+                  </a>
                 </div>
               </div>
             </div>
@@ -142,7 +143,8 @@
       <div fxFlex [innerHTML]="(post.message | unsafeHtml)" class="post-inner"></div>
     </md-card-content>
     <md-card-actions class="message-actions" fxLayout fxFlex="100">
-      <a uiSref="phpbb.seo.viewtopic" [uiParams]="{'#':'p'+postrow?.POST_ID, p: postrow?.POST_ID, forumId: tpl.FORUM_ID, topicId: tpl.TOPIC_ID, unread:null}" class="message-details" fxFlex="100">
+      <a uiSref="phpbb.seo.viewtopic" [uiParams]="{'#':'p'+postrow?.POST_ID, p: postrow?.POST_ID, forumId: tpl.FORUM_ID, topicId: tpl.TOPIC_ID, unread:null}"
+        class="message-details" fxFlex="100">
         <span class="message-id">#{{postrow?.POST_ID}}</span> -
         <time class="message-time">{{postrow?.POST_DATE}}</time>
       </a>
