@@ -4,11 +4,29 @@
     <div #imageTransition class="next-image-transition" [ngStyle]="{'background-image': 'url('+headerImage+')', 'animation-duration':transitionTime+'s'}"
         [scfrForumImageHeaderFit]="headerImage"></div>
 
-    <script src="https://www.youtube.com/iframe_api" *ngIf="youtube"></script>
-
-    <div class="video" *ngIf="(youtube || twitch) && displayVid">
-        <div class="inner" id="ytplayer" *ngIf="youtube"></div>
+    <div class="video" *ngIf="(youtube || twitch)">
+        <ng-container *ngIf="youtube">
+            <div class="inner" id="ytplayer" *ngIf="youtube"></div>
+        </ng-container>
         <div class="inner" id="twitchplayer" *ngIf="twitch"></div>
     </div>
 
+</div>
+
+<div class="video-info" *ngIf="(youtube || twitch) && displayVid">
+    <a target="_blank" (click)="mute()" [href]="videoLink" class="title" mdRipple>
+        {{videoName}}
+    </a>
+
+    <div class="buttons">
+        <button md-icon-button color="primary" (click)="togglePlay($event)">
+            <md-icon>{{paused ? 'play_arrow' : 'pause'}}</md-icon>
+        </button>
+
+        <button class="volume" md-icon-button color="primary" (click)="toggleMute($event)">
+            <md-icon>{{muted ? 'volume_off' : 'volume_up'}}</md-icon>
+        </button>
+
+        <md-slider (input)="changeVolume($event)" [disabled]="muted" class="volume-slider" [(ngModel)]="volume"> </md-slider>
+    </div>
 </div>

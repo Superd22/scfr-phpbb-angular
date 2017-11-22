@@ -5,6 +5,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import YouTubePlayer from 'youtube-player';
 import 'twitch-embed';
 import { LayoutService } from 'app/material/services/layout-service.service';
+import { SCFRLocalStorage } from 'app/decorators/LocalStorage.decorator';
 
 @Component({
   selector: 'scfr-forum-header-background',
@@ -43,6 +44,14 @@ export class HeaderBackgroundComponent implements OnInit {
   private _lastYtLoaded: string = null;
   /** if we're currently greater than md */
   public displayVid = false;
+
+  /** the status of our playback */
+  public paused = false;
+  /** the status of our mute */
+  public muted = true;
+
+  @SCFRLocalStorage("scfr:video:volume")
+  public volume: number;
 
   /** youtube id that we want to display */
   public get youtube(): string { return this._youtube; }
@@ -234,5 +243,66 @@ export class HeaderBackgroundComponent implements OnInit {
       this._ytPlayer.mute();
     }
 
+  }
+
+
+  /**
+   * Toggle the play/pause for whatever is displayed curently
+   */
+  public togglePlay(event: Event) {
+    if (this._ytPlayer) this.togglePlayYt();
+    if (this._twitchPlayer) this.togglePlayTwitch();
+  }
+
+  /**
+   * toggle the play/pause for youtube
+   */
+  private async togglePlayYt() {
+    console.log(this._ytPlayer.getPlayerState());
+    if (await this._ytPlayer.getPlayerState() !== 1) { this._ytPlayer.playVideo(); this.paused = false; }
+    else { this._ytPlayer.pauseVideo(); this.paused = true; }
+  }
+
+  /**
+   * Toggle the play/pause for twitch
+   */
+  private togglePlayTwitch() {
+    if (this._twitchPlayer.isPaused()) { this._twitchPlayer.play(); this.paused = false; }
+    else { this._twitchPlayer.pause(); this.paused = true }
+  }
+
+  public toggleMute(event: Event) {
+    if (!this.muted) this.mute();
+    else {
+      this.muted = false;
+      if (this._ytPlayer) this._ytPlayer.unMute();
+      if (this._twitchPlayer) this._twitchPlayer.setMuted(false);
+    }
+  }
+
+  public get videoLink() {
+    if (this.twitch) return "https://twitch.tv/" + this.twitch;
+    if (this.youtube) return "https://www.youtube.com/watch?v=" + this.youtube;
+  }
+
+  public get videoName() {
+    if (this.twitch) return this.twitch + " est en direct!";
+    if (this.youtube) return "Voir sur youtube";
+  }
+
+  /**
+   * Mute the video, whatever it is
+   */
+  public mute() {
+    this.muted = true;
+    if (this._ytPlayer) this._ytPlayer.mute();
+    if (this._twitchPlayer) this._twitchPlayer.setMuted(true);
+  }
+
+  public changeVolume(event) {
+    const val = event.value;
+
+    if(this._ytPlayer) this._ytPlayer.setVolume(val);
+    if(this._twitchPlayer) this._twitchPlayer.setVolume(val/100)
   }
 }
