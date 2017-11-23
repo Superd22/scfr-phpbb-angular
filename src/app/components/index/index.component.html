@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="tab-active" [ngSwitch]="activeTab">
+        <div class="tab-active" [ngSwitch]="activeTab" fxFlex="100">
             <scfr-forum-index-tab-forum *ngSwitchCase="'forum'"></scfr-forum-index-tab-forum>
             <scfr-forum-index-tab-unread *ngSwitchCase="'unreadposts'"></scfr-forum-index-tab-unread>
             <scfr-forum-index-tab-last *ngSwitchCase="'newposts'"></scfr-forum-index-tab-last>
