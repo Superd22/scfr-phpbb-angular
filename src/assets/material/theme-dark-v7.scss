@@ -39,7 +39,7 @@ $scfr-dark-v7-theme: scfr-mat-dark-theme($candy-app-primary, $candy-app-accent, 
 a, a:visited {
     color:$scfr-v7-link-color;
     &:hover {
-        color: $scfr-v7-link-hover-color;
+        color: $scfr-v7-link-hover-color !important;
     }
     &.important, .mat-primary & {
         color:$scfr-v7-important-link-color;

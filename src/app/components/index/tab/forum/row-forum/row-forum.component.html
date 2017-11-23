@@ -1,14 +1,14 @@
 <scfr-forum-index-tab-forum-row-category fxFlex="100%" *ngIf="forum.S_NO_CAT" [category]="forum"></scfr-forum-index-tab-forum-row-category>
 
-<md-card class="forum" fxFlex="100%" fxLayout fxLayoutWrap mdRipple [ngClass]="{unread: forum.S_UNREAD_FORUM}"  [ngClass.lt-md]="'small'">
-  <a class="link-wrapper" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}">
-    <div class="forum-title" fxLayoutWrap fxFlex="50" fxFlex.lt-sm="100">
+<md-card class="forum" fxFlex="100%" fxLayout fxLayoutWrap mdRipple [ngClass]="{unread: forum.S_UNREAD_FORUM}"  [ngClass.lt-md]="{small: true, unread: forum.S_UNREAD_FORUM}">
+  <a class="link-wrapper" uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: forum.FORUM_ID}"  fxLayout fxLayoutWrap fxFlex="75">
+    <div class="forum-title" fxLayoutWrap fxFlex="66" fxFlex.lt-sm="100">
       <span class="title">{{forum.FORUM_NAME}}</span>
       <span class="description" [innerHTML]="forum.FORUM_DESC" fxFlex="100%">
       </span>
     </div>
 
-    <div class="forum-stats" fxLayout fxHide.lt-sm="true" fxFlex="25">
+    <div class="forum-stats" fxLayout fxHide.lt-sm="true" fxFlex="33">
       <dl fxFlex="50" fxHide fxHide.gt-md="false">
         <dd>{{forum.TOPICS}}</dd>
         <dt>{{L_.TOPICS}}</dt>
