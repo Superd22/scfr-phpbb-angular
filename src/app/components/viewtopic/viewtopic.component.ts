@@ -131,7 +131,7 @@ export class ViewtopicComponent extends PhpbbComponent {
     if (n != this._statePageNumber && n != this.tpl.CURRENT_PAGE) {
       this.UI.scrollToTop();
       this.fetchingNewPosts = true;
-      this._unreadMode = false;
+      this._unreadMode = null;
       this._stateTargetPost = null;
       this._statePageNumber = n;
     }
