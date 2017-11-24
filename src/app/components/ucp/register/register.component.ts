@@ -34,7 +34,7 @@ export class RegisterComponent extends PhpbbComponent implements OnInit {
 
   public submit() {
     let posts = { agreed: true, submit: true, 'g-recaptcha-response': this._capchaConfirm };
-    this.formHelper.postToPhpbbWFields("ucp.php", this._fields, this, { mode: "register" }, posts).subscribe((data) => {
+    this.formHelper.postToPhpbbWFields("ucp.php", this._fields, this.tpl, { mode: "register" }, posts).subscribe((data) => {
       let tpl = data['@template'];
 
       if(tpl.MESSAGE_TEXT) {
