@@ -94,8 +94,6 @@ import { AgreementComponent } from './components/ucp/register/agreement/agreemen
 import { ReCaptchaModule } from 'angular2-recaptcha';
 import { MomentModule } from 'angular2-moment';
 import { BbcodeButtonComponent } from './components/posting/editor/bbcode-button/bbcode-button.component';
-
-import { SanitizeHtml } from './pipes/sanitize-html.pipe';
 import { BbcodeColorComponent } from './components/posting/editor/bbcode-color/bbcode-color.component';
 import { HeaderBackgroundComponent } from './components/navigation/header-bar/header-background/header-background.component';
 import { FloatingMainHeaderDirective } from './directives/floating-main-header.directive';
@@ -179,7 +177,8 @@ import { LastComponent } from './components/index/tab/last/last.component';
 import { RowCategoryComponent } from './components/index/tab/forum/row-category/row-category.component';
 import { RowForumComponent } from './components/index/tab/forum/row-forum/row-forum.component';
 import { SubforumComponent } from './components/index/tab/forum/row-forum/subforum/subforum.component';
-import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
+import { GuildsModule } from './guilds/guilds.module';
+
 
 @NgModule({
     declarations: [
@@ -239,7 +238,6 @@ import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
         AgreementComponent,
         BbcodeButtonComponent,
         ContenteditableDirective,
-        SanitizeHtml,
         BbcodeColorComponent,
         HeaderBackgroundComponent,
         FloatingMainHeaderDirective,
@@ -319,7 +317,6 @@ import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
         RowCategoryComponent,
         RowForumComponent,
         SubforumComponent,
-        UnsafeSrc
     ],
     imports: [
         UIRouterModule.forRoot({
@@ -339,6 +336,7 @@ import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
         LanguageModuleModule,
         ReCaptchaModule,
         HeaderModule,
+        GuildsModule,
         NgxChartsModule,
         ColorPickerModule,
         CommunityHubModule,
@@ -356,7 +354,7 @@ import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
         { provide: APP_BASE_HREF, useValue: environment.baseHref },
         PhpbbApiService, PhpbbFormHelperService, PhpbbService, LoginService, StateTranslate, PrivateMessageService,
         NotificationsService, PhpbbWebsocketService, WpService, HeaderService, ThrottlerService, ExtraModuleInjector,
-        NavigationService, SCFRUIParamService, SanitizeHtml
+        NavigationService, SCFRUIParamService
     ],
     bootstrap: [AppComponent],
 })

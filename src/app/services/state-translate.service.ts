@@ -64,6 +64,14 @@ export class StateTranslate {
     }
 
     /**
+     * Reload the current state 
+     * @param opts optional parameters 
+     */
+    public reload(opts?) {
+        this.router.stateService.go(this.router.stateService.current, Object.assign({}, this.router.stateService.params, { phpbbResolved: false }, opts))
+    }
+
+    /**
      * Checks a list of properties in the resolved against what we have in the params
      * @param resolved the resolved phpbb thing
      * @param param the param phpbbResolved

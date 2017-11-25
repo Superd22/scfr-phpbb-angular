@@ -1,5 +1,5 @@
 <div class="container" fxLayoutWrap>
-    <div scfrForumFloatingMainHeader>
+    <div scfrForumFloatingMainHeader *ngIf="!tpl.GUILD_SID">
         <div class="top-details">
             <h2 class="forum-title">
                 <a uiSref="phpbb.seo.viewforum" [uiParams]="{forumId: tpl.FORUM_ID}">{{tpl.FORUM_NAME}}</a>
@@ -10,6 +10,8 @@
         </div>
     </div>
 
+    <scfr-forum-viewtopic-guild-title fxFlex="100" *ngIf="tpl.GUILD_SID"></scfr-forum-viewtopic-guild-title>
+
     <div fxFlex="100">
         <div fxFlex.gt-sm="60" fxFlexOffset.gt-sm="20">
             <scfr-forum-spinner-loading [show]="fetchingNewPosts"></scfr-forum-spinner-loading>
@@ -19,6 +21,8 @@
     <scfr-forum-viewtopic-poll fxFlex="100"></scfr-forum-viewtopic-poll>
 
     <scfr-forum-viewnews *ngIf="displayNews" [news]="news" fxFlex="100"></scfr-forum-viewnews>
+
+    <scfr-forum-viewtopic-guild-details fxFlex="100"></scfr-forum-viewtopic-guild-details>
 
     <div *ngIf="tpl.postrow && !fetchingNewPosts" fxFlex="100">
         <app-viewmessage [viewtopic]="this" *ngFor="let post of postrow" [postrow]="post" [editable]="true" [(edit)]="editedMessage"></app-viewmessage>

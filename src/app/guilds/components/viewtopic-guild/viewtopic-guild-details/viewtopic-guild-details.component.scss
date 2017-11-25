@@ -1,0 +1,119 @@
+
+@import './src/assets/material/v7/main';
+
+$bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
+@mixin elevated-card() {
+    margin:14px;
+    min-height: 300px;
+    max-height: 35vh;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+
+    .mask {
+        padding:28px;
+        flex: 1 1 100%;
+
+        ::ng-deep {
+                h2 {
+                font-family: 'Heebo', sans-serif;
+                text-transform: uppercase;
+                font-size: 1.5rem;
+                line-height: 1.5rem;
+                margin: 0px;
+                font-weight: bolder;
+                margin-bottom: 0.5rem;
+        
+                .mat-button {
+                    vertical-align: text-bottom;
+                }
+            }
+        }
+
+        background-color:transparentize($bg-color, 0.3);
+    }
+
+    &.small {
+        margin: 14px 0px;
+        .mask {
+            padding: 24px 12px;
+            font-size: 0.8rem;
+        }
+    }
+}
+
+#admin-guild {
+    background-image:url(//starcitizen.fr/wp-content/uploads/2017/06/Hull_c_interior_1-1024x576.jpg);
+    font-family: "Electrolize";
+    @include elevated-card();
+
+    .mat-card-actions {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        text-align: right;
+        padding: 24px;
+        padding-left: 0px;
+        left: 0px;
+    }
+
+    h3 {
+        font-family: "Open Sans";
+        font-weight: lighter;
+        color: #c1c1c1;
+    }
+    
+    .associated {
+        span {
+            height: 1em;
+            padding: 11px;
+            align-self: center;
+            font-family: "Electrolize";
+            background: rgba(0,0,0,0.3);
+            border-radius: 3px;
+            margin: 0px 12px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+    }
+}
+
+#main-guild {
+    background-image:url(//starcitizen.fr/wp-content/uploads/2017/05/Javelin_interior_5-1024x429.jpg);
+    font-family: "Electrolize";
+    @include elevated-card();
+
+    .description {
+        margin: 0px -28px;
+        padding: 12px 28px;
+        background: rgba(0,0,0,0.4);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    .stats {
+        width:100%;
+        margin-top:12px;
+        dl {
+            flex-direction: column;
+            text-align: center;
+            display:flex;
+            flex:1 1 100%;
+            font-family: "Open Sans";
+            dd {
+                margin: 0px;
+                font-weight: bolder;
+                font-size: 1.1em;
+                text-transform: uppercase;
+            }
+            dt {
+                color: #e0e0e0;
+                padding: 6px;
+                text-transform: uppercase;
+                letter-spacing: 6px;
+            }
+        }
+    }
+}

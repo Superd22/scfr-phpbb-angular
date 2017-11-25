@@ -118,6 +118,8 @@ $secondary-size: $font-size - 0.15rem;
     }
     .topic-stats {
         font-size:$secondary-size;
+        flex:1 1 25%;
+        max-width: 25%;
         dl {
             text-align: center;
             margin:0px;
@@ -131,6 +133,25 @@ $secondary-size: $font-size - 0.15rem;
             }
         }
 
+    }
+
+    .topic-icon {
+        height: 33px;
+        margin: -10px 0px;
+        margin-right: 12px;
+    }
+
+
+    &.guild {
+        .topic-stats {
+            flex:1 1 35%;
+            max-width: 35%;
+        }
+        .topic-title {    
+            letter-spacing: 1px;
+            font-weight: bold;
+            color: map_get($scfr-mat-light-blue, 300);
+        }
     }
 }
 scfr-forum-phpbb-username{
