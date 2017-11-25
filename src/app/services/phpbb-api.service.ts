@@ -13,7 +13,7 @@ import { UnreadResponse } from '../models/Search/UnreadReponse';
 import { UcpResponse } from '../models/UcpResponse';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Observable";
-import { SanitizeHtml } from 'app/pipes/sanitize-html.pipe';
+import { SanitizeHtml } from 'app/common/pipes/sanitize-html.pipe';
 
 // Will be broken by SSR
 const baseUrl = environment.baseForumUrl;

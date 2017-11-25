@@ -1,0 +1,38 @@
+<div id="main-guild" fxLayout fxFlex="66%" fxFlex.lt-md="100%">
+  <md-card class="mask  mat-elevation-z3">
+    <md-card-header>
+      <img md-card-avatar [src]="tpl.GUILD_LOGO">
+      <md-card-title>{{tpl.GUILD_TITLE}}</md-card-title>
+      <md-card-subtitle>#
+        <a href="https://robertsspaceindustries.com/orgs/{{tpl.GUILD_SID}}" target="_blank">{{tpl.GUILD_SID}}</a>
+      </md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+      <p class="description" [innerHTML]="tpl.GUILD_HEADLINE | unsafeHtml"></p>
+      <div class="stats" fxLayout>
+        <dl>
+          <dd>{{archetype}}</dd>
+          <dt>archetype</dt>
+        </dl>
+        <dl>
+          <dd>{{tpl.GUILD_RECRUITING === "Yes" ? commitment : "Fermé"}}</dd>
+          <dt>Recrutement</dt>
+        </dl>
+        <dl>
+          <dd>{{tpl.GUILD_MEMBER_COUNT}}</dd>
+          <dt>Membres</dt>
+        </dl>
+        <dl>
+          <dd>{{tpl.GUILD_ROLEPLAY}}</dd>
+          <dt>RolePlay</dt>
+        </dl>
+        <!-- <dl>
+        <dd>{{lastMaj}}</dd>
+        <dt>M.A.J</dt>
+      </dl> -->
+      </div>
+    </md-card-content>
+    <md-card-actions>
+    </md-card-actions>
+  </md-card>
+</div>
