@@ -72,4 +72,5 @@ export interface IPhpbbViewforumTopicrow {
     SCFR_GUILD_RECRUITING: boolean;
     /** number of members in the guild */
     SCFR_GUILD_MEMBERS: number;
+    SCFR_GUILD_COMMITMENT: number;
 }
