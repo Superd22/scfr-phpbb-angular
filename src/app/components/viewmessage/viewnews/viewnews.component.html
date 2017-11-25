@@ -3,3 +3,5 @@
 <article class="article page">
   <div class="newscontent" [innerHTML]="news?.post.post_content_filtered | unsafeHtml"></div>
 </article>
+
+<div *ngIf="news?.css" [innerHTML]="news?.css | unsafeHtml"></div>
