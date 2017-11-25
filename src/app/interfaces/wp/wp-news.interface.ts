@@ -11,5 +11,6 @@ export interface IWPNews {
     source: { url: string, name: string };
     tradteam: boolean;
     categories: any[];
+    css: string;
     post: IWPArticleFiltered;
 }
