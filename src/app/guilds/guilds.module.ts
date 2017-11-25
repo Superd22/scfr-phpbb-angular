@@ -7,12 +7,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewtopicGuildDetailsComponent } from './components/viewtopic-guild/viewtopic-guild-details/viewtopic-guild-details.component';
 import { ViewtopicGuildTitleComponent } from './components/viewtopic-guild/viewtopic-guild-title/viewtopic-guild-title.component';
 import { ScfrcommonModule } from 'app/common/scfrcommon.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     ScfrcommonModule,
     FlexLayoutModule,
+    FormsModule,
     SCFRMaterialModule
   ],
   declarations: [

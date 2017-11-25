@@ -1,4 +1,4 @@
-<div id="main-guild" fxLayout fxFlex="66%" fxFlex.lt-md="100%">
+<div id="main-guild" fxLayout fxFlex="66%" fxFlex.lt-md="100%" *ngIf="tpl.TOPIC_IS_GUILD && tpl.TOPIC_IS_REGISTERED_GUILD">
   <md-card class="mask  mat-elevation-z3">
     <md-card-header>
       <img md-card-avatar [src]="tpl.GUILD_LOGO">
@@ -33,6 +33,37 @@
       </div>
     </md-card-content>
     <md-card-actions>
+    </md-card-actions>
+  </md-card>
+</div>
+
+<div id="admin-guild" fxLayout fxFlex="33%" fxFlex.lt-md="100%" *ngIf="canAdmin && tpl.TOPIC_IS_GUILD">
+  <md-card class="mask  mat-elevation-z3">
+    <md-card-title>Administration topic de guilde</md-card-title>
+    <md-card-content>
+      <div class="associated" fxLayout fxLayoutWrap  *ngIf="tpl.TOPIC_IS_REGISTERED_GUILD">
+        <h3>Ce topic est associé à l'organisation : </h3>
+        <span>{{tpl.GUILD_TITLE}}</span>
+
+
+        <md-input-container fxFlex="100">
+          <input mdInput placeholder="Changer de SSID" style="width: 100%" [(ngModel)]="newOrgName">
+        </md-input-container>
+      </div>
+
+      <div class="non-associated" *ngIf="!tpl.TOPIC_IS_REGISTERED_GUILD" fxLayout fxLayoutWrap>
+        <h3>Vous pouvez associer ce topic à une organisation.</h3>
+
+        <md-input-container fxFlex="100">
+          <input mdInput placeholder="SSID de l'organisation" style="width: 100%" [(ngModel)]="newOrgName">
+        </md-input-container>
+      </div>
+
+
+    </md-card-content>
+    <md-card-actions>
+      <button md-button color="warn" *ngIf="tpl.TOPIC_IS_REGISTERED_GUILD" (click)="delAssoc()">Supprimer</button>
+      <button md-button color="primary" *ngIf="orgNameChanged" (click)="assoc()">Associer à {{newOrgName}}</button>
     </md-card-actions>
   </md-card>
 </div>

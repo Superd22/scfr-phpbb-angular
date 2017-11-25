@@ -5,7 +5,7 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
 @mixin elevated-card() {
     margin:14px;
     min-height: 300px;
-    max-height: 33vh;
+    max-height: 35vh;
     background-position:center center;
     background-repeat:no-repeat;
     background-size:cover;
@@ -39,6 +39,43 @@ $bg-color: transparentize(map_get($scfr-mat-blue-grey-background,700),0.2);
             padding: 24px 12px;
             font-size: 0.8rem;
         }
+    }
+}
+
+#admin-guild {
+    background-image:url(//starcitizen.fr/wp-content/uploads/2017/06/Hull_c_interior_1-1024x576.jpg);
+    font-family: "Electrolize";
+    @include elevated-card();
+
+    .mat-card-actions {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        text-align: right;
+        padding: 24px;
+        padding-left: 0px;
+        left: 0px;
+    }
+
+    h3 {
+        font-family: "Open Sans";
+        font-weight: lighter;
+        color: #c1c1c1;
+    }
+    
+    .associated {
+        span {
+            height: 1em;
+            padding: 11px;
+            align-self: center;
+            font-family: "Electrolize";
+            background: rgba(0,0,0,0.3);
+            border-radius: 3px;
+            margin: 0px 12px;
+            min-width: 60px;
+            text-align: center;
+        }
+
     }
 }
 
