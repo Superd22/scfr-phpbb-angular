@@ -57,7 +57,19 @@ export interface IPhpbbViewforumTopicrow {
     U_VIEW_FORUM: string;
     U_VIEW_TOPIC: string;
     VIEWS: string;
-    FORUM_TITLE?:string;
-    TOPIC_VIEWS?:string;
-    TOPIC_REPLIES?:string;
+    FORUM_TITLE?: string;
+    TOPIC_VIEWS?: string;
+    TOPIC_REPLIES?: string;
+
+    /**
+     * Guilds stuff
+     */
+    /** if the current topic is a guild */
+    SCFR_GUILD_IS: boolean;
+    /** logo for this guild topic  */
+    SCFR_GUILD_LOGO: string;
+    /** the guild is recruiting */
+    SCFR_GUILD_RECRUITING: boolean;
+    /** number of members in the guild */
+    SCFR_GUILD_MEMBERS: number;
 }

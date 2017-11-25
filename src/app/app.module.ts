@@ -180,6 +180,8 @@ import { RowCategoryComponent } from './components/index/tab/forum/row-category/
 import { RowForumComponent } from './components/index/tab/forum/row-forum/row-forum.component';
 import { SubforumComponent } from './components/index/tab/forum/row-forum/subforum/subforum.component';
 import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
+import { GuildsModule } from './guilds/guilds.module';
+
 
 @NgModule({
     declarations: [
@@ -339,6 +341,7 @@ import { UnsafeSrc } from 'app/pipes/unsafe-src.pipe';
         LanguageModuleModule,
         ReCaptchaModule,
         HeaderModule,
+        GuildsModule,
         NgxChartsModule,
         ColorPickerModule,
         CommunityHubModule,

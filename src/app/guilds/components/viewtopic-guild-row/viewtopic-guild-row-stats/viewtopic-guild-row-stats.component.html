@@ -1,0 +1,19 @@
+<div fxFlex="100" fxLayout>
+  <dl fxFlex="25">
+    <dd>{{topic.VIEWS || topic.TOPIC_VIEWS}}</dd>
+    <dt>{{L_.VIEWS}}</dt>
+  </dl>
+  <dl fxFlex="25">
+    <dd>{{topic.REPLIES || topic.TOPIC_REPLIES}}</dd>
+    <dt>{{L_.REPLIES}}</dt>
+  </dl>
+
+  <dl fxFlex="25">
+    <dd>{{topic.SCFR_GUILD_RECRUITING ? comitType[topic.SCFR_GUILD_COMMITMENT] : "Fermé"}}</dd>
+    <dt>Recrutement</dt>
+  </dl>
+  <dl fxFlex="25">
+    <dd>{{topic.SCFR_GUILD_MEMBERS}}</dd>
+    <dt>Membres</dt>
+  </dl>
+</div>
