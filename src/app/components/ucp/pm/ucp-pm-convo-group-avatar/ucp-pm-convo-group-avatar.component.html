@@ -1,6 +1,6 @@
 <div class="avatars" fxLayout fxLayoutWrap>
 
-  <div *ngIf="participantsCount >= 0" [fxFlex]="participantsCount <= 0 ? '100%' : '50%'" [ngClass]="{full: (participantsCount < 3)}">
+  <div *ngIf="participantsCount >= 0" [fxFlex]="participantsCount <= 1 ? '100%' : '50%'" [ngClass]="{full: (participantsCount < 3)}">
     <img [ngClass]="{lefty: (participantsCount > 1)}" [src]="convo.participants[0]?.image | avatarURL">
   </div>
   <div *ngIf="participantsCount > 1" fxFlex="50%" class="b-left" [ngClass]="{full: (participantsCount < 4)}">
